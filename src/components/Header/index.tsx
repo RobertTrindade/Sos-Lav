@@ -20,12 +20,15 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import PersonIcon from "@mui/icons-material/Person";
 import { ButtonComponent } from "../Buttons";
 import { InputComponent } from "../Inputs";
+import { usePathname } from "next/navigation";
 
 interface IHeaderComponent {
   Announces: IAnnounceBarDto[];
 }
 
 export const HeaderComponent: React.FC<IHeaderComponent> = ({ Announces }) => {
+  const path = usePathname();
+
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const menuId = "primary-search-account-menu";
@@ -61,119 +64,120 @@ export const HeaderComponent: React.FC<IHeaderComponent> = ({ Announces }) => {
       <MenuItem onClick={handleMenuClose}>Motos</MenuItem>
     </Menu>
   );
-
   return (
-    <Header>
-      <NavBar position="static">
-        <MobileLogo>
-          <CustomIconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-          >
-            <Link href={"/"}>
-              <Image src={logo} alt="Logo do grupo carvalho Leilões" />
-            </Link>
-          </CustomIconButton>
-        </MobileLogo>
+    !path.startsWith("/adm") && (
+      <Header id="userHeader">
+        <NavBar position="static">
+          <MobileLogo>
+            <CustomIconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+            >
+              <Link href={"/"}>
+                <Image src={logo} alt="Logo do grupo carvalho Leilões" />
+              </Link>
+            </CustomIconButton>
+          </MobileLogo>
 
-        <CustomToolbar>
-          <CustomIconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-          >
-            <Link href={"/"}>
-              <Image src={logo} alt="Logo do grupo carvalho Leilões" />
-            </Link>
-          </CustomIconButton>
-          <ButtonComponent
-            customStyles={{
-              color: "#3e4042",
-              fontSize: "16px",
-              fontWeight: "500",
-            }}
-            buttonProps={{
-              endIcon: <KeyboardArrowDownIcon color="primary" />,
-              onClick: handleOpenNavMenu,
-            }}
-            sx={{
-              "&:hover": {
-                color: "primary.main", // Estilos para o hover
-                fontWeight: "600",
-              },
-            }}
-          >
-            Categorias
-          </ButtonComponent>
+          <CustomToolbar>
+            <CustomIconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+            >
+              <Link href={"/"}>
+                <Image src={logo} alt="Logo do grupo carvalho Leilões" />
+              </Link>
+            </CustomIconButton>
+            <ButtonComponent
+              customStyles={{
+                color: "#3e4042",
+                fontSize: "16px",
+                fontWeight: "500",
+              }}
+              buttonProps={{
+                endIcon: <KeyboardArrowDownIcon color="primary" />,
+                onClick: handleOpenNavMenu,
+              }}
+              sx={{
+                "&:hover": {
+                  color: "primary.main", // Estilos para o hover
+                  fontWeight: "600",
+                },
+              }}
+            >
+              Categorias
+            </ButtonComponent>
 
-          <InputComponent
-            label="Buscar por produto"
-            type="text"
-            customStyles={{
-              color: "#000",
-              width: "513px",
-              backgroundColor: "rgba(217, 217, 217, 0.50)",
-              borderRadius: "25px",
-            }}
-          />
+            <InputComponent
+              label="Buscar por produto"
+              type="text"
+              customStyles={{
+                color: "#000",
+                width: "513px",
+                backgroundColor: "rgba(217, 217, 217, 0.50)",
+                borderRadius: "25px",
+              }}
+            />
 
-          <ButtonComponent
-            customStyles={{
-              color: "#3e4042",
-              fontSize: "16px",
-              fontWeight: "500",
-            }}
-            sx={{
-              "&:hover": {
-                color: "primary.main", // Estilos para o hover
-                fontWeight: "600",
-              },
-            }}
-          >
-            Comprar
-          </ButtonComponent>
+            <ButtonComponent
+              customStyles={{
+                color: "#3e4042",
+                fontSize: "16px",
+                fontWeight: "500",
+              }}
+              sx={{
+                "&:hover": {
+                  color: "primary.main", // Estilos para o hover
+                  fontWeight: "600",
+                },
+              }}
+            >
+              Comprar
+            </ButtonComponent>
 
-          <ButtonComponent
-            customStyles={{
-              color: "#3e4042",
-              fontSize: "16px",
-              fontWeight: "500",
-            }}
-            sx={{
-              "&:hover": {
-                color: "primary.main", // Estilos para o hover
-                fontWeight: "600",
-              },
-            }}
-          >
-            Ajuda
-          </ButtonComponent>
+            <ButtonComponent
+              customStyles={{
+                color: "#3e4042",
+                fontSize: "16px",
+                fontWeight: "500",
+              }}
+              sx={{
+                "&:hover": {
+                  color: "primary.main", // Estilos para o hover
+                  fontWeight: "600",
+                },
+              }}
+            >
+              Ajuda
+            </ButtonComponent>
 
-          <ButtonComponent
-            customStyles={{
-              color: "#3e4042",
-              fontSize: "16px",
-              fontWeight: "500",
-            }}
-            sx={{
-              "&:hover": {
-                color: "primary.main", // Estilos para o hover
-                fontWeight: "600",
-              },
-            }}
-            buttonProps={{
-              startIcon: <PersonIcon color="primary" />,
-            }}
-          >
-            <Link href={"/login"}>Entrar</Link>
-          </ButtonComponent>
-        </CustomToolbar>
-      </NavBar>
-      <AnnounceBarComponent Announces={Announces} />
-      {renderMenu}
-    </Header>
+            <ButtonComponent
+              customStyles={{
+                color: "#3e4042",
+                fontSize: "16px",
+                fontWeight: "500",
+              }}
+              sx={{
+                "&:hover": {
+                  color: "primary.main", // Estilos para o hover
+                  fontWeight: "600",
+                },
+              }}
+              buttonProps={{
+                startIcon: <PersonIcon color="primary" />,
+              }}
+            >
+              <Link href={"/login"}>Entrar</Link>
+            </ButtonComponent>
+          </CustomToolbar>
+        </NavBar>
+        <AnnounceBarComponent Announces={Announces} />
+        {renderMenu}
+      </Header>
+    )
   );
 };

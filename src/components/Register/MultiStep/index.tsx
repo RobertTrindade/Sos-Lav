@@ -5,8 +5,7 @@ import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepButton from "@mui/material/StepButton";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
+
 import {
   ButtonContainer,
   Container,
@@ -14,7 +13,7 @@ import {
   StepDesc,
   StepTitle,
 } from "./styles";
-import { ButtonComponent } from "../Buttons";
+import { ButtonComponent } from "../../Buttons";
 import { Step1Component } from "./Step1";
 import { Step2Component } from "./Step2";
 import { Step3Component } from "./Step3";

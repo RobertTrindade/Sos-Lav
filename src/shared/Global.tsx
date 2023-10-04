@@ -8,7 +8,8 @@ import { Box } from "@mui/material";
 import { IAnnounceBarDto } from "../services/announceBar/announceBar.service";
 
 import localFont from "next/font/local";
- const poppins = localFont({
+import { usePathname } from "next/navigation";
+const poppins = localFont({
   src: [
     {
       path: "../public/Poppins/Poppins-Black.ttf",
@@ -79,7 +80,7 @@ interface IGlobals {
   Announces: IAnnounceBarDto[];
 }
 
-export const Globals: FC<IGlobals> = ( { children, Announces }) => {
+export const Globals: FC<IGlobals> = ({ children, Announces }) => {
   const theme = createTheme({
     palette: {
       primary: {
@@ -117,16 +118,10 @@ export const Globals: FC<IGlobals> = ( { children, Announces }) => {
     height: 60px; /* Defina a mesma altura da sua BottomBar */
   `;
 
-  const Container = styled(Box)`
-    max-width: 1510px;
-    width: 100%;
-    margin: 0 auto;
-  `;
-
   return (
     <ThemeProvider theme={theme}>
       <HeaderComponent Announces={Announces} />
-      <Container>{children}</Container>
+      {children}
       <Spacer />
       <BottomBarComponent />
     </ThemeProvider>

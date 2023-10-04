@@ -1,6 +1,6 @@
 "use client";
 
-import { UploadInputComponent } from "../../UploadInput";
+import { UploadInputComponent } from "../../../UploadInput";
 import { Container } from "./styles";
 import { useRegister } from "@/src/contexts/registerContext";
 import { useState } from "react";

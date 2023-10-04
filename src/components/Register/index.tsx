@@ -5,7 +5,7 @@ import { RegisterProvider } from "@/src/contexts/registerContext";
 
 import Link from "next/link";
 import { ButtonComponent } from "../Buttons";
-import { MultiStepComponent } from "../MultiStep";
+import { MultiStepComponent } from "./MultiStep";
 
 export const RegisterComponent = () => {
   return (
