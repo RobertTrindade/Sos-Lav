@@ -1,17 +1,21 @@
 "use client";
 
-import { FC } from "react";
 import { Container, Title, SubTitle } from "./styles";
+import { usePathname } from "next/navigation";
 
-interface IHeaderAdm {
-  subTitle: string;
-}
+export const HeaderAdm = () => {
+  const path = usePathname();
 
-export const HeaderAdm: FC<IHeaderAdm> = ({ subTitle }) => {
+  const handleTitle = () => {
+    if (path === "/adm") return "Dashboard";
+    if (path === "/adm/anounce") return "Barra de Anúncios";
+    return path.replace("/", "");
+  };
+
   return (
     <Container>
       <Title>Dashboard</Title>
-      <SubTitle>{subTitle}</SubTitle>
+      <SubTitle>{handleTitle()}</SubTitle>
     </Container>
   );
 };

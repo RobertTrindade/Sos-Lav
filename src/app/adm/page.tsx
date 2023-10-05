@@ -1,6 +1,11 @@
-"use client"
-import { Container } from "@/src/components/Adm/Container";
+import { DashboardChartComponent } from "@/src/components/Adm/Home/DashboardChart";
+import { DashboardModalsComponent } from "@/src/components/Adm/Home/DashboardModals";
 
 export default function Adm() {
-  return <Container>ola</Container>;
+  return (
+    <>
+      <DashboardModalsComponent />
+      <DashboardChartComponent />
+    </>
+  );
 }

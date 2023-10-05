@@ -8,7 +8,6 @@ import { Box } from "@mui/material";
 import { IAnnounceBarDto } from "../services/announceBar/announceBar.service";
 
 import localFont from "next/font/local";
-import { usePathname } from "next/navigation";
 const poppins = localFont({
   src: [
     {

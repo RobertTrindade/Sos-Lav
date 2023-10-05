@@ -21,10 +21,40 @@ export const Header = styled(Box)`
   align-items: center;
 `;
 
-export const Title = styled(Typography)``;
+export const Title = styled(Typography)`
+  font-weight: 500;
+`;
 
 export const CustomIconButton = styled(IconButton)`
   img {
     width: 80px;
   }
+`;
+
+export const Nav = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+
+  div {
+    margin-bottom: 10px;
+  }
+`;
+export const NavItem = styled(Box)`
+  display: flex;
+  gap: 20px;
+  cursor: pointer;
+`;
+
+export const CategoryTitle = styled(Typography)`
+  font-weight: 500;
+  color: #848d99;
+  margin-bottom: 10px;
+  font-size: 14px;
+`;
+
+export const NavTitle = styled(Typography)`
+  margin-bottom: 10px;
+  font-size: 16px;
+  font-weight: 500;
 `;

@@ -10,7 +10,7 @@ export interface IInputProps {
   type: string;
   endAdornment?: ReactNode;
   customStyles?: {
-    color: string;
+    color?: string;
     backgroundColor?: string;
     width?: string;
     borderRadius?: string;

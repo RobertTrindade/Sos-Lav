@@ -16,7 +16,7 @@ export const NavBar = styled(AppBar)`
 `;
 
 export const CustomToolbar = styled(Toolbar)`
-  max-width: 1520px;
+  max-width: 1320px;
   width: 100%;
   margin: 0 auto;
   padding: 0 !important;

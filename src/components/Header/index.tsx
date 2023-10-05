@@ -95,7 +95,7 @@ export const HeaderComponent: React.FC<IHeaderComponent> = ({ Announces }) => {
             <ButtonComponent
               customStyles={{
                 color: "#3e4042",
-                fontSize: "16px",
+                fontSize: "14px",
                 fontWeight: "500",
               }}
               buttonProps={{
@@ -126,7 +126,7 @@ export const HeaderComponent: React.FC<IHeaderComponent> = ({ Announces }) => {
             <ButtonComponent
               customStyles={{
                 color: "#3e4042",
-                fontSize: "16px",
+                fontSize: "14px",
                 fontWeight: "500",
               }}
               sx={{
@@ -142,7 +142,7 @@ export const HeaderComponent: React.FC<IHeaderComponent> = ({ Announces }) => {
             <ButtonComponent
               customStyles={{
                 color: "#3e4042",
-                fontSize: "16px",
+                fontSize: "14px",
                 fontWeight: "500",
               }}
               sx={{
@@ -158,7 +158,7 @@ export const HeaderComponent: React.FC<IHeaderComponent> = ({ Announces }) => {
             <ButtonComponent
               customStyles={{
                 color: "#3e4042",
-                fontSize: "16px",
+                fontSize: "14px",
                 fontWeight: "500",
               }}
               sx={{
