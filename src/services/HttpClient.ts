@@ -42,22 +42,21 @@ class HttpClient {
     return response.json();
   }
 
-  async post<T>(params: { path: string; token?: string }): Promise<T> {
-    const token = params.token || this.localStorageService.getToken();
+  async post<T>(body: unknown, path: string): Promise<T> {
+    const token = this.localStorageService.getToken();
     const headers = {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     };
-    const body = JSON.stringify({});
 
-    const response = await fetch(`${this.baseUrl}${params.path}`, {
+    const response = await fetch(`${this.baseUrl}${path}`, {
       method: "POST",
       headers,
-      body,
+      body: JSON.stringify(body),
     });
 
     if (!response.ok) {
-      throw new Error(`Failed to post data to ${params.path}`);
+      throw new Error(`Failed to post data to ${path}`);
     }
 
     return response.json();
