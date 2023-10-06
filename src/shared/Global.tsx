@@ -11,47 +11,47 @@ import localFont from "next/font/local";
 const poppins = localFont({
   src: [
     {
-      path: "../public/Poppins/Poppins-Black.ttf",
+      path: "./fonts/Poppins/Poppins-Black.ttf",
       weight: "900", // Poppins Black
       style: "normal",
     },
     {
-      path: "../public/Poppins/Poppins-Bold.ttf",
+      path: "./fonts/Poppins/Poppins-Bold.ttf",
       weight: "700", // Poppins Bold
       style: "normal",
     },
     {
-      path: "../public/Poppins/Poppins-ExtraBold.ttf",
+      path: "./fonts/Poppins/Poppins-ExtraBold.ttf",
       weight: "800", // Poppins ExtraBold
       style: "normal",
     },
     {
-      path: "../public/Poppins/Poppins-ExtraLight.ttf",
+      path: "./fonts/Poppins/Poppins-ExtraLight.ttf",
       weight: "200", // Poppins ExtraLight
       style: "normal",
     },
     {
-      path: "../public/Poppins/Poppins-Light.ttf",
+      path: "./fonts/Poppins/Poppins-Light.ttf",
       weight: "300", // Poppins Light
       style: "normal",
     },
     {
-      path: "../public/Poppins/Poppins-Medium.ttf",
+      path: "./fonts/Poppins/Poppins-Medium.ttf",
       weight: "500", // Poppins Medium
       style: "normal",
     },
     {
-      path: "../public/Poppins/Poppins-Regular.ttf",
+      path: "./fonts/Poppins/Poppins-Regular.ttf",
       weight: "400", // Poppins Regular
       style: "normal",
     },
     {
-      path: "../public/Poppins/Poppins-SemiBold.ttf",
+      path: "./fonts/Poppins/Poppins-SemiBold.ttf",
       weight: "600", // Poppins SemiBold
       style: "normal",
     },
     {
-      path: "../public/Poppins/Poppins-Thin.ttf",
+      path: "./fonts/Poppins/Poppins-Thin.ttf",
       weight: "100", // Poppins Thin
       style: "normal",
     },
