@@ -1,9 +1,9 @@
 "use client";
 import React, { FC } from "react";
 import { ThemeProvider, createTheme, styled } from "@mui/material/styles";
-import { HeaderComponent } from "../components/Header";
+import { HeaderComponent } from "./components/Header";
 import "@mui/material";
-import { BottomBarComponent } from "../components/BottomBar";
+import { BottomBarComponent } from "@/src/shared/components/Header/BottomBar";
 import { Box } from "@mui/material";
 import { IAnnounceBarDto } from "../services/announceBar/announceBar.service";
 

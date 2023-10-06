@@ -13,7 +13,7 @@ import {
   StepDesc,
   StepTitle,
 } from "./styles";
-import { ButtonComponent } from "../../Buttons";
+import { ButtonComponent } from "../../../shared/components/Buttons";
 import { Step1Component } from "./Step1";
 import { Step2Component } from "./Step2";
 import { Step3Component } from "./Step3";

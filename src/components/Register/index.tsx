@@ -4,7 +4,7 @@ import { Container, Title, ExtraOptions, SubTitle, Header } from "./styles";
 import { RegisterProvider } from "@/src/contexts/registerContext";
 
 import Link from "next/link";
-import { ButtonComponent } from "../Buttons";
+import { ButtonComponent } from "../../shared/components/Buttons";
 import { MultiStepComponent } from "./MultiStep";
 
 export const RegisterComponent = () => {

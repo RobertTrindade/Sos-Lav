@@ -12,10 +12,10 @@ import {
 } from "./styles";
 import SettingsIcon from "@mui/icons-material/Settings";
 import SearchIcon from "@mui/icons-material/Search";
-import { InputComponent } from "../../Inputs";
+import { InputComponent } from "../../../shared/components/Inputs";
 import { useState } from "react";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import { ButtonComponent } from "../../Buttons";
+import { ButtonComponent } from "../../../shared/components/Buttons";
 import PersonIcon from "@mui/icons-material/Person";
 import CampaignIcon from "@mui/icons-material/Campaign";
 import Link from "next/link";

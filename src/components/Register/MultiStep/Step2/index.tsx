@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { AutoCompleteComponent } from "../../../AutoComplete";
-import { InputComponent } from "../../../Inputs";
+import { AutoCompleteComponent } from "../../../../shared/components/AutoComplete";
+import { InputComponent } from "../../../../shared/components/Inputs";
 import { Container } from "./styles";
 import ibgeService, { IIbgeReturnDto } from "@/src/services/IBGE/ibge.service";
 import { useRegister } from "@/src/contexts/registerContext";

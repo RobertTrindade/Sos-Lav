@@ -26,8 +26,8 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import { useState } from "react";
 import Link from "next/link";
-import { ButtonComponent } from "../Buttons";
-import { InputComponent } from "../Inputs";
+import { ButtonComponent } from "../../shared/components/Buttons";
+import { InputComponent } from "../../shared/components/Inputs";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 export const LoginComponent = () => {
   const [value, setValue] = useState(0);

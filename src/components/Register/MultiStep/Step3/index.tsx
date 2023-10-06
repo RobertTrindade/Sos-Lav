@@ -1,6 +1,6 @@
 "use client";
 
-import { InputComponent } from "../../../Inputs";
+import { InputComponent } from "../../../../shared/components/Inputs";
 import { Container } from "./styles";
 import { useRegister } from "@/src/contexts/registerContext";
 
