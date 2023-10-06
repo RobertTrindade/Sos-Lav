@@ -13,7 +13,7 @@ import Link from "next/link";
 import { AnnounceBarComponent } from "./AnnounceBar";
 import { IAnnounceBarDto } from "@/src/services/announceBar/announceBar.service";
 import Image from "next/image";
-import logo from "@/src/public/assets/logo/index.svg";
+import logo from "./logo/index.svg";
 import { Menu, MenuItem } from "@mui/material";
 
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
