@@ -45,7 +45,7 @@ export const AnnounceBarComponent: FC<IHeaderComponent> = ({ Announces }) => {
     }
   };
 
-  return Announces &&  (
+  return Announces.length &&  (
     <Container id="AnnounceBarComponent">
       <ExtraOptions
         key={counter}
