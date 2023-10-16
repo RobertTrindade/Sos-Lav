@@ -15,6 +15,7 @@ export const AnnounceBarComponent: FC<IHeaderComponent> = ({ Announces }) => {
   const [slideOutAnimation, setSlideOutAnimation] = useState(false);
 
   useEffect(() => {
+    if(!Announces) return
     const announceCount = Announces.length;
 
     const updateCounter = () => {
@@ -44,7 +45,7 @@ export const AnnounceBarComponent: FC<IHeaderComponent> = ({ Announces }) => {
     }
   };
 
-  return (
+  return Announces &&  (
     <Container id="AnnounceBarComponent">
       <ExtraOptions
         key={counter}
