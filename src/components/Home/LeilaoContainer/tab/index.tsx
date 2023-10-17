@@ -1,34 +1,42 @@
 import * as React from "react";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Box from "@mui/material/Box";
+import { CustomButtonGroup,CustomButtonGroupContainer } from "./styles";
 
-interface IScrollableTabsButtonAuto {
+export interface IProps {
   value: number;
   setValue: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export const ScrollableTabsButtonAuto: React.FC<IScrollableTabsButtonAuto> = ({
-  value,
-  setValue,
-}) => {
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
-  };
+export const BasicButtonGroup: React.FC<IProps> = ({ value, setValue }) => {
+  const Buttons = [
+    {
+      label: "Todos",
+    },
+    {
+      label: "Abertos",
+    },
+    {
+      label: "Próximos",
+    },
+    {
+      label: "Fechados",
+    },
+    {
+      label: "Exclusivo",
+    },
+  ];
 
   return (
-    <Box>
-      <Tabs
-        value={value}
-        onChange={handleChange}
-        variant="scrollable"
-        scrollButtons="auto"
-        aria-label="scrollable auto tabs example"
-      >
-        <Tab label="Próximos" />
-        <Tab label="Abertos" />
-        <Tab label="Fechados" />
-      </Tabs>
-    </Box>
+    <CustomButtonGroupContainer variant="text" aria-label="outlined primary button group">
+      {Buttons.map((item, index) => (
+        <CustomButtonGroup
+          index={index}
+          active={index === value}
+          onClick={() => setValue(index)}
+          key={index}
+        >
+          {item.label}
+        </CustomButtonGroup>
+      ))}
+    </CustomButtonGroupContainer>
   );
 };

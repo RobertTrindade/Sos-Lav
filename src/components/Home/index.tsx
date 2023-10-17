@@ -1,6 +1,6 @@
 import { BannerSliderComponent } from "./BannerSlider";
 import { LeilaoContainerComponent } from "./LeilaoContainer";
-import { Container } from "./styles";
+import { Container, Main } from "./styles";
 
 export const HomeComponent = () => {
   const Banners = [
@@ -22,7 +22,9 @@ export const HomeComponent = () => {
   return (
     <Container>
       <BannerSliderComponent Banners={Banners} />
-      <LeilaoContainerComponent />
+      <Main>
+        <LeilaoContainerComponent />
+      </Main>
     </Container>
   );
 };

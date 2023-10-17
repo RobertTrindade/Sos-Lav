@@ -7,6 +7,7 @@ export const NavBar = styled(AppBar)`
   background-color: white;
   color: black;
   height: 80px;
+
   ${({ theme }) => theme.breakpoints.down("laptop")} {
     height: 60px;
     display: flex;
@@ -24,6 +25,9 @@ export const CustomToolbar = styled(Toolbar)`
   justify-content: space-between;
   ${({ theme }) => theme.breakpoints.down("laptop")} {
     display: none;
+  }
+  ${({ theme }) => theme.breakpoints.between("laptop","desktop")} {
+    max-width: 1200px;
   }
 `;
 

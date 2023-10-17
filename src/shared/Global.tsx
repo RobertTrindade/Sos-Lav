@@ -8,6 +8,7 @@ import { Box } from "@mui/material";
 import { IAnnounceBarDto } from "../services/announceBar/announceBar.service";
 
 import localFont from "next/font/local";
+import { FooterComponent } from "./components/Footer";
 const poppins = localFont({
   src: [
     {
@@ -121,8 +122,10 @@ export const Globals: FC<IGlobals> = ({ children, Announces }) => {
     <ThemeProvider theme={theme}>
       <HeaderComponent Announces={Announces} />
       {children}
-      <Spacer />
+      <FooterComponent />
+
       <BottomBarComponent />
+
     </ThemeProvider>
   );
 };
