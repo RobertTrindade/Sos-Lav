@@ -13,16 +13,29 @@ export const LeilaoContainer = styled(Box)`
 
 export const Main = styled(Box)`
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  gap: 12px;
+
   ${({ theme }) => theme.breakpoints.down("mobile")} {
     display: flex;
-    flex-direction: column;
-    gap: 12px;
   }
 `;
 
 export const Title = styled(Typography)`
-  font-size: 20px;
-  font-weight: 500;
+  font-size: 35px;
+  font-weight: 600;
+
+  ${({ theme }) => theme.breakpoints.down("desktop")} {
+    font-size: 35px;
+    font-weight: 600;
+  }
+
+  ${({ theme }) => theme.breakpoints.down("tablet")} {
+    font-size: 16px;
+    font-weight: 600;
+  }
+  ${({ theme }) => theme.breakpoints.down("mobile")} {
+    font-size: 16px;
+    font-weight: 600;
+  }
 `;
