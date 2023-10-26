@@ -24,7 +24,7 @@ export const AnnounceTablesComponent: React.FC<IGrid> = ({ Announces }) => {
       <CustomDataGrid
         rows={Announces}
         columns={columns}
-        getRowId={(Announces) => Announces._id}
+        getRowId={(Announces) => Announces.id}
         initialState={{
           pagination: {
             paginationModel: { page: 0, pageSize: 5 },
