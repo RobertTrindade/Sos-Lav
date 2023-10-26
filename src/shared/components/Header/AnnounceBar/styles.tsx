@@ -65,9 +65,9 @@ export const ExtraOptions = styled(Box, {
 export const Container = styled(Box)`
   height: max-content;
   color: white;
+  overflow-x: hidden;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   padding: 20px;
-
   background-color: ${({ theme }) => theme.palette.primary.main};
 
   ${({ theme }) => theme.breakpoints.down("mobile")} {

@@ -66,7 +66,7 @@ export const PrevIconButton = styled(IconButton)`
   left: 0;
   top: 50%;
   background-color: white;
-  z-index: 99999;
+  z-index: 999;
   border-radius: 100%; /* Borda arredondada à esquerda */
   width: 50px;
   min-width: 50px;
@@ -91,7 +91,7 @@ export const NextIconButton = styled(IconButton)`
   position: absolute;
   right: 0;
   top: 50%;
-  z-index: 99999;
+  z-index: 999;
   color: ${({ theme }) => theme.palette.primary.main};
   background-color: white;
   border-radius: 100%; /* Borda arredondada à esquerda */
