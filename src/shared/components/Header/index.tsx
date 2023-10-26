@@ -191,7 +191,7 @@ export const HeaderComponent: React.FC<IHeaderComponent> = ({ Announces }) => {
                 startIcon: <PersonIcon color="primary" />,
               }}
             >
-              <Link href={"/login"}>Entrar</Link>
+              Entrar
             </ButtonComponent>
           </CustomToolbar>
         </NavBar>
