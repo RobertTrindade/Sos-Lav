@@ -6,7 +6,6 @@ import { useRegister } from "@/src/contexts/registerContext";
 
 export const Step3Component = () => {
   const { handleChangeContext, user } = useRegister();
-  console.log(user.step1.userType);
   return (
     user.step1.userType && (
       <Container>

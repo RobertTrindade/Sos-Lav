@@ -1,7 +1,7 @@
 "use client";
 
-import { IconButton, Typography } from "@mui/material";
-
+import { Typography } from "@mui/material";
+import LockResetIcon from "@mui/icons-material/LockReset";
 import {
   Container,
   CustomForm,
@@ -10,67 +10,135 @@ import {
   SubTitle,
   Header,
   NotMember,
-  SocialMedias,
+  ContainerPass,
+  Step2Component,
 } from "./styles";
-import GoogleIcon from "@mui/icons-material/Google";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import TwitterIcon from "@mui/icons-material/Twitter";
 import Link from "next/link";
 import { ButtonComponent } from "../../shared/components/Buttons";
 import { InputComponent } from "../../shared/components/Inputs";
+import { FC, useState } from "react";
+
+interface Step {
+  handleChange: (step: number) => void;
+}
+
 export const PasswordForgetComponent = () => {
+  const [step, setStep] = useState(1);
+  const handleChange = (step: number) => {
+    setStep(step);
+  };
   return (
     <Container>
       <Header>
         <NotMember>
           Ainda não é um Membro? <Link href={"/register"}> Criar conta </Link>
         </NotMember>
+        <ContainerPass>
+          <LockResetIcon color="primary" />
+        </ContainerPass>
         <Title>Esqueceu sua senha ?</Title>
         <SubTitle>
-          Não se preocupe, enviaremos informações para recuperara sua conta.
+          {step === 1 &&
+            ` Não se preocupe, enviaremos por e-mail informações para recuperara sua
+          conta.`}
+          {step === 2 &&
+            `
+            Agora, Insira o Código Enviado por E-mail
+            
+          `}
+          {step === 3 &&
+            `
+            Muito bem ! para finalizar escolha suas novas senhas 
+          `}
         </SubTitle>
       </Header>
 
       <CustomForm component={"form"}>
-        <InputComponent label={`E-mail`} type="text" />
-
-        <ButtonComponent
-          buttonProps={{
-            variant: "contained",
-            fullWidth: true,
-          }}
-          customStyles={{
-            color: "white",
-          }}
-        >
-          Entrar
-        </ButtonComponent>
+        {step === 1 && <Step1 handleChange={handleChange} />}
+        {step === 2 && <Step2 handleChange={handleChange} />}
+        {step === 3 && <Step3 handleChange={handleChange} />}
       </CustomForm>
 
       <ExtraOptions>
         <Typography className="forgetPass">
-          <Link href={"/passwordforget"}>Esqueceu a senha ?</Link>
+          <Link href={"/login"}>Voltar para o Login </Link>
         </Typography>
       </ExtraOptions>
-
-      <SocialMedias>
-        <Typography className="SocialMedia">Ou continue com: </Typography>
-        <div className="SocialMediaIcons">
-          <IconButton aria-label="toggle google" sx={{ color: "google" }}>
-            <GoogleIcon />
-          </IconButton>
-
-          <IconButton aria-label="toggle face" sx={{ color: "blue" }}>
-            <FacebookIcon />
-          </IconButton>
-          <IconButton
-            aria-label="toggle twiter"
-            sx={{ color: "rgb(144, 202, 249)" }}
-          >
-            <TwitterIcon />
-          </IconButton>
-        </div>
-      </SocialMedias>
     </Container>
+  );
+};
+
+const Step1: FC<Step> = ({ handleChange }) => {
+  return (
+    <>
+      <InputComponent label={`E-mail`} type="text" />
+
+      <ButtonComponent
+        buttonProps={{
+          variant: "contained",
+          fullWidth: true,
+          onClick: () => {
+            handleChange(2);
+          },
+        }}
+        customStyles={{
+          color: "white",
+        }}
+      >
+        Enviar
+      </ButtonComponent>
+    </>
+  );
+};
+
+const Step2: FC<Step> = ({ handleChange }) => {
+  return (
+    <>
+      <Step2Component>
+        <InputComponent label={``} type="number" />
+        <InputComponent label={``} type="number" />
+        <InputComponent label={``} type="number" />
+        <InputComponent label={``} type="number" />
+      </Step2Component>
+
+      <ButtonComponent
+        buttonProps={{
+          variant: "contained",
+          fullWidth: true,
+          onClick: () => {
+            handleChange(3);
+          },
+        }}
+        customStyles={{
+          color: "white",
+        }}
+      >
+        Validar
+      </ButtonComponent>
+    </>
+  );
+};
+
+const Step3: FC<Step> = ({ handleChange }) => {
+  return (
+    <>
+      <InputComponent label={`Nova senha`} type="text" />
+      <InputComponent label={`Digite Novamente`} type="text" />
+
+      <ButtonComponent
+        buttonProps={{
+          variant: "contained",
+          fullWidth: true,
+          onClick: () => {
+            handleChange(2);
+          },
+        }}
+        customStyles={{
+          color: "white",
+        }}
+      >
+        Salvar
+      </ButtonComponent>
+    </>
   );
 };

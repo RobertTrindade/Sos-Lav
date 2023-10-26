@@ -5,10 +5,7 @@ import {
   FormControl,
   InputLabel,
   OutlinedInput,
-  Tab,
-  Tabs,
   Typography,
-  css,
   styled,
 } from "@mui/material";
 
@@ -17,6 +14,19 @@ export const Header = styled(Box)`
   flex-direction: column;
   margin-bottom: 20px;
   margin-top: 40px;
+  gap: 10px;
+  align-items: center;
+`;
+
+export const ContainerPass = styled(Box)`
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  svg {
+    transform: scale(2);
+  }
 `;
 
 export const Title = styled(Typography)`
@@ -52,6 +62,16 @@ export const NotMember = styled(Typography)`
   }
 `;
 
+export const Step2Component = styled(Box)`
+  display: flex;
+  gap: 30px;
+  justify-content: space-around !important;
+  input{
+    text-align: center;
+    
+  }
+`;
+
 export const Container = styled(Box)`
   max-width: 400px;
   margin: 20px auto;
@@ -62,9 +82,8 @@ export const Container = styled(Box)`
     margin: 30px auto;
     max-width: 300px;
   }
+  margin-bottom: 100px;
 `;
-
-
 
 export const CustomForm = styled(Box)`
   display: flex;
@@ -129,5 +148,4 @@ export const SocialMedias = styled(Box)`
     justify-content: center;
     gap: 10px;
   }
-
 `;

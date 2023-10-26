@@ -95,7 +95,6 @@ export const Step2Component = () => {
     selectedState?.label,
   ]);
 
-  console.log(user);
   return (
     <Container>
       <InputComponent
