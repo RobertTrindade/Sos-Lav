@@ -32,6 +32,11 @@ export const BlurEffect = styled(Box)`
   width: 30px;
   position: absolute;
   right: 0;
+
+  ${({ theme }) => theme.breakpoints.down("laptop")} {
+    width: 20px;
+  }
+
 `;
 export const Main = styled(Box)`
   display: flex;
