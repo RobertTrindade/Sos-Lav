@@ -187,6 +187,7 @@ export const HeaderComponent: React.FC<IHeaderComponent> = ({ Announces }) => {
                 },
               }}
               buttonProps={{
+                href: "/login",
                 startIcon: <PersonIcon color="primary" />,
               }}
             >
