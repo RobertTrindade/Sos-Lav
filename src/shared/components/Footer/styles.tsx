@@ -1,5 +1,12 @@
 "use client";
-import { Box, ListItemButton, ListItemText, styled } from "@mui/material";
+import {
+  Box,
+  List,
+  ListItemButton,
+  ListItemText,
+  Typography,
+  styled,
+} from "@mui/material";
 import { IconButton } from "@mui/material";
 
 export const Container = styled(Box)`
@@ -10,10 +17,10 @@ export const Container = styled(Box)`
 
   ${({ theme }) => theme.breakpoints.between("laptop", "desktop")} {
     padding: 64px;
-    margin-bottom: 300px;
+    margin-bottom: 50px;
   }
   ${({ theme }) => theme.breakpoints.up("desktop")} {
-    margin-bottom: 300px;
+    margin-bottom: 50px;
   }
 
   ${({ theme }) => theme.breakpoints.down("tablet")} {
@@ -28,7 +35,7 @@ export const Container = styled(Box)`
 `;
 
 export const Footer = styled(Box)`
-  max-width: 1320px;
+  max-width: 1400px;
   width: 100%;
   margin: 0 auto;
   padding: 0 !important;
@@ -52,8 +59,40 @@ export const CustomListItemText = styled(ListItemText)`
 export const CustomListItemButton = styled(ListItemButton)`
   display: flex;
   justify-content: space-between !important;
+  gap: 10px;
+  width: 200px;
 `;
 
 export const CustomListSubItemButton = styled(ListItemButton)`
+  display: flex;
+  gap: 8px;
+`;
+
+export const IconsContainer = styled(Box)`
+  display: flex;
+  flex-direction: column;
+
+  align-items: start;
+  .socialMediasFooter {
+    button {
+      width: fit-content;
+    }
+  }
+`;
+
+export const ListItemContainer = styled(Box)``;
+export const ListComponent = styled(List)`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+`;
+
+export const CustomSubItem = styled(Typography)`
   color: #3e4042;
+  font-weight: 400;
+
+  &.bold {
+    color: ${({ theme }) => theme.palette.primary.main};
+    font-weight: bold;
+  }
 `;

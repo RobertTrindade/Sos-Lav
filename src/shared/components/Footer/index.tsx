@@ -6,19 +6,19 @@ import {
   CustomListItemText,
   CustomListItemButton,
   CustomListSubItemButton,
+  IconsContainer,
+  ListItemContainer,
+  CustomSubItem,
+  ListComponent,
 } from "./styles";
-import {
-  Collapse,
-  Link,
-  List,
-  ListItemButton,
-  ListItemText,
-} from "@mui/material";
+import { Collapse, Link } from "@mui/material";
 import Image from "next/image";
 import React, { FC } from "react";
-import { ExpandLess, ExpandMore } from "@mui/icons-material";
+import { ExpandLess, ExpandMore, WhatsApp } from "@mui/icons-material";
 import logo from "@/src/shared/logo/index.svg";
-
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import InstagramIcon from "@mui/icons-material/Instagram";
 interface IColapse {
   open: boolean;
 }
@@ -48,7 +48,7 @@ export const FooterComponent = () => {
   return (
     <Footer>
       <Container>
-        <div>
+        <IconsContainer>
           <CustomIconButton
             size="small"
             edge="start"
@@ -59,9 +59,28 @@ export const FooterComponent = () => {
               <Image src={logo} alt="Logo do grupo carvalho Leilões" />
             </Link>
           </CustomIconButton>
-        </div>
 
-        <div>
+          <ListItemContainer className="socialMediasFooter">
+            <CustomIconButton size="small" color="inherit" aria-label="menu">
+              <Link href={"/"}>
+                <LinkedInIcon />
+              </Link>
+            </CustomIconButton>
+
+            <CustomIconButton size="small" color="inherit" aria-label="menu">
+              <Link href={"/"}>
+                <FacebookIcon />
+              </Link>
+            </CustomIconButton>
+            <CustomIconButton size="small" color="inherit" aria-label="menu">
+              <Link href={"/"}>
+                <InstagramIcon />
+              </Link>
+            </CustomIconButton>
+          </ListItemContainer>
+        </IconsContainer>
+
+        <ListItemContainer>
           <CustomListItemButton onClick={handleClickWho}>
             <CustomListItemText primary="Quem somos" />
             {openWho ? (
@@ -72,8 +91,8 @@ export const FooterComponent = () => {
           </CustomListItemButton>
 
           <WhoAreWe open={openWho} />
-        </div>
-        <div>
+        </ListItemContainer>
+        <ListItemContainer>
           <CustomListItemButton onClick={handleClickCategories}>
             <CustomListItemText primary="Categorias" />
             {openCategories ? (
@@ -84,9 +103,9 @@ export const FooterComponent = () => {
           </CustomListItemButton>
 
           <Category open={openCategories} />
-        </div>
+        </ListItemContainer>
 
-        <div>
+        <ListItemContainer>
           <CustomListItemButton onClick={handleClickEvents}>
             <CustomListItemText primary="Eventos" />
             {openEvents ? (
@@ -97,20 +116,15 @@ export const FooterComponent = () => {
           </CustomListItemButton>
 
           <Events open={openEvents} />
-        </div>
+        </ListItemContainer>
 
-        <div>
+        <ListItemContainer>
           <CustomListItemButton onClick={handleClickHelp}>
-            <CustomListItemText primary="Ajuda" />
-            {openHelp ? (
-              <ExpandLess color="primary" />
-            ) : (
-              <ExpandMore color="primary" />
-            )}
+            <CustomListItemText primary="Entre em contato" />
           </CustomListItemButton>
 
-          <Help open={openHelp} />
-        </div>
+          <Contact open={openHelp} />
+        </ListItemContainer>
       </Container>
     </Footer>
   );
@@ -119,9 +133,14 @@ export const FooterComponent = () => {
 const WhoAreWe: FC<IColapse> = ({ open }) => {
   return (
     <Collapse in={open} timeout="auto" unmountOnExit>
-      <List component="div" disablePadding>
-        <CustomListSubItemButton>Sobre o grupo Carvalho</CustomListSubItemButton>
-      </List>
+      <ListComponent disablePadding>
+        <CustomListSubItemButton>
+          <CustomSubItem>Grupo Carvalho</CustomSubItem>
+        </CustomListSubItemButton>{" "}
+        <CustomListSubItemButton>
+          <CustomSubItem> Nossos Parceiros</CustomSubItem>
+        </CustomListSubItemButton>{" "}
+      </ListComponent>
     </Collapse>
   );
 };
@@ -130,29 +149,48 @@ const WhoAreWe: FC<IColapse> = ({ open }) => {
 const Events: FC<IColapse> = ({ open }) => {
   return (
     <Collapse in={open} timeout="auto" unmountOnExit>
-      <List component="div" disablePadding>
-        <CustomListSubItemButton>Events</CustomListSubItemButton>
-      </List>
-    </Collapse>
-  );
-};
-// Componentes para outras opções de lista abertas
-const Category: FC<IColapse> = ({ open }) => {
-  return (
-    <Collapse in={open} timeout="auto" unmountOnExit>
-      <List component="div" disablePadding>
-        <CustomListSubItemButton>Category</CustomListSubItemButton>
-      </List>
+      <ListComponent disablePadding>
+        <CustomListSubItemButton>
+          <CustomSubItem>Eventos de Leilão</CustomSubItem>
+        </CustomListSubItemButton>
+        <CustomListSubItemButton>
+          <CustomSubItem>Semana do Consumidor</CustomSubItem>
+        </CustomListSubItemButton>
+      </ListComponent>
     </Collapse>
   );
 };
 
-const Help: FC<IColapse> = ({ open }) => {
+// Componentes para outras opções de lista abertas
+const Category: FC<IColapse> = ({ open }) => {
   return (
     <Collapse in={open} timeout="auto" unmountOnExit>
-      <List component="div" disablePadding>
-        <CustomListSubItemButton>Help</CustomListSubItemButton>
-      </List>
+      <ListComponent disablePadding>
+        <CustomListSubItemButton>
+          <CustomSubItem>Carros de Luxo</CustomSubItem>
+        </CustomListSubItemButton>
+        <CustomListSubItemButton>
+          <CustomSubItem>Veículos Clássicos</CustomSubItem>
+        </CustomListSubItemButton>
+      </ListComponent>
+    </Collapse>
+  );
+};
+
+const Contact: FC<IColapse> = ({ open }) => {
+  return (
+    <Collapse in={open} timeout="auto" unmountOnExit>
+      <ListComponent disablePadding>
+        <CustomListSubItemButton>
+          <CustomSubItem className="bold">(14) 99762-3313</CustomSubItem>
+          <WhatsApp color="primary" />
+        </CustomListSubItemButton>
+        <CustomListSubItemButton>
+          <CustomSubItem className="bold">
+            contato@grupocarvalholeiloes.com.br{" "}
+          </CustomSubItem>
+        </CustomListSubItemButton>
+      </ListComponent>
     </Collapse>
   );
 };

@@ -8,9 +8,13 @@ import {
   PrevIconButton,
   NextIconButton,
   ContainerLeiloes,
+  BlurEffect,
 } from "./styles";
 import { BasicButtonGroup } from "./tab";
-import { LeilaoCardComponent } from "@/src/shared/components/LeilaoCard";
+import {
+  ILeilaoCardComponent,
+  LeilaoCardComponent,
+} from "@/src/shared/components/LeilaoCard";
 
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
@@ -21,7 +25,69 @@ export const LeilaoContainerComponent: React.FC = () => {
   const [isEnd, setIsEnd] = useState(false);
   const [isStart, setIsStart] = useState(false);
 
-  const leiloes = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}];
+  const leiloes: ILeilaoCardComponent["data"][] = [
+    {
+      name: "Leilao Ubatuba",
+      description: `
+          Bem-vindo ao Leilão Carvalho, onde você terá a oportunidade de
+          explorar uma incrível seleção de veículos de alta qualidade
+      `,
+      type: "Leilão Detran",
+      lotes: 12,
+      lotes_leiloados: 12,
+      views: 12,
+      date: "26/10",
+      time: "10:00",
+      status: "Encerrado",
+      id: "1",
+    },
+    {
+      name: "Leilao São Paulo",
+      description: `
+          Junte-se a nós no Leilão São Paulo para uma grande variedade de
+          arte e antiguidades exclusivas.
+      `,
+      type: "Leilão de Arte",
+      lotes: 25,
+      lotes_leiloados: 18,
+      views: 32,
+      date: "30/10",
+      time: "14:00",
+      status: "Em andamento",
+      id: "2",
+    },
+    {
+      name: "Leilao Rio de Janeiro",
+      description: `
+          Bem-vindo ao Leilão Rio de Janeiro, onde você pode encontrar
+          uma seleção de itens de colecionador raros e valiosos.
+      `,
+      type: "Leilão de Colecionáveis",
+      lotes: 8,
+      lotes_leiloados: 4,
+      views: 8,
+      date: "28/10",
+      time: "12:00",
+      status: "Próximo",
+      id: "3",
+    },
+    {
+      name: "Leilao Brasília",
+      description: `
+          Participe do Leilão Brasília e descubra uma gama de móveis e
+          decorações exclusivas para sua casa.
+      `,
+      type: "Leilão de Móveis",
+      lotes: 15,
+      lotes_leiloados: 9,
+      views: 20,
+      date: "27/10",
+      time: "11:00",
+      status: "Em andamento",
+      id: "4",
+    },
+  ];
+
   const description: string[] = [
     "Todos os Leilões",
     "Leilões Abertos",
@@ -111,10 +177,11 @@ export const LeilaoContainerComponent: React.FC = () => {
           <KeyboardArrowLeftIcon />
         </PrevIconButton>
         <ContainerLeiloes ref={Carrousel}>
-          {leiloes.map((_, key) => (
+          {leiloes.map((data, key) => (
             <LeilaoCardComponent
               key={key}
-              id={
+              data={data}
+              pos={
                 key === 0
                   ? "isStart"
                   : key === leiloes.length - 1
@@ -132,6 +199,7 @@ export const LeilaoContainerComponent: React.FC = () => {
         >
           <KeyboardArrowRightIcon />
         </NextIconButton>
+        <BlurEffect />
       </LeilaoContainer>
     </Container>
   );

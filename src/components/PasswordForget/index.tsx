@@ -29,7 +29,7 @@ import Link from "next/link";
 import { ButtonComponent } from "../../shared/components/Buttons";
 import { InputComponent } from "../../shared/components/Inputs";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-export const LoginComponent = () => {
+export const PasswordForgetComponent = () => {
   const [value, setValue] = useState(0);
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -51,41 +51,16 @@ export const LoginComponent = () => {
         <NotMember>
           Ainda não é um Membro? <Link href={"/register"}> Criar conta </Link>
         </NotMember>
-        <Title>Bem vindo de volta</Title>
-        <SubTitle>Bem vindo de volta, sentimentos sua falta</SubTitle>
+        <Title>Esqueceu sua senha ?</Title>
+        <SubTitle>
+          Não se preocupe, enviaremos informações para recuperara sua conta.
+        </SubTitle>
       </Header>
-      <Divider>
-        <CustomTabs
-          value={value}
-          onChange={handleChange}
-          aria-label="basic tabs example"
-          variant="fullWidth"
-        >
-          <CustomTab label="Pessoa Fisica" selected={value === 0} />
-          <CustomTab label="Pessoa Juridica" selected={value === 1} />
-        </CustomTabs>
-      </Divider>
+
       <CustomForm component={"form"}>
         <InputComponent
           label={`E-mail ou ${value === 0 ? "CPF" : "CNPJ"}`}
           type="text"
-        />
-
-        <InputComponent
-          label="Senha"
-          type={showPassword ? "text" : "password"}
-          endAdornment={
-            <InputAdornment position="end">
-              <IconButton
-                aria-label="toggle password visibility"
-                onClick={handleClickShowPassword}
-                onMouseDown={handleMouseDownPassword}
-                edge="end"
-              >
-                {showPassword ? <VisibilityOff /> : <Visibility />}
-              </IconButton>
-            </InputAdornment>
-          }
         />
 
         <ButtonComponent

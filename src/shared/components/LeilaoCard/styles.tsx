@@ -61,6 +61,10 @@ export const Type = styled(Box)`
 export const Title = styled(Typography)`
   font-weight: 500;
 `;
+export const Description = styled(Typography)`
+  height: 90px;
+  overflow-y: hidden;
+`;
 
 export const LeilaoName = styled(Typography)`
   font-weight: 500;

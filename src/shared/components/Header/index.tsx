@@ -112,16 +112,21 @@ export const HeaderComponent: React.FC<IHeaderComponent> = ({ Announces }) => {
               Categorias
             </ButtonComponent>
 
-            <InputComponent
-              label="Buscar por produto"
-              type="text"
+            <ButtonComponent
               customStyles={{
-                color: "#000",
-                width: "513px",
-                backgroundColor: "rgba(217, 217, 217, 0.50)",
-                borderRadius: "25px",
+                color: "#3e4042",
+                fontSize: "14px",
+                fontWeight: "500",
               }}
-            />
+              sx={{
+                "&:hover": {
+                  color: "primary.main", // Estilos para o hover
+                  fontWeight: "600",
+                },
+              }}
+            >
+              O Grupo Carvalho
+            </ButtonComponent>
 
             <ButtonComponent
               customStyles={{
@@ -154,7 +159,21 @@ export const HeaderComponent: React.FC<IHeaderComponent> = ({ Announces }) => {
             >
               Ajuda
             </ButtonComponent>
-
+            <ButtonComponent
+              customStyles={{
+                color: "#3e4042",
+                fontSize: "14px",
+                fontWeight: "500",
+              }}
+              sx={{
+                "&:hover": {
+                  color: "primary.main", // Estilos para o hover
+                  fontWeight: "600",
+                },
+              }}
+            >
+              Fale Conosco
+            </ButtonComponent>
             <ButtonComponent
               customStyles={{
                 color: "#3e4042",

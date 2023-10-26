@@ -62,7 +62,7 @@ export const BottomBarComponent = () => {
           icon={<HelpIcon />}
         />
         <BottomNavigationAction
-          href="/register"
+          href="/login"
           label={<Label>Entrar</Label>}
           value="entrar"
           icon={<LoginIcon />}

@@ -26,6 +26,13 @@ export const LeilaoContainer = styled(Box)`
   }
 `;
 
+export const BlurEffect = styled(Box)`
+  background: linear-gradient(270deg, #f9f9f9 0%, rgba(249, 249, 249, 0) 100%);
+  height: 100%;
+  width: 30px;
+  position: absolute;
+  right: 0;
+`;
 export const Main = styled(Box)`
   display: flex;
   flex-direction: column;

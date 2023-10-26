@@ -14,6 +14,7 @@ import {
   LeilaoName,
   IconsDesc,
   CustomCardContent,
+  Description,
 } from "./styles";
 import Image from "next/image";
 import SwipeableTextMobileStepper from "./slider/CardMedia";
@@ -21,30 +22,52 @@ import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import { AuctionIcon } from "./auctionIcon";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 
-interface IProps {
-  id: string;
+export interface ILeilaoCardComponent {
+  data: {
+    name: string;
+    description: string;
+    type: string;
+    lotes: number;
+    lotes_leiloados: number;
+    views: number;
+    date: string;
+    time: string;
+    status: "Em andamento" | "Encerrado" | "Próximo";
+    id: string;
+  };
+  pos: string;
 }
 
-export const LeilaoCardComponent: React.FC<IProps> = ({ id }) => {
+export const LeilaoCardComponent: React.FC<ILeilaoCardComponent> = ({
+  pos,
+  data: {
+    name,
+    description,
+    type,
+    date,
+    time,
+    lotes,
+    lotes_leiloados,
+    views,
+    status,
+  },
+}) => {
   return (
-    <Container elevation={4} >
+    <Container elevation={4}>
       <CardActionArea>
         <SwipeableTextMobileStepper />
-        <Tag label="Leilão esclusivo"  id={id}/>
+        <Tag label="Leilão esclusivo" id={pos} />
         <CustomCardContent>
           <Title gutterBottom variant="h5">
-            Leilão Teste
+            {name}
           </Title>
-          <Typography color="text.secondary">
-            Bem-vindo ao Leilão Carvalho, onde você terá a oportunidade de
-            explorar uma incrível seleção de veículos de alta qualidade
-          </Typography>
+          <Description color="text.secondary">{description}</Description>
 
           <Details>
-            <Date label="26/10 - 11:00" />
+            <Date label={`${date} - ${time}`} />
             <Type>
               <Image src={logo} alt="gif" />
-              <LeilaoName>Leilão Detran</LeilaoName>
+              <LeilaoName>{type}</LeilaoName>
             </Type>
           </Details>
 
@@ -52,22 +75,23 @@ export const LeilaoCardComponent: React.FC<IProps> = ({ id }) => {
             <div className="lotes">
               <DirectionsCarIcon />
               <Typography color="text.secondary" className="bold">
-                12
+                {lotes}
               </Typography>
             </div>
             <div className="lotes">
               <AuctionIcon />
               <Typography color="text.secondary" className="bold">
-                19
+                {lotes_leiloados}
               </Typography>
             </div>{" "}
             <div className="lotes">
               <RemoveRedEyeIcon />
               <Typography color="text.secondary" className="bold">
-                21
+                {views}
               </Typography>
             </div>
           </IconsDesc>
+          <Date label={status} />
         </CustomCardContent>
       </CardActionArea>
     </Container>
