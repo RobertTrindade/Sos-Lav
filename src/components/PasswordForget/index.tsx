@@ -1,19 +1,10 @@
 "use client";
 
-import {
-  IconButton,
-  InputAdornment,
-  OutlinedInput,
-  Typography,
-} from "@mui/material";
-import Image from "next/image";
+import { IconButton, Typography } from "@mui/material";
 
 import {
   Container,
   CustomForm,
-  CustomTab,
-  CustomTabs,
-  Divider,
   Title,
   ExtraOptions,
   SubTitle,
@@ -24,27 +15,10 @@ import {
 import GoogleIcon from "@mui/icons-material/Google";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
-import { useState } from "react";
 import Link from "next/link";
 import { ButtonComponent } from "../../shared/components/Buttons";
 import { InputComponent } from "../../shared/components/Inputs";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
 export const PasswordForgetComponent = () => {
-  const [value, setValue] = useState(0);
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
-  };
-
-  const [showPassword, setShowPassword] = useState(false);
-
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
-
-  const handleMouseDownPassword = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.preventDefault();
-  };
-
   return (
     <Container>
       <Header>
@@ -58,10 +32,7 @@ export const PasswordForgetComponent = () => {
       </Header>
 
       <CustomForm component={"form"}>
-        <InputComponent
-          label={`E-mail ou ${value === 0 ? "CPF" : "CNPJ"}`}
-          type="text"
-        />
+        <InputComponent label={`E-mail`} type="text" />
 
         <ButtonComponent
           buttonProps={{

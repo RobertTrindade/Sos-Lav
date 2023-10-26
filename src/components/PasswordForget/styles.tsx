@@ -64,45 +64,7 @@ export const Container = styled(Box)`
   }
 `;
 
-export const Divider = styled(Box)`
-  border-bottom: solid 1px #ebeced;
-  margin-bottom: 20px;
-`;
 
-export const CustomTabs = styled(Tabs)`
-  border-bottom: solid 1px #ebeced;
-
-  .MuiTabs-indicator {
-    background-color: #ff6600 !important;
-  }
-  button.Mui-selected {
-    color: rgba(0, 0, 0, 0.5);
-    font-weight: bold;
-    font-size: 13px;
-    text-transform: none;
-  }
-
-  button {
-    color: rgba(0, 0, 0, 0.5);
-    font-size: 13px;
-    text-transform: none;
-  }
-`;
-
-export const CustomTab = styled(Tab)<{
-  selected: boolean;
-}>`
-  border-bottom: solid 1px #ebeced;
-  button {
-  }
-  display: flex;
-  align-items: end;
-  ${({ label }) =>
-    label === "Pessoa Fisica" &&
-    css`
-      align-items: start;
-    `}
-`;
 
 export const CustomForm = styled(Box)`
   display: flex;

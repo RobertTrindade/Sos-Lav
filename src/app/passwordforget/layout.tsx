@@ -1,20 +1,14 @@
-
-  
-  import type { Metadata } from 'next'
+import type { Metadata } from "next";
 
 export const metadata = {
-  title: "PasswordForget",
-  description:"PasswordForget",
-}
+  title: "Recuperação de senha",
+  description: "Recupere sua senha",
+};
 
 export default function PasswordForgetLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
-  return (
-    children
-  )
+  return children;
 }
-
-  
