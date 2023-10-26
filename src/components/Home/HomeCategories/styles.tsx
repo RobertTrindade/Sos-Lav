@@ -50,6 +50,8 @@ export const CategoriesContainer = styled(Box)`
   }
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
+  padding-top: 10px;
+
   padding-bottom: 1px;
   ::-webkit-scrollbar {
     display: none;

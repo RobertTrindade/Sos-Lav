@@ -12,7 +12,7 @@ class AnnounceService {
   path: string;
   constructor() {
     this.httpClient = new HttpClient();
-    this.path = "/announces";
+    this.path = "/mkt/announces";
   }
 
   async getMessages(revalidate: number) {

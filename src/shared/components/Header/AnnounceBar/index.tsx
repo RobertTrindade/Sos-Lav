@@ -44,7 +44,6 @@ export const AnnounceBarComponent: FC<IHeaderComponent> = ({ Announces }) => {
       AnnounceBarComponent.style.display = "none";
     }
   };
-
   return Announces.length ? (
     <Container id="AnnounceBarComponent">
       <ExtraOptions
