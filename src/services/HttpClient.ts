@@ -42,7 +42,7 @@ class HttpClient {
     return response.json();
   }
 
-  async post<T>(body: unknown, path: string): Promise<T> {
+  async post<T>(body: unknown, path?: string): Promise<T> {
     const token = this.localStorageService.getToken();
     const headers = {
       Authorization: `Bearer ${token}`,
