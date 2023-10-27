@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  IconButton,
-  InputAdornment,
-  OutlinedInput,
-  Typography,
-} from "@mui/material";
-import Image from "next/image";
+import { IconButton, InputAdornment, Typography } from "@mui/material";
 
 import {
   Container,
@@ -29,11 +23,14 @@ import Link from "next/link";
 import { ButtonComponent } from "../../shared/components/Buttons";
 import { InputComponent } from "../../shared/components/Inputs";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { useRouter } from 'next/navigation';
+
 export const LoginComponent = () => {
   const [value, setValue] = useState(0);
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
+  const router = useRouter();
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -43,6 +40,11 @@ export const LoginComponent = () => {
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
     event.preventDefault();
+  };
+
+  const handleUserLogin = () => {
+    router.push("profile");
+    
   };
 
   return (
@@ -92,6 +94,9 @@ export const LoginComponent = () => {
           buttonProps={{
             variant: "contained",
             fullWidth: true,
+            onClick: () => {
+              handleUserLogin();
+            },
           }}
           customStyles={{
             color: "white",

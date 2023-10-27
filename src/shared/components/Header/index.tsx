@@ -195,7 +195,9 @@ export const HeaderComponent: React.FC<IHeaderComponent> = ({ Announces }) => {
             </ButtonComponent>
           </CustomToolbar>
         </NavBar>
-        <AnnounceBarComponent Announces={Announces} />
+        {!path.startsWith("/profile") && (
+          <AnnounceBarComponent Announces={Announces} />
+        )}
         {renderMenu}
       </Header>
     )

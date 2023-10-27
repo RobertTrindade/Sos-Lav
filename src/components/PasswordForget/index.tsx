@@ -2,6 +2,8 @@
 
 import { Typography } from "@mui/material";
 import LockResetIcon from "@mui/icons-material/LockReset";
+import KeyIcon from "@mui/icons-material/Key";
+import GppGoodIcon from "@mui/icons-material/GppGood";
 import {
   Container,
   CustomForm,
@@ -34,7 +36,9 @@ export const PasswordForgetComponent = () => {
           Ainda não é um Membro? <Link href={"/register"}> Criar conta </Link>
         </NotMember>
         <ContainerPass>
-          <LockResetIcon color="primary" />
+          {step === 1 && <LockResetIcon color="primary" />}
+          {step === 2 && <KeyIcon color="primary" />}
+          {step === 3 && <GppGoodIcon color="primary" />}
         </ContainerPass>
         <Title>Esqueceu sua senha ?</Title>
         <SubTitle>
