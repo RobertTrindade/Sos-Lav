@@ -1,11 +1,9 @@
-import { DashboardChartComponent } from "@/src/components/Adm/Home/DashboardChart";
-import { DashboardModalsComponent } from "@/src/components/Adm/Home/DashboardModals";
+import { LoginAdmComponent } from "@/src/components/Adm/Login";
 
 export default function Adm() {
   return (
     <>
-      <DashboardModalsComponent />
-      <DashboardChartComponent />
+      <LoginAdmComponent />
     </>
   );
 }
