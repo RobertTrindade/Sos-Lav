@@ -50,13 +50,14 @@ export const LeilaoCardComponent: React.FC<ILeilaoCardComponent> = ({
     lotes_leiloados,
     views,
     status,
+    id,
   },
 }) => {
   return (
-    <Container elevation={4}>
+    <Container elevation={4} id={pos}>
       <CardActionArea>
         <SwipeableTextMobileStepper />
-        <Tag label="Leilão esclusivo" id={pos} />
+        <Tag label={id === "1" ? "Leilão esclusivo" : "Leilão Detran"} />
         <CustomCardContent>
           <Title gutterBottom variant="h5">
             {name}

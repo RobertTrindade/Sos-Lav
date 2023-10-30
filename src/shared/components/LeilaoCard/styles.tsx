@@ -5,6 +5,7 @@ import {
   CardContent,
   Chip,
   Typography,
+  css,
   styled,
 } from "@mui/material";
 
@@ -22,7 +23,8 @@ export const CustomCardContent = styled(CardContent)`
 `;
 
 export const Tag = styled(Chip)`
-  background-color: ${({ theme }) => theme.palette.primary.main};
+  background-color: ${({ theme, label }) =>
+    label === "Leilão esclusivo" ? theme.palette.primary.main : "rgb(255, 118, 77)"};
   color: white;
   position: absolute;
   top: 0;

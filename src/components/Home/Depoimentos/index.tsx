@@ -10,47 +10,30 @@ import {
   ContainerLeiloes,
   BlurEffect,
 } from "./styles";
-import { BasicButtonGroup } from "./tab";
-import {
-  ILeilaoCardComponent,
-  LeilaoCardComponent,
-} from "@/src/shared/components/LeilaoCard";
 
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import { DepoimentoCardComponent } from "@/src/shared/components/DepoimentosCard";
 
-interface ILeiloes {
-  name: string;
+export interface IDepoimento {
   description: string;
-  type: string;
-  lotes: number;
-  lotes_leiloados: number;
-  views: number;
-  date: string;
-  time: string;
-  status: "Em andamento" | "Encerrado" | "Próximo";
-  id: string;
+  name: string;
+  cliente: string;
+  cidade: string;
 }
 
-interface ILeilaoContainerComponent {
-  Leiloes: ILeiloes[];
+interface IDepoimentosData {
+  depoimentos: IDepoimento[];
 }
 
-export const LeilaoContainerComponent: React.FC<ILeilaoContainerComponent> = ({
-  Leiloes,
+export const DepoimentosHome: React.FC<IDepoimentosData> = ({
+  depoimentos,
 }) => {
-  const [value, setValue] = useState<number>(0);
   const Carrousel = useRef<HTMLDivElement>(null);
   const [isEnd, setIsEnd] = useState(false);
   const [isStart, setIsStart] = useState(false);
 
-  const description: string[] = [
-    "Todos os Leilões",
-    "Leilões Abertos",
-    "Leilões Próximos",
-    "Leilões Fechados",
-    "Leilões Exclusivo Grupo Carvalho",
-  ];
+
 
   const handleLeftClick = (e: MouseEvent<HTMLButtonElement>) => {
     if (Carrousel.current) {
@@ -120,8 +103,7 @@ export const LeilaoContainerComponent: React.FC<ILeilaoContainerComponent> = ({
   return (
     <Container>
       <Main>
-        <Title>{description[value]}</Title>
-        <BasicButtonGroup value={value} setValue={setValue} />
+        <Title>Leia o que as pessoas estão dizendo sobre os leilões do Grupo Carvalho.</Title>
       </Main>
 
       <LeilaoContainer>
@@ -133,15 +115,15 @@ export const LeilaoContainerComponent: React.FC<ILeilaoContainerComponent> = ({
           <KeyboardArrowLeftIcon />
         </PrevIconButton>
         <ContainerLeiloes ref={Carrousel}>
-          {Leiloes &&
-            Leiloes.map((data, key) => (
-              <LeilaoCardComponent
+          {depoimentos &&
+            depoimentos.map((data, key) => (
+              <DepoimentoCardComponent
                 key={key}
                 data={data}
                 pos={
                   key === 0
                     ? "isStart"
-                    : key === Leiloes.length - 1
+                    : key === depoimentos.length - 1
                     ? "isEnd"
                     : ""
                 }
