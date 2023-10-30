@@ -75,8 +75,9 @@ export const NotMember = styled(Typography)`
 `;
 
 export const Container = styled(Box)`
-  max-width: 400px;
+  max-width: 600px;
   margin: 20px auto;
+  width: 100%;
   display: flex;
   flex-direction: column;
   margin-top: 100px;

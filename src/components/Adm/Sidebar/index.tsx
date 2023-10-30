@@ -33,7 +33,7 @@ export const SidebarComponent = () => {
       title: "Dashboard",
       icon: <DashboardIcon />,
       category: "Geral",
-      to: "/adm",
+      to: "/adm/dashboard",
     },
     {
       title: "Minha Conta",
@@ -51,7 +51,7 @@ export const SidebarComponent = () => {
       title: "Barra de Anúncios",
       icon: <CampaignIcon />,
       category: "MKT",
-      to: "/adm/anounce",
+      to: "/adm/dashboard/anounce",
     },
 
     {

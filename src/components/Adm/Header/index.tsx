@@ -7,8 +7,11 @@ export const HeaderAdm = () => {
   const path = usePathname();
 
   const handleTitle = () => {
-    if (path === "/adm") return "Dashboard";
-    if (path === "/adm/anounce") return "Barra de Anúncios";
+    if (path === "/adm/dashboard") return "Dashboard";
+    if (path === "/adm/dashboard/anounce") return "Barra de Anúncios";
+
+
+    
     return path.replace("/", "");
   };
 
