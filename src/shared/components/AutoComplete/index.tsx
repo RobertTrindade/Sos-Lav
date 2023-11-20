@@ -4,20 +4,26 @@ import { CustomAutocomplete } from "./styles";
 
 import * as React from "react";
 import TextField from "@mui/material/TextField";
-import { IIbgeReturnDto } from "@/src/services/IBGE/ibge.service";
 
 interface IAutoCompleteComponent {
-  options: IIbgeReturnDto[];
+  options: any;
   label: string;
-  SetStateAction: React.Dispatch<
-    React.SetStateAction<IIbgeReturnDto | undefined>
-  >;
+  noOptionsText: string;
+  value: INewValue | undefined;
+  SetStateAction?: React.Dispatch<React.SetStateAction<INewValue | undefined>>;
+}
+
+export interface INewValue {
+  label: string;
+  id: number;
 }
 
 export const AutoCompleteComponent: React.FC<IAutoCompleteComponent> = ({
   label,
   options,
   SetStateAction,
+  noOptionsText,
+  value
 }) => {
   return (
     <CustomAutocomplete
@@ -25,10 +31,11 @@ export const AutoCompleteComponent: React.FC<IAutoCompleteComponent> = ({
       id="combo-box-demo"
       options={options}
       fullWidth
-      onChange={(event: any, newValue: unknown) => {
-        SetStateAction(newValue as IIbgeReturnDto);
+      value={value}
+      onChange={(event: any, newValue: any) => {
+        SetStateAction!(newValue as INewValue);
       }}
-      noOptionsText="Cidade não encontrada"
+      noOptionsText={noOptionsText}
       renderInput={(params) => (
         <TextField {...params} placeholder={label} fullWidth />
       )}

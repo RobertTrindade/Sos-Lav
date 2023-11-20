@@ -2,10 +2,11 @@ import LocalStorageService from "@/src/services/auth/localStorage.service";
 
 class HttpClient {
   private baseUrl: string;
-  private localStorageService!: typeof LocalStorageService;
+  public localStorageService!: typeof LocalStorageService;
 
   constructor() {
     this.baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL as string;
+    this.localStorageService = LocalStorageService;
   }
 
   async get<T>(path: string, revalidate = 10): Promise<T> {
@@ -42,6 +43,27 @@ class HttpClient {
     return response.json();
   }
 
+  async patch<T>(path: string, body: unknown): Promise<T> {
+    console.log(this);
+
+    const token = this.localStorageService.getToken();
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    };
+
+    const response = await fetch(`${this.baseUrl}${path}`, {
+      method: "PATCH",
+      headers,
+      body: JSON.stringify(body),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to patch data to ${path}`);
+    }
+
+    return response.json();
+  }
   async post<T>(body: unknown, path?: string): Promise<T> {
     const token = this.localStorageService.getToken();
     const headers = {

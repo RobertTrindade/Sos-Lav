@@ -16,6 +16,23 @@ a {
   text-decoration: none;
   color: inherit;
 }
+.css-1t5epmm-MuiChartsAxis-root .MuiChartsAxis-line {
+  stroke: rgba(255, 255, 255, 0.87);
+  shape-rendering: crispEdges;
+  stroke-width: 1;
+}
+.css-1t5epmm-MuiChartsAxis-root .MuiChartsAxis-tickLabel {
+  font-weight: 400;
+  font-size: 0.75rem;
+  line-height: 1.66;
+  letter-spacing: 0.03333em;
+  text-transform: none;
+  font-weight: bold;
+}
+tspan {
+  fill: rgba(255, 255, 255, 0.87);
+  font-weight: bold;
+}
 /*
   Typographic tweaks!
   3. Add accessible line-height
@@ -24,9 +41,12 @@ a {
 body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
-  background-color: #F9F9F9;
-  font-family: 'Poppins', sans-serif !important;
+  opacity: 0.9;
+  background: #242529;
+  font-family: "Poppins", sans-serif !important;
 }
+
+
 /*
   5. Improve media defaults
 */

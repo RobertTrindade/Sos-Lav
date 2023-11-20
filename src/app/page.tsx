@@ -1,5 +1,5 @@
-import { HomeComponent } from "../components/Home";
+import { DashBoardComponent } from "../components/DashBoard";
 
-export default async function Home() {
-  return <HomeComponent />;
+export default  function Home() {
+  return <DashBoardComponent />;
 }

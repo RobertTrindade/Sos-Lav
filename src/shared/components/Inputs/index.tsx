@@ -1,19 +1,21 @@
 "use client";
 
 import { FC, ReactNode } from "react";
-import { Container } from "./styles";
+import { Container, CustomInputLabel, CustomInputText } from "./styles";
 import { OutlinedInput, OutlinedInputProps } from "@mui/material";
 
 export interface IInputProps {
   customProps?: OutlinedInputProps;
-  label: string;
-  type: string;
+  label?: string;
+  type?: string;
+  content?: string;
   endAdornment?: ReactNode;
   customStyles?: {
     color?: string;
     backgroundColor?: string;
     width?: string;
     borderRadius?: string;
+    height?: string;
   };
 }
 
@@ -23,9 +25,11 @@ export const InputComponent: FC<IInputProps> = ({
   label,
   type,
   endAdornment,
+  content,
 }) => {
   return (
     <Container variant="filled" customStyles={customStyles} fullWidth>
+      {content && <CustomInputText>{content}</CustomInputText>}
       <OutlinedInput
         id={label}
         type={type}

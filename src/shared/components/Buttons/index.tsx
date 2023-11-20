@@ -14,6 +14,12 @@ export interface IButtonProps {
     backgroundColor?: string;
     fontSize?: string;
     fontWeight?: string;
+    height?:string;
+    width?:string;
+    borderRadius?:string;
+    border?:string;
+
+
   };
 }
 

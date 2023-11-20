@@ -17,7 +17,7 @@ export const Container = styled(Button, {
 
 export const VisuallyHiddenInput = styled("input")`
   clip: rect(0, 0, 0, 0);
-  clip-path: inset(50%);
+  clipPath: inset(50%);
   height: 1px;
   overflow: hidden;
   position: absolute;

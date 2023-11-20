@@ -1,14 +1,12 @@
 "use client";
-import React, { FC } from "react";
-import { ThemeProvider, createTheme, styled } from "@mui/material/styles";
-import { HeaderComponent } from "./components/Header";
+import React, { FC, useState } from "react";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 import "@mui/material";
-import { BottomBarComponent } from "@/src/shared/components/Header/BottomBar";
-import { Box } from "@mui/material";
-import { IAnnounceBarDto } from "../services/announceBar/announceBar.service";
 
 import localFont from "next/font/local";
-import { FooterComponent } from "./components/Footer";
+import { SideBarComponent } from "../components/Sidebar";
+import { Box, styled } from "@mui/material";
+import { NavBarComponent } from "../components/Navbar";
 const poppins = localFont({
   src: [
     {
@@ -77,23 +75,23 @@ declare module "@mui/material/styles" {
 
 interface IGlobals {
   children: React.ReactNode;
-  Announces: IAnnounceBarDto[];
 }
 
-export const Globals: FC<IGlobals> = ({ children, Announces }) => {
+export const Globals: FC<IGlobals> = ({ children }) => {
   const theme = createTheme({
     palette: {
       primary: {
-        main: "#ff6600",
+        main: "#F60",
       },
       secondary: {
-        main: "#ffff",
+        main: "#999A9A",
+        contrastText: "#fff",
       },
     },
     typography: {
       allVariants: {
         textTransform: "none",
-        color: "#3e4042",
+        color: "#ff6600",
         fontFamily: poppins.style.fontFamily,
       },
     },
@@ -114,18 +112,31 @@ export const Globals: FC<IGlobals> = ({ children, Announces }) => {
     },
   });
 
-  const Spacer = styled(Box)`
-    height: 60px; /* Defina a mesma altura da sua BottomBar */
-  `;
-
+  const [open, setOpen] = useState(true);
+  const handleClick = () => {
+    setOpen(!open);
+  };
   return (
     <ThemeProvider theme={theme}>
-      <HeaderComponent Announces={Announces} />
-      {children}
-      <FooterComponent />
-
-      <BottomBarComponent />
-
+      <Main>
+        <SideBarComponent open={open} />
+        <Content>
+          <NavBarComponent handleClick={handleClick} />
+          {children}
+        </Content>
+      </Main>
     </ThemeProvider>
   );
 };
+
+const Main = styled(Box)`
+  display: flex;
+
+`;
+
+const Content = styled(Box)`
+  width: 100%;
+  overflow: hidden;
+
+
+`;

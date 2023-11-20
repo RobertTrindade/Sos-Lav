@@ -1,171 +1,129 @@
 "use client";
-import {
-  Box,
-  Button,
-  FormControl,
-  InputLabel,
-  OutlinedInput,
-  Tab,
-  Tabs,
-  Typography,
-  css,
-  styled,
-} from "@mui/material";
+import { Box, Checkbox, Typography, styled } from "@mui/material";
 
-export const Header = styled(Box)`
+export const Container = styled(Box)`
+  display: flex;
+  gap: 250px;
+`;
+
+export const FirstSide = styled(Box)`
+  width: 547px;
+  height: 100vh;
+  border-radius: 15px;
+  background: #f9f9f9;
+`;
+
+export const FirstSideContent = styled(Box)`
   display: flex;
   flex-direction: column;
-  margin-bottom: 20px;
-  margin-top: 40px;
+  align-items: center;
+  gap: 97px;
+  margin-top: 200px;
 `;
 
 export const Title = styled(Typography)`
-  font-size: 18px;
-  font-weight: bold;
+  color: #ff9e00;
   text-align: center;
-  ${({ theme }) => theme.breakpoints.down("tablet")} {
-    font-size: 16px;
-  }
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
 `;
+
 export const SubTitle = styled(Typography)`
-  font-size: 14px;
+  color: #000;
   text-align: center;
-  margin-top: 10px;
-  ${({ theme }) => theme.breakpoints.down("tablet")} {
-    font-size: 13px;
-  }
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 `;
 
-export const NotMember = styled(Typography)`
-  font-size: 15px;
-  text-align: end;
-  margin-bottom: 64px;
-  a {
-    color: #ff6600;
-    font-weight: bold;
-    text-transform: none;
-  }
+/// Second side
 
-  ${({ theme }) => theme.breakpoints.down("tablet")} {
-    font-size: 13px;
-    margin-bottom: 40px;
-  }
+export const SecondSide = styled(Box)`
+  display: flex;
 `;
 
-export const Container = styled(Box)`
-  max-width: 400px;
-  margin: 20px auto;
+export const SecondSideContent = styled(Box)`
   display: flex;
   flex-direction: column;
-
-  ${({ theme }) => theme.breakpoints.down("tablet")} {
-    margin: 30px auto;
-    max-width: 300px;
-  }
+  gap: 40px;
+  margin-top: 200px;
 `;
 
-export const Divider = styled(Box)`
-  border-bottom: solid 1px #ebeced;
-  margin-bottom: 20px;
-`;
-
-export const CustomTabs = styled(Tabs)`
-  border-bottom: solid 1px #ebeced;
-
-  .MuiTabs-indicator {
-    background-color: #ff6600 !important;
-  }
-  button.Mui-selected {
-    color: rgba(0, 0, 0, 0.5);
-    font-weight: bold;
-    font-size: 13px;
-    text-transform: none;
-  }
-
-  button {
-    color: rgba(0, 0, 0, 0.5);
-    font-size: 13px;
-    text-transform: none;
-  }
-`;
-
-export const CustomTab = styled(Tab)<{
-  selected: boolean;
-}>`
-  border-bottom: solid 1px #ebeced;
-  button {
-  }
-  display: flex;
-  align-items: end;
-  ${({ label }) =>
-    label === "Pessoa Fisica" &&
-    css`
-      align-items: start;
-    `}
-`;
-
-export const CustomForm = styled(Box)`
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-  align-items: center;
-  width: 100%;
-`;
-
-export const CustomFormControl = styled(FormControl)`
-  display: flex;
-  justify-content: center;
-`;
-
-export const CustomInputLabel = styled(InputLabel)`
-  background-color: white;
-  font-size: 13px;
-`;
-
-export const CustomFilledInput = styled(OutlinedInput)`
-  border-radius: 8px;
-  height: 50px;
-  background-color: white;
-`;
-
-export const CustomButtonText = styled(Button)`
-  text-transform: capitalize;
-  color: #ff6600 !important;
-`;
-
-export const ExtraOptions = styled(Box)`
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
+export const Form = styled(Box)`
+  width: 486.716px;
   gap: 20px;
+  display: flex;
+  flex-direction: column;
+`;
 
-  .forgetPass {
-    text-align: end;
-    a {
-      color: #ff6600;
-      font-size: 12px;
+export const CustomCheckBox = styled(Checkbox)`
+  color: #999a9a;
+  display: block;
+`;
+export const TitleSecondSide = styled(Typography)`
+  color: #f60;
+  text-align: center;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+`;
+export const CheckBoxContainer = styled(Box)`
+  display: flex;
+  align-items: center;
+`;
+export const CheckBoxText = styled(Typography)`
+  color: #999a9a;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin-bottom: 4px;
+`;
+
+export const PassForget = styled(Typography)`
+  color: #f60;
+  text-align: left;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-decoration: none;
+  
+`;
+
+export const FormFooter = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  .OrContent {
+    align-items: center;
+    display: flex;
+    gap: 10px;
+
+    .FormFooterTitle {
+      color: #f60;
+      text-align: center;
+      font-size: 18px;
+      font-style: normal;
       font-weight: 600;
-      text-decoration: none;
+      line-height: normal;
     }
   }
-  a {
-    color: #35acee;
-  }
-`;
-
-export const SocialMedias = styled(Box)`
-  margin-top: 20px;
-  .SocialMedia {
-    font-size: 14px;
-    align-items: center;
-    font-weight: 700;
-    text-align: center;
-  }
-  .SocialMediaIcons {
-    margin-top: 20px;
+  .SocialMediaArea {
     display: flex;
+    align-items: center;
+    gap: 30px;
     justify-content: center;
-    gap: 10px;
+    .socialMediaDescription {
+      color: #fff;
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+    }
   }
-
 `;

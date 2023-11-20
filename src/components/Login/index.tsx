@@ -1,30 +1,32 @@
 "use client";
 
-import { IconButton, InputAdornment, Typography } from "@mui/material";
-
 import {
+  CheckBoxContainer,
+  CheckBoxText,
   Container,
-  CustomForm,
-  CustomTab,
-  CustomTabs,
-  Divider,
-  Title,
-  ExtraOptions,
+  CustomCheckBox,
+  FirstSide,
+  FirstSideContent,
+  Form,
+  FormFooter,
+  PassForget,
+  SecondSide,
+  SecondSideContent,
   SubTitle,
-  Header,
-  NotMember,
-  SocialMedias,
+  Title,
+  TitleSecondSide,
 } from "./styles";
-import GoogleIcon from "@mui/icons-material/Google";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import TwitterIcon from "@mui/icons-material/Twitter";
 import { useState } from "react";
-import Link from "next/link";
-import { ButtonComponent } from "../../shared/components/Buttons";
-import { InputComponent } from "../../shared/components/Inputs";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { useRouter } from 'next/navigation';
-
+import { useRouter } from "next/navigation";
+import { Logo } from "@/src/shared/icons/logo";
+import { InputComponent } from "@/src/shared/components/Inputs";
+import { Box, IconButton, Typography } from "@mui/material";
+import { ButtonComponent } from "@/src/shared/components/Buttons";
+import { DividerIcon, GoogleIcon } from "./orIcon";
+import EmailIcon from "@mui/icons-material/Email";
+import LockIcon from "@mui/icons-material/Lock";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 export const LoginComponent = () => {
   const [value, setValue] = useState(0);
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -43,93 +45,119 @@ export const LoginComponent = () => {
   };
 
   const handleUserLogin = () => {
-    router.push("profile");
-    
+    router.push("/");
   };
 
   return (
     <Container>
-      <Header>
-        <NotMember>
-          Ainda não é um Membro? <Link href={"/register"}> Criar conta </Link>
-        </NotMember>
-        <Title>Bem vindo de volta</Title>
-        <SubTitle>Bem vindo de volta, sentimentos sua falta</SubTitle>
-      </Header>
-      <Divider>
-        <CustomTabs
-          value={value}
-          onChange={handleChange}
-          aria-label="basic tabs example"
-          variant="fullWidth"
-        >
-          <CustomTab label="Pessoa Fisica" selected={value === 0} />
-          <CustomTab label="Pessoa Juridica" selected={value === 1} />
-        </CustomTabs>
-      </Divider>
-      <CustomForm component={"form"}>
-        <InputComponent
-          label={`E-mail ou ${value === 0 ? "CPF" : "CNPJ"}`}
-          type="text"
-        />
+      <FirstSide>
+        <FirstSideContent>
+          <Logo />
+          <Title>Rei dos pátios, o controle que seu pátio merece</Title>
+          <SubTitle>Rei dos pátios, versão controle de Guinchos e CCO</SubTitle>
+          <SubTitle>
+            {" "}
+            &copy; 2023 Grupo Carvalho Gestão. Todos os direitos reservados.
+          </SubTitle>
+        </FirstSideContent>
+      </FirstSide>
 
-        <InputComponent
-          label="Senha"
-          type={showPassword ? "text" : "password"}
-          endAdornment={
-            <InputAdornment position="end">
-              <IconButton
-                aria-label="toggle password visibility"
-                onClick={handleClickShowPassword}
-                onMouseDown={handleMouseDownPassword}
-                edge="end"
-              >
-                {showPassword ? <VisibilityOff /> : <Visibility />}
-              </IconButton>
-            </InputAdornment>
-          }
-        />
+      <SecondSide>
+        <SecondSideContent>
+          <TitleSecondSide>Login</TitleSecondSide>
+          <Form component={"form"}>
+            <InputComponent
+              label="Login"
+              type="email"
+              content="Login"
+              customProps={{
+                startAdornment: (
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      marginRight: "10px",
+                    }}
+                  >
+                    <EmailIcon color="secondary" />
+                  </Box>
+                ),
+              }}
+              customStyles={{
+                color: "color: #999A9A",
+              }}
+            />
+            <InputComponent
+              label="Senha"
+              type={showPassword ? "text" : "password"}
+              content="Senha"
+              customProps={{
+                startAdornment: (
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      marginRight: "10px",
+                    }}
+                    onClick={() => handleClickShowPassword()}
+                  >
+                    <LockIcon color="secondary" />
+                  </Box>
+                ),
+                endAdornment: (
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    edge="end"
+                    onClick={() => handleClickShowPassword()}
+                  >
+                    {showPassword ? (
+                      <RemoveRedEyeIcon color="secondary" />
+                    ) : (
+                      <VisibilityOffIcon color="secondary" />
+                    )}
+                  </IconButton>
+                ),
+              }}
+              customStyles={{
+                color: "color: #999A9A",
+              }}
+            />
+            <CheckBoxContainer>
+              <CustomCheckBox color="secondary" />
+              <CheckBoxText>Lembrar senha</CheckBoxText>
+            </CheckBoxContainer>
 
-        <ButtonComponent
-          buttonProps={{
-            variant: "contained",
-            fullWidth: true,
-            onClick: () => {
-              handleUserLogin();
-            },
-          }}
-          customStyles={{
-            color: "white",
-          }}
-        >
-          Entrar
-        </ButtonComponent>
-      </CustomForm>
-
-      <ExtraOptions>
-        <Typography className="forgetPass">
-          <Link href={"/passwordforget"}>Esqueceu a senha ?</Link>
-        </Typography>
-      </ExtraOptions>
-
-      <SocialMedias>
-        <Typography className="SocialMedia">Ou continue com: </Typography>
-        <div className="SocialMediaIcons">
-          <IconButton aria-label="toggle google" sx={{ color: "google" }}>
-            <GoogleIcon />
-          </IconButton>
-
-          <IconButton aria-label="toggle face" sx={{ color: "blue" }}>
-            <FacebookIcon />
-          </IconButton>
-          <IconButton
-            aria-label="toggle twiter"
-            sx={{ color: "rgb(144, 202, 249)" }}
-          >
-            <TwitterIcon />
-          </IconButton>
-        </div>
-      </SocialMedias>
+            <ButtonComponent
+              buttonProps={{
+                variant: "contained",
+                onClick: () => handleUserLogin(),
+              }}
+              customStyles={{
+                color: "white",
+                fontWeight: "700",
+                fontSize: "20px",
+                height: "60px",
+              }}
+            >
+              Entrar
+            </ButtonComponent>
+          </Form>
+          <PassForget>Esqueci minha senha </PassForget>
+          <FormFooter>
+            <div className="OrContent">
+              <DividerIcon />
+              <span className="FormFooterTitle">Ou</span>
+              <DividerIcon />
+            </div>
+            <div className="SocialMediaArea">
+              <GoogleIcon />
+              <Typography className="socialMediaDescription">
+                Login com o Google
+              </Typography>
+            </div>
+          </FormFooter>
+        </SecondSideContent>
+      </SecondSide>
     </Container>
   );
 };
