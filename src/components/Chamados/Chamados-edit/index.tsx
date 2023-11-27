@@ -31,7 +31,6 @@ export const ChamadosComponentEdit: React.FC<{
   chamado: IChamado;
 }> = ({ chamado }) => {
   const [value, setValue] = React.useState(0);
-  const params = useParams();
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
@@ -47,10 +46,10 @@ export const ChamadosComponentEdit: React.FC<{
           <div className="actionArea">
             <Link href={"/chamados"}>
               <CustomIconButton>
-                <BackIcon /> 
+                <BackIcon />
               </CustomIconButton>
             </Link>
-            <Title>Editar chamado {params && params.id}</Title>
+            <Title>Editar chamado </Title>
           </div>
           <ScrollableTabsButtonAuto
             onChange={handleChange}

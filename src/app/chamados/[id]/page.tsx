@@ -18,5 +18,5 @@ export default function MotoristasDetails() {
     })();
   }, []);
 
-  return <ChamadosComponentEdit  chamado={chamados!}/>;
+  return <ChamadosComponentEdit chamado={chamados!} />;
 }
