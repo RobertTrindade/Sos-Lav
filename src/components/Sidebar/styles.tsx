@@ -1,8 +1,10 @@
 "use client";
 import {
   AppBar,
+  Avatar,
   Box,
   Button,
+  Skeleton,
   Toolbar,
   Typography,
   css,
@@ -23,6 +25,19 @@ export const SideBar = styled(AppBar, {
   transform: translateX(${({ open }) => (open ? "0" : "-100%")});
   position: ${({ open }) => (open ? "sticky" : "absolute")};
   z-index: 100;
+  ${({ theme }) => theme.breakpoints.down("tablet")} {
+    width: 100%;
+  }
+
+  .newLinks {
+    display: none;
+  }
+
+  ${({ theme }) => theme.breakpoints.down("tablet")} {
+    .newLinks {
+      display: flex;
+    }
+  }
 `;
 
 export const CustomToolBar = styled(Toolbar)`
@@ -46,6 +61,11 @@ export const Header = styled(Box)`
   margin-top: 24px;
 `;
 
+export const CustomSkeleton = styled(Skeleton)`
+  background-color: white;
+  width: 100%;
+`;
+
 export const Profile = styled(Box)`
   display: flex;
   width: 100%;
@@ -54,7 +74,26 @@ export const Profile = styled(Box)`
   align-items: center;
   gap: 8px;
   margin-top: 50px;
+  .IconButton {
+    display: none;
+  }
+  ${({ theme }) => theme.breakpoints.down("tablet")} {
+    .IconButton {
+      display: flex;
+      width: 100%;
+      justify-content: right;
+      svg {
+        transform: scale(1.5);
+      }
+    }
+  }
 `;
+
+export const ProfileIcon = styled(Avatar)`
+  width: 120px;
+  height: 120px;
+`;
+
 export const NameProfile = styled(Typography)`
   color: #fff;
   text-align: center;
@@ -70,6 +109,7 @@ export const CargoProfile = styled(Typography)`
   font-style: normal;
   font-weight: 600;
   line-height: normal;
+  text-transform: uppercase;
 `;
 
 export const EditProfile = styled(Button)`
@@ -91,8 +131,6 @@ export const SideItems = styled(Box)`
   flex-direction: column;
   gap: 14px;
   width: 100%;
-
-
 `;
 
 export const SideItem = styled(Button, {
@@ -113,19 +151,21 @@ export const SideItem = styled(Button, {
   display: flex;
   align-content: center;
   justify-content: start;
-  &:hover {
-    background: #F60;
-    font-weight: bold;
 
+  &:hover {
+    background: #f60;
+    font-weight: bold;
   }
 
   ${({ active }) =>
     active &&
     css`
-      background: #F60;
-      opacity: 50.0;
+      background: #f60;
+      opacity: 50;
       font-weight: bold;
-
     `}
 
+  ${({ theme }) => theme.breakpoints.down("tablet")} {
+    justify-content: center;
+  }
 `;

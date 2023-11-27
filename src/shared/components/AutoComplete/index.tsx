@@ -4,18 +4,25 @@ import { CustomAutocomplete } from "./styles";
 
 import * as React from "react";
 import TextField from "@mui/material/TextField";
+import { IChamadosValues } from "@/src/contexts/chamadosContext";
 
 interface IAutoCompleteComponent {
   options: any;
   label: string;
   noOptionsText: string;
-  value: INewValue | undefined;
+  value?: INewValue | undefined | string;
   SetStateAction?: React.Dispatch<React.SetStateAction<INewValue | undefined>>;
+  target?: keyof IChamadosValues | string;
+  setStateActionWithTarget?: (
+    target: any,
+    value: any
+  ) => void;
 }
 
 export interface INewValue {
   label: string;
   id: number;
+  uf?: string;
 }
 
 export const AutoCompleteComponent: React.FC<IAutoCompleteComponent> = ({
@@ -23,7 +30,9 @@ export const AutoCompleteComponent: React.FC<IAutoCompleteComponent> = ({
   options,
   SetStateAction,
   noOptionsText,
-  value
+  value,
+  target,
+  setStateActionWithTarget,
 }) => {
   return (
     <CustomAutocomplete
@@ -31,14 +40,41 @@ export const AutoCompleteComponent: React.FC<IAutoCompleteComponent> = ({
       id="combo-box-demo"
       options={options}
       fullWidth
-      value={value}
+      disabled={!options}
+      value={value || null}
       onChange={(event: any, newValue: any) => {
-        SetStateAction!(newValue as INewValue);
+        if (setStateActionWithTarget) {
+          setStateActionWithTarget(target!, newValue);
+          return;
+        }
+        if (SetStateAction) {
+          SetStateAction!(newValue as INewValue);
+        }
       }}
+      isOptionEqualToValue={(option: any, value: any) =>
+        isObjectEqual(option, value)
+      }
       noOptionsText={noOptionsText}
       renderInput={(params) => (
         <TextField {...params} placeholder={label} fullWidth />
       )}
     />
   );
+};
+
+const isObjectEqual = (obj1: INewValue, obj2: INewValue) => {
+  const keys1 = Object.keys(obj1);
+  const keys2 = Object.keys(obj2);
+
+  if (keys1.length !== keys2.length) {
+    return false;
+  }
+
+  for (const key of keys1) {
+    if (obj1[key as keyof INewValue] !== obj2[key as keyof INewValue]) {
+      return false;
+    }
+  }
+
+  return true;
 };

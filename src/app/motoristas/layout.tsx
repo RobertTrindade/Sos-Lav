@@ -1,9 +1,5 @@
-import type { Metadata } from "next";
+"use client"
 
-export const metadata = {
-  title: "Login",
-  description: "Login",
-};
 
 export default function ChamadosLayout({
   children,

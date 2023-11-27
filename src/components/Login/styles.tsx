@@ -3,14 +3,26 @@ import { Box, Checkbox, Typography, styled } from "@mui/material";
 
 export const Container = styled(Box)`
   display: flex;
-  gap: 250px;
+
+`;
+
+export const ErrorMessage = styled(Typography)`
+  color: red;
+  font-weight: bold;
+  font-size: 13px;
+
+  ${({ theme }) => theme.breakpoints.down("tablet")} {
+    font-size: 13px;
+  }
 `;
 
 export const FirstSide = styled(Box)`
-  width: 547px;
   height: 100vh;
-  border-radius: 15px;
   background: #f9f9f9;
+  padding: 0 64px;
+  ${({ theme }) => theme.breakpoints.down("tablet")} {
+    display: none;
+  }
 `;
 
 export const FirstSideContent = styled(Box)`
@@ -43,20 +55,64 @@ export const SubTitle = styled(Typography)`
 
 export const SecondSide = styled(Box)`
   display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 64px;
+
+  max-width: 600px;
+  width: 100%;
+
+  ${({ theme }) => theme.breakpoints.down("tablet")} {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 100vw;
+    padding: 0 15px;
+    margin-top: 50px;
+  }
 `;
 
 export const SecondSideContent = styled(Box)`
   display: flex;
   flex-direction: column;
-  gap: 40px;
-  margin-top: 200px;
+  gap: 20px;
+  width: 100%;
+
+  .header {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+    .circle {
+      width: 200px;
+      height: 200px;
+      border-radius: 100%;
+      background-color: white;
+      display: flex;
+      flex-direction: column;
+
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  ${({ theme }) => theme.breakpoints.down("tablet")} {
+    font-size: 10px;
+    gap: 60px;
+  }
 `;
 
-export const Form = styled(Box)`
-  width: 486.716px;
+export const Form = styled("form")`
   gap: 20px;
   display: flex;
   flex-direction: column;
+
+  ${({ theme }) => theme.breakpoints.down("tablet")} {
+    font-size: 10px;
+    gap: 10px;
+  }
 `;
 
 export const CustomCheckBox = styled(Checkbox)`
@@ -68,8 +124,22 @@ export const TitleSecondSide = styled(Typography)`
   text-align: center;
   font-size: 30px;
   font-style: normal;
-  font-weight: 500;
-  line-height: normal;
+  font-weight: bold;
+
+  ${({ theme }) => theme.breakpoints.down("tablet")} {
+    font-size: 20px;
+  }
+`;
+
+export const TitleSubSecondSide = styled(Typography)`
+  color: #f60;
+  text-align: center;
+  font-size: 20px;
+  font-style: normal;
+
+  ${({ theme }) => theme.breakpoints.down("tablet")} {
+    font-size: 18px;
+  }
 `;
 export const CheckBoxContainer = styled(Box)`
   display: flex;
@@ -86,13 +156,18 @@ export const CheckBoxText = styled(Typography)`
 
 export const PassForget = styled(Typography)`
   color: #f60;
-  text-align: left;
+  text-align: right;
   font-size: 18px;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
   text-decoration: none;
-  
+
+  cursor: pointer;
+
+  ${({ theme }) => theme.breakpoints.down("tablet")} {
+    font-size: 15px;
+  }
 `;
 
 export const FormFooter = styled(Box)`
@@ -102,8 +177,7 @@ export const FormFooter = styled(Box)`
   .OrContent {
     align-items: center;
     display: flex;
-    gap: 10px;
-
+    justify-content: space-between;
     .FormFooterTitle {
       color: #f60;
       text-align: center;

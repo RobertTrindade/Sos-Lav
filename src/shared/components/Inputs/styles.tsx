@@ -49,4 +49,13 @@ export const CustomInputText = styled(Typography)`
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 20px;
+
+
+  ${({ theme }) => theme.breakpoints.down("tablet")} {
+    font-size: 15px;
+  }
+
 `;

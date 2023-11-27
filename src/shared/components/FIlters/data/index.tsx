@@ -23,7 +23,7 @@ export const DataFilter = () => {
     context: PickerChangeHandlerContext<DateValidationError>
   ) => {
     const time = value as Date;
-    handleNewValue("dataInico", dayjs(time.toISOString()));
+    handleNewValue("dataInicio", dayjs(time.toISOString()));
   };
 
   const handleChangeTimeFinal = (
@@ -52,7 +52,7 @@ export const DataFilter = () => {
         <CustomDataPicker
           format="DD/MM/YYYY"
           label="Data inicio"
-          value={filterValues && filterValues?.dataInico}
+          value={filterValues && filterValues?.dataInicio}
           closeOnSelect
           onChange={handleChangeTimeInitial}
           sx={{

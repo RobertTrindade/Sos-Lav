@@ -15,10 +15,9 @@ export const NavBarComponent: React.FC<{
   const path = usePathname();
 
   const createTitle = (title: string) => {
-    if (title === "/") return "DashBoard";
+    if (title === "/") return "Dashboard";
     // Remove barras e números iniciais, se existirem
-    const cleanedTitle = title.replace(/[\/0-9]/g, "");
-
+    const cleanedTitle = title.replace(/[\/0-9]/g, " ");
     // Retorna a string com a primeira letra maiúscula
     return cleanedTitle.charAt(0).toUpperCase() + cleanedTitle.slice(1);
   };
@@ -32,32 +31,35 @@ export const NavBarComponent: React.FC<{
 
           <TitlePage>{createTitle(path)}</TitlePage>
 
-          <InputComponent
-            label="Pesquise por algo ... "
-            type="email"
-            customProps={{
-              startAdornment: (
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    marginRight: "10px",
-                  }}
-                >
-                  <SearchIcon color="secondary" />
-                </Box>
-              ),
-            }}
-            customStyles={{
-              color: "color: #999A9A",
-              height: "50px",
-              width: "400px",
-            }}
-          />
+          <div className="inputArea">
+            <InputComponent
+              label="Pesquise por algo ... "
+              type="email"
+              customProps={{
+                startAdornment: (
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      marginRight: "10px",
+                    }}
+                  >
+                    <SearchIcon color="secondary" />
+                  </Box>
+                ),
+              }}
+              customStyles={{
+                color: "color: #999A9A",
+                height: "50px",
+                width: "400px",
+              }}
+            />
+          </div>
 
           <ButtonComponent
             buttonProps={{
               variant: "contained",
+              className: "btn-newsletter",
             }}
             customStyles={{
               color: "white",
@@ -79,7 +81,7 @@ export const NavBarComponent: React.FC<{
   );
 };
 
-const SidebarIcon = () => {
+export const SidebarIcon = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

@@ -1,14 +1,20 @@
-import type { Metadata } from "next";
 
-export const metadata = {
-  title: "Login",
-  description: "Login",
-};
+"use client"
 
 export default function LoginLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return children;
+  return (
+    <>
+      <title>Rei dos pátios | Login</title>
+      <meta name="description" content="Tela de Login" />
+      <meta property="og:description" content="Descrição para Redes Sociais" />
+      <meta property="og:image" content="URL da imagem para Redes Sociais" />
+      <meta property="og:url" content="URL da página" />
+      <meta name="theme-color" content="#000000"/>
+      {children}
+    </>
+  );
 }

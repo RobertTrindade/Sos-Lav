@@ -1,6 +1,6 @@
 "use client";
 
-import { AccordionSummary, IconButton, ToggleButton } from "@mui/material";
+import { AccordionSummary, IconButton } from "@mui/material";
 import {
   CustomAccordion,
   CustomAccordionDetails,
@@ -10,49 +10,60 @@ import {
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useFilter } from "@/src/contexts/filterContext";
 import { CustomToggleButtonGroup, CustomToggleButton } from "./styles";
-import { useState } from "react";
+import { FC, useState } from "react";
 
-export const Chips = () => {
+interface ChipValues {
+  value: string;
+  label: string;
+}
+interface IChips {
+  chips: ChipValues[];
+}
+
+export const Chips: FC<IChips> = ({ chips }) => {
   const { filterValues, handleNewValue } = useFilter();
-  const handleClick = () => {
-    console.info("You clicked the Chip.");
-  };
-  const [alignment, setAlignment] = useState("web");
+
+  const [alignment, setAlignment] = useState(filterValues.status ? filterValues.status :"");
 
   const handleChange = (
     event: React.MouseEvent<HTMLElement>,
     newAlignment: string
   ) => {
+    handleNewValue("status", newAlignment);
     setAlignment(newAlignment);
   };
 
   return (
-    <CustomAccordion>
-      <AccordionSummary
-        expandIcon={
-          <IconButton size="large">
-            <ExpandMoreIcon color="primary" />
-          </IconButton>
-        }
-        aria-controls="panel1a-content"
-        id="panel1a-header"
-      >
-        <CustomAccordionTitle>Status</CustomAccordionTitle>
-      </AccordionSummary>
-
-      <CustomAccordionDetails>
-        <CustomToggleButtonGroup
-          color="primary"
-          value={alignment}
-          exclusive
-          onChange={handleChange}
-          aria-label="Platform"
+    chips && (
+      <CustomAccordion>
+        <AccordionSummary
+          expandIcon={
+            <IconButton size="large">
+              <ExpandMoreIcon color="primary" />
+            </IconButton>
+          }
+          aria-controls="panel1a-content"
+          id="panel1a-header"
         >
-          <CustomToggleButton value="web">Cancelado</CustomToggleButton>
-          <CustomToggleButton value="android">Aguardando</CustomToggleButton>
-          <CustomToggleButton value="ios">Em andamento</CustomToggleButton>
-        </CustomToggleButtonGroup>
-      </CustomAccordionDetails>
-    </CustomAccordion>
+          <CustomAccordionTitle>Status</CustomAccordionTitle>
+        </AccordionSummary>
+
+        <CustomAccordionDetails>
+          <CustomToggleButtonGroup
+            color="primary"
+            value={alignment}
+            exclusive
+            onChange={handleChange}
+            aria-label="Platform"
+          >
+            {chips.map((chip) => (
+              <CustomToggleButton key={chip.value} value={chip.value}>
+                {chip.label}
+              </CustomToggleButton>
+            ))}
+          </CustomToggleButtonGroup>
+        </CustomAccordionDetails>
+      </CustomAccordion>
+    )
   );
 };

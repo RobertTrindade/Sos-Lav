@@ -1,6 +1,13 @@
 "use client";
 
-import { ChangeEvent, FC, useEffect, useState } from "react";
+import {
+  ChangeEvent,
+  Dispatch,
+  FC,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
 import { Container, VisuallyHiddenInput } from "./styles";
 import { ButtonProps, CircularProgress } from "@mui/material";
 import { CloudUploadOutlined } from "@mui/icons-material";
@@ -9,9 +16,12 @@ import CloudDoneIcon from "@mui/icons-material/CloudDone";
 export interface IButtonProps {
   children: React.ReactNode;
   buttonProps?: ButtonProps;
+  file: FileList | null;
+  setFile: Dispatch<SetStateAction<FileList | null>>;
   customStyles?: {
     color: string;
     backgroundColor?: string;
+    fontWeight?: string;
   };
 }
 
@@ -19,8 +29,9 @@ export const UploadInputComponent: FC<IButtonProps> = ({
   buttonProps,
   children,
   customStyles,
+  file,
+  setFile,
 }) => {
-  const [file, setFile] = useState<FileList>();
   const [label, setLabel] = useState<string | React.ReactNode>();
   const [loadingStatus, setLoadingStatus] = useState<string>("initial");
 
@@ -76,10 +87,11 @@ export const UploadInputComponent: FC<IButtonProps> = ({
       {...buttonProps}
       startIcon={handleIcons()}
       customStyles={customStyles}
+      
     >
       {label && label}
 
-      <VisuallyHiddenInput type="file" onChange={HandleChange} capture="user" />
+      <VisuallyHiddenInput type="file" onChange={HandleChange} capture="user" accept=".pdf" multiple />
     </Container>
   );
 };

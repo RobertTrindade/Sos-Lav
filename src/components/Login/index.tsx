@@ -5,6 +5,7 @@ import {
   CheckBoxText,
   Container,
   CustomCheckBox,
+  ErrorMessage,
   FirstSide,
   FirstSideContent,
   Form,
@@ -15,38 +16,29 @@ import {
   SubTitle,
   Title,
   TitleSecondSide,
+  TitleSubSecondSide,
 } from "./styles";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { Logo } from "@/src/shared/icons/logo";
 import { InputComponent } from "@/src/shared/components/Inputs";
-import { Box, IconButton, Typography } from "@mui/material";
+import { Box, IconButton } from "@mui/material";
 import { ButtonComponent } from "@/src/shared/components/Buttons";
-import { DividerIcon, GoogleIcon } from "./orIcon";
 import EmailIcon from "@mui/icons-material/Email";
 import LockIcon from "@mui/icons-material/Lock";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import { useLoginController } from "./useLoginController";
+
+import { useRouter } from "next/navigation";
+
 export const LoginComponent = () => {
-  const [value, setValue] = useState(0);
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
-  };
+  const { handleFormSubmit, register, errors, credentialsError } =
+    useLoginController();
   const router = useRouter();
 
   const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
-
-  const handleMouseDownPassword = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.preventDefault();
-  };
-
-  const handleUserLogin = () => {
-    router.push("/");
-  };
 
   return (
     <Container>
@@ -64,12 +56,19 @@ export const LoginComponent = () => {
 
       <SecondSide>
         <SecondSideContent>
-          <TitleSecondSide>Login</TitleSecondSide>
-          <Form component={"form"}>
+          <div className="header">
+            <TitleSecondSide>Bem vindo de volta</TitleSecondSide>
+            <TitleSubSecondSide>
+              Faça login com suas credenciais para continuar
+            </TitleSubSecondSide>
+          </div>
+
+          <Form onSubmit={handleFormSubmit} noValidate autoCapitalize="true">
             <InputComponent
-              label="Login"
+              label="Email"
               type="email"
-              content="Login"
+              content="Email"
+              {...register("email")}
               customProps={{
                 startAdornment: (
                   <Box
@@ -82,15 +81,21 @@ export const LoginComponent = () => {
                     <EmailIcon color="secondary" />
                   </Box>
                 ),
+                error: !!errors.email?.message,
               }}
               customStyles={{
                 color: "color: #999A9A",
               }}
             />
+
+            {errors.email && (
+              <ErrorMessage> * {errors.email?.message}</ErrorMessage>
+            )}
             <InputComponent
               label="Senha"
               type={showPassword ? "text" : "password"}
               content="Senha"
+              {...register("password")}
               customProps={{
                 startAdornment: (
                   <Box
@@ -122,6 +127,10 @@ export const LoginComponent = () => {
                 color: "color: #999A9A",
               }}
             />
+            {errors.password && (
+              <ErrorMessage> * {errors.password.message}</ErrorMessage>
+            )}
+
             <CheckBoxContainer>
               <CustomCheckBox color="secondary" />
               <CheckBoxText>Lembrar senha</CheckBoxText>
@@ -130,34 +139,29 @@ export const LoginComponent = () => {
             <ButtonComponent
               buttonProps={{
                 variant: "contained",
-                onClick: () => handleUserLogin(),
+                type: "submit",
               }}
               customStyles={{
                 color: "white",
                 fontWeight: "700",
                 fontSize: "20px",
-                height: "60px",
+                height: "50px",
               }}
             >
               Entrar
             </ButtonComponent>
           </Form>
+          {credentialsError && (
+            <ErrorMessage> * {credentialsError}</ErrorMessage>
+          )}
           <PassForget>Esqueci minha senha </PassForget>
           <FormFooter>
-            <div className="OrContent">
-              <DividerIcon />
-              <span className="FormFooterTitle">Ou</span>
-              <DividerIcon />
-            </div>
-            <div className="SocialMediaArea">
-              <GoogleIcon />
-              <Typography className="socialMediaDescription">
-                Login com o Google
-              </Typography>
-            </div>
+            <div className="OrContent"></div>
+            <div className="SocialMediaArea"></div>
           </FormFooter>
         </SecondSideContent>
       </SecondSide>
     </Container>
   );
 };
+//              <GoogleLoginButton />

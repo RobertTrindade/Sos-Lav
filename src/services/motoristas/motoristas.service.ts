@@ -8,7 +8,7 @@ export interface IMotoristaDto {
   email: string;
   password: string;
   status: string;
-  imageUrl: string | null;
+  imageUrl: string;
   code: string | null;
   codeExpiresIn: string | null;
   createdAt: string;
@@ -19,6 +19,9 @@ export interface IMotoristaDto {
   birthdate: number;
   cpf: string;
   rg: string;
+  latitude: number;
+  longitude: number;
+  pdfContrato: string;
 
   motoristasEnderecoId: number;
   Cnh: {
@@ -29,6 +32,22 @@ export interface IMotoristaDto {
     categoria: string;
     cnh_pdf: string;
   };
+  MotoristasEndereco: {
+    id: number;
+    endereco: string;
+    bairro: string;
+    cidade: string;
+    cep: string;
+    uf: string;
+  };
+}
+
+export interface IMotoristasDto {
+  data: IMotoristaDto[];
+  totalItems: 2;
+  totalPages: 1;
+  itemsPerPage: 50;
+  page: 1;
 }
 
 class MotoristasService {
@@ -39,12 +58,20 @@ class MotoristasService {
     this.path = "/motoristas";
   }
 
-  async getMotoristas() {
-    return await this.httpClient.get<Promise<IMotoristaDto[]>>(this.path);
+  async getMotoristas(params?: string) {
+    const path = params ? `${this.path}?${params}&limit=50&page=1` : this.path;
+    return await this.httpClient.get<Promise<IMotoristasDto>>(path);
   }
   async getMotorista(id: number) {
     return await this.httpClient.get<Promise<IMotoristaDto>>(
       `${this.path}/${id}`
+    );
+  }
+
+  async editMotorista(id: number, body: any) {
+    return await this.httpClient.put<Promise<IMotoristaDto>>(
+      `${this.path}/${id}`,
+      body
     );
   }
 

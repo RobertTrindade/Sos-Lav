@@ -9,20 +9,6 @@ class HttpClient {
     this.localStorageService = LocalStorageService;
   }
 
-  async get<T>(path: string, revalidate = 10): Promise<T> {
-    const response = await fetch(`${this.baseUrl}${path}`, {
-      next: {
-        revalidate: revalidate,
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error(`Failed to fetch data from ${path}`);
-    }
-
-    return response.json();
-  }
-
   async getWithAuth<T>(path: string, revalidate = 10): Promise<T> {
     const token = this.localStorageService.getToken();
     const headers = {
@@ -44,8 +30,6 @@ class HttpClient {
   }
 
   async patch<T>(path: string, body: unknown): Promise<T> {
-    console.log(this);
-
     const token = this.localStorageService.getToken();
     const headers = {
       Authorization: `Bearer ${token}`,
@@ -64,7 +48,61 @@ class HttpClient {
 
     return response.json();
   }
-  async post<T>(body: unknown, path?: string): Promise<T> {
+
+  async put<T>(path: string, body: unknown): Promise<T> {
+    const token = this.localStorageService.getToken();
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    };
+
+    const response = await fetch(`${this.baseUrl}${path}`, {
+      method: "PUT",
+      headers,
+      body: JSON.stringify(body),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to patch data to ${path}`);
+    }
+
+    return response.json();
+  }
+
+  async upload<T>(path: string, body: FormData, unique: boolean): Promise<T> {
+    const token = this.localStorageService.getToken();
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+
+    const response = await fetch(`${this.baseUrl}${path}`, {
+      method: "POST",
+      headers,
+      body,
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to post data to ${path}`);
+    }
+
+    return response.json();
+  }
+
+  async get<T>(path: string, revalidate = 10): Promise<T> {
+    const response = await fetch(`${this.baseUrl}${path}`, {
+      next: {
+        revalidate: revalidate,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch data from ${path}`);
+    }
+
+    return response.json();
+  }
+
+  async post<T>(path: string, body: unknown): Promise<T> {
     const token = this.localStorageService.getToken();
     const headers = {
       Authorization: `Bearer ${token}`,
@@ -77,11 +115,7 @@ class HttpClient {
       body: JSON.stringify(body),
     });
 
-    if (!response.ok) {
-      throw new Error(`Failed to post data to ${path}`);
-    }
-
-    return response.json();
+    return await response.json();
   }
 }
 

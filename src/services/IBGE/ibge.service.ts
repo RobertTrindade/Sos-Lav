@@ -1,3 +1,4 @@
+import { INewValue } from "@/src/shared/components/AutoComplete";
 import axios from "axios";
 
 export interface IIbgeResponseDto {
@@ -27,7 +28,7 @@ class IbgeService {
     const { data } = await axios.get(
       `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${uf}/distritos?orderBy=nome`
     );
-
+      console.log(data);
     return data.map((item: IIbgeDto) => ({
       label: item.nome,
       id: item.id,
@@ -44,7 +45,7 @@ class IbgeService {
       label: item.nome,
       id: item.id,
       uf: item.sigla,
-    }));
+    })) 
   }
 }
 

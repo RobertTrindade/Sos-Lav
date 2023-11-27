@@ -16,7 +16,12 @@ export const Modal = styled(Box)`
   background: #242529;
   width: 600px;
   height: 100%;
-  padding: 0px 16px;
+  padding: 0px 16px !important;
+
+  ${({ theme }) => theme.breakpoints.down("tablet")} {
+    width: 100%;
+
+  }
 `;
 
 export const Content = styled(Box)`
@@ -58,6 +63,12 @@ export const ModalFooter = styled(Box)`
   position: fixed;
   bottom: 0;
   margin-bottom: 10px;
+
+
+  ${({ theme }) => theme.breakpoints.down("mobile")} {
+    max-width: 95vw;
+
+  }
 `;
 
 export const CleanButton = styled(Button)`
@@ -68,6 +79,8 @@ export const CleanButton = styled(Button)`
   border-radius: 10px;
   border: 2px solid #303033;
   width: 260px;
+
+
 `;
 
 export const CustomDataPicker = styled(DatePicker)`

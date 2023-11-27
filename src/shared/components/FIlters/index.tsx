@@ -14,60 +14,66 @@ import {
 import { ButtonComponent } from "../Buttons";
 import CloseIcon from "@mui/icons-material/Close";
 import { LocalizationProvider } from "@mui/x-date-pickers";
-import { DataFilter } from "./data";
-import { FilterProvider } from "@/src/contexts/filterContext";
-import { PatiosFilter } from "./patios";
-import { Chips } from "./chip";
+import { useFilter } from "@/src/contexts/filterContext";
 
 interface IFilters {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  children?: React.ReactNode;
 }
 
-export const Filters: FC<IFilters> = ({ open, setOpen }) => {
-  const toggleDrawer = (action: boolean) => {
-    setOpen(action);
+export const Filters: FC<IFilters> = ({ open, setOpen, children }) => {
+  const { fetchMotoristas,cleanFilters } = useFilter();
+
+  const toggleDrawer = (Open: boolean, action: string | null) => {
+    if (action === "filter") fetchMotoristas();
+    if (action === "clean") cleanFilters();
+
+    setOpen(Open);
   };
 
   const filters = () => (
-    <FilterProvider>
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <Modal role="presentation">
-          <Content>
-            <ModalHeader>
-              <CloseButton
-                variant="contained"
-                onClick={() => toggleDrawer(false)}
-              >
-                <CloseIcon />
-              </CloseButton>
-            </ModalHeader>
-            <DataFilter />
-            <PatiosFilter />
-            <Chips />
-            <ModalFooter>
-              <CleanButton>Limpar</CleanButton>
-              <ButtonComponent
-                buttonProps={{
-                  variant: "contained",
-                }}
-                customStyles={{
-                  color: "white",
-                  fontWeight: "700",
-                  fontSize: "15px",
-                  height: "50px",
-                  width: "260px",
+    <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="pt-BR">
+      <Modal role="presentation">
+        <Content>
+          <ModalHeader>
+            <CloseButton
+              variant="contained"
+              onClick={() => toggleDrawer(false, null)}
+            >
+              <CloseIcon />
+            </CloseButton>
+          </ModalHeader>
+          {children}
 
-                  borderRadius: "10px",
-                }}
-              >
-                Aplicar Filtros
-              </ButtonComponent>
-            </ModalFooter>
-          </Content>
-        </Modal>
-      </LocalizationProvider>
-    </FilterProvider>
+          <ModalFooter>
+            <CleanButton onClick={() => toggleDrawer(false, "clean")}>
+              Limpar
+            </CleanButton>
+
+            <ButtonComponent
+              buttonProps={{
+                variant: "contained",
+                onClick: () => {
+                  toggleDrawer(false, "filter");
+                },
+              }}
+              customStyles={{
+                color: "white",
+                fontWeight: "700",
+                fontSize: "15px",
+                height: "50px",
+                width: "260px",
+
+                borderRadius: "10px",
+              }}
+            >
+              Aplicar Filtros
+            </ButtonComponent>
+          </ModalFooter>
+        </Content>
+      </Modal>
+    </LocalizationProvider>
   );
 
   return (
@@ -75,8 +81,7 @@ export const Filters: FC<IFilters> = ({ open, setOpen }) => {
       <CustomDrawer
         anchor={"right"}
         open={open}
-        onClose={() => toggleDrawer(false)}
-        keepMounted={false}
+        keepMounted={true}
       >
         {filters()}
       </CustomDrawer>

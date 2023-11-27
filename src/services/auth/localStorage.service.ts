@@ -4,7 +4,11 @@ class LocalStorageService {
 
   removeToken = () => localStorage.removeItem("token");
 
-  getToken = () => localStorage.getItem("token");
+  getToken = () => {
+    const token = localStorage.getItem("token");
+    if (!token) return null;
+    return JSON.parse(token);
+  };
 }
 
 export default new LocalStorageService();
