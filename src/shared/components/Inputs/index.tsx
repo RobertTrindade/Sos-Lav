@@ -49,3 +49,4 @@ export const InputComponent: FC<IInputProps> = forwardRef(
     );
   }
 );
+InputComponent.displayName="InputComponent"

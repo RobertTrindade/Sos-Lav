@@ -7,8 +7,8 @@ export default function ChamadosLayoutNovo({
 }) {
   return (
     <>
-      <title>Novo Chamado</title>
-      <meta name="description" content="Novo Chamados" />
+      <title>Novo chamado</title>
+      <meta name="description" content="Tela de Chamados" />
       <meta property="og:description" content="Descrição para Redes Sociais" />
       <meta property="og:image" content="URL da imagem para Redes Sociais" />
       <meta property="og:url" content="URL da página" />

@@ -1,14 +1,20 @@
-import type { Metadata } from "next";
+"use client";
 
-export const metadata = {
-  title: "Login",
-  description: "Login",
-};
-
-export default function ChamadosLayout({
+export default function ChamadosLayoutEditar({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return children;
+  return (
+    <>
+      <title>Editar chamado</title>
+      <meta name="description" content="Tela de Chamados" />
+      <meta property="og:description" content="Descrição para Redes Sociais" />
+      <meta property="og:image" content="URL da imagem para Redes Sociais" />
+      <meta property="og:url" content="URL da página" />
+      <meta name="theme-color" content="#ffffff" />
+
+      {children}
+    </>
+  );
 }

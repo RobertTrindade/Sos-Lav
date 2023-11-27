@@ -3,7 +3,7 @@
 import { ChamadosComponentNovo } from "@/src/components/Chamados/Chamados-novo";
 import { ChamadosProvider } from "@/src/contexts/chamadosContext";
 
-export default function MotoristasDetails() {
+export default function ChamadosNovo() {
   return (
     <ChamadosProvider>
       <ChamadosComponentNovo />

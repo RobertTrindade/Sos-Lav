@@ -53,6 +53,7 @@ export const ChamadosComponent = () => {
           <GridActionsCellItem
             icon={<EditIcon />}
             label="Editar"
+            key={id}
             onClick={() => {
               window.open(`/chamados/${id}`);
             }}

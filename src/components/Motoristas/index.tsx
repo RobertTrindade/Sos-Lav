@@ -44,7 +44,7 @@ export const MotoristasComponent = () => {
       cellClassName: "actions",
       getActions: ({ id }) => {
         return [
-          <Link href={`/motoristas/${id}`}>
+          <Link href={`/motoristas/${id}`} key={id}>
             <GridActionsCellItem icon={<EditIcon />} label="Editar" />
           </Link>,
         ];

@@ -1,24 +1,10 @@
 "use client";
 
 import * as React from "react";
-import {
-  Container,
-  Content,
-  MapArea,
-  MotoristaCnhContainer,
-  MotoristaContratoContainer,
-  MotoristaDadosContainer,
-  TabResultArea,
-  Title,
-} from "./styles";
-import { IMotoristaDto } from "@/src/services/motoristas/motoristas.service";
+import { Container, Content, MapArea, TabResultArea, Title } from "./styles";
 import { ScrollableTabsButtonAuto } from "@/src/shared/components/Tabs";
 import { InputComponent } from "@/src/shared/components/Inputs";
-import dayjs from "dayjs";
-import Image from "next/image";
-import { UploadInputComponent } from "@/src/shared/components/UploadInput";
-import UploadService from "@/src/services/upload/upload.service";
-import MotoristasService from "@/src/services/motoristas/motoristas.service";
+
 import { IChamado } from "@/src/services/chamados/chamados.service";
 import { ChamadoEditarMap } from "./map";
 import Link from "next/link";
@@ -50,7 +36,7 @@ export const ChamadosComponentEdit: React.FC<{
     setValue(newValue);
   };
 
-  const tabLabels = ["Chamado", "Endereço", "NCVs", "Fotos"];
+  const tabLabels = ["Chamado", "Endereço", "NCVs", "Motorista", "Fotos"];
 
   return (
     <Container>
@@ -61,7 +47,7 @@ export const ChamadosComponentEdit: React.FC<{
           <div className="actionArea">
             <Link href={"/chamados"}>
               <CustomIconButton>
-                <BackIcon />
+                <BackIcon /> 
               </CustomIconButton>
             </Link>
             <Title>Editar chamado {params && params.id}</Title>

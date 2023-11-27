@@ -39,6 +39,10 @@ export const ChamadoEditarMap: FC<{
         mapContainerStyle={{
           ...containerStyle,
         }}
+        options={{
+          scrollwheel: true,
+          gestureHandling: "greedy",
+        }}
         center={center}
         zoom={15}
         onLoad={onLoad}
@@ -50,7 +54,7 @@ export const ChamadoEditarMap: FC<{
             noClustererRedraw
             icon={{
               url:
-              chamadoLocation.status === "Aguardando"
+              chamadoLocation?.status === "Aguardando"
                   ? chamadowaintin.src
                   : chamadocomplete.src,
               scaledSize: new google.maps.Size(60, 50),
@@ -58,6 +62,8 @@ export const ChamadoEditarMap: FC<{
               anchor: new google.maps.Point(20, 40),
             }}
           />
+
+        
         </>
       </GoogleMap>
     </Container>
