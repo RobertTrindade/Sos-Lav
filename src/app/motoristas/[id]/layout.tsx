@@ -13,7 +13,6 @@ export default function MotoristaEditar({
       <meta property="og:image" content="URL da imagem para Redes Sociais" />
       <meta property="og:url" content="URL da página" />
       <meta name="theme-color" content="#ffffff" />
-
       {children}
     </>
   );

@@ -85,11 +85,9 @@ class HttpClient {
     return response.json();
   }
 
-  async get<T>(path: string, revalidate = 10): Promise<T> {
+  async get<T>(path: string, revalidate = 0): Promise<T> {
     const response = await fetch(`${this.baseUrl}${path}`, {
-      next: {
-        revalidate: revalidate,
-      },
+      next: { revalidate },
     });
 
     if (!response.ok) {

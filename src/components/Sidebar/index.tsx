@@ -20,27 +20,43 @@ import Link from "next/link";
 import BadgeIcon from "@mui/icons-material/Badge";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import LogoutIcon from "@mui/icons-material/Logout";
-import localStorageService from "@/src/services/auth/localStorage.service";
 import { useRouter } from "next/navigation";
 import { IconButton } from "@mui/material";
 import { SidebarIcon } from "../Navbar";
-import { IUsuariosDto } from "@/src/services/usuarios/usuarios.service";
+import userService, {
+  IUsuariosDto,
+} from "@/src/services/usuarios/usuarios.service";
 import NewspaperIcon from "@mui/icons-material/Newspaper";
+import localStorageService from "@/src/services/auth/localStorage.service";
+
 export const SideBarComponent: React.FC<{
   open: boolean;
   handleClick: () => void;
   handleClose: () => void;
-
-  user: IUsuariosDto;
-}> = ({ open, handleClick, user, handleClose }) => {
+}> = ({ open, handleClick, handleClose }) => {
   const path = usePathname();
   const pathParts = path.split("/").filter((part) => part !== "");
   const router = useRouter();
   const items = new Array(6).fill(null);
+  const [user, setUser] = React.useState<IUsuariosDto>();
 
   React.useEffect(() => {
     handleClose();
   }, [path]);
+
+  React.useEffect(() => {
+    (async () => {
+      try {
+        if (!localStorageService.getToken()) router.push("/login");
+
+        const data = await userService.getMyself();
+        if (data) setUser(data);
+      } catch (error) {
+        router.push("/login");
+      }
+    })();
+  }, [path]);
+
   return (
     pathParts[0] !== "login" && (
       <>
@@ -56,7 +72,9 @@ export const SideBarComponent: React.FC<{
               </IconButton>
 
               {user?.imageUrl ? (
-                <ProfileIcon src={user.imageUrl} />
+                <ProfileIcon
+                  src={process.env.NEXT_PUBLIC_API_BASE_URL + user.imageUrl}
+                />
               ) : (
                 <CustomSkeleton variant="circular" width={120} height={120} />
               )}
@@ -77,7 +95,7 @@ export const SideBarComponent: React.FC<{
             </Profile>
 
             <SideItems>
-              {user?.permissions?.length > 0 ? (
+              {user?.Permissions ? (
                 <>
                   <Link href="/">
                     <SideItem
@@ -91,7 +109,7 @@ export const SideBarComponent: React.FC<{
                   <Link
                     href="/chamados"
                     style={{
-                      display: user?.permissions.find(
+                      display: user?.Permissions.find(
                         (item) => item.title === "chamados"
                       )
                         ? "flex"
@@ -109,7 +127,7 @@ export const SideBarComponent: React.FC<{
                   <Link
                     href="/usuarios"
                     style={{
-                      display: user?.permissions.find(
+                      display: user?.Permissions.find(
                         (item) => item.title === "usuarios"
                       )
                         ? "flex"
@@ -127,7 +145,7 @@ export const SideBarComponent: React.FC<{
                   <Link
                     href="/motoristas"
                     style={{
-                      display: user?.permissions.find(
+                      display: user?.Permissions.find(
                         (item) => item.title === "motoristas"
                       )
                         ? "flex"
@@ -145,7 +163,7 @@ export const SideBarComponent: React.FC<{
                   <Link
                     href="/"
                     style={{
-                      display: user?.permissions.find(
+                      display: user?.Permissions.find(
                         (item) => item.title === "ecossistema"
                       )
                         ? "flex"

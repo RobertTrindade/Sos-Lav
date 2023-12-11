@@ -14,21 +14,30 @@ import {
 import { ButtonComponent } from "../Buttons";
 import CloseIcon from "@mui/icons-material/Close";
 import { LocalizationProvider } from "@mui/x-date-pickers";
-import { useFilter } from "@/src/contexts/filterContext";
 
 interface IFilters {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   children?: React.ReactNode;
+  internalValues?: Object;
+  handleSearch: () => void;
+  handleClear: () => void;
 }
 
-export const Filters: FC<IFilters> = ({ open, setOpen, children }) => {
-  const { fetchChamados, cleanFiltersChamados } = useFilter();
-
+export const Filters: FC<IFilters> = ({
+  open,
+  setOpen,
+  children,
+  handleClear,
+  handleSearch,
+}) => {
   const toggleDrawer = (Open: boolean, action: string | null) => {
-    if (action === "filter") fetchChamados();
-    if (action === "clean") cleanFiltersChamados();
-
+    if (action === "filter") {
+      handleSearch();
+    }
+    if (action === "clean") {
+      handleClear();
+    }
     setOpen(Open);
   };
 

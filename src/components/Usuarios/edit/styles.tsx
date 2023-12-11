@@ -9,19 +9,45 @@ export const Container = styled(Box)`
   padding: 0px 32px;
 `;
 
-export const Title = styled(Typography)``;
-
+export const Title = styled(Typography)`
+  color: #fff;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+`;
 export const Content = styled(Box)`
   display: flex;
   justify-content: space-between;
-`;
 
-export const MapArea = styled(Box)``;
+  ${({ theme }) => theme.breakpoints.down("tablet")} {
+    flex-direction: column;
+    margin-bottom: 30px;
+  }
+`;
+export const MapArea = styled(Box)`
+  max-width: 800px;
+  width: 100%;
+  ${({ theme }) => theme.breakpoints.up("desktop")} {
+    max-width: 800px;
+  }
+  ${({ theme }) => theme.breakpoints.only("tablet")} {
+    max-width: 400px;
+  }
+  ${({ theme }) => theme.breakpoints.only("laptop")} {
+    max-width: 400px;
+  }
+`;
 
 export const TabResultArea = styled(Box)`
   display: flex;
   flex-direction: column;
   gap: 40px;
+  .actionArea {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+  }
 `;
 
 export const MotoristaDadosContainer = styled(Box)`
@@ -69,38 +95,6 @@ export const MotoristaContratoContainer = styled(Box)`
     iframe {
       width: 100%;
       height: 100vh;
-    }
-  }
-`;
-
-export const MotoristaEmpresaContainer = styled(Box)`
-  gap: 20px;
-
-  .InputContainer {
-    margin-bottom: 20px;
-  }
-  .fields {
-    display: flex;
-    margin-top: 20px;
-    flex-wrap: wrap;
-    div {
-      flex-basis: calc(
-        50% - 30px
-      ); /* Adjust the width and margin according to your design */
-      margin: 4px; /* Adjust the margin according to your design */
-    }
-  }
-  .containerDados {
-    display: flex;
-    flex-direction: column;
-    
-    gap: 10px;
-    .dados {
-      p {
-        color: white;
-
-        font-size: 19px;
-      }
     }
   }
 `;

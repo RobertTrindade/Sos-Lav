@@ -8,6 +8,7 @@ import {
   MotoristaCnhContainer,
   MotoristaContratoContainer,
   MotoristaDadosContainer,
+  MotoristaEmpresaContainer,
   TabResultArea,
 } from "./styles";
 import { IMotoristaDto } from "@/src/services/motoristas/motoristas.service";
@@ -15,15 +16,16 @@ import { ScrollableTabsButtonAuto } from "@/src/shared/components/Tabs";
 import { MotoristaMap } from "../Map";
 import { InputComponent } from "@/src/shared/components/Inputs";
 import dayjs from "dayjs";
-import Image from "next/image";
 import { UploadInputComponent } from "@/src/shared/components/UploadInput";
 import UploadService from "@/src/services/upload/upload.service";
 import MotoristasService from "@/src/services/motoristas/motoristas.service";
 import { CustomCircularProgress } from "../Motoristas-details/styles";
+import Image from "next/image";
 
 export const MotoristasComponentEdit: React.FC<{
   motorista: IMotoristaDto;
-}> = ({ motorista }) => {
+  scriptTags: string[] | undefined;
+}> = ({ motorista, scriptTags }) => {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -34,10 +36,12 @@ export const MotoristasComponentEdit: React.FC<{
     "Motorista",
     "Endereço",
     "CNH",
+    "Empresa",
+    "Reboque",
+
     "Contrato",
     "Valores Contrato",
     "Termo de Credenciamento",
-    "Empresa",
   ];
 
   return (
@@ -54,7 +58,14 @@ export const MotoristasComponentEdit: React.FC<{
             {value === 0 && <MotoristaDados motorista={motorista} />}
             {value === 1 && <MotoristaEndereco motorista={motorista} />}
             {value === 2 && <MotoristaCnh motorista={motorista} />}
-            {value === 3 && <MotoristaContrato motorista={motorista} />}
+            {value === 3 && (
+              <MotoristaEmpresa motorista={motorista} scriptTags={scriptTags} />
+            )}
+            {value === 4 && <MotoristaReboque motorista={motorista} />}
+            {value === 5 && <MotoristaContrato motorista={motorista} />}
+            {value === 6 && <MotoristaContrato motorista={motorista} />}
+            {value === 7 && <MotoristaContrato motorista={motorista} />}
+            {value === 8 && <MotoristaContrato motorista={motorista} />}
           </TabResultArea>
 
           <MapArea>
@@ -77,6 +88,17 @@ const MotoristaDados: React.FC<{
         customProps={{
           readOnly: true,
           value: motorista.name,
+        }}
+        customStyles={{
+          color: "white",
+        }}
+      />
+      <InputComponent
+        content="E-mail"
+        type="email"
+        customProps={{
+          readOnly: true,
+          value: motorista.email,
         }}
         customStyles={{
           color: "white",
@@ -240,9 +262,16 @@ const MotoristaCnh: React.FC<{
 }> = ({ motorista }) => {
   return (
     <MotoristaCnhContainer>
-      <div className="CnhArea">
-        <Image src={motorista.Cnh.cnh_pdf} alt="Picture of the author" fill />
-      </div>
+      {motorista.Cnh.cnhPdf && (
+        <div className="CnhArea">
+          <Image
+            src={process.env.NEXT_PUBLIC_API_BASE_URL + motorista.Cnh.cnhPdf}
+            alt="Picture of the author"
+            fill
+          />
+        </div>
+      )}
+
       <div className="fields">
         <InputComponent
           content="CNH"
@@ -261,7 +290,7 @@ const MotoristaCnh: React.FC<{
           type="email"
           customProps={{
             readOnly: true,
-            value: motorista.Cnh.cnh_categoria,
+            value: motorista.Cnh.cnhCategoria,
           }}
           customStyles={{
             color: "white",
@@ -272,7 +301,7 @@ const MotoristaCnh: React.FC<{
           type="email"
           customProps={{
             readOnly: true,
-            value: dayjs(motorista.Cnh.cnh_validade).format("DD/MM/YYYY"),
+            value: dayjs(motorista.Cnh.cnhValidade).format("DD/MM/YYYY"),
           }}
           customStyles={{
             color: "white",
@@ -361,5 +390,73 @@ const MotoristaContrato: React.FC<{
         </div>
       )}
     </MotoristaContratoContainer>
+  );
+};
+
+const MotoristaEmpresa: React.FC<{
+  motorista: IMotoristaDto;
+  scriptTags: string[] | undefined;
+}> = ({ motorista, scriptTags }) => {
+  return (
+    <MotoristaEmpresaContainer>
+      <div className="fields">
+        <InputComponent
+          content="CNPJ"
+          customProps={{
+            readOnly: true,
+            value: motorista.EmpresaReboque.cnpj,
+          }}
+          customStyles={{
+            color: "white",
+          }}
+        />
+      </div>
+      {scriptTags && (
+        <div className="containerDados">
+          {scriptTags?.map((item, key) => (
+            <div
+              className="dados"
+              key={key}
+              dangerouslySetInnerHTML={{ __html: item }}
+            />
+          ))}
+        </div>
+      )}
+    </MotoristaEmpresaContainer>
+  );
+};
+
+const MotoristaReboque: React.FC<{
+  motorista: IMotoristaDto;
+}> = ({ motorista }) => {
+  return (
+    <MotoristaCnhContainer>
+      {motorista.Reboques[0].crlvUrl && (
+        <div className="CnhArea">
+          <Image
+            src={
+              process.env.NEXT_PUBLIC_API_BASE_URL +
+              motorista.Reboques[0].crlvUrl
+            }
+            alt="Picture of the author"
+            fill
+          />
+        </div>
+      )}
+
+      <div className="fields">
+        <InputComponent
+          content="Placa"
+          type="email"
+          customProps={{
+            readOnly: true,
+            value: motorista.Reboques[0].placa,
+          }}
+          customStyles={{
+            color: "white",
+          }}
+        />
+      </div>
+    </MotoristaCnhContainer>
   );
 };

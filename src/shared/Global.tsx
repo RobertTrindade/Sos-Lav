@@ -2,16 +2,11 @@
 import React, { FC, useState } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import "@mui/material";
-import userService, {
-  IUsuariosDto,
-} from "@/src/services/usuarios/usuarios.service";
 
 import localFont from "next/font/local";
 import { SideBarComponent } from "../components/Sidebar";
 import { Box, styled } from "@mui/material";
 import { NavBarComponent } from "../components/Navbar";
-import { useRouter } from "next/navigation";
-import localStorageService from "../services/auth/localStorage.service";
 
 const poppins = localFont({
   src: [
@@ -117,10 +112,8 @@ export const Globals: FC<IGlobals> = ({ children }) => {
       },
     },
   });
-  const router = useRouter();
-  const [user, setUser] = useState<IUsuariosDto>();
 
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   const handleClick = () => {
     setOpen(!open);
   };
@@ -128,17 +121,6 @@ export const Globals: FC<IGlobals> = ({ children }) => {
   const handleClose = () => {
     setOpen(false);
   };
-  React.useEffect(() => {
-    (async () => {
-      try {
-        if (!localStorageService.getToken()) return;
-        const data = await userService.getMyself();
-        if (data) setUser(data);
-      } catch (error) {
-        router.push("/login");
-      }
-    })();
-  }, []);
 
   return (
     <ThemeProvider theme={theme}>
@@ -146,7 +128,6 @@ export const Globals: FC<IGlobals> = ({ children }) => {
         <SideBarComponent
           open={open}
           handleClick={handleClick}
-          user={user!}
           handleClose={handleClose}
         />
         <Content>

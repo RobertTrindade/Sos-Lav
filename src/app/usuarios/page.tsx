@@ -1,6 +1,7 @@
 "use client";
-export default function Usuarios() {
 
+import { UsuariosComponent } from "@/src/components/Usuarios";
 
-  return <h1>hellou</h1>;
+export default function Motoristas() {
+  return <UsuariosComponent />;
 }

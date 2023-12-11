@@ -15,48 +15,27 @@ import MotoristasService, {
 import { BreadCrumbsComponent } from "@/src/shared/components/breadcrumbs";
 import Link from "next/link";
 
-import { MotoristasComponentEditApr } from "../Motorista-apr";
 import { ButtonComponent } from "@/src/shared/components/Buttons";
 
 import { MotoristasComponentEdit } from "../Motorista-edit";
-import { useParams } from "next/navigation";
 import { Avatar } from "@mui/material";
 import { CustomCircularProgress } from "@/src/shared/components/Spinner";
-export const MotoristasComponentDatails = () => {
-  const [motorista, setMotoristas] = React.useState<IMotoristaDto>();
-  const [isLoading, setIsLoading] = React.useState<boolean>(true);
-  const params = useParams();
-  React.useEffect(() => {
-    fetchMotoristas();
-  }, []);
-
-  const fetchMotoristas = async () => {
-    try {
-      // Obtenha os motoristas usando MotoristasService
-      const motoristas = await MotoristasService.getMotorista(
-        Number(params.id)
-      );
-
-      setMotoristas(motoristas);
-      setIsLoading(false);
-    } catch (error) {
-      console.error("Erro ao buscar motoristas:", error);
-      // Lide com o erro conforme necessário
-      setIsLoading(false);
-    }
-  };
-
+export const MotoristasComponentDatails: React.FC<{
+  motorista?: IMotoristaDto;
+  scriptTags?: string[] | undefined;
+}> = ({ motorista, scriptTags }) => {
   const handleAproveMotorista = async (status: string) => {
     try {
       if (!motorista) return;
       await MotoristasService.aproveDriver(motorista.id, {
         status,
       });
-      fetchMotoristas();
+
+      window.location.reload();
     } catch (error) {}
   };
 
-  return !isLoading ? (
+  return motorista ? (
     <Container>
       <BreadCrumbsComponent />
       <BackArea>
@@ -67,8 +46,8 @@ export const MotoristasComponentDatails = () => {
             </CustomIconButton>
           </Link>
           <Title>
-            {motorista?.status === "pendente" ? "Aprovar" : "Visualizar"}{" "}
-            Motorista {motorista?.name}
+            {motorista?.status === "pendente" ? "Aprovar" : "Editar"} Motorista{" "}
+            {motorista?.name}
           </Title>
           <AvalibleComponent motorista={motorista!} />
           {motorista?.status === "pendente" && (
@@ -111,12 +90,10 @@ export const MotoristasComponentDatails = () => {
             </div>
           )}
         </div>
-
-        {motorista?.status === "pendente" ? (
-          <MotoristasComponentEditApr motorista={motorista} />
-        ) : (
-          <MotoristasComponentEdit motorista={motorista!} />
-        )}
+        <MotoristasComponentEdit
+          motorista={motorista!}
+          scriptTags={scriptTags}
+        />
       </BackArea>
     </Container>
   ) : (
@@ -140,7 +117,7 @@ const AvalibleComponent: React.FC<{
       <Avatar
         sizes="large"
         alt={motorista.name}
-        src={motorista.imageUrl && motorista.imageUrl}
+        src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${motorista.imageUrl}`}
       />
     </StyledBadge>
   );

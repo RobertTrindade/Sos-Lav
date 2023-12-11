@@ -1,6 +1,13 @@
 "use client";
 import { Box, Button, styled } from "@mui/material";
-import { DataGrid, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarExport, GridToolbarFilterButton } from "@mui/x-data-grid";
+import {
+  DataGrid,
+  GridToolbarColumnsButton,
+  GridToolbarContainer,
+  GridToolbarDensitySelector,
+  GridToolbarExport,
+  GridToolbarFilterButton,
+} from "@mui/x-data-grid";
 
 export const Container = styled(Box)`
   width: 100%;
@@ -38,7 +45,6 @@ export const CustomDataGrid = styled(DataGrid)`
     font-weight: bold;
   }
 
-
   fill {
     color: white;
   }
@@ -53,55 +59,13 @@ export const CustomDataGrid = styled(DataGrid)`
   }
 `;
 
-
 export const CustomGridToolbarContainer = styled(GridToolbarContainer)`
+  width: 100%;
+  position: absolute;
+  top: -90px;
+`;
 
-width: 100%;
-position: absolute;
-top: -90px;
-`
-
-
-export const CustomGridToolbarExport= styled(GridToolbarExport)`
-   border-radius: 14px;
-  border: 2px solid #303033;
-  padding: 10px 40px;
-
-  color: #fff;
-  text-align: center;
-  font-size: 15px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;;
-`
-
-export const CustomGridToolbarColumnsButton= styled(GridToolbarColumnsButton)`
-   border-radius: 14px;
-  border: 2px solid #303033;
-  padding: 10px 40px;
-
-  color: #fff;
-  text-align: center;
-  font-size: 15px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
-`
-
-export const CustomGridToolbarFilterButton= styled(GridToolbarFilterButton)`
-   border-radius: 14px;
-  border: 2px solid #303033;
-  padding: 10px 40px;
-
-  color: #fff;
-  text-align: center;
-  font-size: 15px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
-`
-
-export const CustomGridToolbarDensitySelector= styled(GridToolbarDensitySelector)`
+export const CustomGridToolbarExport = styled(GridToolbarExport)`
   border-radius: 14px;
   border: 2px solid #303033;
   padding: 10px 40px;
@@ -112,4 +76,45 @@ export const CustomGridToolbarDensitySelector= styled(GridToolbarDensitySelector
   font-style: normal;
   font-weight: 700;
   line-height: normal;
-`
+`;
+
+export const CustomGridToolbarColumnsButton = styled(GridToolbarColumnsButton)`
+  border-radius: 14px;
+  border: 2px solid #303033;
+  padding: 10px 40px;
+
+  color: #fff;
+  text-align: center;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+`;
+
+export const CustomGridToolbarFilterButton = styled(GridToolbarFilterButton)`
+  border-radius: 14px;
+  border: 2px solid #303033;
+  padding: 10px 40px;
+
+  color: #fff;
+  text-align: center;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+`;
+
+export const CustomGridToolbarDensitySelector = styled(
+  GridToolbarDensitySelector
+)`
+  border-radius: 14px;
+  border: 2px solid #303033;
+  padding: 10px 40px;
+
+  color: #fff;
+  text-align: center;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+`;

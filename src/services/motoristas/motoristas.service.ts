@@ -22,15 +22,15 @@ export interface IMotoristaDto {
   latitude: number;
   longitude: number;
   pdfContrato: string;
-
+  cnh?: string;
   motoristasEnderecoId: number;
+
   Cnh: {
     id: number;
     cnh: string;
-    cnh_categoria: string;
-    cnh_validade: string;
-    categoria: string;
-    cnh_pdf: string;
+    cnhCategoria: string;
+    cnhValidade: string;
+    cnhPdf: string;
   };
   MotoristasEndereco: {
     id: number;
@@ -40,14 +40,19 @@ export interface IMotoristaDto {
     cep: string;
     uf: string;
   };
-}
-
-export interface IMotoristasDto {
-  data: IMotoristaDto[];
-  totalItems: 2;
-  totalPages: 1;
-  itemsPerPage: 50;
-  page: 1;
+  EmpresaReboque: {
+    id: 2;
+    nome: string;
+    cnpj: string;
+  };
+  Reboques: [
+    {
+      id: 4;
+      crlvUrl: string;
+      placa: string;
+      motoristasId: 4;
+    }
+  ];
 }
 
 class MotoristasService {
@@ -59,12 +64,15 @@ class MotoristasService {
   }
 
   async getMotoristas(params?: string) {
-    const path = params ? `${this.path}?${params}&limit=50&page=1` : this.path;
-    return await this.httpClient.get<Promise<IMotoristasDto>>(path);
+    console.log(`${this.path}?${params}`)
+    return await this.httpClient.get<Promise<IMotoristaDto[]>>(
+      `${this.path}${params}`
+    );
   }
-  async getMotorista(id: number) {
+  async getMotorista(id: number, revalidade?: number) {
     return await this.httpClient.get<Promise<IMotoristaDto>>(
-      `${this.path}/${id}`
+      `${this.path}/${id}`,
+      revalidade
     );
   }
 

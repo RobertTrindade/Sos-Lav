@@ -1,4 +1,3 @@
-"use client";
 import "@/src/shared/globals.css";
 import { Globals } from "../shared/Global";
 
@@ -7,6 +6,7 @@ export default  function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+
   return (
     <html lang="pt-BR">
        <title>Dashboard</title>

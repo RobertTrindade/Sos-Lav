@@ -61,8 +61,18 @@ export interface IChamado {
   chamadosLocalId: number;
   chamadorId: number;
   patioName: string;
+  motoristaName?: string;
   chamadorName: string;
   localizacaoName: string;
+
+  Aceite?: {
+    tempoEstimado: string;
+    kmsEstimado: number;
+    aceiteHora: string;
+    Motoristas: {
+      name: string;
+    };
+  }[];
 
   patio: {
     nome: string;
@@ -86,14 +96,6 @@ export interface IChamado {
   };
 }
 
-export interface IGetChamados {
-  data: IChamado[];
-  totalItems: number;
-  totalPages: number;
-  itemsPerPage: number;
-  page: number;
-}
-
 class ChamadosService {
   httpClient;
   path: string;
@@ -115,13 +117,8 @@ class ChamadosService {
   }
 
   async listAll(params?: string) {
-    const path = params ? `${this.path}?${params}&limit=50&page=1` : this.path;
-
-    return await this.httpClient.getWithAuth<Promise<IGetChamados>>(`${path}`);
-  }
-  async listAllNoPag() {
     return await this.httpClient.getWithAuth<Promise<IChamado[]>>(
-      `${this.path}`
+      `${this.path}${params}`
     );
   }
 }

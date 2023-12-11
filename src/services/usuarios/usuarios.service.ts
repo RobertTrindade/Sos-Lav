@@ -5,7 +5,7 @@ export interface IUsuariosDto {
   email: string;
   imageUrl: string;
   role: string;
-  permissions: IUsuariosPermissions[];
+  Permissions: IUsuariosPermissions[];
 }
 
 export interface IUsuariosPermissions {

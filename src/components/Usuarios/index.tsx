@@ -17,41 +17,43 @@ import {
   GridPaginationModel,
   ptBR,
 } from "@mui/x-data-grid";
-
 import EditIcon from "@mui/icons-material/Edit";
-import { Filters } from "@/src/shared/components/FIlters";
+import { Filters } from "@/src/shared/components/FIlters/chamados";
 import TuneIcon from "@mui/icons-material/Tune";
-import Link from "next/link";
 import { Chips } from "@/src/shared/components/FIlters/chip";
 import { DataFilter } from "@/src/shared/components/FIlters/data";
-import motoristasService, {
-  IMotoristaDto,
-} from "@/src/services/motoristas/motoristas.service";
+import AddIcon from "@mui/icons-material/Add";
 import dayjs from "dayjs";
+import chamadosService, {
+  IGetChamados,
+} from "@/src/services/chamados/chamados.service";
 import useQueryParams from "@/src/hooks/usehandleQueryString";
 
-export const MotoristasComponent = () => {
-  const [open, setOpen] = React.useState(false);
-  const [motoristas, setMotoristas] = React.useState<IMotoristaDto[]>([]);
+export const UsuariosComponent = () => {
+  const [chamados, setChamados] = React.useState<IGetChamados["data"]>();
+
   const [loading, setLoading] = React.useState(false);
-  const { cleanSearch } = useQueryParams();
+  const [open, setOpen] = React.useState(false);
+  const [openPainel, setOpenPainel] = React.useState(false);
+  const { cleanSearch, updateQueryPaginationParams, queryParams } =
+    useQueryParams();
 
   const handleSearch = async () => {
     try {
       setLoading(true);
-      const motoristas = await motoristasService.getMotoristas(
-        window.location.search
-      );
-      
-      // Mapeie os motoristas e formate a propriedade 'createdAt'
-      const data = motoristas.map((item) => ({
+      const chamados = await chamadosService.listAll(window.location.search);
+
+      const data = chamados.data.map((item) => ({
         ...item,
-        createdAt: dayjs(item.createdAt).format("DD/MM/YYYY HH:mm"),
-        cnh: item.Cnh.cnh,
+        createdAt: dayjs(item.createAt).format("DD/MM/YYYY HH:mm"),
+        patioName: item.patio.nome,
+        chamadorName: item.chamador.name,
+        localizacaoName: item?.localizacao?.enderecoCompleto,
+        motoristaName: item?.Motoristas?.name,
       }));
 
       // Atualize o estado com os motoristas formatados
-      setMotoristas(data);
+      setChamados(data);
       setLoading(false);
     } catch (error) {
       console.error("Erro ao buscar motoristas:", error);
@@ -69,15 +71,17 @@ export const MotoristasComponent = () => {
   };
 
   const columns: GridColDef[] = [
-    { field: "id", headerName: "ID", width: 20 },
-    { field: "name", headerName: "Nome", width: 200 },
-    { field: "celular", headerName: "Celular", width: 150 },
-    { field: "email", headerName: "Email", width: 300 },
-    { field: "status", headerName: "Status", width: 150 },
-    { field: "createdAt", headerName: "Criado em", width: 150 },
-    { field: "xp", headerName: "Nível", width: 30 },
-    { field: "statusTrabalho", headerName: "Status de Trabalho", width: 200 },
-    { field: "cnh", headerName: "CNH", width: 300 },
+    { field: "id", headerName: "ID", width: 10 },
+    { field: "status", headerName: "Status", width: 120 },
+
+    { field: "chamadorName", headerName: "Chamador", width: 150 },
+    { field: "motoristaName", headerName: "Motorista", width: 300 },
+
+    { field: "patioName", headerName: "Pátio", width: 400 },
+    { field: "localizacaoName", headerName: "Local", width: 600 },
+
+    { field: "createdAt", headerName: "Data/Hora", width: 200 },
+
     {
       field: "editar",
       type: "actions",
@@ -86,9 +90,14 @@ export const MotoristasComponent = () => {
       cellClassName: "actions",
       getActions: ({ id }) => {
         return [
-          <Link href={`/motoristas/${id}`} key={id} target="_blank">
-            <GridActionsCellItem icon={<EditIcon />} label="Editar" />
-          </Link>,
+          <GridActionsCellItem
+            icon={<EditIcon />}
+            label="Editar"
+            key={id}
+            onClick={() => {
+              window.open(`/chamados/${id}`);
+            }}
+          />,
         ];
       },
     },
@@ -96,8 +105,8 @@ export const MotoristasComponent = () => {
 
   const chips = [
     {
-      value: "ativo",
-      label: "Ativo",
+      value: "Aguardando",
+      label: "Aguardando",
     },
 
     {
@@ -109,21 +118,26 @@ export const MotoristasComponent = () => {
       label: "Pendente",
     },
   ];
-
   return (
     <Container>
       <CustomDataGrid
-        rows={motoristas ? motoristas : []}
+        rows={chamados ? chamados : []}
         columns={columns}
-        getRowId={(motoristas) => motoristas.id}
+        getRowId={(chamado) => chamado.id}
         localeText={ptBR.components.MuiDataGrid.defaultProps.localeText}
         initialState={{
           pagination: {
             paginationModel: {
-              page: 1,
-              pageSize: 50,
+              page: Number(queryParams.get("page")) || 1,
+              pageSize: Number(queryParams.get("pageSize")) || 50,
             },
           },
+        }}
+        onPaginationModelChange={(
+          { page, pageSize }: GridPaginationModel,
+          data2
+        ) => {
+          updateQueryPaginationParams(page, pageSize);
         }}
         rowSelection={false}
         slots={{
@@ -136,10 +150,19 @@ export const MotoristasComponent = () => {
                 printOptions={{
                   hideFooter: true,
                   hideToolbar: true,
-                  copyStyles: true,
+                  copyStyles: false,
                   fileName: "motoristas.pdf",
                 }}
               />
+              <ActionButton
+                startIcon={<AddIcon />}
+                onClick={() => {
+                  window.open(`/usuarios/novo`);
+                }}
+              >
+                Novo
+              </ActionButton>
+
               <ActionButton
                 startIcon={<TuneIcon />}
                 onClick={() => setOpen(true)}
@@ -152,11 +175,12 @@ export const MotoristasComponent = () => {
         loading={loading}
         pageSizeOptions={[5, 50]}
       />
+
       <Filters
         open={open}
         setOpen={setOpen}
-        handleSearch={handleSearch}
         handleClear={handleClear}
+        handleSearch={handleSearch}
       >
         <DataFilter />
         <Chips chips={chips} />

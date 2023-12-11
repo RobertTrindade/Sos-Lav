@@ -9,21 +9,31 @@ import {
 } from "../styles";
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { useFilter } from "@/src/contexts/filterContext";
 import {
   DateValidationError,
   PickerChangeHandlerContext,
 } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
+import useQueryParams from "@/src/hooks/usehandleQueryString";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { useState } from "react";
 export const DataFilter = () => {
-  const { filterValues, handleNewValue } = useFilter();
+  const { updateQueryParams } = useQueryParams();
+  const [initialDate, setinitialDate] = useState(
+    new AdapterDayjs().date(new Date())
+  );
+  const [finalDate, setFinalDate] = useState(
+    new AdapterDayjs().date(new Date())
+  );
 
   const handleChangeTimeInitial = (
     value: unknown,
     context: PickerChangeHandlerContext<DateValidationError>
   ) => {
     const time = value as Date;
-    handleNewValue("dataInicio", dayjs(time.toISOString()));
+    const date = dayjs(time.toISOString()).toDate();
+    setinitialDate(dayjs(time.toISOString())); // Converta o Date para Dayjs aqui
+    updateQueryParams("dataInicio", date);
   };
 
   const handleChangeTimeFinal = (
@@ -31,7 +41,9 @@ export const DataFilter = () => {
     context: PickerChangeHandlerContext<DateValidationError>
   ) => {
     const time = value as Date;
-    handleNewValue("dataFinal", dayjs(time.toISOString()));
+    const date = dayjs(time.toISOString()).toDate();
+    setFinalDate(dayjs(time.toISOString())); // Converta o Date para Dayjs aqui
+    updateQueryParams("dataFinal", date);
   };
 
   return (
@@ -52,9 +64,9 @@ export const DataFilter = () => {
         <CustomDataPicker
           format="DD/MM/YYYY"
           label="Data inicio"
-          value={filterValues && filterValues?.dataInicio}
           closeOnSelect
           onChange={handleChangeTimeInitial}
+          value={initialDate}
           sx={{
             color: "white",
           }}
@@ -64,7 +76,7 @@ export const DataFilter = () => {
         <CustomDataPicker
           format="DD/MM/YYYY"
           label="Data Final"
-          value={filterValues && filterValues?.dataFinal}
+          value={finalDate}
           onChange={handleChangeTimeFinal}
           closeOnSelect
           sx={{

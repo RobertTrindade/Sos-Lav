@@ -11,36 +11,92 @@ import {
   ActionButton,
   CustomGridToolbarExport,
 } from "./styles";
-import { GridActionsCellItem, GridColDef, ptBR } from "@mui/x-data-grid";
+import {
+  GridActionsCellItem,
+  GridColDef,
+  GridPaginationModel,
+  ptBR,
+} from "@mui/x-data-grid";
 import MapIcon from "@mui/icons-material/Map";
 import EditIcon from "@mui/icons-material/Edit";
 import { Filters } from "@/src/shared/components/FIlters/chamados";
 import TuneIcon from "@mui/icons-material/Tune";
-import Link from "next/link";
 import { Chips } from "@/src/shared/components/FIlters/chip";
 import { DataFilter } from "@/src/shared/components/FIlters/data";
 import AddIcon from "@mui/icons-material/Add";
-import { useRouter } from "next/navigation";
-import { useFilter } from "@/src/contexts/filterContext";
 import { Painel } from "./Painel";
+import dayjs from "dayjs";
+import chamadosService, {
+  IChamado,
+} from "@/src/services/chamados/chamados.service";
+import useQueryParams from "@/src/hooks/usehandleQueryString";
 
 export const ChamadosComponent = () => {
-  const { chamados, isLoading } = useFilter();
-  const router = useRouter();
+  const [chamados, setChamados] = React.useState<IChamado[]>();
 
+  const [loading, setLoading] = React.useState(false);
   const [open, setOpen] = React.useState(false);
   const [openPainel, setOpenPainel] = React.useState(false);
+  const { cleanSearch } = useQueryParams();
+
+  const handleSearch = async () => {
+    try {
+      setLoading(true);
+      const chamados = await chamadosService.listAll(window.location.search);
+      const data = chamados.map((item) => ({
+        ...item,
+        createdAt: dayjs(item.createAt).format("DD/MM/YYYY HH:mm"),
+        patioName: item.patio.nome,
+        chamadorName: item.chamador.name,
+        localizacaoName: item?.localizacao?.enderecoCompleto,
+        motoristaName: item.Aceite?.length
+          ? item!.Aceite![0].Motoristas.name
+          : "",
+
+        dataHoraAceite: item.Aceite?.length
+          ? dayjs(item!.Aceite![0].aceiteHora).format("DD/MM/YYYY HH:mm")
+          : "",
+        km: item.Aceite?.length ? item!.Aceite![0].kmsEstimado : "",
+        tempoEstimadoo: item.Aceite?.length
+          ? item!.Aceite![0].tempoEstimado
+          : "",
+      }));
+
+      // Atualize o estad o com os motoristas formatados
+
+      setChamados(data);
+      setLoading(false);
+    } catch (error) {
+      console.error("Erro ao buscar motoristas:", error);
+      // Lide com o erro conforme necessário
+      setLoading(false);
+    }
+  };
+
+  const handleClear = async () => {
+    try {
+      cleanSearch();
+    } catch (error) {
+      setLoading(false);
+    }
+  };
 
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 10 },
-    { field: "status", headerName: "Status", width: 120 },
+    { field: "status", headerName: "Status", width: 70 },
 
-    { field: "chamadorName", headerName: "Chamador", width: 150 },
+    { field: "chamadorName", headerName: "Chamador", width: 160 },
+    { field: "motoristaName", headerName: "Motorista", width: 160 },
 
-    { field: "patioName", headerName: "Pátio", width: 400 },
-    { field: "localizacaoName", headerName: "Local", width: 600 },
+    { field: "patioName", headerName: "Pátio", width: 200 },
+    { field: "localizacaoName", headerName: "Local", width: 200 },
 
-    { field: "createdAt", headerName: "Data/Hora", width: 200 },
+    { field: "createdAt", headerName: "Data/hora", width: 200 },
+
+    { field: "dataHoraAceite", headerName: "Data/hora Aceite", width: 200 },
+
+    { field: "km", headerName: "Km estimado", width: 200 },
+    { field: "tempoEstimadoo", headerName: "Tempo estimado", width: 200 },
 
     {
       field: "editar",
@@ -78,7 +134,6 @@ export const ChamadosComponent = () => {
       label: "Pendente",
     },
   ];
-
   return (
     <Container>
       <CustomDataGrid
@@ -88,11 +143,11 @@ export const ChamadosComponent = () => {
         localeText={ptBR.components.MuiDataGrid.defaultProps.localeText}
         initialState={{
           pagination: {
-            paginationModel: { page: 0, pageSize: 5 },
+            paginationModel: {
+              page: 1,
+              pageSize: 50,
+            },
           },
-        }}
-        onStateChange={(data) => {
-          console.log("State changed", data);
         }}
         rowSelection={false}
         slots={{
@@ -133,15 +188,17 @@ export const ChamadosComponent = () => {
             </CustomGridToolbarContainer>
           ),
         }}
-        loading={isLoading}
+        loading={loading}
         pageSizeOptions={[5, 50]}
       />
-      <Painel
-        openPainel={openPainel}
-        setOpen={setOpenPainel}
-        chamados={chamados}
-      />
-      <Filters open={open} setOpen={setOpen}>
+      <Painel openPainel={openPainel} setOpen={setOpenPainel} />
+
+      <Filters
+        open={open}
+        setOpen={setOpen}
+        handleClear={handleClear}
+        handleSearch={handleSearch}
+      >
         <DataFilter />
         <Chips chips={chips} />
       </Filters>

@@ -8,9 +8,9 @@ import {
 } from "../styles";
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { useFilter } from "@/src/contexts/filterContext";
 import { CustomToggleButtonGroup, CustomToggleButton } from "./styles";
 import { FC, useState } from "react";
+import useQueryParams from "@/src/hooks/usehandleQueryString";
 
 interface ChipValues {
   value: string;
@@ -21,16 +21,17 @@ interface IChips {
 }
 
 export const Chips: FC<IChips> = ({ chips }) => {
-  const { filterValues, handleNewValue } = useFilter();
 
-  const [alignment, setAlignment] = useState(filterValues.status ? filterValues.status :"");
+  const [alignment, setAlignment] = useState("");
+  const { updateQueryParams } = useQueryParams();
 
   const handleChange = (
     event: React.MouseEvent<HTMLElement>,
     newAlignment: string
   ) => {
-    handleNewValue("status", newAlignment);
     setAlignment(newAlignment);
+    updateQueryParams("status", newAlignment);
+
   };
 
   return (
