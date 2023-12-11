@@ -10,12 +10,10 @@ import PatiosService, {
   IPatiosServiceDTO,
 } from "@/src/services/patios/patios.service";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { useFilter } from "@/src/contexts/filterContext";
 import { useEffect, useState } from "react";
 import { AutoCompleteComponent, INewValue } from "../../AutoComplete";
 
 export const PatiosFilter = () => {
-  const { filterValues, handleNewValue } = useFilter();
   const [patios, setPatios] = useState<IPatiosServiceDTO[]>([]);
   const [value, setValue] = useState<INewValue>();
 
