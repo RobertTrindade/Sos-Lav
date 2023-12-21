@@ -10,7 +10,6 @@ import { ChamadoEditarMap } from "./map";
 import Link from "next/link";
 import { CustomIconButton } from "../../Navbar/styles";
 import { BackIcon } from "../../Motoristas/Motoristas-details";
-import { useParams } from "next/navigation";
 import { BreadCrumbsComponent } from "@/src/shared/components/breadcrumbs";
 import { BoxInput, Form, Label } from "../Chamados-novo/styles";
 import {
@@ -26,6 +25,7 @@ import {
   origens,
 } from "../Chamados-novo/steps/step1";
 import patiosService from "@/src/services/patios/patios.service";
+import dayjs from "dayjs";
 
 export const ChamadosComponentEdit: React.FC<{
   chamado: IChamado;
@@ -61,7 +61,8 @@ export const ChamadosComponentEdit: React.FC<{
               {value === 0 && <ChamadoDetails chamado={chamado} />}
               {value === 1 && <ChamadoEndereco chamado={chamado} />}
               {value === 2 && <ChamadoNcvs chamado={chamado} />}
-              {value === 3 && <ChamadosFotos chamado={chamado} />}
+              {value === 3 && <ChamadoMoto chamado={chamado} />}
+              {value === 4 && <ChamadosFotos chamado={chamado} />}
             </>
           ) : (
             <CustomCircularProgress />
@@ -84,6 +85,7 @@ const ChamadoDetails: React.FC<{
     tipoApreensao: chamado.tipoApreensao,
     urgencia: chamado.urgencia,
     origem: chamado.origem,
+    status: chamado.status,
   });
   // Função para atualizar o estado dos campos
   const handleNewValue = (campo: string, valor: string) => {
@@ -153,6 +155,18 @@ const ChamadoDetails: React.FC<{
             setStateActionWithTarget={handleNewValue}
             value={chamadoState.origem}
             target="origem"
+          />
+        </BoxInput>
+        <BoxInput>
+          <InputComponent
+            label="Status"
+            content="Status"
+            customProps={{
+              value: chamadoState.status,
+              onChange: (e) => {
+                handleNewValue("estado", e.target.value);
+              },
+            }}
           />
         </BoxInput>
       </Form>
@@ -501,6 +515,81 @@ const ChamadoNcvs: React.FC<{
               multiline: true,
               onChange: (e) => {
                 handleNewValue("detalhes", e.target.value);
+              },
+            }}
+          />
+        </BoxInput>
+      </Form>
+    )
+  );
+};
+
+const ChamadoMoto: React.FC<{
+  chamado: IChamado;
+}> = ({ chamado }) => {
+  const [chamadoState, setChamado] = React.useState({
+    nome: chamado?.Aceite && chamado?.Aceite[0].Motoristas.name,
+    kmStimado: chamado?.Aceite && chamado?.Aceite[0].kmsEstimado,
+
+    hrsStimado: chamado?.Aceite && chamado?.Aceite[0].tempoEstimado,
+    hrsAceite: chamado?.Aceite && chamado?.Aceite[0].aceiteHora,
+  });
+
+  // Função para atualizar o estado dos campos
+  const handleNewValue = (campo: string, valor: string) => {
+    setChamado((prevState) => ({
+      ...prevState,
+      [campo]: valor,
+    }));
+  };
+
+  return (
+    chamado.Aceite && (
+      <Form>
+        <BoxInput>
+          <InputComponent
+            label="Nome"
+            content="Nome"
+            customProps={{
+              value: chamadoState.nome,
+              onChange: (e) => {
+                handleNewValue("estado", e.target.value);
+              },
+            }}
+          />
+        </BoxInput>
+        <BoxInput>
+          <InputComponent
+            label="Km estimado"
+            content="Km estimado"
+            customProps={{
+              value: chamadoState.kmStimado,
+              onChange: (e) => {
+                handleNewValue("estado", e.target.value);
+              },
+            }}
+          />
+        </BoxInput>
+        <BoxInput>
+          <InputComponent
+            label="Tempo Estimado"
+            content="Tempo Estimado"
+            customProps={{
+              value: chamadoState.hrsStimado,
+              onChange: (e) => {
+                handleNewValue("estado", e.target.value);
+              },
+            }}
+          />
+        </BoxInput>
+        <BoxInput>
+          <InputComponent
+            label="Horas Aceite"
+            content="Horas Aceite"
+            customProps={{
+              value: dayjs(chamadoState.hrsAceite).format("DD/MM/YYYY HH:mm"),
+              onChange: (e) => {
+                handleNewValue("estado", e.target.value);
               },
             }}
           />

@@ -5,7 +5,7 @@ export interface ILocationMotoristaDTO {
   xp: number;
   statusTrabalho: string;
   id: string;
-  latitude: number;
+  latitude: number ;
   longitude: number;
   imageUrl: string;
 }

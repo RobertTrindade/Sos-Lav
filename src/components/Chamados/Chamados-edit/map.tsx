@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 import { Box } from "@mui/system";
 import { styled } from "@mui/material";
@@ -6,6 +6,9 @@ import { IChamado } from "@/src/services/chamados/chamados.service";
 
 import chamadowaintin from "./chamadowaintin.svg";
 import chamadocomplete from "./chamadocomplete.svg";
+import motoIcom from "../Map/icon.svg";
+import { socket } from "@/src/services/socket.io";
+import { ILocationMotoristaDTO } from "@/src/services/location/location.service";
 
 const containerStyle = {
   width: "100%",
@@ -18,6 +21,19 @@ export const ChamadoEditarMap: FC<{
     lat: Number(chamadoLocation?.localizacao?.latitude),
     lng: Number(chamadoLocation?.localizacao?.longitude),
   };
+
+  const [motoLocation, setMotoLocation] = useState({
+    lat: 0,
+    lng: 0,
+  });
+
+  useEffect(() => {
+    if (!chamadoLocation?.Aceite?.length) return;
+    setMotoLocation({
+      lat: +chamadoLocation?.Aceite[0].Motoristas.latitude,
+      lng: +chamadoLocation?.Aceite[0].Motoristas.longitude,
+    });
+  }, []);
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: process.env.NEXT_PUBLIC_APY_GOOGLE_MAP as string,
@@ -33,7 +49,18 @@ export const ChamadoEditarMap: FC<{
     setMap(null);
   }, []);
 
-  return isLoaded ? (
+  socket.on("updated", (data: ILocationMotoristaDTO) => {
+    // Encontrar o motorista pelo id
+    if (chamadoLocation?.Aceite?.length) {
+      setMotoLocation({
+        lat: data.latitude,
+        lng: data.longitude,
+      });
+      // Atualizar o estado
+    }
+  });
+
+  return isLoaded && center ? (
     <Container>
       <GoogleMap
         mapContainerStyle={{
@@ -54,7 +81,7 @@ export const ChamadoEditarMap: FC<{
             noClustererRedraw
             icon={{
               url:
-              chamadoLocation?.status === "Aguardando"
+                chamadoLocation?.status === "Aguardando"
                   ? chamadowaintin.src
                   : chamadocomplete.src,
               scaledSize: new google.maps.Size(60, 50),
@@ -63,7 +90,18 @@ export const ChamadoEditarMap: FC<{
             }}
           />
 
-        
+          {motoLocation && (
+            <Marker
+              position={motoLocation}
+              noClustererRedraw
+              icon={{
+                url: motoIcom.src,
+                scaledSize: new google.maps.Size(60, 50),
+                origin: new google.maps.Point(0, 0),
+                anchor: new google.maps.Point(20, 40),
+              }}
+            />
+          )}
         </>
       </GoogleMap>
     </Container>

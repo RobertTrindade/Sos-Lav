@@ -71,6 +71,8 @@ export interface IChamado {
     aceiteHora: string;
     Motoristas: {
       name: string;
+      latitude: string;
+      longitude: string;
     };
   }[];
 
