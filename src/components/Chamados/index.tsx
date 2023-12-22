@@ -46,8 +46,8 @@ export const ChamadosComponent = () => {
       const data = chamados.map((item) => ({
         ...item,
         createdAt: dayjs(item.createAt).format("DD/MM/YYYY HH:mm"),
-        patioName: item.patio.nome,
-        chamadorName: item.chamador.name,
+        patioName: item?.patio?.nome,
+        chamadorName: item?.chamador?.name,
         localizacaoName: item?.localizacao?.enderecoCompleto,
         motoristaName: item.Aceite?.length
           ? item!.Aceite![0].Motoristas.name

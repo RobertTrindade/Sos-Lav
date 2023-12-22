@@ -15,12 +15,8 @@ export const CustomStepLabel = styled(StepLabel)`
     color: white;
   }
 
-  .css-1rduzr9-MuiStepLabel-label.Mui-active {
+  .MuiStepLabel-label {
     color: white;
-  }
-
-  .css-1rduzr9-MuiStepLabel-label.Mui-completed {
-    color: #999a9a;
   }
 
   .MuiSvgIcon-fontSizeMedium {
@@ -42,10 +38,10 @@ export const CustomMainButton = styled(Button)`
   font-size: 16px;
   width: 200px;
   border-radius: 8px;
-  &:disabled{
-    color: #B8B9BB;
+  &:disabled {
+    color: #b8b9bb;
 
-    background-color: #EDEDED;
+    background-color: #ededed;
   }
 `;
 
@@ -57,10 +53,10 @@ export const CustomSecondaryButton = styled(Button)`
   background-color: transparent;
   width: 200px;
   border-radius: 8px;
-  &:disabled{
-    color: #B8B9BB;
+  &:disabled {
+    color: #b8b9bb;
 
-    background-color: #EDEDED;
+    background-color: #ededed;
   }
 `;
 
