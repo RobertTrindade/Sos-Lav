@@ -65,8 +65,9 @@ export const MapArea = styled(Box)`
   ${({ theme }) => theme.breakpoints.up("desktop")} {
     max-width: 800px;
   }
-  ${({ theme }) => theme.breakpoints.only("tablet")} {
+  ${({ theme }) => theme.breakpoints.down("tablet")} {
     max-width: 400px;
+    height: 700px;
   }
   ${({ theme }) => theme.breakpoints.only("laptop")} {
     max-width: 400px;
