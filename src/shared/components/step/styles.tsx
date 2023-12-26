@@ -5,9 +5,12 @@ export const CustomStepLabel = styled(StepLabel)`
   }
   font-size: 14px;
 
+  span {
+    color: white;
+  }
   .Mui-disabled {
     color: white;
-    font-weight: bold;
+    font-weight: bolder;
     font-size: 14px;
   }
 

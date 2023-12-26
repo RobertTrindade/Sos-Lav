@@ -113,7 +113,7 @@ class ChamadosService {
     );
   }
   async listOne(id?: string) {
-    return await this.httpClient.getWithAuth<Promise<IChamado>>(
+    return await this.httpClient.get<Promise<IChamado>>(
       `${this.path}/${Number(id)}`
     );
   }

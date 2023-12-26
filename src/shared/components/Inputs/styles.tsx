@@ -43,7 +43,7 @@ export const CustomInputLabel = styled(InputLabel)`
 `;
 
 export const CustomInputText = styled(Typography)`
-  margin-bottom: 12px;
+  margin-bottom: 10px;
   color: #f60;
   font-size: 20px;
   font-style: normal;
@@ -51,7 +51,7 @@ export const CustomInputText = styled(Typography)`
   line-height: normal;
   font-weight: bold;
   font-size: 18px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 
 
   ${({ theme }) => theme.breakpoints.down("tablet")} {

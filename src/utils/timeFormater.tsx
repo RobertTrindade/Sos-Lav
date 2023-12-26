@@ -1,9 +1,12 @@
-import dayjs from "dayjs";
-import utc from "dayjs/plugin/utc";
-
-dayjs.extend(utc);
-
 export const TimeFormatter = (time: string, withTimeZone = false) => {
-  if (withTimeZone) return dayjs(time).utcOffset(-3).format("DD/MM/YYYY HH:mm:ss");
-  return dayjs(time).utcOffset(-3).format("DD/MM/YYYY");
+  const dataObj = new Date(time);
+  const dia = String(dataObj.getUTCDate()).padStart(2, "0");
+  const mes = String(dataObj.getUTCMonth() + 1).padStart(2, "0");
+  const ano = dataObj.getUTCFullYear();
+  const hora = String(dataObj.getUTCHours()).padStart(2, "0");
+  const minutos = String(dataObj.getUTCMinutes()).padStart(2, "0");
+
+  return withTimeZone
+    ? `${dia}/${mes}/${ano} ${hora}:${minutos}`
+    : `${dia}/${mes}/${ano}`;
 };

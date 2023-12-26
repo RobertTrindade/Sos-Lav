@@ -26,14 +26,12 @@ export const TabResultArea = styled(Box)`
 
 export const MotoristaDadosContainer = styled(Box)`
   display: flex;
-
   flex-wrap: wrap;
-
   div {
     flex-basis: calc(
       50% - 30px
     ); /* Adjust the width and margin according to your design */
-    margin: 4px; /* Adjust the margin according to your design */
+    margin: 2px; /* Adjust the margin according to your design */
   }
 `;
 

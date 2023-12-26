@@ -8,7 +8,7 @@ interface PageProps {
 const MotoristasDetails = async (props: PageProps) => {
   const motoristas = await motoristasService.getMotorista(
     Number(props.params.id),
-    10
+    0
   );
   const stringWithoutSpecialChars = motoristas.EmpresaReboque.cnpj.replace(
     /[^\w\s]/g,

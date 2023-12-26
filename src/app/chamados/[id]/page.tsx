@@ -1,22 +1,15 @@
-"use client";
-
 import { ChamadosComponentEdit } from "@/src/components/Chamados/Chamados-edit";
-import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import chamadosService, {
-  IChamado,
-} from "@/src/services/chamados/chamados.service";
-export default function MotoristasDetails() {
-  const params = useParams();
+import chamadosService from "@/src/services/chamados/chamados.service";
 
-  const [chamados, setChamados] = useState<IChamado>();
-  useEffect(() => {
-    (async () => {
-      if (!params) return;
-      const res = await chamadosService.listOne(params.id as string);
-      setChamados(res);
-    })();
-  }, []);
-
-  return <ChamadosComponentEdit chamado={chamados!} />;
+interface PageProps {
+  params: { id: string };
+  searchParams: { [key: string]: string | string[] | undefined };
 }
+
+const ChamadosDetails = async (props: PageProps) => {
+  const res = await chamadosService.listOne(props.params.id as string);
+
+  return <ChamadosComponentEdit chamado={res} />;
+};
+
+export default ChamadosDetails;

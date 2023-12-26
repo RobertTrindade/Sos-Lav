@@ -11,7 +11,9 @@ import {
   MotoristaEmpresaContainer,
   TabResultArea,
 } from "./styles";
-import { IMotoristaDto } from "@/src/services/motoristas/motoristas.service";
+import motoristasService, {
+  IMotoristaDto,
+} from "@/src/services/motoristas/motoristas.service";
 import { ScrollableTabsButtonAuto } from "@/src/shared/components/Tabs";
 import { MotoristaMap } from "../Map";
 import { InputComponent } from "@/src/shared/components/Inputs";
@@ -21,6 +23,18 @@ import UploadService from "@/src/services/upload/upload.service";
 import MotoristasService from "@/src/services/motoristas/motoristas.service";
 import { CustomCircularProgress } from "../Motoristas-details/styles";
 import Image from "next/image";
+import { NivelGenerate } from "@/src/utils/Xp";
+import { ButtonComponent } from "@/src/shared/components/Buttons";
+import { CpfMask, PhoneMask, RgMask } from "@/src/utils/Masks";
+import { CustomDataPicker } from "@/src/shared/components/FIlters/styles";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import {
+  DateValidationError,
+  PickerChangeHandlerContext,
+} from "@mui/x-date-pickers";
+import { DataPickerComponent } from "@/src/shared/components/Inputs/datePIcker";
 
 export const MotoristasComponentEdit: React.FC<{
   motorista: IMotoristaDto;
@@ -79,115 +93,166 @@ export const MotoristasComponentEdit: React.FC<{
 
 const MotoristaDados: React.FC<{
   motorista: IMotoristaDto;
-}> = ({ motorista }) => {
+}> = ({
+  motorista: { name, email, cpf, rg, birthdate, createdAt, xp, celular, id },
+}) => {
+  const [payload, setPayload] = React.useState({
+    name,
+    email,
+    cpf,
+    rg,
+    birthdate: new AdapterDayjs().date(birthdate),
+    celular,
+  });
+  const [disabled, setDisabled] = React.useState(false);
+
+  const handleSave = async () => {
+    try {
+      const date = dayjs(payload.birthdate!.toISOString()).toDate();
+      await motoristasService.editMotorista(id, {
+        ...payload,
+        birthdate: date,
+      });
+      alert("Motorista alterado com sucesso!");
+    } catch (error) {
+      alert(JSON.stringify(error));
+    }
+  };
+
+  const handleChange = (target: keyof IMotoristaDto, value: any) => {
+    setPayload((prev) => ({
+      ...prev,
+      [target]: value,
+    }));
+  };
+
+  const handleChangeTime = (
+    value: unknown,
+    context: PickerChangeHandlerContext<DateValidationError>
+  ) => {
+    const time = value as Date;
+    const date = dayjs(time.toISOString()).toDate();
+    handleChange("birthdate", date);
+  };
+  React.useEffect(() => {
+    const { name, email, cpf, rg, birthdate, celular } = payload;
+    setDisabled(!name || !email || !cpf || !rg || !birthdate || !celular);
+  }, [payload]);
+
   return (
-    <MotoristaDadosContainer>
-      <InputComponent
-        content="Nome"
-        type="email"
-        customProps={{
-          readOnly: true,
-          value: motorista.name,
-        }}
-        customStyles={{
-          color: "white",
-        }}
-      />
-      <InputComponent
-        content="E-mail"
-        type="email"
-        customProps={{
-          readOnly: true,
-          value: motorista.email,
-        }}
-        customStyles={{
-          color: "white",
-        }}
-      />
+    <>
+      <MotoristaDadosContainer>
+        <InputComponent
+          content="Nome"
+          type="email"
+          customProps={{
+            value: payload.name,
+            onChange: (e) => handleChange("name", e.target.value),
+          }}
+          customStyles={{
+            color: "white",
+          }}
+        />
+        <InputComponent
+          content="E-mail"
+          type="email"
+          customProps={{
+            value: payload.email,
+            onChange: (e) => handleChange("email", e.target.value),
+          }}
+          customStyles={{
+            color: "white",
+          }}
+        />
 
-      <InputComponent
-        content="CPF"
-        type="email"
-        customProps={{
-          readOnly: true,
-          value: motorista.cpf,
-        }}
-        customStyles={{
-          color: "white",
-        }}
-      />
-      <InputComponent
-        content="RG"
-        type="email"
-        customProps={{
-          readOnly: true,
-          value: motorista.rg,
-        }}
-        customStyles={{
-          color: "white",
-        }}
-      />
-      <InputComponent
-        content="Data de Nascimento"
-        type="email"
-        customProps={{
-          readOnly: true,
-          value: dayjs(motorista.birthdate).format("DD/MM/YYYY"),
-        }}
-        customStyles={{
-          color: "white",
-        }}
-      />
-      <br />
+        <InputComponent
+          content="Celular"
+          type="email"
+          customProps={{
+            value: payload.celular,
+            onChange: (e) =>
+              e.target.value.length < 16 &&
+              handleChange("celular", PhoneMask(e.target.value)),
+          }}
+          customStyles={{
+            color: "white",
+          }}
+        />
+        <InputComponent
+          content="CPF"
+          type="email"
+          customProps={{
+            value: payload.cpf,
+            onChange: (e) =>
+              e.target.value.length < 14 &&
+              handleChange("cpf", CpfMask(e.target.value)),
+          }}
+          customStyles={{
+            color: "white",
+          }}
+        />
 
-      <InputComponent
-        content="Nível"
-        type="email"
-        customProps={{
-          readOnly: true,
-          value: Math.floor(2000 / 1000) + 1,
-        }}
-        customStyles={{
-          color: "white",
-        }}
-      />
+        <InputComponent
+          content="RG"
+          type="email"
+          customProps={{
+            value: payload.rg,
+            onChange: (e) =>
+              e.target.value.length < 12 &&
+              handleChange("rg", RgMask(e.target.value)),
+          }}
+          customStyles={{
+            color: "white",
+          }}
+        />
 
-      <InputComponent
-        content="Data de Cadastro"
-        type="email"
-        customProps={{
-          readOnly: true,
-          value: dayjs(motorista.createdAt).format("DD/MM/YYYY"),
-        }}
-        customStyles={{
-          color: "white",
-        }}
-      />
+        <DataPickerComponent
+          handleChangeTime={handleChangeTime}
+          value={payload.birthdate}
+          label="Data de Nascimento"
+        />
 
-      <InputComponent
-        content="Data de Cadastro"
-        type="email"
-        customProps={{
-          readOnly: true,
-          value: dayjs(motorista.createdAt).format("DD/MM/YYYY"),
+        <InputComponent
+          content="Nível"
+          type="text"
+          customProps={{
+            value: NivelGenerate(xp),
+            readOnly: true,
+          }}
+          customStyles={{
+            color: "white",
+          }}
+        />
+        <InputComponent
+          content="Data de Cadastro"
+          type="email"
+          customProps={{
+            value: dayjs(createdAt).format("DD/MM/YYYY"),
+            readOnly: true,
+          }}
+          customStyles={{
+            color: "white",
+          }}
+        />
+      </MotoristaDadosContainer>
+      <ButtonComponent
+        buttonProps={{
+          variant: "contained",
+          onClick: () => handleSave(),
+          disabled: disabled,
         }}
         customStyles={{
           color: "white",
+          fontWeight: "700",
+          fontSize: "15px",
+          height: "50px",
+          width: "200px",
+          borderRadius: "14px",
         }}
-      />
-
-      <InputComponent
-        content="Data de Cadastro"
-        type="email"
-        customProps={{
-          readOnly: true,
-          value: dayjs(motorista.createdAt).format("DD/MM/YYYY"),
-        }}
-        customStyles={{
-          color: "white",
-        }}
-      />
-    </MotoristaDadosContainer>
+      >
+        Salvar
+      </ButtonComponent>
+    </>
   );
 };
 
@@ -200,7 +265,6 @@ const MotoristaEndereco: React.FC<{
         content="Endereço"
         type="email"
         customProps={{
-          readOnly: true,
           value: motorista.MotoristasEndereco.endereco,
         }}
         customStyles={{
@@ -212,7 +276,6 @@ const MotoristaEndereco: React.FC<{
         content="Bairro"
         type="email"
         customProps={{
-          readOnly: true,
           value: motorista.MotoristasEndereco.bairro,
         }}
         customStyles={{
@@ -224,7 +287,6 @@ const MotoristaEndereco: React.FC<{
         content="Cidade"
         type="email"
         customProps={{
-          readOnly: true,
           value: motorista.MotoristasEndereco.cidade,
         }}
         customStyles={{
@@ -235,7 +297,6 @@ const MotoristaEndereco: React.FC<{
         content="Cep"
         type="email"
         customProps={{
-          readOnly: true,
           value: motorista.MotoristasEndereco.cep,
         }}
         customStyles={{
@@ -246,7 +307,6 @@ const MotoristaEndereco: React.FC<{
         content="UF"
         type="email"
         customProps={{
-          readOnly: true,
           value: motorista.MotoristasEndereco.uf,
         }}
         customStyles={{
@@ -277,7 +337,6 @@ const MotoristaCnh: React.FC<{
           content="CNH"
           type="email"
           customProps={{
-            readOnly: true,
             value: motorista.Cnh.cnh,
           }}
           customStyles={{
@@ -289,7 +348,6 @@ const MotoristaCnh: React.FC<{
           content="Categoria"
           type="email"
           customProps={{
-            readOnly: true,
             value: motorista.Cnh.cnhCategoria,
           }}
           customStyles={{
@@ -300,7 +358,6 @@ const MotoristaCnh: React.FC<{
           content="Validade"
           type="email"
           customProps={{
-            readOnly: true,
             value: dayjs(motorista.Cnh.cnhValidade).format("DD/MM/YYYY"),
           }}
           customStyles={{
@@ -311,7 +368,6 @@ const MotoristaCnh: React.FC<{
           content="UF"
           type="email"
           customProps={{
-            readOnly: true,
             value: motorista.MotoristasEndereco.uf,
           }}
           customStyles={{
@@ -403,7 +459,6 @@ const MotoristaEmpresa: React.FC<{
         <InputComponent
           content="CNPJ"
           customProps={{
-            readOnly: true,
             value: motorista.EmpresaReboque.cnpj,
           }}
           customStyles={{
@@ -449,7 +504,6 @@ const MotoristaReboque: React.FC<{
           content="Placa"
           type="email"
           customProps={{
-            readOnly: true,
             value: motorista.Reboques[0].placa,
           }}
           customStyles={{

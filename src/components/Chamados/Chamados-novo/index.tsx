@@ -15,6 +15,7 @@ import { ChamadosStep1 } from "./steps/step1";
 import { ChamadosStep2 } from "./steps/step2";
 import { useChamados } from "@/src/contexts/chamadosContext";
 import { ChamadosStep3 } from "./steps/step3";
+import Link from "next/link";
 
 export const ChamadosComponentNovo: React.FC<{}> = () => {
   const {
@@ -61,9 +62,11 @@ export const ChamadosComponentNovo: React.FC<{}> = () => {
     <Container>
       <BackArea>
         <div className="actionArea">
+          <Link href={"/chamados"}>
             <CustomIconButton>
               <BackIcon />
             </CustomIconButton>
+          </Link>
           <Title>Novo Chamado</Title>
         </div>
       </BackArea>

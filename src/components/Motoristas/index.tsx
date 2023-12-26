@@ -27,14 +27,17 @@ import { DataFilter } from "@/src/shared/components/FIlters/data";
 import motoristasService, {
   IMotoristaDto,
 } from "@/src/services/motoristas/motoristas.service";
-import dayjs from "dayjs";
 import useQueryParams from "@/src/hooks/usehandleQueryString";
-
+import { TimeFormatter } from "@/src/utils/timeFormater";
+import { useRouter } from "next/navigation";
+import FilterListOffIcon from '@mui/icons-material/FilterListOff';
 export const MotoristasComponent = () => {
   const [open, setOpen] = React.useState(false);
   const [motoristas, setMotoristas] = React.useState<IMotoristaDto[]>([]);
   const [loading, setLoading] = React.useState(false);
   const { cleanSearch } = useQueryParams();
+
+  const router = useRouter();
 
   const handleSearch = async () => {
     try {
@@ -42,11 +45,11 @@ export const MotoristasComponent = () => {
       const motoristas = await motoristasService.getMotoristas(
         window.location.search
       );
-      
+
       // Mapeie os motoristas e formate a propriedade 'createdAt'
       const data = motoristas.map((item) => ({
         ...item,
-        createdAt: dayjs(item.createdAt).format("DD/MM/YYYY HH:mm"),
+        createdAt: TimeFormatter(item.createdAt),
         cnh: item.Cnh.cnh,
       }));
 
@@ -145,6 +148,12 @@ export const MotoristasComponent = () => {
                 onClick={() => setOpen(true)}
               >
                 Mais Filtros
+              </ActionButton>
+              <ActionButton
+                startIcon={<FilterListOffIcon />}
+                onClick={() => router.push("/motoristas")}
+              >
+                Limpar Filtros
               </ActionButton>
             </CustomGridToolbarContainer>
           ),

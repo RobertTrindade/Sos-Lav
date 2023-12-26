@@ -20,18 +20,22 @@ import { ButtonComponent } from "@/src/shared/components/Buttons";
 import { MotoristasComponentEdit } from "../Motorista-edit";
 import { Avatar } from "@mui/material";
 import { CustomCircularProgress } from "@/src/shared/components/Spinner";
+import { AlertDialog } from "@/src/shared/components/Dialog";
 export const MotoristasComponentDatails: React.FC<{
   motorista?: IMotoristaDto;
   scriptTags?: string[] | undefined;
 }> = ({ motorista, scriptTags }) => {
+  const [open, setOpen] = React.useState(false);
+  const [action, setAction] = React.useState("aprovado");
+
   const handleAproveMotorista = async (status: string) => {
     try {
       if (!motorista) return;
       await MotoristasService.aproveDriver(motorista.id, {
         status,
       });
-
-      window.location.reload();
+      setAction(status === "ativo" ? "aprovado" : "recusado");
+      setOpen(true);
     } catch (error) {}
   };
 
@@ -95,6 +99,29 @@ export const MotoristasComponentDatails: React.FC<{
           scriptTags={scriptTags}
         />
       </BackArea>
+      <AlertDialog
+        title={`Aprovação de Motorista`}
+        content={`Motorista ${motorista?.name} foi ${action} com sucesso, Aguarde 10 segundos e recarregue a página`}
+        open={open}
+        setOpen={setOpen}
+      >
+        <ButtonComponent
+          buttonProps={{
+            variant: "contained",
+            onClick: () => setOpen(false),
+          }}
+          customStyles={{
+            color: "white",
+            fontWeight: "700",
+            fontSize: "15px",
+            height: "50px",
+            width: "200px",
+            borderRadius: "14px",
+          }}
+        >
+          Fechar
+        </ButtonComponent>
+      </AlertDialog>
     </Container>
   ) : (
     <Loading>
