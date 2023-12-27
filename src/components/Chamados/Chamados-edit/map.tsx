@@ -60,6 +60,12 @@ export const ChamadoEditarMap: FC<{
     }
   });
 
+  const ReturnIcon = (status: string) => {
+    if (status === "Em checklist") return chamadocomplete.src;
+
+    return chamadowaintin.src;
+  };
+
   return isLoaded && center ? (
     <Container>
       <GoogleMap
@@ -80,10 +86,7 @@ export const ChamadoEditarMap: FC<{
             position={{ ...center }}
             noClustererRedraw
             icon={{
-              url:
-                chamadoLocation?.status === "Aguardando"
-                  ? chamadowaintin.src
-                  : chamadocomplete.src,
+              url: ReturnIcon(chamadoLocation.status),
               scaledSize: new google.maps.Size(60, 50),
               origin: new google.maps.Point(0, 0),
               anchor: new google.maps.Point(20, 40),

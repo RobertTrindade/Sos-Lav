@@ -83,13 +83,13 @@ export const ChamadosComponent = () => {
 
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 10 },
-    { field: "status", headerName: "Status", width: 70 },
+    { field: "status", headerName: "Status", width: 150 },
 
     { field: "chamadorName", headerName: "Chamador", width: 160 },
     { field: "motoristaName", headerName: "Motorista", width: 160 },
 
     { field: "patioName", headerName: "Pátio", width: 200 },
-    { field: "localizacaoName", headerName: "Local", width: 200 },
+    { field: "localizacaoName", headerName: "Local", width: 300 },
 
     { field: "createdAt", headerName: "Data/hora", width: 200 },
 
@@ -102,7 +102,7 @@ export const ChamadosComponent = () => {
       field: "editar",
       type: "actions",
       headerName: "Editar",
-      width: 100,
+      width: 70,
       cellClassName: "actions",
       getActions: ({ id }) => {
         return [
