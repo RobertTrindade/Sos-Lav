@@ -26,6 +26,26 @@ import {
 } from "../Chamados-novo/steps/step1";
 import patiosService from "@/src/services/patios/patios.service";
 import dayjs from "dayjs";
+import { ButtonComponent } from "@/src/shared/components/Buttons";
+
+export const chamadosStatus = [
+  {
+    label: "Aguardando",
+    id: 1,
+  },
+  {
+    label: "Concluido",
+    id: 2,
+  },
+  {
+    label: "Em Checklist",
+    id: 2,
+  },
+  {
+    label: "Aceito",
+    id: 2,
+  },
+];
 
 export const ChamadosComponentEdit: React.FC<{
   chamado: IChamado;
@@ -88,10 +108,10 @@ const ChamadoDetails: React.FC<{
     status: chamado.status,
   });
   // Função para atualizar o estado dos campos
-  const handleNewValue = (campo: string, valor: string) => {
+  const handleNewValue = (campo: string, valor: INewValue | any) => {
     setChamado((prevState) => ({
       ...prevState,
-      [campo]: valor,
+      [campo]: valor.label ? valor.label : valor,
     }));
   };
 
@@ -157,18 +177,36 @@ const ChamadoDetails: React.FC<{
             target="origem"
           />
         </BoxInput>
+
         <BoxInput>
-          <InputComponent
-            label="Status"
-            content="Status"
-            customProps={{
-              value: chamadoState.status,
-              onChange: (e) => {
-                handleNewValue("estado", e.target.value);
-              },
-            }}
+          <Label>Status</Label>
+          <AutoCompleteComponent
+            options={chamadosStatus}
+            label="Chamados Status"
+            noOptionsText="Nenhuma status encontrado"
+            setStateActionWithTarget={handleNewValue}
+            value={chamadoState.status}
+            target="status"
           />
         </BoxInput>
+
+        <ButtonComponent
+          buttonProps={{
+            variant: "contained",
+            onClick: () => {
+              console.log(chamadoState);
+            },
+          }}
+          customStyles={{
+            color: "white",
+            fontWeight: "600",
+            fontSize: "18px",
+            height: "40px",
+            width: "200px",
+          }}
+        >
+          Salvar
+        </ButtonComponent>
       </Form>
     )
   );
@@ -528,11 +566,11 @@ const ChamadoMoto: React.FC<{
   chamado: IChamado;
 }> = ({ chamado }) => {
   const [chamadoState, setChamado] = React.useState({
-    nome: chamado?.Aceite && chamado?.Aceite[0].Motoristas.name,
-    kmStimado: chamado?.Aceite && chamado?.Aceite[0].kmsEstimado,
+    nome: chamado?.Aceite?.length && chamado?.Aceite[0].Motoristas.name,
+    kmStimado: chamado?.Aceite?.length && chamado?.Aceite[0].kmsEstimado,
 
-    hrsStimado: chamado?.Aceite && chamado?.Aceite[0].tempoEstimado,
-    hrsAceite: chamado?.Aceite && chamado?.Aceite[0].aceiteHora,
+    hrsStimado: chamado?.Aceite?.length && chamado?.Aceite[0].tempoEstimado,
+    hrsAceite: chamado?.Aceite?.length && chamado?.Aceite[0].aceiteHora,
   });
 
   // Função para atualizar o estado dos campos

@@ -2,16 +2,17 @@ import { Box, Button, StepLabel, styled } from "@mui/material";
 
 export const CustomStepLabel = styled(StepLabel)`
   .MuiStepLabel-label {
+    color: white;
+    font-weight: bolder;
+
   }
   font-size: 14px;
 
-  span {
-    color: white;
-  }
   .Mui-disabled {
     color: white;
-    font-weight: bolder;
     font-size: 14px;
+    font-weight: normal;
+
   }
 
   .MuiSvgIcon-root {

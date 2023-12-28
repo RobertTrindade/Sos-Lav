@@ -97,7 +97,7 @@ export const Form = styled(Box)`
 export const Label = styled(Typography)`
   font-weight: bold;
   font-size: 18px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 
   ${({ theme }) => theme.breakpoints.down("desktop")} {
     font-size: 15px;
