@@ -82,7 +82,7 @@ export interface IChamado {
   chamador: {
     name: string;
   };
-  Ncv: string[];
+  Ncv: INCV[];
   fotos: string[];
 
   localizacao: {
@@ -95,6 +95,80 @@ export interface IChamado {
     cep: string;
     latitude: string;
     longitude: string;
+  };
+}
+
+export interface INCV {
+  id: 5;
+  cor: string;
+  marca: string;
+  modelo: string;
+  placa: string;
+  ano: string;
+  municipio: string;
+  uf: string;
+  km: string;
+  chassi: string;
+  motor: string;
+  kmFotos: string;
+  combustivelFotos: string;
+  avariasDescription: string;
+
+  Acessorios: {
+    id: 5;
+    arCondicionado: boolean;
+    vidroEletrico: boolean;
+    cambioManual: boolean;
+    cambioAutomatico: boolean;
+    radioCd: boolean;
+    pneuStep: boolean;
+    rodaComum: boolean;
+    rodaEspecial: boolean;
+    calotas: boolean;
+    antena: boolean;
+    documento: boolean;
+    carroFuncionando: boolean;
+    created_at: string;
+    updated_at: string;
+  };
+  Apreensao: {
+    id: 5;
+    chaves: boolean;
+    blitz: boolean;
+    guinchoColetivo: boolean;
+    kmPercorrido: string;
+    adulterado: boolean;
+    crimesTransito: boolean;
+    emTela: boolean;
+    foraCirculacao: boolean;
+    judicial: boolean;
+    leasing: boolean;
+    motoQueixa: boolean;
+    pedirBaixa: boolean;
+    policiaCivil: boolean;
+    traficoDrogas: boolean;
+    rouboFurto: boolean;
+    semDocumentosCrv: boolean;
+    infracaoTransito: boolean;
+    created_at: string;
+    updated_at: string;
+  };
+  Avarias: {
+    id: 31;
+    fotos: string[];
+    ncvId: 5;
+    type: string;
+    created_at: string;
+    updated_at: string;
+  }[];
+
+  Complemento: {
+    id: 5;
+    pintura: string;
+    tapecaria: string;
+    pneus: string;
+    created_at: string;
+    updated_at: string;
   };
 }
 
