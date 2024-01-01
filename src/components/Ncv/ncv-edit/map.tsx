@@ -25,7 +25,6 @@ export const ChamadoEditarMap: FC<{
   const [motoLocation, setMotoLocation] = useState({
     lat: 0,
     lng: 0,
-    name: "",
   });
 
   useEffect(() => {
@@ -33,7 +32,6 @@ export const ChamadoEditarMap: FC<{
     setMotoLocation({
       lat: +chamadoLocation?.Aceite[0].Motoristas.latitude,
       lng: +chamadoLocation?.Aceite[0].Motoristas.longitude,
-      name: chamadoLocation?.Aceite[0].Motoristas.name,
     });
   }, []);
   const { isLoaded } = useJsApiLoader({
@@ -57,7 +55,6 @@ export const ChamadoEditarMap: FC<{
       setMotoLocation({
         lat: data.latitude,
         lng: data.longitude,
-        name: chamadoLocation?.Aceite[0].Motoristas.name,
       });
       // Atualizar o estado
     }
@@ -98,15 +95,10 @@ export const ChamadoEditarMap: FC<{
 
           {motoLocation && (
             <Marker
-              position={{
-                lat: motoLocation.lat,
-                lng: motoLocation.lng,
-              }}
-              title={motoLocation.name}
+              position={motoLocation}
               noClustererRedraw
               icon={{
                 url: motoIcom.src,
-
                 scaledSize: new google.maps.Size(60, 50),
                 origin: new google.maps.Point(0, 0),
                 anchor: new google.maps.Point(20, 40),

@@ -435,6 +435,15 @@ const ChamadoNcvs: React.FC<{
           </BoxInput>
           <BoxInput>
             <InputComponent
+              label="Placa"
+              content="Placa"
+              customProps={{
+                value: ncv.placa,
+              }}
+            />
+          </BoxInput>
+          <BoxInput>
+            <InputComponent
               label="Cor"
               content="Cor"
               customProps={{

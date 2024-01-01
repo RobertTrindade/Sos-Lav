@@ -28,7 +28,7 @@ import userService, {
 } from "@/src/services/usuarios/usuarios.service";
 import NewspaperIcon from "@mui/icons-material/Newspaper";
 import localStorageService from "@/src/services/auth/localStorage.service";
-
+import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 export const SideBarComponent: React.FC<{
   open: boolean;
   handleClick: () => void;
@@ -121,6 +121,24 @@ export const SideBarComponent: React.FC<{
                       startIcon={<SupportAgentIcon />}
                     >
                       Chamados
+                    </SideItem>
+                  </Link>
+
+                  <Link
+                    href="/ncv"
+                    style={{
+                      display: user?.Permissions.find(
+                        (item) => item.title === "ncv"
+                      )
+                        ? "flex"
+                        : "none",
+                    }}
+                  >
+                    <SideItem
+                      active={pathParts[0] === "ncv"}
+                      startIcon={<DirectionsCarIcon />}
+                    >
+                      Ncv
                     </SideItem>
                   </Link>
 
