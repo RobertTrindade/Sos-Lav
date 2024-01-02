@@ -6,11 +6,10 @@ interface PageProps {
   searchParams: { [key: string]: string | string[] | undefined };
 }
 
-const ChamadosDetails = async (props: PageProps) => {
-
-  const res = await ncvService.listOne(props.params.id as string);
+const NcvDetails = async (props: PageProps) => {
+  const res = await ncvService.listOne(props.params.id as string, 10);
 
   return <NcvEdit chamado={res} />;
 };
 
-export default ChamadosDetails;
+export default NcvDetails;

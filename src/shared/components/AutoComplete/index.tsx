@@ -5,6 +5,7 @@ import { CustomAutocomplete } from "./styles";
 import * as React from "react";
 import TextField from "@mui/material/TextField";
 import { IChamadosValues } from "@/src/contexts/chamadosContext";
+import { SxProps, Theme } from "@mui/material";
 
 interface IAutoCompleteComponent {
   options: any;
@@ -17,6 +18,7 @@ interface IAutoCompleteComponent {
     target: any,
     value: any
   ) => void;
+  sx?: SxProps<Theme> | undefined
 }
 
 export interface INewValue {
@@ -33,6 +35,7 @@ export const AutoCompleteComponent: React.FC<IAutoCompleteComponent> = ({
   value,
   target,
   setStateActionWithTarget,
+  sx
 }) => {
   return (
     <CustomAutocomplete
@@ -41,6 +44,7 @@ export const AutoCompleteComponent: React.FC<IAutoCompleteComponent> = ({
       options={options}
       fullWidth
       disabled={!options}
+      sx={sx}
       value={value || null}
       onChange={(event: any, newValue: any) => {
         if (setStateActionWithTarget) {
@@ -58,6 +62,7 @@ export const AutoCompleteComponent: React.FC<IAutoCompleteComponent> = ({
       renderInput={(params) => (
         <TextField {...params} placeholder={label} fullWidth />
       )}
+     
     />
   );
 };

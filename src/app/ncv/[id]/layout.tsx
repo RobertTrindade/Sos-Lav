@@ -7,7 +7,7 @@ export default function ChamadosLayoutEditar({
 }) {
   return (
     <>
-      <title>Editar chamado</title>
+      <title>Editar NCV</title>
       <meta name="description" content="Tela de Chamados" />
       <meta property="og:description" content="Descrição para Redes Sociais" />
       <meta property="og:image" content="URL da imagem para Redes Sociais" />

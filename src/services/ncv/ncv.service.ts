@@ -1,4 +1,5 @@
 import HttpClient from "../HttpClient";
+import { IMotoristaDto } from "../motoristas/motoristas.service";
 
 export interface INCVResponse {
   id: 7;
@@ -25,6 +26,31 @@ export interface INCVResponse {
   status: string;
 
   Chamado: IChamado;
+  Apreensao: IApreensao;
+  Motoristas: IMotoristaDto;
+}
+
+export interface IApreensao {
+  id: 10;
+  chaves: false;
+  blitz: false;
+  guinchoColetivo: false;
+  kmPercorrido: "12";
+  adulterado: false;
+  crimesTransito: false;
+  emTela: true;
+  foraCirculacao: true;
+  judicial: true;
+  leasing: false;
+  motoQueixa: false;
+  pedirBaixa: true;
+  policiaCivil: false;
+  traficoDrogas: false;
+  rouboFurto: false;
+  semDocumentosCrv: false;
+  infracaoTransito: false;
+  created_at: "2024-01-02T12:47:35.940Z";
+  updated_at: "2024-01-02T12:47:35.940Z";
 }
 
 export interface IChamado {
@@ -169,9 +195,10 @@ class NcvService {
       body
     );
   }
-  async listOne(id?: string) {
+  async listOne(id?: string, revalidate?: number) {
     return await this.httpClient.get<Promise<INCVResponse>>(
-      `${this.path}/${Number(id)}`
+      `${this.path}/${Number(id)}`,
+      revalidate
     );
   }
 

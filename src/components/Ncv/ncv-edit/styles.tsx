@@ -18,7 +18,6 @@ export const Title = styled(Typography)`
 `;
 export const Content = styled(Box)`
   display: flex;
-  justify-content: space-between;
 
   ${({ theme }) => theme.breakpoints.down("tablet")} {
     flex-direction: column;
@@ -97,4 +96,41 @@ export const MotoristaContratoContainer = styled(Box)`
       height: 100vh;
     }
   }
+`;
+
+export const Form = styled(Box)`
+  display: flex;
+  margin-top: 30px;
+
+  flex-wrap: wrap;
+  gap: 20px;
+
+  div {
+    width: max-content;
+
+  }
+`;
+
+export const Label = styled(Typography)`
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 10px;
+
+  ${({ theme }) => theme.breakpoints.down("desktop")} {
+    font-size: 15px;
+  }
+
+  ${({ theme }) => theme.breakpoints.down("tablet")} {
+    font-size: 15px;
+  }
+
+  ${({ theme }) => theme.breakpoints.down("mobile")} {
+    font-size: 15px;
+  }
+`;
+
+export const BoxInput = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 `;
