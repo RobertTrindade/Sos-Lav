@@ -95,7 +95,7 @@ export const MotoristaEmpresaContainer = styled(Box)`
     gap: 10px;
     .dados {
       p {
-        color: white;
+        color:${({ theme }) => theme.palette.secondary.main};
 
         font-size: 19px;
       }

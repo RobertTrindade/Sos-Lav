@@ -38,7 +38,7 @@ const Container = styled(Box)`
 `;
 
 const CustomBreadcrumbs = styled(Breadcrumbs)`
-  color: white;
+  color:${({ theme }) => theme.palette.secondary.main};
   font-weight: bold;
   font-size: 18px;
 `;
@@ -52,13 +52,12 @@ const Label = styled(Typography, {
 
   font-size: 20px;
   text-transform: capitalize;
-  color: #999a9a;
+  color: ${({ theme }) => theme.palette.secondary.main};
 
-  ${({ actual }) =>
+  ${({ actual ,theme}) =>
     actual &&
     css`
       font-weight: medium;
-
-      color: white;
+      color:${theme.palette.secondary.main}
     `}
 `;

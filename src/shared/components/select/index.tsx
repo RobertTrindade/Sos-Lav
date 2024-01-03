@@ -7,8 +7,7 @@ import {
   CustomMenuItem,
   CustomSelectComponent,
 } from "./styles";
-import { SelectChangeEvent, SelectProps } from "@mui/material";
-import { InputComponent } from "../Inputs";
+import { SelectProps } from "@mui/material";
 
 export interface IInputProps {
   customProps?: SelectProps;
@@ -24,6 +23,15 @@ export interface IInputProps {
     borderRadius?: string;
     height?: string;
   };
+  options: {
+    label: string;
+    value: any;
+  }[];
+}
+
+export interface ICustomSelect {
+  label: string;
+  value: any;
 }
 
 export const CustomSelect: FC<IInputProps> = forwardRef(
@@ -35,16 +43,11 @@ export const CustomSelect: FC<IInputProps> = forwardRef(
       type,
       endAdornment,
       content,
+      options,
       ...rest
     }: IInputProps,
     ref: ForwardedRef<HTMLInputElement>
   ) => {
-    const [age, setAge] = React.useState("Ten");
-
-    const handleChange = (event: SelectChangeEvent) => {
-      setAge(event.target.value as string);
-    };
-
     return (
       <Container variant="filled" customStyles={customStyles} fullWidth>
         {content && <CustomInputText>{content}</CustomInputText>}
@@ -56,8 +59,11 @@ export const CustomSelect: FC<IInputProps> = forwardRef(
           ref={ref}
           {...rest}
         >
-          <CustomMenuItem value={"sim"}>Sim</CustomMenuItem>
-          <CustomMenuItem value={"nao"}>nao</CustomMenuItem>
+          {options.map((item, key) => (
+            <CustomMenuItem value={item.value} key={key}>
+              {item.label}
+            </CustomMenuItem>
+          ))}
         </CustomSelectComponent>
       </Container>
     );

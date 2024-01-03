@@ -28,7 +28,7 @@ export const CustomIconButton = styled(IconButton)`
   align-items: center;
 
   path {
-    color: white;
+    color:${({ theme }) => theme.palette.secondary.main};
     text-align: center;
     margin: 0 auto;
   }
@@ -68,7 +68,7 @@ export const Loading = styled(Box)`
 `;
 
 export const CustomCircularProgress = styled(CircularProgress)`
-  color: white;
+  color:${({ theme }) => theme.palette.secondary.main};
   width: 100px;
 `;
 

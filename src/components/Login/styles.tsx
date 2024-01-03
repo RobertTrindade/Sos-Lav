@@ -3,7 +3,6 @@ import { Box, Checkbox, Typography, styled } from "@mui/material";
 
 export const Container = styled(Box)`
   display: flex;
-
 `;
 
 export const ErrorMessage = styled(Typography)`
@@ -89,7 +88,7 @@ export const SecondSideContent = styled(Box)`
       width: 200px;
       height: 200px;
       border-radius: 100%;
-      background-color: white;
+      background-color:${({ theme }) => theme.palette.secondary.main};
       display: flex;
       flex-direction: column;
 
@@ -116,11 +115,12 @@ export const Form = styled("form")`
 `;
 
 export const CustomCheckBox = styled(Checkbox)`
-  color: #999a9a;
+  color: ${({ theme }) => theme.palette.secondary.main};
+
   display: block;
 `;
 export const TitleSecondSide = styled(Typography)`
-  color: #f60;
+  color: ${({ theme }) => theme.palette.primary.main};
   text-align: center;
   font-size: 30px;
   font-style: normal;
@@ -132,7 +132,7 @@ export const TitleSecondSide = styled(Typography)`
 `;
 
 export const TitleSubSecondSide = styled(Typography)`
-  color: #f60;
+  color: ${({ theme }) => theme.palette.primary.main};
   text-align: center;
   font-size: 20px;
   font-style: normal;
@@ -146,7 +146,7 @@ export const CheckBoxContainer = styled(Box)`
   align-items: center;
 `;
 export const CheckBoxText = styled(Typography)`
-  color: #999a9a;
+  color: ${({ theme }) => theme.palette.secondary.main};
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
@@ -155,7 +155,7 @@ export const CheckBoxText = styled(Typography)`
 `;
 
 export const PassForget = styled(Typography)`
-  color: #f60;
+  color: ${({ theme }) => theme.palette.primary.main};
   text-align: right;
   font-size: 18px;
   font-style: normal;
@@ -179,7 +179,7 @@ export const FormFooter = styled(Box)`
     display: flex;
     justify-content: space-between;
     .FormFooterTitle {
-      color: #f60;
+      color: ${({ theme }) => theme.palette.primary.main};
       text-align: center;
       font-size: 18px;
       font-style: normal;

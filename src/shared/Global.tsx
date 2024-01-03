@@ -74,25 +74,26 @@ declare module "@mui/material/styles" {
   }
 }
 
-interface IGlobals {
+export interface IGlobals {
   children: React.ReactNode;
+  pallet: { id: number; main: string; secundary: string };
 }
 
-export const Globals: FC<IGlobals> = ({ children }) => {
+export const Globals: FC<IGlobals> = ({ children, pallet }) => {
   const theme = createTheme({
     palette: {
       primary: {
-        main: "#F60",
+        main: pallet.main,
       },
       secondary: {
-        main: "#999A9A",
+        main: pallet.secundary,
         contrastText: "#fff",
       },
     },
     typography: {
       allVariants: {
         textTransform: "none",
-        color: "#ff6600",
+        color: pallet.main,
         fontFamily: poppins.style.fontFamily,
       },
     },

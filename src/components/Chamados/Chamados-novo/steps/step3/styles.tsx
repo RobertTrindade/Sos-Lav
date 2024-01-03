@@ -7,7 +7,7 @@ export const Container = styled(Box)`
 
 export const Label = styled(Typography)`
   font-weight: bold;
-  color: white;
+  color:${({ theme }) => theme.palette.secondary.main};
   font-size: 20px;
 `;
 
@@ -33,7 +33,7 @@ export const Row = styled(Box)`
 export const Title = styled(Typography)`
   font-size: 20px;
   font-weight: bold;
-  color: white;
+  color:${({ theme }) => theme.palette.secondary.main};
   margin-top: 30px;
 
   margin-bottom: 30px;

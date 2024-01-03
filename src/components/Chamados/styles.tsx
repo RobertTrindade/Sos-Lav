@@ -41,32 +41,32 @@ export const ActionButton = styled(Button)`
 
 export const CustomDataGrid = styled(DataGrid)`
   width: 100%;
-  color: white;
+  color:${({ theme }) => theme.palette.secondary.main};
   font-weight: bold;
   margin-top: 100px;
 
   .MuiDataGrid-columnHeaderTitle {
-    color: #999a9a;
+    color: ${({ theme }) => theme.palette.secondary.main};
     font-weight: bold;
 
   }
   .MuiTablePagination-selectLabel {
-    color: white;
+    color:${({ theme }) => theme.palette.secondary.main};
     font-weight: bold;
 
   }
 
   fill {
-    color: white;
+    color:${({ theme }) => theme.palette.secondary.main};
   }
   svg {
-    color: white;
+    color:${({ theme }) => theme.palette.secondary.main};
   }
   .MuiSelect-nativeInput css-yf8vq0-MuiSelect-nativeInput {
-    color: white;
+    color:${({ theme }) => theme.palette.secondary.main};
   }
   .MuiSelect-select {
-    color: white;
+    color:${({ theme }) => theme.palette.secondary.main};
   }
 
 

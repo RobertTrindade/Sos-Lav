@@ -62,7 +62,7 @@ export const Header = styled(Box)`
 `;
 
 export const CustomSkeleton = styled(Skeleton)`
-  background-color: white;
+  background-color: ${({ theme }) => theme.palette.secondary.main};
   width: 100%;
 `;
 
@@ -119,10 +119,10 @@ export const EditProfile = styled(Button)`
   font-style: normal;
   font-weight: 500;
   line-height: normal;
-  border: 1px solid #999a9a;
+  border: 1px solid ${({ theme }) => theme.palette.secondary.main};
   border-radius: 20px;
   &:hover {
-    border: 1px solid #999a9a;
+    border: 1px solid ${({ theme }) => theme.palette.secondary.main};
   }
 `;
 
@@ -153,17 +153,19 @@ export const SideItem = styled(Button, {
   justify-content: start;
 
   &:hover {
-    background: #f60;
+    background: ${({ theme }) => theme.palette.primary.main};
     font-weight: bold;
   }
 
-  ${({ active }) =>
-    active &&
+  ${({ active,theme }) =>
+    active && 
     css`
-      background: #f60;
+      background: ${theme.palette.primary.main};
       opacity: 50;
       font-weight: bold;
     `}
+
+
 
   ${({ theme }) => theme.breakpoints.down("tablet")} {
     justify-content: center;

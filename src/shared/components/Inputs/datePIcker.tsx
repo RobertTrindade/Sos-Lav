@@ -41,7 +41,7 @@ const Container = styled(Box)`
 `;
 
 const CustomInputText = styled(Typography)`
-  color: #f60;
+  color: ${({ theme }) => theme.palette.primary.main};
   font-size: 20px;
   font-style: normal;
   font-weight: 500;
@@ -82,9 +82,9 @@ const CustomDataPicker = styled(DatePicker)`
     background-color: transparent !important  ;
     outline: none !important ;
 
-    color: #999a9a !important ;
+    color: ${({ theme }) => theme.palette.secondary.main} !important ;
   }
   path {
-    color: #999a9a !important ;
+    color: ${({ theme }) => theme.palette.secondary.main} !important ;
   }
 `;

@@ -2,33 +2,33 @@ import { Box, Button, StepLabel, styled } from "@mui/material";
 
 export const CustomStepLabel = styled(StepLabel)`
   .MuiStepLabel-label {
-    color: white;
+    color:${({ theme }) => theme.palette.secondary.main};
     font-weight: bolder;
 
   }
   font-size: 14px;
 
   .Mui-disabled {
-    color: white;
+    color:${({ theme }) => theme.palette.secondary.main};
     font-size: 14px;
     font-weight: normal;
 
   }
 
   .MuiSvgIcon-root {
-    color: white;
+    color:${({ theme }) => theme.palette.secondary.main};
   }
 
   .MuiStepLabel-label {
-    color: white;
+    color:${({ theme }) => theme.palette.secondary.main};
   }
 
   .MuiSvgIcon-fontSizeMedium {
-    color: white;
+    color:${({ theme }) => theme.palette.secondary.main};
   }
 
   .MuiStepIcon-root {
-    color: white;
+    color:${({ theme }) => theme.palette.secondary.main};
   }
 
   .Mui-completed {
@@ -37,7 +37,7 @@ export const CustomStepLabel = styled(StepLabel)`
 `;
 
 export const CustomMainButton = styled(Button)`
-  color: white;
+  color:${({ theme }) => theme.palette.secondary.main};
   font-weight: bold;
   font-size: 16px;
   width: 200px;

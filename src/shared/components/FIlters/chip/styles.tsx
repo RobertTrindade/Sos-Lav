@@ -11,7 +11,7 @@ export const CustomChips = styled(Chip)`
 `;
 
 export const Label = styled(Typography)`
-  color: white;
+  color:${({ theme }) => theme.palette.secondary.main};
   font-weight: bold;
   font-size: 15px;
 `;
@@ -25,10 +25,10 @@ export const CustomToggleButtonGroup = styled(ToggleButtonGroup)`
 export const CustomToggleButton = styled(ToggleButton)`
   display: flex;
   gap: 20px;
-  color: white;
+  color:${({ theme }) => theme.palette.secondary.main};
   font-weight: bold;
   font-size: 14px;
   border-radius: 50px !important; 
-  border: 1px solid #999a9a !important;
+  border: 1px solid ${({ theme }) => theme.palette.secondary.main} !important;
 
 `;

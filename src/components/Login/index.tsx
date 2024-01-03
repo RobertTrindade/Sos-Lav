@@ -84,7 +84,7 @@ export const LoginComponent = () => {
                 error: !!errors.email?.message,
               }}
               customStyles={{
-                color: "color: #999A9A",
+                color: "color: ${({ theme }) => theme.palette.secondary.main}",
               }}
             />
 
@@ -124,7 +124,7 @@ export const LoginComponent = () => {
                 ),
               }}
               customStyles={{
-                color: "color: #999A9A",
+                color: "color: ${({ theme }) => theme.palette.secondary.main}",
               }}
             />
             {errors.password && (

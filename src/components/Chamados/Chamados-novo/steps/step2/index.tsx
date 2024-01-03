@@ -153,7 +153,7 @@ export const ChamadosStep2: FC<{
           label="Detalhes"
           content="Detalhes"
           customStyles={{
-            color: "#999a9a",
+            color: "${({ theme }) => theme.palette.secondary.main}",
             height: "auto",
           }}
           customProps={{

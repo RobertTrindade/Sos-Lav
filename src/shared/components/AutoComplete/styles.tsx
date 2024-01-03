@@ -26,10 +26,10 @@ export const CustomAutocomplete = styled(Autocomplete)`
     background-color: transparent !important  ;
     outline: none !important ;
 
-    color: #999a9a !important ;
+    color: ${({ theme }) => theme.palette.secondary.main} !important ;
   }
   svg {
-    color: #999a9a !important ;
+    color: ${({ theme }) => theme.palette.secondary.main} !important ;
     padding-right: 5px;
   }
 `;

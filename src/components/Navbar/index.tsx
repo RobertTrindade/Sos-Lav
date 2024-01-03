@@ -49,7 +49,7 @@ export const NavBarComponent: React.FC<{
                 ),
               }}
               customStyles={{
-                color: "color: #999A9A",
+                color: "color: ${({ theme }) => theme.palette.secondary.main}",
                 height: "50px",
                 width: "400px",
               }}

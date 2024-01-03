@@ -34,7 +34,7 @@ export const ScrollableTabsButtonAuto: React.FC<IScrollableTabsButton> = ({
 const CustomTabs = styled(Tabs)``;
 
 const CustomTab = styled(Tab)`
-  color: white;
+  color:${({ theme }) => theme.palette.secondary.main};
 font-weight: bold;
 font-size: 15px;
 `;

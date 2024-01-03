@@ -41,7 +41,7 @@ export const CloseButton = styled(Button)`
   height: 60px;
   padding: 8px;
   path {
-    color: white;
+    color:${({ theme }) => theme.palette.secondary.main};
   }
 `;
 
@@ -50,7 +50,7 @@ export const CustomAccordion = styled(Accordion)`
 `;
 
 export const CustomAccordionTitle = styled(Typography)`
-  color: white;
+  color:${({ theme }) => theme.palette.secondary.main};
   font-weight: bold;
   font-size: 20px;
 `;
@@ -73,7 +73,7 @@ export const ModalFooter = styled(Box)`
 
 export const CleanButton = styled(Button)`
   height: 50px;
-  color: white;
+  color:${({ theme }) => theme.palette.secondary.main};
   font-weight: bold;
   font-size: 15px;
   border-radius: 10px;
@@ -108,10 +108,10 @@ export const CustomDataPicker = styled(DatePicker)`
     background-color: transparent !important  ;
     outline: none !important ;
 
-    color: #999a9a !important ;
+    color: ${({ theme }) => theme.palette.secondary.main} !important ;
   }
   path {
-    color: #999a9a !important ;
+    color: ${({ theme }) => theme.palette.secondary.main} !important ;
     padding-right: 5px;
   }
 `;

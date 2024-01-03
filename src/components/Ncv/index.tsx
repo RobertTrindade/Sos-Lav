@@ -155,7 +155,6 @@ export const NcvComponent = () => {
               >
                 Mais Filtros
               </ActionButton>
-              <ActionButton startIcon={<MapIcon />}>Modo Painel</ActionButton>
             </CustomGridToolbarContainer>
           ),
         }}

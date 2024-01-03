@@ -9,7 +9,7 @@ class HttpClient {
     this.localStorageService = LocalStorageService;
   }
 
-  async getWithAuth<T>(path: string): Promise<T> {
+  async getWithAuth<T>(path: string, revalidate = 0): Promise<T> {
     const token = this.localStorageService.getToken();
     const headers = {
       Authorization: `Bearer ${token}`,
@@ -17,6 +17,7 @@ class HttpClient {
 
     const response = await fetch(`${this.baseUrl}${path}`, {
       headers,
+      next: { revalidate },
     });
 
     if (!response.ok) {

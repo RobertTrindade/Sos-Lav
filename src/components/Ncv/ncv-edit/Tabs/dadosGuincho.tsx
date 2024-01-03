@@ -5,16 +5,16 @@ import { BoxInput, Form, Label } from "../styles";
 import { InputComponent } from "@/src/shared/components/Inputs";
 import { ButtonComponent } from "@/src/shared/components/Buttons";
 
-import {CustomSelect} from "@/src/shared/components/select";
+import { CustomSelect, ICustomSelect } from "@/src/shared/components/select";
 
-export const equipamentoSolicitadoOptions = [
+export const equipamentoSolicitadoOptions:ICustomSelect[] = [
   {
     label: "Sim",
-    id: 0,
+    value: true,
   },
   {
     label: "Não",
-    id: 1,
+    value: false,
   },
 ];
 export const GuinchoDetails: React.FC<{
@@ -27,6 +27,7 @@ export const GuinchoDetails: React.FC<{
           <BoxInput>
             <Label>Blitz</Label>
             <CustomSelect
+              options={equipamentoSolicitadoOptions}
               customProps={{
                 value: chamado.Apreensao.blitz === false ? "nao" : "sim",
               }}

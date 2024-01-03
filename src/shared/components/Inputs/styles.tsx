@@ -34,7 +34,7 @@ export const Container = styled(FormControl, {
     background-color: transparent !important  ;
     outline: none !important ;
 
-    color: #999a9a !important ;
+    color: ${({ theme }) => theme.palette.secondary.main} !important ;
   }
 `;
 
@@ -44,7 +44,7 @@ export const CustomInputLabel = styled(InputLabel)`
 
 export const CustomInputText = styled(Typography)`
   margin-bottom: 10px;
-  color: #f60;
+  color: ${({ theme }) => theme.palette.primary.main};
   font-size: 20px;
   font-style: normal;
   font-weight: 500;
