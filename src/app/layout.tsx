@@ -7,8 +7,7 @@ export default  async function   RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const pallet = await palletService.listAll(20) as IGlobals['pallet'];
-
+  const pallet = await palletService.listAll() as IGlobals['pallet'];
 
   return (
     <html lang="pt-BR">

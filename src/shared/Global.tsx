@@ -80,6 +80,7 @@ export interface IGlobals {
 }
 
 export const Globals: FC<IGlobals> = ({ children, pallet }) => {
+
   const theme = createTheme({
     palette: {
       primary: {
