@@ -2,33 +2,37 @@ import { Box, Button, StepLabel, styled } from "@mui/material";
 
 export const CustomStepLabel = styled(StepLabel)`
   .MuiStepLabel-label {
-    color:${({ theme }) => theme.palette.secondary.main};
+    color: ${({ theme }) => theme.palette.primary.main};
     font-weight: bolder;
+    font-size: 18px;
 
   }
-  font-size: 14px;
+  span {
+    color: ${({ theme }) => theme.palette.primary.main};
+    font-size: 18px;
+
+  }
 
   .Mui-disabled {
-    color:${({ theme }) => theme.palette.secondary.main};
-    font-size: 14px;
+    color: ${({ theme }) => theme.palette.primary.main};
     font-weight: normal;
-
+    font-size: 17px;
   }
 
   .MuiSvgIcon-root {
-    color:${({ theme }) => theme.palette.secondary.main};
+    color: ${({ theme }) => theme.palette.primary.main};
   }
 
   .MuiStepLabel-label {
-    color:${({ theme }) => theme.palette.secondary.main};
+    color: ${({ theme }) => theme.palette.primary.main};
   }
 
   .MuiSvgIcon-fontSizeMedium {
-    color:${({ theme }) => theme.palette.secondary.main};
+    color: ${({ theme }) => theme.palette.primary.main};
   }
 
   .MuiStepIcon-root {
-    color:${({ theme }) => theme.palette.secondary.main};
+    color: ${({ theme }) => theme.palette.primary.main};
   }
 
   .Mui-completed {
@@ -37,7 +41,7 @@ export const CustomStepLabel = styled(StepLabel)`
 `;
 
 export const CustomMainButton = styled(Button)`
-  color:${({ theme }) => theme.palette.secondary.main};
+  color: white;
   font-weight: bold;
   font-size: 16px;
   width: 200px;
