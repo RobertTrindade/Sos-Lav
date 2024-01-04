@@ -37,7 +37,7 @@ export const NcvComponent = () => {
       const chamados = await ncvService.listAll(window.location.search);
       const data = chamados.map((item) => ({
         ...item,
-        createdAt: dayjs(item.created_at).format("DD/MM/YYYY HH:mm"),
+        createdAt: dayjs(item.created_at as string).format("DD/MM/YYYY HH:mm"),
         patioName: item?.Chamado?.patio.nome,
         status: item?.status,
         tipoApreensao: item?.Chamado.tipoApreensao,

@@ -8,6 +8,7 @@ export interface INCVResponse {
   modelo: string;
   placa: string;
   ano: string;
+
   municipio: string;
   uf: string;
   km: string;
@@ -15,8 +16,8 @@ export interface INCVResponse {
   motor: "CSB530808";
   kmFotos:string[];
   combustivelFotos: string[];
-  created_at: string[];
-  updated_at: string[];
+  created_at: string;
+  updated_at: string;
   avariasDescription: string;
   status: string;
   Chamado: IChamado;
