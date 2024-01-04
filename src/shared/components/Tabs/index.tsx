@@ -31,10 +31,14 @@ export const ScrollableTabsButtonAuto: React.FC<IScrollableTabsButton> = ({
   );
 };
 
-const CustomTabs = styled(Tabs)``;
+const CustomTabs = styled(Tabs)`
+  .MuiButtonBase-root {
+    color: ${({ theme }) => theme.palette.secondary.main};
+  }
+`;
 
 const CustomTab = styled(Tab)`
-  color:${({ theme }) => theme.palette.secondary.main};
-font-weight: bold;
-font-size: 15px;
+  color: ${({ theme }) => theme.palette.secondary.main};
+  font-weight: bold;
+  font-size: 15px;
 `;

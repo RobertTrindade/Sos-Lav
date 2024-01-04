@@ -41,7 +41,6 @@ tspan {
 body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
-  opacity: 0.9;
   background: #242529;
   font-family: "Poppins", sans-serif !important;
 }

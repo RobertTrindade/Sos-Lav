@@ -9,7 +9,13 @@ import {
 } from "@mui/material";
 import { IInputProps } from "../Inputs";
 
-export const CustomSelectComponent = styled(Select)``;
+export const CustomSelectComponent = styled(Select)`
+  .MuiSelect-select {
+    width: 100%;
+    min-width: 100px;
+    padding-right: 100% !important;
+  }
+`;
 
 export const CustomMenuItem = styled(MenuItem)`
 `;
@@ -19,14 +25,16 @@ export const Container = styled(FormControl, {
 })<{
   customStyles: IInputProps["customStyles"];
 }>`
+ 
+
+
+
   ${({ customStyles }) => customStyles}
   outline: none !important;
   .MuiInputBase-root {
     border-radius: 14px;
     height: 70px;
-    width: max-content !important;
     color: ${({ theme }) => theme.palette.secondary.main} !important ;
-
     border: none;
     background-color: transparent !important ;
     ${({ customStyles }) => customStyles}
@@ -63,6 +71,7 @@ export const CustomInputText = styled(Typography)`
   font-weight: 500;
   line-height: normal;
   font-weight: bold;
+
   font-size: 18px;
   margin-bottom: 10px;
 

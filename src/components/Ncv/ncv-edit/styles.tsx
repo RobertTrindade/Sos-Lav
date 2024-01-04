@@ -2,11 +2,10 @@
 import { Box, Typography, styled } from "@mui/material";
 
 export const Container = styled(Box)`
-  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 40px;
-  padding: 0px 32px;
+  padding: 0px 64px;
 `;
 
 export const Title = styled(Typography)`
@@ -22,19 +21,6 @@ export const Content = styled(Box)`
   ${({ theme }) => theme.breakpoints.down("tablet")} {
     flex-direction: column;
     margin-bottom: 30px;
-  }
-`;
-export const MapArea = styled(Box)`
-  max-width: 800px;
-  width: 100%;
-  ${({ theme }) => theme.breakpoints.up("desktop")} {
-    max-width: 800px;
-  }
-  ${({ theme }) => theme.breakpoints.only("tablet")} {
-    max-width: 400px;
-  }
-  ${({ theme }) => theme.breakpoints.only("laptop")} {
-    max-width: 400px;
   }
 `;
 
@@ -104,11 +90,8 @@ export const Form = styled(Box)`
 
   flex-wrap: wrap;
   gap: 20px;
-
-  div {
-    width: max-content;
-
-  }
+  width: 100%;
+  justify-content: space-between;
 `;
 
 export const Label = styled(Typography)`
@@ -132,5 +115,18 @@ export const Label = styled(Typography)`
 export const BoxInput = styled(Box)`
   display: flex;
   flex-direction: column;
-  width: 100%;
+`;
+
+export const ExtraValues = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  .values {
+    display: flex;
+    gap: 20px;
+  }
+`;
+
+export const Row = styled(Box)`
+  display: flex;
+  gap: 20px;
 `;

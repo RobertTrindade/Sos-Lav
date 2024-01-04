@@ -58,6 +58,7 @@ export const CustomSelect: FC<IInputProps> = forwardRef(
           variant="outlined"
           ref={ref}
           {...rest}
+         
         >
           {options.map((item, key) => (
             <CustomMenuItem value={item.value} key={key}>

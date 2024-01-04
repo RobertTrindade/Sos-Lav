@@ -1,13 +1,16 @@
 "use client";
 import { INCVResponse } from "@/src/services/ncv/ncv.service";
-import { BoxInput, Form, Label } from "../styles";
+import { BoxInput, ExtraValues, Form, Label, Row } from "../styles";
 
 import { InputComponent } from "@/src/shared/components/Inputs";
 import { ButtonComponent } from "@/src/shared/components/Buttons";
 
 import { CustomSelect, ICustomSelect } from "@/src/shared/components/select";
+import { Box } from "@mui/material";
+import { useState } from "react";
+import { Modal } from "@/src/shared/components/Modal";
 
-export const equipamentoSolicitadoOptions:ICustomSelect[] = [
+export const equipamentoSolicitadoOptions: ICustomSelect[] = [
   {
     label: "Sim",
     value: true,
@@ -17,9 +20,22 @@ export const equipamentoSolicitadoOptions:ICustomSelect[] = [
     value: false,
   },
 ];
+
+export const tipoDesconto: ICustomSelect[] = [
+  {
+    label: "Desconto",
+    value: "desconto",
+  },
+  {
+    label: "Acréscimo",
+    value: "acrescimo",
+  },
+];
+
 export const GuinchoDetails: React.FC<{
   chamado: INCVResponse;
 }> = ({ chamado }) => {
+  const [open, setOpen] = useState(false);
   return (
     chamado && (
       <>
@@ -29,7 +45,7 @@ export const GuinchoDetails: React.FC<{
             <CustomSelect
               options={equipamentoSolicitadoOptions}
               customProps={{
-                value: chamado.Apreensao.blitz === false ? "nao" : "sim",
+                value: chamado.Apreensao.blitz,
               }}
             />
           </BoxInput>
@@ -46,157 +62,113 @@ export const GuinchoDetails: React.FC<{
 
           <BoxInput>
             <InputComponent
-              label="Tipo Apreensao"
-              content="Tipo Apreensao"
+              label="Motorista"
+              content="Motorista"
               customProps={{
-                defaultValue: chamado?.Chamado?.tipoApreensao,
+                defaultValue: chamado?.Motoristas?.name,
+              }}
+            />
+          </BoxInput>
+
+          <BoxInput>
+            <CustomSelect
+              options={equipamentoSolicitadoOptions}
+              content="Guincho Coletivo"
+              customProps={{
+                value: chamado.Apreensao.blitz,
               }}
             />
           </BoxInput>
 
           <BoxInput>
             <InputComponent
-              label="Tipo Veiculo"
-              content="Tipo Veiculo"
+              label="KM Percorrido"
+              content="KM Percorrido"
               customProps={{
-                defaultValue: chamado?.Chamado?.tipoVeiculo,
+                defaultValue: chamado?.Apreensao?.kmPercorrido,
               }}
             />
           </BoxInput>
 
           <BoxInput>
             <InputComponent
-              label="Placa"
-              content="Placa"
+              label="KM Percorrido"
+              content="KM Percorrido"
               customProps={{
-                defaultValue: chamado?.placa,
+                defaultValue: chamado?.Apreensao?.kmPercorrido,
               }}
             />
           </BoxInput>
 
-          <BoxInput>
-            <InputComponent
-              label="Ano"
-              content="Ano"
-              customProps={{
-                defaultValue: chamado?.ano,
-              }}
-            />
-          </BoxInput>
+          <ExtraValues>
+            <Label>Valores</Label>
+            <div className="values">
+              <BoxInput>
+                <InputComponent label="Valore Extra" content="Valore Extra" />
+              </BoxInput>
 
-          <BoxInput>
-            <InputComponent
-              label="Marca"
-              content="Marca"
-              customProps={{
-                defaultValue: chamado?.marca,
-              }}
-            />
-          </BoxInput>
-
-          <BoxInput>
-            <InputComponent
-              label="Modelo"
-              content="Modelo"
-              customProps={{
-                defaultValue: chamado?.modelo,
-              }}
-            />
-          </BoxInput>
-
-          <BoxInput>
-            <InputComponent
-              label="Cor"
-              content="Cor"
-              customProps={{
-                defaultValue: chamado?.cor,
-              }}
-            />
-          </BoxInput>
-
-          <BoxInput>
-            <InputComponent
-              label="UF"
-              content="UF"
-              customProps={{
-                defaultValue: chamado?.uf,
-              }}
-            />
-          </BoxInput>
-
-          <BoxInput>
-            <InputComponent
-              label="Município"
-              content="Município"
-              customProps={{
-                defaultValue: chamado?.municipio,
-              }}
-            />
-          </BoxInput>
-
-          <BoxInput>
-            <InputComponent
-              label="Chassi"
-              content="Chassi"
-              customProps={{
-                defaultValue: chamado?.chassi,
-              }}
-            />
-          </BoxInput>
-
-          <BoxInput>
-            <InputComponent
-              label="Motor"
-              content="Motor"
-              customProps={{
-                defaultValue: chamado?.motor,
-              }}
-            />
-          </BoxInput>
-
-          <BoxInput>
-            <InputComponent
-              label="Pátio"
-              content="Pátio"
-              customProps={{
-                defaultValue: chamado?.Chamado?.patio.nome,
-              }}
-            />
-          </BoxInput>
-
-          <BoxInput>
-            <InputComponent
-              label="Estado"
-              content="Estado"
-              customProps={{
-                defaultValue: chamado?.Chamado?.localizacao.estado,
-              }}
-            />
-          </BoxInput>
-
-          <BoxInput>
-            <InputComponent
-              label="Tabela de Tarifa"
-              content="Tabela de Tarifa"
-            />
-          </BoxInput>
+              <BoxInput>
+                <InputComponent label="Observação" content="Observação" />
+              </BoxInput>
+            </div>
+          </ExtraValues>
         </Form>
 
-        <ButtonComponent
-          buttonProps={{
-            variant: "contained",
-            onClick: () => {},
-          }}
-          customStyles={{
-            color: "white",
-            fontWeight: "600",
-            fontSize: "18px",
-            height: "40px",
-            width: "200px",
-          }}
-        >
-          Salvar
-        </ButtonComponent>
+        <Modal setOpen={setOpen} open={open}>
+          <Label>Valores Extras - Guincho</Label>
+
+          <Row>
+            <BoxInput>
+              <InputComponent label="Valore Extra" content="Valore Extra" />
+            </BoxInput>
+
+            <BoxInput>
+              <InputComponent label="Observação" content="Observação" />
+            </BoxInput>
+            <BoxInput>
+              <Label>Tipo</Label>
+              <CustomSelect
+                options={tipoDesconto}
+                customProps={{
+                  value: "desconto",
+                }}
+              />
+            </BoxInput>
+          </Row>
+        </Modal>
+
+        <Box sx={{ display: "flex", gap: "20px" }}>
+          <ButtonComponent
+            buttonProps={{
+              variant: "contained",
+              onClick: () => {},
+            }}
+            customStyles={{
+              color: "white",
+              fontWeight: "600",
+              fontSize: "14px",
+              height: "40px",
+              width: "200px",
+            }}
+          >
+            Salvar
+          </ButtonComponent>
+          <ButtonComponent
+            buttonProps={{
+              variant: "contained",
+              onClick: () => setOpen(true),
+            }}
+            customStyles={{
+              color: "white",
+              fontWeight: "600",
+              fontSize: "14px",
+              height: "40px",
+              width: "200px",
+            }}
+          >
+            Adicionar Extra
+          </ButtonComponent>
+        </Box>
       </>
     )
   );
