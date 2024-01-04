@@ -1,14 +1,17 @@
 /** @type {import('next').NextConfig} */
 
-// Configuration options for Next.js
-const nextConfig = {
-  reactStrictMode: true, // Enable React strict mode for improved error handling
-  swcMinify: true, // Enable SWC minification for improved performance
-  images: { unoptimized: true },
+const generateNextConfig = () => {
 
-  compiler: {
-    removeConsole: process.env.NODE_ENV !== "development", // Remove console.log in production
-  },
+  console.log(process.env.NODE_ENV)
+  return {
+    reactStrictMode: true, // Enable React strict mode for improved error handling
+    swcMinify: true, // Enable SWC minification for improved performance
+    images: { unoptimized: true },
+
+    compiler: {
+      removeConsole: process.env.NODE_ENV !== "development", // Remove console.log in production
+    },
+  };
 };
 
 // Configuration object tells the next-pwa plugin
@@ -20,4 +23,4 @@ const withPWA = require("next-pwa")({
 });
 
 // Export the combined configuration for Next.js with PWA support
-module.exports = withPWA(nextConfig);
+module.exports = withPWA(generateNextConfig());
