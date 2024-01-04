@@ -61,8 +61,10 @@ export const ChatComponent = () => {
   };
 
   React.useEffect(() => {
+
     socket.on("new-message", async (item: IMessages) => {
       if (item) {
+        console.log(item)
         setMessages((prev) => [...prev, item]);
       }
     });
@@ -70,7 +72,7 @@ export const ChatComponent = () => {
     return () => {
       socket.off("new-message");
     };
-  }, []);
+  }, [message,groups]);
 
   useEffect(() => {
     (async () => {

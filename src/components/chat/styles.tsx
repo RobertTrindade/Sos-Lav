@@ -31,6 +31,7 @@ export const SideChat = styled(Paper)`
     .chatLastConversations {
       display: flex;
       justify-content: center;
+      flex-direction: column;
       .lastConversation {
         display: flex;
         gap: 20px;
