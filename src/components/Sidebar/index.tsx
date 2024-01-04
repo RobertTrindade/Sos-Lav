@@ -28,7 +28,8 @@ import userService, {
 } from "@/src/services/usuarios/usuarios.service";
 import NewspaperIcon from "@mui/icons-material/Newspaper";
 import localStorageService from "@/src/services/auth/localStorage.service";
-import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
+import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
+import ChatIcon from '@mui/icons-material/Chat';
 export const SideBarComponent: React.FC<{
   open: boolean;
   handleClick: () => void;
@@ -139,6 +140,15 @@ export const SideBarComponent: React.FC<{
                       startIcon={<DirectionsCarIcon />}
                     >
                       Ncv
+                    </SideItem>
+                  </Link>
+
+                  <Link href="/chat">
+                    <SideItem
+                      active={pathParts[0] === "ncv"}
+                      startIcon={<ChatIcon />}
+                    >
+                      Chat
                     </SideItem>
                   </Link>
 

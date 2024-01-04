@@ -104,7 +104,6 @@ class HttpClient {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     };
-
     const response = await fetch(`${this.baseUrl}${path}`, {
       method: "POST",
       headers,
