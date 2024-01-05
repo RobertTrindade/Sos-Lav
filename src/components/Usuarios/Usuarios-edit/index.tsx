@@ -11,7 +11,7 @@ import Link from "next/link";
 import { CustomIconButton } from "../../Navbar/styles";
 import { BackIcon } from "../../Motoristas/Motoristas-details";
 import { BreadCrumbsComponent } from "@/src/shared/components/breadcrumbs";
-import { BoxInput, Form, Label } from "../Chamados-novo/styles";
+import { BoxInput, Form, Label } from "../../Chamados/Chamados-novo/styles";
 import {
   AutoCompleteComponent,
   INewValue,
@@ -23,7 +23,8 @@ import {
   tipoapreensaoOptions,
   urgencia,
   origens,
-} from "../Chamados-novo/steps/step1";
+} from "../../Chamados/Chamados-novo/steps/step1";
+
 import patiosService from "@/src/services/patios/patios.service";
 import dayjs from "dayjs";
 import { ButtonComponent } from "@/src/shared/components/Buttons";

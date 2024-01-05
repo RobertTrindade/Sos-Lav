@@ -4,7 +4,6 @@ import { CustomAutocomplete } from "./styles";
 
 import * as React from "react";
 import TextField from "@mui/material/TextField";
-import { IChamadosValues } from "@/src/contexts/chamadosContext";
 import { SxProps, Theme } from "@mui/material";
 
 interface IAutoCompleteComponent {
@@ -13,7 +12,7 @@ interface IAutoCompleteComponent {
   noOptionsText: string;
   value?: INewValue | undefined | string;
   SetStateAction?: React.Dispatch<React.SetStateAction<INewValue | undefined>>;
-  target?: keyof IChamadosValues | string;
+  target?: keyof any | string;
   setStateActionWithTarget?: (
     target: any,
     value: any
