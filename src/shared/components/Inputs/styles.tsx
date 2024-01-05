@@ -10,6 +10,9 @@ export const Container = styled(FormControl, {
   ${({ customStyles }) => customStyles}
   outline: none !important;
 
+  textarea {
+    color: ${({ theme }) => theme.palette.secondary.main} !important ;
+  }
   .MuiInputBase-root {
     border-radius: 14px;
     height: 70px;
@@ -53,9 +56,7 @@ export const CustomInputText = styled(Typography)`
   font-size: 18px;
   margin-bottom: 10px;
 
-
   ${({ theme }) => theme.breakpoints.down("tablet")} {
     font-size: 15px;
   }
-
 `;

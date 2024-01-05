@@ -7,8 +7,8 @@ import {
   CustomMainButton,
   CustomSecondaryButton,
   CustomStepLabel,
-} from "./styles";
-import { useChamados } from "@/src/contexts/chamadosContext";
+} from "../styles";
+import { useChamados } from "@/src/contexts/chamados";
 
 interface ICustomStep {
   props: {
@@ -51,7 +51,7 @@ export const CustomStep: React.FC<ICustomStep> = ({
       }
       setDisabled(false);
     }
-  }, [chamadosValues,activeStep]);
+  }, [chamadosValues, activeStep]);
 
   React.useEffect(() => {
     if (activeStep === 1) {
@@ -85,7 +85,7 @@ export const CustomStep: React.FC<ICustomStep> = ({
       }
       setDisabled(false);
     }
-  }, [activeStep,chamadosValues]);
+  }, [activeStep, chamadosValues]);
 
   return (
     steps && (

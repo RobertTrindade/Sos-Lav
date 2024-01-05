@@ -1,41 +1,26 @@
 "use client";
 
 import * as React from "react";
-import { Container, Content, MapArea, TabResultArea, Title } from "./styles";
-import { ChamadosMap } from "../Map";
+import { Container, Content, TabResultArea, Title } from "./styles";
 import {
   BackArea,
   CustomCircularProgress,
 } from "../../Motoristas/Motoristas-details/styles";
 import { CustomIconButton } from "../../Navbar/styles";
 import { BackIcon } from "../../Motoristas/Motoristas-details";
-import { CustomStep } from "@/src/shared/components/step/chamados";
 import { Alert, Box, Button } from "@mui/material";
 import { ChamadosStep1 } from "./steps/step1";
-import { ChamadosStep2 } from "./steps/step2";
-import { useChamados } from "@/src/contexts/chamados";
-import { ChamadosStep3 } from "./steps/step3";
 import Link from "next/link";
+import { CustomStepUsuario } from "@/src/shared/components/step/usuarios";
 
-export const ChamadosComponentNovo: React.FC<{}> = () => {
-  const {
-    location,
-    selectedLocation,
-    selectedPlace,
-    handleCreateChamados,
-    reset,
-  } = useChamados();
-
+export const UsuariosComponentNovo: React.FC<{}> = () => {
   const [activeStep, setActiveStep] = React.useState(0);
   const [loading, setLoading] = React.useState<boolean>(false);
   const [success, setSuccess] = React.useState<boolean>(false);
 
   const handleSubmit = async () => {
     try {
-      setLoading(true);
-      const res = await handleCreateChamados();
-      setLoading(false);
-      setSuccess(true);
+   
     } catch (error) {
       setLoading(true);
       setSuccess(false);
@@ -55,24 +40,23 @@ export const ChamadosComponentNovo: React.FC<{}> = () => {
 
   const handleReset = () => {
     setActiveStep(0);
-    reset();
   };
 
   return (
     <Container>
       <BackArea>
         <div className="actionArea">
-          <Link href={"/chamados"}>
+          <Link href={"/usuarios"}>
             <CustomIconButton>
               <BackIcon />
             </CustomIconButton>
           </Link>
-          <Title>Novo Chamado</Title>
+          <Title>Novo Usuario</Title>
         </div>
       </BackArea>
       <Content>
         <TabResultArea>
-          <CustomStep
+          <CustomStepUsuario
             props={{
               handleNext,
               handleBack,
@@ -114,28 +98,8 @@ export const ChamadosComponentNovo: React.FC<{}> = () => {
             }
           >
             {activeStep === 0 && <ChamadosStep1 />}
-
-            {activeStep === 1 && (
-              <ChamadosStep2
-                selectedLocation={selectedLocation}
-                selectedPlace={selectedPlace}
-              />
-            )}
-            {activeStep === 2 && <ChamadosStep3 />}
-          </CustomStep>
+          </CustomStepUsuario>
         </TabResultArea>
-
-        <MapArea
-          sx={{
-            width: activeStep === 1 ? "100%" : "0px",
-          }}
-        >
-          {location ? (
-            <ChamadosMap />
-          ) : (
-            <CustomCircularProgress color="secondary" size={"large"} />
-          )}
-        </MapArea>
       </Content>
     </Container>
   );

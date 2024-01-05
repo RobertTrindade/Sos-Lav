@@ -28,7 +28,6 @@ import patiosService from "@/src/services/patios/patios.service";
 import dayjs from "dayjs";
 import { ButtonComponent } from "@/src/shared/components/Buttons";
 import { Button, ButtonGroup } from "@mui/material";
-import { cepMask } from "@/src/utils/cepMask";
 
 export const chamadosStatus = [
   {
@@ -309,7 +308,7 @@ const ChamadoEndereco: React.FC<{
           customProps={{
             value: chamadosValues.cep,
             onChange: (e) => {
-              handleNewValue("cep", cepMask(e.target.value));
+              handleNewValue("cep", e.target.value);
             },
           }}
         />

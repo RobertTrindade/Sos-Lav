@@ -1,5 +1,5 @@
 import { InputComponent } from "@/src/shared/components/Inputs";
-import { useChamados } from "@/src/contexts/chamadosContext";
+import { useChamados } from "@/src/contexts/chamados";
 import { Checkbox, FormControlLabel } from "@mui/material";
 import { Container, Label, BoxInput, Row, Title } from "./styles";
 
@@ -44,12 +44,13 @@ export const ChamadosStep3 = () => {
             <InputComponent
               label="Motoristas"
               content="Motoristas"
+              
               customProps={{
                 value: driversQuantity,
+                disabled:true,
                 type: "number",
                 onChange: (e) => {
                   if (Number(e.target.value) < 1) return;
-
                   handleNewValue("driversQuantity", e.target.value);
                 },
               }}

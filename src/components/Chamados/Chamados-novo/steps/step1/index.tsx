@@ -1,6 +1,6 @@
 import { AutoCompleteComponent } from "@/src/shared/components/AutoComplete";
 import { BoxInput, Form, Label } from "../../../Chamados-novo/styles";
-import { useChamados } from "@/src/contexts/chamadosContext";
+import { useChamados } from "@/src/contexts/chamados";
 
 export const equipamentoSolicitadoOptions = [
   {

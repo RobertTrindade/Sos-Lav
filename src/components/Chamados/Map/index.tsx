@@ -1,5 +1,5 @@
 "use client";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   GoogleMap,
   Marker,
@@ -24,9 +24,8 @@ const containerStyle = {
   height: "100%",
 };
 
-import { useChamados } from "@/src/contexts/chamadosContext";
+import { useChamados } from "@/src/contexts/chamados";
 import { socket } from "@/src/services/socket.io";
-
 
 export const ChamadosMap = () => {
   const {
@@ -207,10 +206,6 @@ export const ChamadosMap = () => {
 export default React.memo(ChamadosMap);
 
 const Container = styled(Box)`
-
-
-
   width: 100%;
   height: 100%;
-
 `;

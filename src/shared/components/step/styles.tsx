@@ -8,7 +8,7 @@ export const CustomStepLabel = styled(StepLabel)`
 
   }
   span {
-    color: ${({ theme }) => theme.palette.primary.main};
+    color: ${({ theme }) => theme.palette.primary.main} !important;
     font-size: 18px;
 
   }

@@ -1,14 +1,14 @@
 "use client";
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { useGeolocation } from "../hooks/useGeolocation";
+import { useGeolocation } from "../../hooks/useGeolocation";
 import { Dayjs } from "dayjs";
 import PatiosService, {
   IPatiosServiceDTO,
-} from "../services/patios/patios.service";
-import { INewValue } from "../shared/components/AutoComplete";
+} from "../../services/patios/patios.service";
+import { INewValue } from "../../shared/components/AutoComplete";
 import chamadosService, {
   IChamadosResponse,
-} from "../services/chamados/chamados.service";
+} from "../../services/chamados/chamados.service";
 
 // Interface para representar os dados do usuário
 export interface IChamadosValues {

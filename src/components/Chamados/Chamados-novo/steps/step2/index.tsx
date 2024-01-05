@@ -2,8 +2,9 @@ import { FC, useState, useEffect } from "react";
 import { BoxInput, Form, Label } from "../../../Chamados-novo/styles";
 import { InputComponent } from "@/src/shared/components/Inputs";
 import { AutoCompleteComponent } from "@/src/shared/components/AutoComplete";
-import { useChamados } from "@/src/contexts/chamadosContext";
+import { useChamados } from "@/src/contexts/chamados";
 import { GeneratorValues } from "./values";
+import { cepMask } from "@/src/utils/cepMask";
 
 export const ChamadosStep2: FC<{
   selectedLocation: google.maps.LatLng | null | undefined;
@@ -90,7 +91,8 @@ export const ChamadosStep2: FC<{
           customProps={{
             value: chamadosValues.cep,
             onChange: (e) => {
-              handleNewValue("cep", e.target.value);
+              if (e.target.value.length > 9) return;
+              handleNewValue("cep", cepMask(e.target.value));
             },
           }}
         />

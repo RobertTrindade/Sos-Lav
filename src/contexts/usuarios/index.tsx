@@ -1,57 +1,25 @@
 "use client";
-import React, { createContext, useContext, useState } from "react";
-import { Dayjs } from "dayjs";
-import { INewValue } from "@/src/shared/components/AutoComplete";
+import React, { createContext, useContext } from "react";
 
-// Interface para representar os dados do usuário
-export interface IUsuariosValues {
-  name?: string;
-}
+interface IChamadosContext {}
 
-// Interface para o contexto de registro
-interface IUsuariosContext {
-  handleNewValue: (
-    target: keyof IUsuariosValues,
-    value: Dayjs | null | string | number | INewValue
-  ) => void;
-
-  user: IUsuariosValues;
-}
-
+const initial = {};
 // Crie o contexto de registro
-const UsuariosContext = createContext<IUsuariosContext | undefined>(undefined);
+const UsuariosContext = createContext<IChamadosContext | undefined>(undefined);
 
 // Provedor de registro que mantém o estado dos usuários
 export const UsuariosProvider: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
-  const [user, setUser] = useState<IUsuariosValues>({
-    name: "",
-  });
-
-  const handleNewValue = (target: keyof IUsuariosValues, value: any) => {
-    setUser((data) => ({
-      ...data,
-      [target]: value,
-    }));
-  };
-
   return (
-    <UsuariosContext.Provider
-      value={{
-        user,
-        handleNewValue,
-      }}
-    >
-      {children}
-    </UsuariosContext.Provider>
+    <UsuariosContext.Provider value={{}}>{children}</UsuariosContext.Provider>
   );
 };
 
-export const useUsuarios = (): IUsuariosContext => {
+export const useChamados = (): any => {
   const context = useContext(UsuariosContext);
   if (!context) {
-    throw new Error("useUsuarios deve ser usado dentro de um RegisterProvider");
+    throw new Error("useChamados deve ser usado dentro de um RegisterProvider");
   }
   return context;
 };
