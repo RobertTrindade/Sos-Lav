@@ -11,8 +11,6 @@ import { IInputProps } from "../Inputs";
 
 export const CustomSelectComponent = styled(Select)`
   .MuiSelect-select {
-    width: 100%;
-    min-width: 100px;
     padding-right: 100% !important;
   }
 `;
@@ -28,12 +26,11 @@ export const Container = styled(FormControl, {
  
 
 
-
   ${({ customStyles }) => customStyles}
   outline: none !important;
   .MuiInputBase-root {
     border-radius: 14px;
-    height: 70px;
+    height: 60px;
     color: ${({ theme }) => theme.palette.secondary.main} !important ;
     border: none;
     background-color: transparent !important ;

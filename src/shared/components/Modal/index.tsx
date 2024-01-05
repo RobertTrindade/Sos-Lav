@@ -1,6 +1,6 @@
 import * as React from "react";
 import Dialog from "@mui/material/Dialog";
-import { Paper, styled } from "@mui/material";
+import {  styled } from "@mui/material";
 
 export interface SimpleDialogProps {
   open: boolean;
@@ -13,17 +13,16 @@ export const Modal = (props: SimpleDialogProps) => {
 
   return (
     <Container onClose={() => setOpen(false)} open={open}>
-      <Content elevation={2}>{children}</Content>
+      {children}
     </Container>
   );
 };
 
 const Container = styled(Dialog)`
 
- 
-`;
-
-const Content = styled(Paper)`
-  background-color: rgb(18, 18, 18);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
 `;
+

@@ -12,40 +12,45 @@ export interface INCVResponse {
   municipio: string;
   uf: string;
   km: string;
-  chassi: "8AGCN48X0DR110376";
-  motor: "CSB530808";
-  kmFotos:string[];
+  chassi: string;
+  motor: string;
+  kmFotos: string[];
   combustivelFotos: string[];
   created_at: string;
   updated_at: string;
   avariasDescription: string;
   status: string;
   Chamado: IChamado;
+  Acessorios: IAcessorios;
+
+  Extras: IExtraNCV[];
   Apreensao: IApreensao;
   Motoristas: IMotoristaDto;
+  Complemento: IComplemento;
+  Avarias: IAvarias[];
 }
 
 export interface IApreensao {
   id: 10;
-  chaves: false;
-  blitz: false;
-  guinchoColetivo: false;
+  chaves: boolean;
+  blitz: boolean;
+  guinchoColetivo: boolean;
   kmPercorrido: "12";
-  adulterado: false;
-  crimesTransito: false;
+  adulterado: boolean;
+  crimesTransito: boolean;
   emTela: true;
   foraCirculacao: true;
   judicial: true;
-  leasing: false;
-  motoQueixa: false;
+  leasing: boolean;
+  motoQueixa: boolean;
   pedirBaixa: true;
-  policiaCivil: false;
-  traficoDrogas: false;
-  rouboFurto: false;
-  semDocumentosCrv: false;
-  infracaoTransito: false;
-  created_at: "2024-01-02T12:47:35.940Z";
-  updated_at: "2024-01-02T12:47:35.940Z";
+  policiaCivil: boolean;
+  traficoDrogas: boolean;
+  rouboFurto: boolean;
+  semDocumentosCrv: boolean;
+  infracaoTransito: boolean;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface IChamado {
@@ -71,6 +76,7 @@ export interface IChamado {
 
   Aceite?: {
     tempoEstimado: string;
+    finalizacaoHora: string;
     kmsEstimado: number;
     aceiteHora: string;
     Motoristas: {
@@ -86,7 +92,7 @@ export interface IChamado {
   chamador: {
     name: string;
   };
-  Ncv: INCV[];
+  Ncv: INCVResponse[];
   fotos: string[];
 
   localizacao: {
@@ -102,80 +108,47 @@ export interface IChamado {
   };
 }
 
-export interface INCV {
-  id: 5;
-  cor: string;
-  marca: string;
-  modelo: string;
-  placa: string;
-  ano: string;
-  municipio: string;
-  uf: string;
-  km: string;
-  chassi: string;
-  motor: string;
-  kmFotos: string;
-  combustivelFotos: string;
-  avariasDescription: string;
-
-  Acessorios: {
-    id: 5;
-    arCondicionado: boolean;
-    vidroEletrico: boolean;
-    cambioManual: boolean;
-    cambioAutomatico: boolean;
-    radioCd: boolean;
-    pneuStep: boolean;
-    rodaComum: boolean;
-    rodaEspecial: boolean;
-    calotas: boolean;
-    antena: boolean;
-    documento: boolean;
-    carroFuncionando: boolean;
-    created_at: string;
-    updated_at: string;
-  };
-  Apreensao: {
-    id: 5;
-    chaves: boolean;
-    blitz: boolean;
-    guinchoColetivo: boolean;
-    kmPercorrido: string;
-    adulterado: boolean;
-    crimesTransito: boolean;
-    emTela: boolean;
-    foraCirculacao: boolean;
-    judicial: boolean;
-    leasing: boolean;
-    motoQueixa: boolean;
-    pedirBaixa: boolean;
-    policiaCivil: boolean;
-    traficoDrogas: boolean;
-    rouboFurto: boolean;
-    semDocumentosCrv: boolean;
-    infracaoTransito: boolean;
-    created_at: string;
-    updated_at: string;
-  };
-  Avarias: {
-    id: 31;
-    fotos: string[];
-    ncvId: 5;
-    type: string;
-    created_at: string;
-    updated_at: string;
-  }[];
-
-  Complemento: {
-    id: 5;
-    pintura: string;
-    tapecaria: string;
-    pneus: string;
-    created_at: string;
-    updated_at: string;
-  };
+export interface IExtraNCV {
+  id: number;
+  valor: string;
+  observacao: string;
+  type: string;
 }
 
+export interface IComplemento {
+  id: 5;
+  pintura: string;
+  tapecaria: string;
+  pneus: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface IAcessorios {
+  id: 5;
+  arCondicionado: boolean;
+  vidroEletrico: boolean;
+  cambioManual: boolean;
+  cambioAutomatico: boolean;
+  radioCd: boolean;
+  pneuStep: boolean;
+  rodaComum: boolean;
+  rodaEspecial: boolean;
+  calotas: boolean;
+  antena: boolean;
+  documento: boolean;
+  carroFuncionando: boolean;
+  created_at: string;
+  updated_at: string;
+}
+export interface IAvarias {
+  id: number;
+  fotos: string[];
+  ncvId: number;
+  type: string;
+  created_at: string;
+  updated_at: string;
+}
 class NcvService {
   httpClient;
   path: string;
@@ -201,6 +174,10 @@ class NcvService {
     return await this.httpClient.getWithAuth<Promise<INCVResponse[]>>(
       `${this.path}${params}`
     );
+  }
+
+  async createExtra(params: number, body: any) {
+    return await this.httpClient.post(`${this.path}/extras/${params}`, body);
   }
 }
 export default new NcvService();

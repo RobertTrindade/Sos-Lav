@@ -13,24 +13,12 @@ import { CustomCircularProgress } from "../../Motoristas/Motoristas-details/styl
 import { INCVResponse } from "@/src/services/ncv/ncv.service";
 import { ChamadoDetails } from "./Tabs/dadosNcv";
 import { GuinchoDetails } from "./Tabs/dadosGuincho";
-export const chamadosStatus = [
-  {
-    label: "Aguardando",
-    id: 1,
-  },
-  {
-    label: "Concluido",
-    id: 2,
-  },
-  {
-    label: "Em Checklist",
-    id: 2,
-  },
-  {
-    label: "Aceito",
-    id: 2,
-  },
-];
+import { ApreensaoDetails } from "./Tabs/dadosApreensao";
+import { NcvTimeline } from "./Tabs/dadosHistorico";
+import { ChecklistDetails } from "./Tabs/dadosChecklist";
+import { FotosApreensao } from "./Tabs/fotos";
+import { FotosConferente } from "./Tabs/fotosConferente";
+import { Liberacao } from "./Tabs/liberacao";
 
 export const NcvEdit: React.FC<{
   chamado: INCVResponse;
@@ -43,9 +31,10 @@ export const NcvEdit: React.FC<{
     "Dados NCV",
     "Guincho",
     "Apreensão",
-    "Históricos",
-    "Checklist",
-    "Fotos",
+    "Linha do tempo",
+    "Acessórios",
+    "Conferente",
+    "Fotos Motorista",
     "Documentos",
     "Liberação",
   ];
@@ -73,6 +62,15 @@ export const NcvEdit: React.FC<{
             <>
               {value === 0 && <ChamadoDetails chamado={chamado} />}
               {value === 1 && <GuinchoDetails chamado={chamado} />}
+              {value === 2 && <ApreensaoDetails chamado={chamado} />}
+              {value === 3 && <NcvTimeline chamado={chamado} />}
+              {value === 4 && <ChecklistDetails chamado={chamado} />}
+              {value === 5 && <FotosConferente chamado={chamado} />}
+              {value === 6 && <FotosApreensao chamado={chamado} />}
+              {value === 8 && <Liberacao chamado={chamado} />}
+
+
+              
             </>
           ) : (
             <CustomCircularProgress />

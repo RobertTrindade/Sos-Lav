@@ -15,7 +15,7 @@ export const Container = styled(FormControl, {
   }
   .MuiInputBase-root {
     border-radius: 14px;
-    height: 70px;
+    height: 60px;
 
     border: none;
     background-color: transparent !important ;

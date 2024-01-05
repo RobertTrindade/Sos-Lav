@@ -145,7 +145,7 @@ export const SideBarComponent: React.FC<{
 
                   <Link href="/chat">
                     <SideItem
-                      active={pathParts[0] === "ncv"}
+                      active={pathParts[0] === "chat"}
                       startIcon={<ChatIcon />}
                     >
                       Chat

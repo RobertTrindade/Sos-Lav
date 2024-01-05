@@ -12,7 +12,6 @@ import {
   CustomGridToolbarExport,
 } from "./styles";
 import { GridActionsCellItem, GridColDef, ptBR } from "@mui/x-data-grid";
-import MapIcon from "@mui/icons-material/Map";
 import EditIcon from "@mui/icons-material/Edit";
 import { Filters } from "@/src/shared/components/FIlters/chamados";
 import TuneIcon from "@mui/icons-material/Tune";

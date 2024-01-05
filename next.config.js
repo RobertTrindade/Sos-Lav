@@ -2,7 +2,6 @@
 
 const generateNextConfig = () => {
   return {
-    reactStrictMode: true, // Enable React strict mode for improved error handling
     swcMinify: true, // Enable SWC minification for improved performance
     images: { unoptimized: true },
 

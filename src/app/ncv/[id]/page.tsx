@@ -7,7 +7,7 @@ interface PageProps {
 }
 
 const NcvDetails = async (props: PageProps) => {
-  const res = await ncvService.listOne(props.params.id as string, 10);
+  const res = await ncvService.listOne(props.params.id as string, 0);
 
   return <NcvEdit chamado={res} />;
 };

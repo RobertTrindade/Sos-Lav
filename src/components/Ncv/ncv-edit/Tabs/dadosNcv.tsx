@@ -172,6 +172,7 @@ export const ChamadoDetails: React.FC<{
           buttonProps={{
             variant: "contained",
             onClick: () => {},
+           
           }}
           customStyles={{
             color: "white",

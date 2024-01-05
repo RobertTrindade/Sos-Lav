@@ -98,6 +98,7 @@ export const Globals: FC<IGlobals> = ({ children, pallet }) => {
         fontFamily: poppins.style.fontFamily,
       },
     },
+   
     breakpoints: {
       values: {
         xxs: 0,
