@@ -55,7 +55,7 @@ interface IChamadosContext {
   patios: INewValue[];
   handleCreateChamados: () => Promise<IChamadosResponse>;
   patioWithCoods: IPatiosServiceDTO[];
-  reset : () => void
+  reset: () => void;
 }
 
 const initial = {
@@ -78,14 +78,14 @@ const initial = {
   driversQuantity: 1,
   detalhes: undefined,
   localizacao: {
-    estado:"",
-    uf:"",
-    municipio:"",
-    distrito:"",
-    cep:"",
+    estado: "",
+    uf: "",
+    municipio: "",
+    distrito: "",
+    cep: "",
     latitude: "",
     longitude: "",
-    enderecoComplet:"",
+    enderecoComplet: "",
   },
 };
 // Crie o contexto de registro
@@ -156,8 +156,8 @@ export const ChamadosProvider: React.FC<{
       urgencia: urgencia?.label,
       origem: origem?.label,
       multiple,
-      vehiclesQuantity,
-      driversQuantity,
+      vehiclesQuantity: +vehiclesQuantity!,
+      driversQuantity: +driversQuantity!,
       detalhes,
       localizacao: {
         estado,
@@ -200,7 +200,7 @@ export const ChamadosProvider: React.FC<{
         patios,
         handleCreateChamados,
         patioWithCoods,
-        reset
+        reset,
       }}
     >
       {children}

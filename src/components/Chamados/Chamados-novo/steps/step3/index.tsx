@@ -47,7 +47,7 @@ export const ChamadosStep3 = () => {
               
               customProps={{
                 value: driversQuantity,
-                disabled:true,
+                readOnly:true,
                 type: "number",
                 onChange: (e) => {
                   if (Number(e.target.value) < 1) return;
