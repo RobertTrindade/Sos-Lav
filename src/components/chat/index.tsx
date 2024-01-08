@@ -197,7 +197,7 @@ export const ChatComponent = () => {
                     <LastConversation
                       key={key}
                       elevation={2}
-                      isMine={item.isMine!}
+                      isMine={false}
                     >
                       <Avatar
                         alt="Thiago"
