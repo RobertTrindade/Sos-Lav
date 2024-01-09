@@ -20,12 +20,16 @@ export const ChamadosStep1 = () => {
             }}
           />
         </BoxInput>
-        <BoxInput>
-          <InputComponent label="exemplo@hotmail.com" content="E-mail" />
-        </BoxInput>
 
         <BoxInput>
-          <InputComponent label="Senha" content="Senha " />
+          <InputComponent
+            label="exemplo@hotmail.com"
+            content="E-mail"
+            customProps={{
+              value: UsuarioValues.email,
+              onChange: (e) => handleNewValue("email", e.target.value),
+            }}
+          />
         </BoxInput>
 
         <BoxInput>

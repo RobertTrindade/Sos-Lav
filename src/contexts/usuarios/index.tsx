@@ -15,6 +15,8 @@ import permissionsService, {
 
 export interface IUsuarioValues {
   name: string;
+  email: string;
+
 
   patio: INewValue | undefined;
   equipamentoSolicitado: INewValue | undefined;
@@ -65,6 +67,8 @@ interface IUsuariosContext {
 
 const initial = {
   name: "",
+  email: "",
+
   patio: undefined,
   equipamentoSolicitado: undefined,
   tipoVeiculo: undefined,
