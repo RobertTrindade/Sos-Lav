@@ -1,15 +1,25 @@
+"use client";
 import { InputComponent } from "@/src/shared/components/Inputs";
-import { BoxInput, Form } from "../../styles";
 
+import { BoxInput, Form } from "../../styles";
+import { useUsuario } from "@/src/contexts/usuarios";
 
 export const ChamadosStep1 = () => {
+  const { UsuarioValues, handleNewValue } = useUsuario();
+
   return (
     <>
       <Form>
         <BoxInput>
-          <InputComponent label="Nome Completo" content="Nome" />
+          <InputComponent
+            label="Nome Completo"
+            content="Nome"
+            customProps={{
+              value: UsuarioValues.name,
+              onChange: (e) => handleNewValue("name", e.target.value),
+            }}
+          />
         </BoxInput>
-
         <BoxInput>
           <InputComponent label="exemplo@hotmail.com" content="E-mail" />
         </BoxInput>
@@ -21,7 +31,6 @@ export const ChamadosStep1 = () => {
         <BoxInput>
           <InputComponent label="Cargo/Setor" content="Cargo/Setor" />
         </BoxInput>
-
       </Form>
     </>
   );

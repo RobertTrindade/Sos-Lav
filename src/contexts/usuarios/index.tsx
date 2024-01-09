@@ -1,5 +1,5 @@
 "use client";
-import React, { createContext, useContext, useEffect, useState} from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import PatiosService, {
   IPatiosServiceDTO,
 } from "../../services/patios/patios.service";
@@ -9,8 +9,13 @@ import chamadosService, {
   IChamadosResponse,
 } from "../../services/chamados/chamados.service";
 import { useGeolocation } from "@/src/hooks/useGeolocation";
+import permissionsService, {
+  IPermissions,
+} from "@/src/services/permissions/permissions.service";
 
 export interface IUsuarioValues {
+  name: string;
+
   patio: INewValue | undefined;
   equipamentoSolicitado: INewValue | undefined;
   tipoVeiculo: INewValue | undefined;
@@ -52,12 +57,14 @@ interface IUsuariosContext {
   UsuarioValues: IUsuarioValues;
 
   patios: INewValue[];
+  permission: INewValue[];
   handleCreateUsuario: () => Promise<IChamadosResponse>;
   patioWithCoods: IPatiosServiceDTO[];
-  reset : () => void
+  reset: () => void;
 }
 
 const initial = {
+  name: "",
   patio: undefined,
   equipamentoSolicitado: undefined,
   tipoVeiculo: undefined,
@@ -77,14 +84,14 @@ const initial = {
   driversQuantity: 1,
   detalhes: undefined,
   localizacao: {
-    estado:"",
-    uf:"",
-    municipio:"",
-    distrito:"",
-    cep:"",
+    estado: "",
+    uf: "",
+    municipio: "",
+    distrito: "",
+    cep: "",
     latitude: "",
     longitude: "",
-    enderecoComplet:"",
+    enderecoComplet: "",
   },
 };
 
@@ -96,6 +103,8 @@ export const UsuariosProvider: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
   const [patios, setPatios] = useState<INewValue[]>([]);
+  const [permission, setPermissions] = useState<INewValue[]>([]);
+
   const [patioWithCoods, setPatioWithCoods] = useState<IPatiosServiceDTO[]>([]);
 
   useEffect(() => {
@@ -113,6 +122,18 @@ export const UsuariosProvider: React.FC<{
     (async () => {
       const response = await PatiosService.getPatios();
       setPatioWithCoods(response);
+    })();
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      const response = await permissionsService.getPermissions();
+
+      const permissions = response.map((item) => ({
+        label: item.title,
+        id: item.id,
+      }));
+      setPermissions(permissions);
     })();
   }, []);
 
@@ -176,7 +197,6 @@ export const UsuariosProvider: React.FC<{
     setUsuarioValues(initial);
   };
 
-
   const { location, error } = useGeolocation();
 
   const [selectedLocation, setSelectedLocation] =
@@ -199,7 +219,8 @@ export const UsuariosProvider: React.FC<{
         patios,
         handleCreateUsuario,
         patioWithCoods,
-        reset
+        reset,
+        permission,
       }}
     >
       {children}
@@ -207,14 +228,10 @@ export const UsuariosProvider: React.FC<{
   );
 };
 
-export const useUsuario= (): IUsuariosContext => {
+export const useUsuario = (): IUsuariosContext => {
   const context = useContext(UsuariosContext);
   if (!context) {
     throw new Error("useUsuario deve ser usado dentro de um RegisterProvider");
   }
   return context;
 };
-function setChamadosValues(initial: { patio: undefined; equipamentoSolicitado: undefined; tipoVeiculo: undefined; tipoApreensao: undefined; urgencia: undefined; origem: undefined; estado: undefined; uf: undefined; municipio: undefined; distrito: undefined; cep: undefined; latitude: undefined; longitude: undefined; enderecoCompleto: undefined; multiple: boolean; vehiclesQuantity: number; driversQuantity: number; detalhes: undefined; localizacao: { estado: string; uf: string; municipio: string; distrito: string; cep: string; latitude: string; longitude: string; enderecoComplet: string; }; }) {
-  throw new Error("Function not implemented.");
-}
-

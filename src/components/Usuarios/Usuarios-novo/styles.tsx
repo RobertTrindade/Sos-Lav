@@ -1,5 +1,5 @@
 "use client";
-import { Box, Typography, styled } from "@mui/material";
+import { Box, Button, Typography, styled } from "@mui/material";
 
 export const Container = styled(Box)`
   width: 100%;
@@ -116,4 +116,53 @@ export const BoxInput = styled(Box)`
   display: flex;
   flex-direction: column;
   width: 100%;
+`;
+
+export const Step2Container = styled(Box)`
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  margin-top: 30px;
+  justify-content: space-between;
+`;
+
+export const PatiosSelecionadosContainer = styled(Box)`
+  max-width: 500px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+`;
+
+export const PatiosSelecionadosTitle = styled(Typography)`
+  font-weight: bold;
+  font-size: 18px;
+  text-align: center;
+`;
+
+export const AutoCompleteContainer = styled(Box)`
+  max-width: 400px;
+  width: 100%;
+`;
+
+export const Ul = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  gap: 6px;
+
+`;
+
+export const Li = styled(Box)`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+`;
+
+export const LiText = styled(Typography)`
+  font-size: 14px;
+  color: ${({ theme }) => theme.palette.secondary.main};
+
 `;
