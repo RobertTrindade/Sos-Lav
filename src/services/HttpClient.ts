@@ -13,6 +13,7 @@ class HttpClient {
     const token = this.localStorageService.getToken();
     const headers = {
       Authorization: `Bearer ${token}`,
+      
     };
 
     const response = await fetch(`${this.baseUrl}${path}`, {
