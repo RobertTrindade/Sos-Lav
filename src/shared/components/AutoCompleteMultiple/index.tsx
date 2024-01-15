@@ -18,10 +18,9 @@ interface IAutoCompleteComponent {
   value?: string;
   customProps?: {
     value: any;
-    onChange: (event: React.ChangeEvent<any>) => void;
+    onChange?: (event: React.ChangeEvent<any>) => void;
   };
 }
-
 
 export interface INewValue {
   label: string;
@@ -40,7 +39,6 @@ export const AutoCompleteComponentMultiple: React.FC<
   setStateActionWithTarget,
   sx,
   multiple = false,
-  value,
   customProps,
 }) => {
   return (
@@ -68,6 +66,7 @@ export const AutoCompleteComponentMultiple: React.FC<
       renderInput={(params) => (
         <TextField {...params} placeholder={label} fullWidth />
       )}
+      value={customProps?.value}
     />
   );
 };

@@ -1,108 +1,50 @@
 "use client";
 import React, { createContext, useContext, useEffect, useState } from "react";
-import PatiosService, {
-  IPatiosServiceDTO,
-} from "../../services/patios/patios.service";
+import PatiosService from "../../services/patios/patios.service";
 import { INewValue } from "../../shared/components/AutoComplete";
 import { Dayjs } from "dayjs";
-import chamadosService, {
-  IChamadosResponse,
-} from "../../services/chamados/chamados.service";
-import { useGeolocation } from "@/src/hooks/useGeolocation";
-import permissionsService, {
-  IPermissions,
-} from "@/src/services/permissions/permissions.service";
+
+import permissionsService from "@/src/services/permissions/permissions.service";
+import { IPatio } from "@/src/components/Usuarios/Usuarios-novo/steps/step2";
 
 export interface IUsuarioValues {
-  patios: any;
-  permission: any;
+  patios: IPatio[];
+  permission?: string[];
   name: string;
   email: string;
   cargoSetor: string;
-
-
-  equipamentoSolicitado: INewValue | undefined;
-  tipoVeiculo: INewValue | undefined;
-  tipoApreensao: INewValue | undefined;
-  urgencia: INewValue | undefined;
-  origem: INewValue | undefined;
-  estado: INewValue | string | undefined;
-  uf: INewValue | string | undefined;
-  detalhes: INewValue | string | undefined;
-  municipio: INewValue | string | undefined;
-  distrito: INewValue | string | undefined;
-  cep: INewValue | string | undefined;
-  enderecoCompleto: INewValue | string | undefined;
-  latitude: INewValue | string | undefined;
-  longitude: INewValue | string | undefined;
-  multiple: boolean;
-  vehiclesQuantity: INewValue | string | undefined | number;
-  driversQuantity: INewValue | string | undefined | number;
 }
 
 // Interface para o contexto de registro
 interface IUsuariosContext {
-  location: GeolocationPosition | null;
-  error: string;
-  
   handleNewValue: (
     target: keyof IUsuarioValues,
-    value: Dayjs | null | string | number | INewValue | INewValue[]
+    value:
+      | Dayjs
+      | null
+      | string
+      | number
+      | INewValue
+      | INewValue[]
+      | IPatio
+      | IPatio[]
   ) => void;
-  setSelectedLocation: React.Dispatch<
-    React.SetStateAction<google.maps.LatLng | null | undefined>
-  >;
-  selectedLocation: google.maps.LatLng | null | undefined;
-
-  setSelectedPlace: React.Dispatch<
-    React.SetStateAction<google.maps.places.PlaceResult | null | undefined>
-  >;
-  selectedPlace: google.maps.places.PlaceResult | null | undefined;
 
   UsuarioValues: IUsuarioValues;
 
   patios: INewValue[];
   permission: INewValue[];
-  handleCreateUsuario: () => Promise<IChamadosResponse>;
-  patioWithCoods: IPatiosServiceDTO[];
+  handleCreateUsuario: () => Promise<void>;
   reset: () => void;
 }
 
 const initial = {
   name: "",
   email: "",
-  cargoSetor:"",
-  patios: "",
-  permissions:"",
-  equipamentoSolicitado: undefined,
-  tipoVeiculo: undefined,
-  tipoApreensao: undefined,
-  urgencia: undefined,
-  origem: undefined,
-  estado: undefined,
-  uf: undefined,
-  municipio: undefined,
-  distrito: undefined,
-  cep: undefined,
-  latitude: undefined,
-  longitude: undefined,
-  enderecoCompleto: undefined,
-  multiple: false,
-  vehiclesQuantity: 1,
-  driversQuantity: 1,
-  detalhes: undefined,
-  localizacao: {
-    estado: "",
-    uf: "",
-    municipio: "",
-    distrito: "",
-    cep: "",
-    latitude: "",
-    longitude: "",
-    enderecoComplet: "",
-  },
+  cargoSetor: "",
+  patios: [],
+  permissions: [],
 };
-
 
 const UsuariosContext = createContext<IUsuariosContext | undefined>(undefined);
 
@@ -113,8 +55,6 @@ export const UsuariosProvider: React.FC<{
   const [patios, setPatios] = useState<INewValue[]>([]);
   const [permission, setPermissions] = useState<INewValue[]>([]);
 
-  const [patioWithCoods, setPatioWithCoods] = useState<IPatiosServiceDTO[]>([]);
-
   useEffect(() => {
     (async () => {
       const response = (await PatiosService.getPatios()).map((item) => ({
@@ -123,13 +63,6 @@ export const UsuariosProvider: React.FC<{
       }));
 
       setPatios(response);
-    })();
-  }, []);
-
-  useEffect(() => {
-    (async () => {
-      const response = await PatiosService.getPatios();
-      setPatioWithCoods(response);
     })();
   }, []);
 
@@ -156,80 +89,24 @@ export const UsuariosProvider: React.FC<{
     }));
   };
   const handleCreateUsuario = async () => {
-    const {
-      patios,
-      
-      equipamentoSolicitado,
-      tipoApreensao,
-      tipoVeiculo,
-      uf,
-      urgencia,
-      origem,
-      estado,
-      latitude,
-      longitude,
-      vehiclesQuantity,
-      detalhes,
-      distrito,
-      driversQuantity,
-      multiple,
-      municipio,
-      cep,
-      enderecoCompleto,
-    } = UsuarioValues;
-      const payload = {
-      patios: patios?.id,
-      equipamentoSolicitado: equipamentoSolicitado?.label,
-      tipoVeiculo: tipoVeiculo?.label,
-      tipoApreensao: tipoApreensao?.label,
-      urgencia: urgencia?.label,
-      origem: origem?.label,
-      multiple,
-      vehiclesQuantity,
-      driversQuantity,
-      detalhes,
-      localizacao: {
-        estado,
-        uf,
-        municipio,
-        distrito,
-        cep,
-        latitude: String(latitude),
-        longitude: String(longitude),
-        enderecoCompleto,
-      },
-    };
-      return await chamadosService.createChamado(payload);
+    const { patios } = UsuarioValues;
+
+    //return await chamadosService.createChamado(payload);
   };
-  
+
   const reset = () => {
     setUsuarioValues(initial);
   };
 
-  const { location, error } = useGeolocation();
-
-  const [selectedLocation, setSelectedLocation] =
-    React.useState<google.maps.LatLng | null>();
-
-  const [selectedPlace, setSelectedPlace] = React.useState<
-    google.maps.places.PlaceResult | null | undefined
-  >();
   return (
     <UsuariosContext.Provider
       value={{
-        location,
-        error,
-        selectedLocation,
-        setSelectedLocation,
-        setSelectedPlace,
-        selectedPlace,
         UsuarioValues,
         handleNewValue,
         patios,
-        handleCreateUsuario,
-        patioWithCoods,
         reset,
         permission,
+        handleCreateUsuario,
       }}
     >
       {children}

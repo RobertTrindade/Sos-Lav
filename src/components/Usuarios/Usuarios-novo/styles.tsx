@@ -166,3 +166,19 @@ export const LiText = styled(Typography)`
   color: ${({ theme }) => theme.palette.secondary.main};
 
 `;
+
+
+
+export const CustomSecondaryButton = styled(Button)`
+  font-weight: bold;
+  font-size: 16px;
+  border: 2px solid #303033;
+  color: #fff;
+  background-color: transparent;
+  border-radius: 8px;
+  &:disabled {
+    color: #b8b9bb;
+
+    background-color: #ededed;
+  }
+`;

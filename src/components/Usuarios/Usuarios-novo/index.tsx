@@ -14,15 +14,17 @@ import Link from "next/link";
 import { CustomStepUsuario } from "@/src/shared/components/step/usuarios";
 import { ChamadosStep2 } from "./steps/step2";
 import { ChamadosStep3 } from "./steps/step3";
+import { useUsuario } from "@/src/contexts/usuarios";
 
 export const UsuariosComponentNovo: React.FC<{}> = () => {
   const [activeStep, setActiveStep] = React.useState(0);
   const [loading, setLoading] = React.useState<boolean>(false);
   const [success, setSuccess] = React.useState<boolean>(false);
+  const { UsuarioValues, } = useUsuario();
 
   const handleSubmit = async () => {
     try {
-   
+      console.log(UsuarioValues)
     } catch (error) {
       setLoading(true);
       setSuccess(false);

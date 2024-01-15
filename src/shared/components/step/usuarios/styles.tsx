@@ -63,7 +63,6 @@ export const CustomSecondaryButton = styled(Button)`
   border-radius: 8px;
   &:disabled {
     color: #b8b9bb;
-
     background-color: #ededed;
   }
 `;

@@ -1,10 +1,11 @@
 "use client";
 import * as React from "react";
-// import CancelIcon from "@mui/icons-material/Cancel";
+import CancelIcon from "@mui/icons-material/Cancel";
 import { useUsuario } from "@/src/contexts/usuarios";
 import {
   AutoCompleteContainer,
   BoxInput,
+  CustomSecondaryButton,
   Label,
   Li,
   LiText,
@@ -13,41 +14,24 @@ import {
   Step2Container,
   Ul,
 } from "../../styles";
-import Button from "@mui/material/Button";
 import { AutoCompleteComponentMultiple } from "@/src/shared/components/AutoCompleteMultiple";
-import { INewValue } from "@/src/shared/components/AutoComplete";
-import { Dayjs } from "dayjs";
-interface Patio {
+
+export interface IPatio {
   title: string;
-  id: string;
+  id: number;
   label: string;
 }
 
 export const ChamadosStep2 = () => {
   const { UsuarioValues, patios, handleNewValue } = useUsuario();
 
-  const [selectedPatios, setSelectedPatios] = React.useState<Patio[]>(
-    UsuarioValues.patios
-  );
-
-  const handleAutocompleteChange = (
-    event: React.ChangeEvent<{}>,
-    newValue: Patio[]
-  ) => {
-    setSelectedPatios(newValue);
-    handleNewValue("Patio", newValue);
-  };
-  const handleRemovePatio = (patio: Patio) => {
-    const updatedPatios = selectedPatios.filter(
-      (selectedPatio) => selectedPatio.id !== patio.id
-    );
-    setSelectedPatios(updatedPatios);
-    handleNewValue("Patio", updatedPatios);
+  const handleRemovePatio = (id: number) => {
+    const diffs = UsuarioValues.patios.filter((item) => item.id !== id);
+    handleNewValue("patios", diffs);
   };
 
   const handleClearAll = () => {
-    setSelectedPatios([]);
-    handleNewValue("Patio", []);
+    handleNewValue("patios", []);
   };
 
   return (
@@ -55,20 +39,19 @@ export const ChamadosStep2 = () => {
       <AutoCompleteContainer>
         <BoxInput>
           <Label>Pátios</Label>
+
           <AutoCompleteComponentMultiple
-  options={patios && patios}
-  label="Pátios"
-  noOptionsText="Nenhuma Pátio encontrado"
-  setStateActionWithTarget={handleAutocompleteChange}
-  multiple={true}
-  target="patios" 
-  value={UsuarioValues.patios} 
-  customProps={{
-    value: UsuarioValues.patios,
-    onChange: (e) => handleNewValue("patios", e.target.value),
-  }}
-/>
-        </BoxInput> 
+            options={patios && patios}
+            label="patios"
+            noOptionsText="Nenhuma Pátio encontrado"
+            setStateActionWithTarget={handleNewValue}
+            multiple={true}
+            target="patios"
+            customProps={{
+              value: UsuarioValues.patios,
+            }}
+          />
+        </BoxInput>
       </AutoCompleteContainer>
 
       <PatiosSelecionadosContainer>
@@ -77,32 +60,26 @@ export const ChamadosStep2 = () => {
         </PatiosSelecionadosTitle>
 
         <Ul component={"ul"}>
-          {selectedPatios &&
-            selectedPatios.map((patio) => (
+          {UsuarioValues.patios &&
+            UsuarioValues.patios.map((patio) => (
               <Li key={patio.id} component={"li"}>
                 <LiText> {patio.label}</LiText>
-                {/* <CancelIcon
-                  onClick={() => handleRemovePatio(patio)}
+                <CancelIcon
+                  onClick={() => handleRemovePatio(patio.id)}
                   color="secondary"
-                /> */}
+                />
               </Li>
             ))}
         </Ul>
 
-        {/* <Button
+        <CustomSecondaryButton
           variant="contained"
           color="secondary"
           onClick={handleClearAll}
-          style={{
-            color: "black",
-            border: "1px solid white",
-            marginTop: "20px",
-          }}
         >
           Limpar Todos
-        </Button> */}
+        </CustomSecondaryButton>
       </PatiosSelecionadosContainer>
-      
     </Step2Container>
   );
 };
