@@ -40,9 +40,7 @@ export const SwipeableTextMobileStepper: React.FC<{
             width: "100%",
             height: "400px",
           }}
-          src={
-            "https://eco-chamados-back-end.onrender.com" + images[activeStep]
-          }
+          src={process.env.NEXT_PUBLIC_API_BASE_URL + images[activeStep]}
           alt={"step"}
         />
 
@@ -84,6 +82,6 @@ const CustomMobileStepper = styled(MobileStepper)`
     background-color: ${({ theme }) => theme.palette.primary.main} !important;
   }
   .MuiMobileStepper-dot {
-    background-color: ${({ theme }) => theme.palette.secondary.main} ;
+    background-color: ${({ theme }) => theme.palette.secondary.main};
   }
 `;
