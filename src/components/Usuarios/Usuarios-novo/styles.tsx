@@ -142,7 +142,7 @@ export const PatiosSelecionadosTitle = styled(Typography)`
 `;
 
 export const AutoCompleteContainer = styled(Box)`
-  max-width: 400px;
+  max-width: 600px;
   width: 100%;
 `;
 

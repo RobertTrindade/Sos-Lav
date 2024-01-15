@@ -33,7 +33,13 @@ export const ChamadosStep1 = () => {
         </BoxInput>
 
         <BoxInput>
-          <InputComponent label="Cargo/Setor" content="Cargo/Setor" />
+          <InputComponent
+          label="Cargo/Setor" 
+          content="Cargo/Setor"
+          customProps={{
+            value: UsuarioValues.cargoSetor,
+            onChange: (e) => handleNewValue("cargoSetor", e.target.value),
+          }} />
         </BoxInput>
       </Form>
     </>

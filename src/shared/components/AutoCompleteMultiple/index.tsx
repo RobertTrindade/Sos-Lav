@@ -15,7 +15,13 @@ interface IAutoCompleteComponent {
   setStateActionWithTarget?: (target: any, value: any) => void;
   sx?: SxProps<Theme> | undefined;
   multiple?: boolean;
+  value?: string;
+  customProps?: {
+    value: any;
+    onChange: (event: React.ChangeEvent<any>) => void;
+  };
 }
+
 
 export interface INewValue {
   label: string;
@@ -34,6 +40,8 @@ export const AutoCompleteComponentMultiple: React.FC<
   setStateActionWithTarget,
   sx,
   multiple = false,
+  value,
+  customProps,
 }) => {
   return (
     <CustomAutocomplete

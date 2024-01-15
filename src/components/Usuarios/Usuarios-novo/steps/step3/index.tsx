@@ -1,3 +1,4 @@
+"use client";
 import * as React from "react";
 
 import CancelIcon from "@mui/icons-material/Cancel";
@@ -15,42 +16,47 @@ import {
 } from "../../styles";
 import Button from "@mui/material/Button";
 import { AutoCompleteComponentMultiple } from "@/src/shared/components/AutoCompleteMultiple";
-
-interface Patio {
+interface Permission {
   title: string;
   id: string;
   label: string;
 }
 
+
 export const ChamadosStep3 = () => {
   const { UsuarioValues, permission, handleNewValue } = useUsuario();
 
-  const [selectedPatios, setSelectedPatios] = React.useState<Patio[]>(
-    UsuarioValues.patio
+  const [selectedPermission, setSelectedPermission] = React.useState<Permission[]>(
+    UsuarioValues.permission
+    
   );
 
   const handleAutocompleteChange = (
     event: React.ChangeEvent<{}>,
-    newValue: Patio[]
+    newValue: Permission[]
   ) => {
-    setSelectedPatios(newValue);
-    handleNewValue("patio", newValue);
+    setSelectedPermission(newValue);
+    handleNewValue(newValue);
   };
 
-  const handleRemovePatio = (patio: Patio) => {
-    const updatedPatios = selectedPatios.filter(
-      (selectedPatio) => selectedPatio.id !== patio.id
+  const handleRemovePermission = (permission: Permission) => {
+    const updatedPatios = selectedPermission.filter(
+      (selectedPatio) => selectedPatio.id !== permission.id
     );
-    setSelectedPatios(updatedPatios);
-    handleNewValue("patio", updatedPatios);
+    setSelectedPermission(updatedPatios);
+    handleNewValue(updatedPatios);
   };
 
   const handleClearAll = () => {
-    setSelectedPatios([]);
-    handleNewValue("patio", []);
+    setSelectedPermission([]);
+    handleNewValue([]);
   };
 
 console.log(permission)
+
+  function handleRemovePatio(permission: Permission): void {
+    throw new Error("Function not implemented.");
+  }
 
   return (
     <Step2Container>
@@ -59,34 +65,39 @@ console.log(permission)
           <Label>Permissões</Label>
           <AutoCompleteComponentMultiple
             options={permission && permission}
-            label="Pátios"
-            noOptionsText="Nenhuma Pátio encontrado"
+            label="Permissão"
+            noOptionsText="Nenhuma Permissão encontrado"
             setStateActionWithTarget={handleAutocompleteChange}
             multiple={true}
             target="status"
-          />
+            value={undefined}
+            customProps={{
+              value: UsuarioValues.permission,
+              onChange: (e) => handleNewValue("permission", e.target.value),
+            }}    
+                    />
         </BoxInput>
       </AutoCompleteContainer>
 
       <PatiosSelecionadosContainer>
         <PatiosSelecionadosTitle>
-          Pátios Selecionados :{" "}
+        Permissão Selecionadas :{" "}
         </PatiosSelecionadosTitle>
 
         <Ul component={"ul"}>
-          {selectedPatios &&
-            selectedPatios.map((patio) => (
-              <Li key={patio.id} component={"li"}>
-                <LiText> {patio.label}</LiText>
-                <CancelIcon
-                  onClick={() => handleRemovePatio(patio)}
+          {selectedPermission &&
+            selectedPermission.map((permission) => (
+              <Li key={permission.id} component={"li"}>
+                <LiText> {permission.label}</LiText>
+                {/* <CancelIcon
+                  onClick={() => handleRemovePermission(permission)}
                   color="secondary"
-                />
+                /> */}
               </Li>
             ))}
         </Ul>
 
-        <Button
+        {/* <Button
           variant="contained"
           color="secondary"
           onClick={handleClearAll}
@@ -97,7 +108,7 @@ console.log(permission)
           }}
         >
           Limpar Todos
-        </Button>
+        </Button> */}
       </PatiosSelecionadosContainer>
     </Step2Container>
   );

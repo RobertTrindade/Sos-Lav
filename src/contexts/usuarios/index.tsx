@@ -14,11 +14,13 @@ import permissionsService, {
 } from "@/src/services/permissions/permissions.service";
 
 export interface IUsuarioValues {
+  patios: any;
+  permission: any;
   name: string;
   email: string;
+  cargoSetor: string;
 
 
-  patio: INewValue | undefined;
   equipamentoSolicitado: INewValue | undefined;
   tipoVeiculo: INewValue | undefined;
   tipoApreensao: INewValue | undefined;
@@ -42,9 +44,10 @@ export interface IUsuarioValues {
 interface IUsuariosContext {
   location: GeolocationPosition | null;
   error: string;
+  
   handleNewValue: (
     target: keyof IUsuarioValues,
-    value: Dayjs | null | string | number | INewValue
+    value: Dayjs | null | string | number | INewValue | INewValue[]
   ) => void;
   setSelectedLocation: React.Dispatch<
     React.SetStateAction<google.maps.LatLng | null | undefined>
@@ -68,8 +71,9 @@ interface IUsuariosContext {
 const initial = {
   name: "",
   email: "",
-
-  patio: undefined,
+  cargoSetor:"",
+  patios: "",
+  permissions:"",
   equipamentoSolicitado: undefined,
   tipoVeiculo: undefined,
   tipoApreensao: undefined,
@@ -99,7 +103,7 @@ const initial = {
   },
 };
 
-// Crie o contexto de registro
+
 const UsuariosContext = createContext<IUsuariosContext | undefined>(undefined);
 
 // Provedor de registro que mantém o estado dos usuários
@@ -153,7 +157,8 @@ export const UsuariosProvider: React.FC<{
   };
   const handleCreateUsuario = async () => {
     const {
-      patio,
+      patios,
+      
       equipamentoSolicitado,
       tipoApreensao,
       tipoVeiculo,
@@ -172,8 +177,8 @@ export const UsuariosProvider: React.FC<{
       cep,
       enderecoCompleto,
     } = UsuarioValues;
-    const payload = {
-      patio: patio?.id,
+      const payload = {
+      patios: patios?.id,
       equipamentoSolicitado: equipamentoSolicitado?.label,
       tipoVeiculo: tipoVeiculo?.label,
       tipoApreensao: tipoApreensao?.label,
@@ -194,9 +199,9 @@ export const UsuariosProvider: React.FC<{
         enderecoCompleto,
       },
     };
-    return await chamadosService.createChamado(payload);
+      return await chamadosService.createChamado(payload);
   };
-
+  
   const reset = () => {
     setUsuarioValues(initial);
   };
