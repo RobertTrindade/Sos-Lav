@@ -1,6 +1,6 @@
-# Carvalho Leilões - Frontend
+# Eco chamados - Frontend
 
-Este é o repositório do frontend para o projeto Carvalho Leilões. O frontend é construído com Next.js, Material-UI, Zod para validação de dados e React Hook Forms para gerenciamento de formulários.
+Este é o repositório do frontend para o projeto Eco chamados . O frontend é construído com Next.js, Material-UI, Zod para validação de dados e React Hook Forms para gerenciamento de formulários.
 
 ## Pré-requisitos
 
@@ -13,10 +13,6 @@ Antes de iniciar, certifique-se de ter as seguintes dependências instaladas em 
 
 1. Clone este repositório em sua máquina local:
 
-```bash
-git clone https://github.com/seu-usuario/carvalho-leiloes-frontend.git
-cd carvalho-leiloes-frontend
-```
 
 2. Instale as dependências do projeto:
 
