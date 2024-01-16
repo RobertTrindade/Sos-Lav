@@ -9,6 +9,7 @@ import { socket } from "@/src/services/socket.io";
 import dayjs from "dayjs";
 import { ativarNotificacao } from "@/src/utils/showPushNotification";
 
+
 interface IPainelChamados {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   openPainel: boolean;
@@ -67,9 +68,10 @@ export const Painel: React.FC<IPainelChamados> = ({ openPainel, setOpen }) => {
 
       setChamados(data);
 
+
       ativarNotificacao(
         "Novo Chamado Adicionado",
-        `Novo chamado em ${item.localizacao.enderecoCompleto}`
+        `Novo chamado em ${item.localizacao.enderecoCompleto}`,
       );
 
       setLoading(false);
