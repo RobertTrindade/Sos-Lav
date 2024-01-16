@@ -16,33 +16,39 @@ import {
 } from "../../styles";
 import { AutoCompleteComponentMultiple } from "@/src/shared/components/AutoCompleteMultiple";
 
+export interface IPermission {
+  title: string;
+  id: number;
+  label: string;
+}
+
 export const ChamadosStep3 = () => {
   const { UsuarioValues, permission, handleNewValue } = useUsuario();
 
-  const handleRemovePatio = (id: number) => {
-    const diffs = UsuarioValues.patios.filter((item) => item.id !== id);
-    handleNewValue("patios", diffs);
+  const handleRemovePermission = (id: number) => {
+    const diffs = UsuarioValues.permission.filter((item) => item.id !== id);
+    handleNewValue("permission", diffs);
   };
 
   const handleClearAll = () => {
-    handleNewValue("patios", []);
+    handleNewValue("permission", []);
   };
 
   return (
     <Step2Container>
       <AutoCompleteContainer>
         <BoxInput>
-          <Label>Permissoẽs</Label>
+          <Label>Permissões</Label>
 
           <AutoCompleteComponentMultiple
             options={permission && permission}
-            label="patios"
-            noOptionsText="Nenhuma Pátio encontrado"
+            label="permission"
+            noOptionsText="Nenhuma Permissão encontrado"
             setStateActionWithTarget={handleNewValue}
             multiple={true}
-            target="patios"
+            target="permission"
             customProps={{
-              value: UsuarioValues.patios,
+              value: UsuarioValues.permission,
             }}
           />
         </BoxInput>
@@ -50,16 +56,16 @@ export const ChamadosStep3 = () => {
 
       <PatiosSelecionadosContainer>
         <PatiosSelecionadosTitle>
-          Pátios Selecionados :{" "}
+        Permissões Selecionadas :{" "}
         </PatiosSelecionadosTitle>
 
         <Ul component={"ul"}>
-          {UsuarioValues.patios &&
-            UsuarioValues.patios.map((patio) => (
-              <Li key={patio.id} component={"li"}>
-                <LiText> {patio.label}</LiText>
+          {UsuarioValues.permission &&
+            UsuarioValues.permission.map((permissio) => (
+              <Li key={permissio.id} component={"li"}>
+                <LiText> {permissio.label}</LiText>
                 <CancelIcon
-                  onClick={() => handleRemovePatio(patio.id)}
+                  onClick={() => handleRemovePermission(permissio.id)}
                   color="secondary"
                 />
               </Li>

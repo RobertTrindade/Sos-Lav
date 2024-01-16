@@ -6,10 +6,11 @@ import { Dayjs } from "dayjs";
 
 import permissionsService from "@/src/services/permissions/permissions.service";
 import { IPatio } from "@/src/components/Usuarios/Usuarios-novo/steps/step2";
+import { IPermission } from "@/src/components/Usuarios/Usuarios-novo/steps/step3";
 
 export interface IUsuarioValues {
   patios: IPatio[];
-  permission?: string[];
+  permission: IPermission[];
   name: string;
   email: string;
   cargoSetor: string;
@@ -43,7 +44,7 @@ const initial = {
   email: "",
   cargoSetor: "",
   patios: [],
-  permissions: [],
+  permission: [],
 };
 
 const UsuariosContext = createContext<IUsuariosContext | undefined>(undefined);
@@ -89,8 +90,10 @@ export const UsuariosProvider: React.FC<{
     }));
   };
   const handleCreateUsuario = async () => {
-    const { patios } = UsuarioValues;
+  
+    const { patios, permission } = UsuarioValues;
 
+    
     //return await chamadosService.createChamado(payload);
   };
 

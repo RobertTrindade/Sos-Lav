@@ -126,6 +126,7 @@ export const Step2Container = styled(Box)`
   justify-content: space-between;
 `;
 
+//usado também para o estilo das Permissões
 export const PatiosSelecionadosContainer = styled(Box)`
   max-width: 500px;
   width: 100%;
@@ -135,6 +136,7 @@ export const PatiosSelecionadosContainer = styled(Box)`
 
 `;
 
+//usado também para o estilo das Permissões
 export const PatiosSelecionadosTitle = styled(Typography)`
   font-weight: bold;
   font-size: 18px;
