@@ -19,7 +19,7 @@ import { ChecklistDetails } from "./Tabs/dadosChecklist";
 import { FotosApreensao } from "./Tabs/fotos";
 import { FotosConferente } from "./Tabs/fotosConferente";
 import { Liberacao } from "./Tabs/liberacao";
-
+import { Documentos } from "./Tabs/dadosDocumentos";
 export const NcvEdit: React.FC<{
   chamado: INCVResponse;
 }> = ({ chamado }) => {
@@ -67,6 +67,7 @@ export const NcvEdit: React.FC<{
               {value === 4 && <ChecklistDetails chamado={chamado} />}
               {value === 5 && <FotosConferente chamado={chamado} />}
               {value === 6 && <FotosApreensao chamado={chamado} />}
+              {value === 7 && <Documentos chamado={chamado}/>}
               {value === 8 && <Liberacao chamado={chamado} />}
 
 

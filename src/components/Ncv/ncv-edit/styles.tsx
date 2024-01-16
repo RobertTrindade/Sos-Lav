@@ -60,11 +60,11 @@ export const FormLiberacao = styled(Box)`
 export const Form = styled(Box)`
   display: flex;
   margin-top: 30px;
-
+  align-items: center;
   flex-wrap: wrap;
   gap: 20px;
   width: 100%;
-  justify-content: space-between;
+  justify-content: start;
 
   div {
     flex-basis: calc(
@@ -108,6 +108,7 @@ export const Label = styled(Typography)`
 export const BoxInput = styled(Box)`
   display: flex;
   flex-direction: column;
+  width: 100%;
   align-items: start;
 `;
 
@@ -173,3 +174,17 @@ export const CardContainer = styled(Box)`
 
 
 `;
+export const DocumentoButton = styled(Box)`
+  gap: 20px;
+ 
+  .InputContainer {
+    margin-bottom: 20px;
+  }
+  .fileArea {
+    iframe {
+      width: 100%;
+      height: 100vh;
+    }
+  }
+`;
+
