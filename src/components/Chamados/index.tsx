@@ -14,7 +14,6 @@ import {
 import {
   GridActionsCellItem,
   GridColDef,
-  GridPaginationModel,
   ptBR,
 } from "@mui/x-data-grid";
 import MapIcon from "@mui/icons-material/Map";
@@ -37,7 +36,7 @@ export const ChamadosComponent = () => {
   const [loading, setLoading] = React.useState(false);
   const [open, setOpen] = React.useState(false);
   const [openPainel, setOpenPainel] = React.useState(false);
-  const { cleanSearch } = useQueryParams();
+  const { cleanSearch,addTodayToqueryeParams } = useQueryParams();
 
   const handleSearch = async () => {
     try {
@@ -134,6 +133,10 @@ export const ChamadosComponent = () => {
       label: "Pendente",
     },
   ];
+  React.useEffect(() => {
+    addTodayToqueryeParams()
+    handleSearch();
+  }, []);
   return (
     <Container>
       <CustomDataGrid

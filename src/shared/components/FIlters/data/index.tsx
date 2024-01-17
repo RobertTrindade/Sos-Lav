@@ -31,9 +31,9 @@ export const DataFilter = () => {
     context: PickerChangeHandlerContext<DateValidationError>
   ) => {
     const time = value as Date;
-    const date = dayjs(time.toISOString()).toDate();
-    setinitialDate(dayjs(time.toISOString())); // Converta o Date para Dayjs aqui
-    updateQueryParams("dataInicio", date);
+    const date = dayjs(time).startOf("day");
+    setinitialDate(date);
+    updateQueryParams("dataInicio", date.toISOString());
   };
 
   const handleChangeTimeFinal = (
@@ -41,9 +41,9 @@ export const DataFilter = () => {
     context: PickerChangeHandlerContext<DateValidationError>
   ) => {
     const time = value as Date;
-    const date = dayjs(time.toISOString()).toDate();
-    setFinalDate(dayjs(time.toISOString())); // Converta o Date para Dayjs aqui
-    updateQueryParams("dataFinal", date);
+    const date = dayjs().startOf("day");
+    setFinalDate(date);
+    updateQueryParams("dataFinal", date.toISOString());
   };
 
   return (

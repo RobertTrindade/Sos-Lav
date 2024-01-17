@@ -1,4 +1,5 @@
 "use client";
+import dayjs from "dayjs";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
 
@@ -17,8 +18,17 @@ const useQueryParams = () => {
 
   const updateQueryParams = (key: string, value: any) => {
     const SearchParams = new URLSearchParams(searchParams);
-
     SearchParams.set(key, value);
+    router.push(`${pathname}?${SearchParams}`);
+  };
+
+  const addTodayToqueryeParams = () => {
+    const SearchParams = new URLSearchParams(searchParams);
+
+    const date = dayjs(new Date()).startOf("day");;
+
+
+    SearchParams.set("dataInicio", date.toISOString());
 
 
     router.push(`${pathname}?${SearchParams}`);
@@ -26,6 +36,8 @@ const useQueryParams = () => {
 
   const updateQueryPaginationParams = (page: any, limit: any) => {
     const SearchParams = new URLSearchParams(searchParams);
+
+
 
     SearchParams.set("page", page === 0 ? 1 : page);
     SearchParams.set("limit", limit);
@@ -42,6 +54,7 @@ const useQueryParams = () => {
     updateQueryParams,
     cleanSearch,
     updateQueryPaginationParams,
+    addTodayToqueryeParams
   };
 };
 
