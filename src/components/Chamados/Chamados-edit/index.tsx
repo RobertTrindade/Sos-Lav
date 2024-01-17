@@ -74,7 +74,6 @@ export const ChamadosComponentEdit: React.FC<{
       <Content>
         <TabResultArea>
           <BreadCrumbsComponent />
-
           <div className="actionArea">
             <Link href={"/chamados"}>
               <CustomIconButton>
@@ -569,6 +568,7 @@ const ChamadosFotos: React.FC<{
   const [index, setIndex] = React.useState(
     chamado.Ncv.length ? chamado.Ncv[0].id : 0
   );
+
   const [ncv, setNcv] = React.useState<IChamado["Ncv"]["0"]>();
 
   React.useEffect(() => {
@@ -603,8 +603,49 @@ const ChamadosFotos: React.FC<{
             <MediaCard key={item.id} data={item} />
           ))}
         </CardContainer>
+
+        <CardContainer>
+          <MediaCardUnique data={ncv.combustivelFotos} title={"Combustivel"} />
+        </CardContainer>
+
+        <CardContainer>
+          <MediaCardUnique data={ncv.kmFotos} title={"Km"} />
+        </CardContainer>
       </>
     )
+  );
+};
+
+const MediaCardUnique: React.FC<{
+  data: string[];
+  title: string;
+}> = ({ data, title }) => {
+  return (
+    <Card
+      sx={{
+        maxWidth: "500px",
+        backgroundColor: "rgb(18, 18, 18)",
+        width: "100%",
+      }}
+      elevation={4}
+    >
+      <SwipeableTextMobileStepper images={data} />
+      <CardContent>
+        <Typography
+          gutterBottom
+          variant="h5"
+          component="div"
+          fontWeight={"bold"}
+        >
+          {title}
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Button size="small">Apagar</Button>
+        <Button size="small">Visualizar</Button>
+        <Button size="small">Baixar</Button>
+      </CardActions>
+    </Card>
   );
 };
 

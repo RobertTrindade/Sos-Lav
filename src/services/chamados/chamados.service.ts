@@ -111,7 +111,7 @@ export interface INCV {
   chassi: string;
   motor: string;
   kmFotos: string[];
-  combustivelFotos: string;
+  combustivelFotos: string[];
   avariasDescription: string;
 
   Acessorios: {
