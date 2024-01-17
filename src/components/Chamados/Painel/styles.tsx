@@ -15,4 +15,6 @@ export const CustomDialogContainer = styled(Box)`
 export const TableBox = styled(Box)`
   width: 100%;
   height: fit-content;
+
+  
 `;
