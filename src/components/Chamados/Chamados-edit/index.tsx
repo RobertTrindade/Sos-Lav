@@ -539,8 +539,8 @@ const ChamadoMoto: React.FC<{
         </BoxInput>
         <BoxInput>
           <InputComponent
-            label="Local do aceite do chamado"
-            content="Local chamado"
+            label="Local chamado"
+            content="Local do aceite do chamado"
             customProps={{
               value: chamadoState.kmStimado,
               onChange: (e) => {
