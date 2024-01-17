@@ -27,10 +27,20 @@ import {
 import patiosService from "@/src/services/patios/patios.service";
 import dayjs from "dayjs";
 import { ButtonComponent } from "@/src/shared/components/Buttons";
-import { Button, ButtonGroup } from "@mui/material";
+import {
+  Button,
+  ButtonGroup,
+  Card,
+  CardActions,
+  CardContent,
+  Typography,
+} from "@mui/material";
 import { cepMask } from "@/src/utils/cepMask";
+import { IAvarias } from "@/src/services/ncv/ncv.service";
+import { SwipeableTextMobileStepper } from "@/src/shared/components/Carousel";
+import { CardContainer } from "../../Ncv/ncv-edit/styles";
 
-export const chamadosStatus = [
+const chamadosStatus = [
   {
     label: "Aguardando",
     id: 1,
@@ -556,175 +566,76 @@ const ChamadoMoto: React.FC<{
 const ChamadosFotos: React.FC<{
   chamado: IChamado;
 }> = ({ chamado }) => {
-  const [patios, setPatios] = React.useState<INewValue[]>([]);
+  const [index, setIndex] = React.useState(
+    chamado.Ncv.length ? chamado.Ncv[0].id : 0
+  );
+  const [ncv, setNcv] = React.useState<IChamado["Ncv"]["0"]>();
 
-  const [chamadosValues, setChamadosValues] = React.useState({
-    estado: chamado.localizacao.estado,
-    uf: chamado.localizacao.uf,
-    municipio: chamado.localizacao.municipio,
-    distrito: chamado.localizacao.distrito,
-    cep: chamado.localizacao.cep,
-    enderecoCompleto: chamado.localizacao.enderecoCompleto,
-    latitude: chamado.localizacao.latitude,
-    longitude: chamado.localizacao.longitude,
-    patio: chamado?.patio?.nome,
-    detalhes: chamado.detalhes,
-  });
-
-  const handleNewValue = (campo: string, valor: string) => {
-    setChamadosValues((prevState) => ({
-      ...prevState,
-      [campo]: valor,
-    }));
-  };
   React.useEffect(() => {
-    (async () => {
-      const response = (await patiosService.getPatios()).map((item) => ({
-        label: item.nome,
-        id: item.id,
-      }));
-
-      setPatios(response);
-    })();
-  }, []);
+    if (!chamado.Ncv.length) return;
+    const ncv = chamado.Ncv.find((cham) => cham.id === index);
+    setNcv(ncv);
+  }, [index]);
 
   return (
-    chamado.fotos.length !== 0 && (
-      <Form>
-        <BoxInput>
-          <InputComponent
-            label="Estado"
-            content="Estado"
-            customProps={{
-              value: chamadosValues.estado,
-              onChange: (e) => {
-                handleNewValue("estado", e.target.value);
-              },
-            }}
-          />
-        </BoxInput>
+    ncv && (
+      <>
+        <ButtonGroup
+          variant="contained"
+          aria-label="outlined primary button group"
+        >
+          {chamado.Ncv.map((item) => (
+            <Button
+              sx={{
+                color: "white",
+                fontWeight: "bold",
+              }}
+              key={item.id}
+              onClick={() => setIndex(item.id)}
+            >
+              Ncv {item.id}
+            </Button>
+          ))}
+        </ButtonGroup>
 
-        <BoxInput>
-          <InputComponent
-            label="UF"
-            content="UF"
-            customProps={{
-              value: chamadosValues.uf,
-              onChange: (e) => {
-                handleNewValue("uf", e.target.value);
-              },
-            }}
-          />
-        </BoxInput>
-        <BoxInput>
-          <InputComponent
-            label="Município"
-            content="Município"
-            customProps={{
-              value: chamadosValues.municipio,
-              onChange: (e) => {
-                handleNewValue("municipio", e.target.value);
-              },
-            }}
-          />
-        </BoxInput>
-
-        <BoxInput>
-          <InputComponent
-            label="Distrito"
-            content="Distrito"
-            customProps={{
-              value: chamadosValues.distrito,
-              onChange: (e) => {
-                handleNewValue("distrito", e.target.value);
-              },
-            }}
-          />
-        </BoxInput>
-
-        <BoxInput>
-          <InputComponent
-            label="CEP"
-            content="CEP"
-            customProps={{
-              value: chamadosValues.cep,
-              onChange: (e) => {
-                handleNewValue("cep", e.target.value);
-              },
-            }}
-          />
-        </BoxInput>
-
-        <BoxInput>
-          <InputComponent
-            label="Endereço Completo"
-            content="Endereço Completo"
-            customProps={{
-              value: chamadosValues?.enderecoCompleto,
-              onChange: (e) => {
-                handleNewValue("enderecoCompleto", e.target.value);
-              },
-            }}
-          />
-        </BoxInput>
-
-        <BoxInput>
-          <InputComponent
-            label="Latitude"
-            content="Latitude"
-            customProps={{
-              value: chamadosValues?.latitude,
-              readOnly: true,
-              onChange: (e) => {
-                handleNewValue("latitude", e.target.value);
-              },
-            }}
-          />
-        </BoxInput>
-
-        <BoxInput>
-          <InputComponent
-            label="Longitude"
-            content="Longitude"
-            customProps={{
-              value: chamadosValues.longitude,
-              readOnly: true,
-              onChange: (e) => {
-                handleNewValue("longitude", e.target.value);
-              },
-            }}
-          />
-        </BoxInput>
-        <BoxInput>
-          <Label>Pátio</Label>
-          <AutoCompleteComponent
-            options={patios}
-            label="Pátio"
-            value={chamadosValues.patio}
-            target="patio"
-            noOptionsText="Nenhum Pátio encontrado"
-            setStateActionWithTarget={handleNewValue}
-          />
-        </BoxInput>
-
-        <BoxInput>
-          <InputComponent
-            label="Detalhes"
-            content="Detalhes"
-            customStyles={{
-              color: "${({ theme }) => theme.palette.secondary.main}",
-              height: "auto",
-            }}
-            customProps={{
-              value: chamadosValues.detalhes,
-              multiline: true,
-              onChange: (e) => {
-                handleNewValue("detalhes", e.target.value);
-              },
-            }}
-          />
-        </BoxInput>
-      </Form>
+        <CardContainer>
+          {ncv.Avarias.map((item) => (
+            <MediaCard key={item.id} data={item} />
+          ))}
+        </CardContainer>
+      </>
     )
+  );
+};
+
+const MediaCard: React.FC<{
+  data: IAvarias;
+}> = ({ data }) => {
+  return (
+    <Card
+      sx={{
+        maxWidth: "500px",
+        backgroundColor: "rgb(18, 18, 18)",
+        width: "100%",
+      }}
+      elevation={4}
+    >
+      <SwipeableTextMobileStepper images={data.fotos} />
+      <CardContent>
+        <Typography
+          gutterBottom
+          variant="h5"
+          component="div"
+          fontWeight={"bold"}
+        >
+          {data.type}
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Button size="small">Apagar</Button>
+        <Button size="small">Visualizar</Button>
+        <Button size="small">Baixar</Button>
+      </CardActions>
+    </Card>
   );
 };
