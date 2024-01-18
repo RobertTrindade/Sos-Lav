@@ -166,6 +166,30 @@ export const ChamadoDetails: React.FC<{
               content="Tabela de Tarifa"
             />
           </BoxInput>
+
+          <BoxInput>
+            <div className="desativaEscrita">
+              <InputComponent
+                label="Adicionado por"
+                content="Adicionado por"
+                customProps={{
+                  defaultValue: 'teste',
+                }}
+              />
+            </div>  
+          </BoxInput>
+
+          <BoxInput >
+            <div className="desativaEscrita">
+              <InputComponent
+                label="Alterado por"
+                content="Alterado por"
+                customProps={{
+                  defaultValue: 'teste',
+                }}
+              />
+            </div>
+          </BoxInput>
         </Form>
 
         <ButtonComponent
@@ -180,6 +204,7 @@ export const ChamadoDetails: React.FC<{
             fontSize: "18px",
             height: "40px",
             width: "200px",
+            marginBottom: "50px",
           }}
         >
           Salvar
