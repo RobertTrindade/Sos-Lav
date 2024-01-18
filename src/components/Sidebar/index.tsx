@@ -19,6 +19,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import BadgeIcon from "@mui/icons-material/Badge";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
+import GiteIcon from '@mui/icons-material/Gite';
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useRouter } from "next/navigation";
 import { IconButton } from "@mui/material";
@@ -185,6 +186,24 @@ export const SideBarComponent: React.FC<{
                       startIcon={<LocalShippingIcon />}
                     >
                       Motoristas
+                    </SideItem>
+                  </Link>
+
+                  <Link
+                    href="/patios"
+                    style={{
+                      display: user?.Permissions.find(
+                        (item) => item.title === "usuarios"
+                      )
+                        ? "flex"
+                        : "none",
+                    }}
+                  >
+                    <SideItem
+                      active={pathParts[0] === "patios"}
+                      startIcon={<GiteIcon />}
+                    >
+                      Patios
                     </SideItem>
                   </Link>
 
