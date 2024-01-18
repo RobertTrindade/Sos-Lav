@@ -17,9 +17,6 @@ export const TableBox = styled(Box)`
   height: fit-content;
   display: flex;
   flex-direction: column;
- 
-
-  
 `;
 
 export const ChamadosModoPainel = styled(DataGrid)`
@@ -80,4 +77,6 @@ export const ButtonVoltar = styled(Button)`
     color: #b8b9bb;
     background-color: #ededed;
   }
+
+  
 `;
