@@ -2,13 +2,14 @@ import HttpClient from "../HttpClient";
 import { IMotoristaDto } from "../motoristas/motoristas.service";
 
 export interface INCVResponse {
+  
   id: 7;
   cor: string;
   marca: string;
   modelo: string;
   placa: string;
   ano: string;
-
+  Motivos: string
   municipio: string;
   uf: string;
   km: string;
@@ -72,6 +73,7 @@ export interface IChamado {
   patioName: string;
   motoristaName?: string;
   chamadorName: string;
+  Motivo: string;
   localizacaoName: string;
 
   Aceite?: {
@@ -180,4 +182,9 @@ class NcvService {
     return await this.httpClient.post(`${this.path}/extras/${params}`, body);
   }
 }
+
+const initial = {
+  Motivo: "",
+};
+
 export default new NcvService();
