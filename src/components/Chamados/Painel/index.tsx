@@ -1,5 +1,5 @@
 import * as React from "react";
-import { CustomDialogContainer, CustomModal, TableBox } from "./styles";
+import { ButtonVoltar, ChamadosModoPainel, CustomDialogContainer, CustomModal, CustomPrimaryButtonVoltar, TableBox } from "./styles";
 import chamadosService, {
   IChamado,
 } from "@/src/services/chamados/chamados.service";
@@ -74,6 +74,7 @@ export const Painel: React.FC<IPainelChamados> = ({ openPainel, setOpen }) => {
 
       setLoading(false);
     });
+    
 
     return () => {
       socket.off("new-chamado");
@@ -117,17 +118,37 @@ export const Painel: React.FC<IPainelChamados> = ({ openPainel, setOpen }) => {
       socket.off("new-chamado");
     };
   }, []);
+  
+  const handleSair = () => {
+    // Lógica para lidar com a ação de sair do modo painel
+    // Pode ser necessário fazer alguma limpeza ou navegação aqui
+    setOpen(false);
+  };
 
   return (
     <CustomModal
-      open={openPainel}
-      onClose={handleClose}
-      aria-labelledby="alert-dialog-title"
-      aria-describedby="alert-dialog-description"
-    >
-      <CustomDialogContainer>
-        <TableBox>
-          <CustomDataGrid
+    open={openPainel}
+    onClose={handleClose}
+    aria-labelledby="alert-dialog-title"
+    aria-describedby="alert-dialog-description"
+  >   
+  
+    <CustomDialogContainer>
+      
+      
+      <TableBox>
+        
+      <CustomPrimaryButtonVoltar>
+            <ButtonVoltar
+            variant="contained"
+            color="primary"
+            onClick={handleSair}
+          >
+          Voltar
+          </ButtonVoltar>
+        </CustomPrimaryButtonVoltar>
+       
+          <ChamadosModoPainel
             rows={chamados ? chamados : []}
             columns={columns}
             initialState={{
