@@ -8,6 +8,7 @@ export interface INCVResponse {
   modelo: string;
   placa: string;
   ano: string;
+  pdfDocumento: string;
 
   municipio: string;
   uf: string;
@@ -149,6 +150,7 @@ export interface IAvarias {
   created_at: string;
   updated_at: string;
 }
+
 class NcvService {
   httpClient;
   path: string;
@@ -167,6 +169,12 @@ class NcvService {
     return await this.httpClient.get<Promise<INCVResponse>>(
       `${this.path}/${Number(id)}`,
       revalidate
+    );
+  }
+  async editNcv(id: number, body: any) {
+    return await this.httpClient.put<Promise<INCVResponse>>(
+      `${this.path}/${id}`,
+      body
     );
   }
 

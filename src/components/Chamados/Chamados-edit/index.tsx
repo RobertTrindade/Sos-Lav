@@ -522,10 +522,35 @@ const ChamadoMoto: React.FC<{
             }}
           />
         </BoxInput>
+        
         <BoxInput>
           <InputComponent
-            label="Km estimado"
-            content="Km estimado"
+            label="Distancia Patio"
+            content="Distancia ate o Pátio"
+            customProps={{
+              value: chamadoState.kmStimado,
+              onChange: (e) => {
+                handleNewValue("estado", e.target.value);
+              },
+            }}
+          />
+        </BoxInput>
+        <BoxInput>
+          <InputComponent
+            label="Distancia Chamado"
+            content="Distancia ate o Chamado"
+            customProps={{
+              value: chamadoState.kmStimado,
+              onChange: (e) => {
+                handleNewValue("estado", e.target.value);
+              },
+            }}
+          />
+        </BoxInput>
+        <BoxInput>
+          <InputComponent
+            label="Local chamado"
+            content="Local do aceite do chamado"
             customProps={{
               value: chamadoState.kmStimado,
               onChange: (e) => {
