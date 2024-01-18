@@ -14,6 +14,7 @@ export const Container = styled(Box)`
   display: flex;
   flex-direction: column;
   gap: 40px;
+  
 
   ${({ theme }) => theme.breakpoints.up("laptop")} {
     padding: 0px 32px;
@@ -45,9 +46,60 @@ export const CustomDataGrid = styled(DataGrid)`
   font-weight: bold;
   margin-top: 100px;
 
+  .MuiDataGrid-cellContent[title="Aguardando"] {
+    background-color: #e61919;
+    color: #fff;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .MuiDataGrid-cellContent[title="Aceito"] {
+    background-color: #e5e619;
+    color: #fff;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .MuiDataGrid-cellContent[title="Em checklist"] {
+    background-color: #e5e619;
+    color: #fff;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .MuiDataGrid-cellContent[title="Em rota"] {
+    background-color: #1d831d;
+    color: #fff;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .MuiDataGrid-cellContent[title="Concluido"] {
+    background-color: #1d831d;
+    color: #fff;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   .MuiDataGrid-columnHeaderTitle {
     color: ${({ theme }) => theme.palette.secondary.main};
     font-weight: bold;
+    
 
   }
   .MuiTablePagination-selectLabel {
@@ -74,6 +126,7 @@ export const CustomDataGrid = styled(DataGrid)`
     margin-top: 300px;
   }
 
+ 
 
 `;
 
@@ -81,8 +134,6 @@ export const CustomGridToolbarContainer = styled(GridToolbarContainer)`
   width: 100%;
   position: absolute;
   top: -90px;
-
- 
 
   ${({ theme }) => theme.breakpoints.down("desktop")} {
     display: flex;
