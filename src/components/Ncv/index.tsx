@@ -12,20 +12,23 @@ import {
   CustomGridToolbarExport,
 } from "./styles";
 import { GridActionsCellItem, GridColDef, ptBR } from "@mui/x-data-grid";
-import MapIcon from "@mui/icons-material/Map";
 import EditIcon from "@mui/icons-material/Edit";
-import { Filters } from "@/src/shared/components/FIlters/chamados";
+import { Filters } from "@/src/shared/components/FIlters";
 import TuneIcon from "@mui/icons-material/Tune";
 import { Chips } from "@/src/shared/components/FIlters/chip";
 import { DataFilter } from "@/src/shared/components/FIlters/data";
 import AddIcon from "@mui/icons-material/Add";
 import dayjs from "dayjs";
+import FilterListOffIcon from "@mui/icons-material/FilterListOff";
+import { useRouter } from "next/navigation";
 
 import useQueryParams from "@/src/hooks/usehandleQueryString";
-import ncvService, { IChamado, INCVResponse } from "@/src/services/ncv/ncv.service";
+import ncvService, { INCVResponse } from "@/src/services/ncv/ncv.service";
+import { SearchTerm } from "@/src/shared/components/FIlters/searchTerm";
 
 export const NcvComponent = () => {
   const [chamados, setChamados] = React.useState<INCVResponse[]>();
+  const router = useRouter();
 
   const [loading, setLoading] = React.useState(false);
   const [open, setOpen] = React.useState(false);
@@ -140,20 +143,18 @@ export const NcvComponent = () => {
                   fileName: "motoristas.pdf",
                 }}
               />
-              <ActionButton
-                startIcon={<AddIcon />}
-                onClick={() => {
-                  window.open(`/chamados/novo`);
-                }}
-              >
-                Novo
-              </ActionButton>
 
               <ActionButton
                 startIcon={<TuneIcon />}
                 onClick={() => setOpen(true)}
               >
                 Mais Filtros
+              </ActionButton>
+              <ActionButton
+                startIcon={<FilterListOffIcon />}
+                onClick={() => router.push("/ncv")}
+              >
+                Limpar Filtros
               </ActionButton>
             </CustomGridToolbarContainer>
           ),
@@ -170,6 +171,8 @@ export const NcvComponent = () => {
       >
         <DataFilter />
         <Chips chips={chips} />
+        <SearchTerm label={"Ncv"} searchTarget="ncv" />
+        <SearchTerm label={"Placa"} searchTarget="placa" />
       </Filters>
     </Container>
   );

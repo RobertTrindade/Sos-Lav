@@ -13,7 +13,7 @@ import {
 } from "./styles";
 import { GridActionsCellItem, GridColDef, ptBR } from "@mui/x-data-grid";
 import EditIcon from "@mui/icons-material/Edit";
-import { Filters } from "@/src/shared/components/FIlters/chamados";
+import { Filters } from "@/src/shared/components/FIlters";
 import TuneIcon from "@mui/icons-material/Tune";
 import { Chips } from "@/src/shared/components/FIlters/chip";
 import { DataFilter } from "@/src/shared/components/FIlters/data";
