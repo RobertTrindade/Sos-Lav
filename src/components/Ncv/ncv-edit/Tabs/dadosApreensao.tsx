@@ -37,6 +37,10 @@ export const ApreensaoDetails: React.FC<{
     const time = value as Date;
     const date = dayjs(time.toISOString()).toDate();
   };
+  function handleNewValue(arg0: string, value: string) {
+    throw new Error("Function not implemented.");
+  }
+
   return (
     chamado && (
       <>
@@ -158,17 +162,19 @@ export const ApreensaoDetails: React.FC<{
               }}
             />
           </BoxInputRow>
-
           <BoxInput>
-            <Label>Motivo da Apreensão</Label>
-            <AutoCompleteComponent
-              options={[]}
-              label=""
-              noOptionsText="Nenhum equipamento encontrado"
-              target="equipamentoSolicitado"
-              value={chamado?.Chamado?.localizacao?.enderecoCompleto}
-            />
-          </BoxInput>
+        <InputComponent
+          label="Motivo de Apreensão"
+          content="Motivo de Apreensão"
+          customProps={{
+            value: chamado?.Chamado.Motivo,
+            onChange: (e) => {
+              handleNewValue("Motivo", e.target.value);
+            },
+          }}
+        />
+      </BoxInput>
+          
         </Form>
 
         <Box sx={{ display: "flex", gap: "20px", marginBottom: "50px" }}>

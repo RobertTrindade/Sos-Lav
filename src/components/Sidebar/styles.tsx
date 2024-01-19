@@ -28,7 +28,19 @@ export const SideBar = styled(AppBar, {
   ${({ theme }) => theme.breakpoints.down("tablet")} {
     width: 100%;
   }
+  
+  overflow-y: scroll;
 
+  &::-webkit-scrollbar {
+        width: 0.5em; /* Ajuste conforme necessário */
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: ${({ theme }) =>
+          theme.palette.secondary
+            .main}; /* Cor da "thumb" (o indicador da posição atual) */
+        border-radius: 20px;
+      }
   .newLinks {
     display: none;
   }

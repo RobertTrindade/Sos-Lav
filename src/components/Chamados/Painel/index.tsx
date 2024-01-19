@@ -1,5 +1,5 @@
 import * as React from "react";
-import { CustomDialogContainer, CustomModal, TableBox } from "./styles";
+import { ButtonVoltar, ChamadosModoPainel, CustomDialogContainer, CustomModal, CustomPrimaryButtonVoltar, TableBox } from "./styles";
 import chamadosService, {
   IChamado,
 } from "@/src/services/chamados/chamados.service";
@@ -8,6 +8,7 @@ import { GridColDef, ptBR } from "@mui/x-data-grid";
 import { socket } from "@/src/services/socket.io";
 import dayjs from "dayjs";
 import { ativarNotificacao } from "@/src/utils/showPushNotification";
+
 
 interface IPainelChamados {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -67,13 +68,15 @@ export const Painel: React.FC<IPainelChamados> = ({ openPainel, setOpen }) => {
 
       setChamados(data);
 
+
       ativarNotificacao(
         "Novo Chamado Adicionado",
-        `Novo chamado em ${item.localizacao.enderecoCompleto}`
+        `Novo chamado em ${item.localizacao.enderecoCompleto}`,
       );
 
       setLoading(false);
     });
+    
 
     return () => {
       socket.off("new-chamado");
@@ -117,17 +120,37 @@ export const Painel: React.FC<IPainelChamados> = ({ openPainel, setOpen }) => {
       socket.off("new-chamado");
     };
   }, []);
+  
+  const handleSair = () => {
+    // Lógica para lidar com a ação de sair do modo painel
+    // Pode ser necessário fazer alguma limpeza ou navegação aqui
+    setOpen(false);
+  };
 
   return (
     <CustomModal
-      open={openPainel}
-      onClose={handleClose}
-      aria-labelledby="alert-dialog-title"
-      aria-describedby="alert-dialog-description"
-    >
-      <CustomDialogContainer>
-        <TableBox>
-          <CustomDataGrid
+    open={openPainel}
+    onClose={handleClose}
+    aria-labelledby="alert-dialog-title"
+    aria-describedby="alert-dialog-description"
+  >   
+  
+    <CustomDialogContainer>
+      
+      
+      <TableBox>
+        
+      <CustomPrimaryButtonVoltar>
+            <ButtonVoltar
+            variant="contained"
+            color="primary"
+            onClick={handleSair}
+          >
+          Voltar
+          </ButtonVoltar>
+        </CustomPrimaryButtonVoltar>
+       
+          <ChamadosModoPainel
             rows={chamados ? chamados : []}
             columns={columns}
             initialState={{

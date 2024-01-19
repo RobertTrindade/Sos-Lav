@@ -19,6 +19,7 @@ export interface IChamadosValues {
   urgencia: INewValue | undefined;
   origem: INewValue | undefined;
   estado: INewValue | string | undefined;
+  Motivo: INewValue | string | undefined;
   uf: INewValue | string | undefined;
   detalhes: INewValue | string | undefined;
   municipio: INewValue | string | undefined;
@@ -67,6 +68,7 @@ const initial = {
   origem: undefined,
   estado: undefined,
   uf: undefined,
+  Motivo: undefined,
   municipio: undefined,
   distrito: undefined,
   cep: undefined,
@@ -134,6 +136,7 @@ export const ChamadosProvider: React.FC<{
       tipoApreensao,
       tipoVeiculo,
       uf,
+      Motivo,
       urgencia,
       origem,
       estado,
@@ -155,6 +158,7 @@ export const ChamadosProvider: React.FC<{
       tipoApreensao: tipoApreensao?.label,
       urgencia: urgencia?.label,
       origem: origem?.label,
+      // Motivo: Motivo?.label,
       multiple,
       vehiclesQuantity: +vehiclesQuantity!,
       driversQuantity: +driversQuantity!,

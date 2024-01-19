@@ -7,6 +7,8 @@ interface PageProps {
 }
 
 const ChamadosDetails = async (props: PageProps) => {
+  
+
   const res = await chamadosService.listOne(props.params.id as string);
 
   return <ChamadosComponentEdit chamado={res} />;

@@ -14,12 +14,11 @@ import {
 import {
   GridActionsCellItem,
   GridColDef,
-  GridPaginationModel,
   ptBR,
 } from "@mui/x-data-grid";
 import MapIcon from "@mui/icons-material/Map";
 import EditIcon from "@mui/icons-material/Edit";
-import { Filters } from "@/src/shared/components/FIlters/chamados";
+import { Filters } from "@/src/shared/components/FIlters";
 import TuneIcon from "@mui/icons-material/Tune";
 import { Chips } from "@/src/shared/components/FIlters/chip";
 import { DataFilter } from "@/src/shared/components/FIlters/data";
@@ -37,7 +36,7 @@ export const ChamadosComponent = () => {
   const [loading, setLoading] = React.useState(false);
   const [open, setOpen] = React.useState(false);
   const [openPainel, setOpenPainel] = React.useState(false);
-  const { cleanSearch } = useQueryParams();
+  const { cleanSearch,addTodayToqueryeParams } = useQueryParams();
 
   const handleSearch = async () => {
     try {
@@ -134,6 +133,10 @@ export const ChamadosComponent = () => {
       label: "Pendente",
     },
   ];
+  React.useEffect(() => {
+    addTodayToqueryeParams()
+    handleSearch();
+  }, []);
   return (
     <Container>
       <CustomDataGrid

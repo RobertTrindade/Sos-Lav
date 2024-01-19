@@ -13,11 +13,9 @@ interface IAutoCompleteComponent {
   value?: INewValue | undefined | string;
   SetStateAction?: React.Dispatch<React.SetStateAction<INewValue | undefined>>;
   target?: keyof any | string;
-  setStateActionWithTarget?: (
-    target: any,
-    value: any
-  ) => void;
-  sx?: SxProps<Theme> | undefined
+  setStateActionWithTarget?: (target: any, value: any) => void;
+  sx?: SxProps<Theme> | undefined;
+  multiple?: boolean;
 }
 
 export interface INewValue {
@@ -34,7 +32,8 @@ export const AutoCompleteComponent: React.FC<IAutoCompleteComponent> = ({
   value,
   target,
   setStateActionWithTarget,
-  sx
+  sx,
+  multiple = false,
 }) => {
   return (
     <CustomAutocomplete
@@ -44,6 +43,7 @@ export const AutoCompleteComponent: React.FC<IAutoCompleteComponent> = ({
       fullWidth
       disabled={!options}
       sx={sx}
+      multiple={multiple}
       value={value || null}
       onChange={(event: any, newValue: any) => {
         if (setStateActionWithTarget) {
@@ -61,7 +61,6 @@ export const AutoCompleteComponent: React.FC<IAutoCompleteComponent> = ({
       renderInput={(params) => (
         <TextField {...params} placeholder={label} fullWidth />
       )}
-     
     />
   );
 };

@@ -12,15 +12,19 @@ import { Alert, Box, Button } from "@mui/material";
 import { ChamadosStep1 } from "./steps/step1";
 import Link from "next/link";
 import { CustomStepUsuario } from "@/src/shared/components/step/usuarios";
+import { ChamadosStep2 } from "./steps/step2";
+import { ChamadosStep3 } from "./steps/step3";
+import { useUsuario } from "@/src/contexts/usuarios";
 
 export const UsuariosComponentNovo: React.FC<{}> = () => {
   const [activeStep, setActiveStep] = React.useState(0);
   const [loading, setLoading] = React.useState<boolean>(false);
   const [success, setSuccess] = React.useState<boolean>(false);
+  const { UsuarioValues, } = useUsuario();
 
   const handleSubmit = async () => {
     try {
-   
+      console.log(UsuarioValues)
     } catch (error) {
       setLoading(true);
       setSuccess(false);
@@ -51,10 +55,11 @@ export const UsuariosComponentNovo: React.FC<{}> = () => {
               <BackIcon />
             </CustomIconButton>
           </Link>
-          <Title>Novo Usuario</Title>
+          <Title>Novo Usuário</Title>
         </div>
       </BackArea>
       <Content>
+        
         <TabResultArea>
           <CustomStepUsuario
             props={{
@@ -62,7 +67,7 @@ export const UsuariosComponentNovo: React.FC<{}> = () => {
               handleBack,
               handleReset,
               activeStep,
-              steps: ["Chamado", "Endereço", "Veículos"],
+              steps: ["Dados Usuário", "Pátio Usuário", "Direito de Acesso "],
             }}
             finalComponent={
               <>
@@ -98,6 +103,10 @@ export const UsuariosComponentNovo: React.FC<{}> = () => {
             }
           >
             {activeStep === 0 && <ChamadosStep1 />}
+
+            {activeStep === 1 && <ChamadosStep2 />}
+
+            {activeStep === 2 && <ChamadosStep3 />}
           </CustomStepUsuario>
         </TabResultArea>
       </Content>

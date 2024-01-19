@@ -556,7 +556,7 @@ const ChamadoMoto: React.FC<{
 const ChamadosFotos: React.FC<{
   chamado: IChamado;
 }> = ({ chamado }) => {
-  const [patios, setPatios] = React.useState<INewValue[]>([]);
+  const [patios, setPatios,] = React.useState<INewValue[]>([]);
 
   const [chamadosValues, setChamadosValues] = React.useState({
     estado: chamado.localizacao.estado,
@@ -590,6 +590,7 @@ const ChamadosFotos: React.FC<{
 
   return (
     chamado.fotos.length !== 0 && (
+      <>
       <Form>
         <BoxInput>
           <InputComponent
@@ -725,6 +726,7 @@ const ChamadosFotos: React.FC<{
           />
         </BoxInput>
       </Form>
+      </>
     )
   );
 };
