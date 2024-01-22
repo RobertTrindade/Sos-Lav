@@ -1,6 +1,7 @@
 import HttpClient from "../HttpClient";
 
-export interface IMotoristaDto {
+export interface IMotoristasDTO {
+  [x: string]: any;
   id: number;
   role: string;
   name: string;
@@ -65,26 +66,26 @@ class MotoristasService {
 
   async getMotoristas(params?: string) {
     console.log(`${this.path}?${params}`)
-    return await this.httpClient.get<Promise<IMotoristaDto[]>>(
+    return await this.httpClient.get<Promise<IMotoristasDTO[]>>(
       `${this.path}${params}`
     );
   }
   async getMotorista(id: number, revalidade?: number) {
-    return await this.httpClient.get<Promise<IMotoristaDto>>(
+    return await this.httpClient.get<Promise<IMotoristasDTO>>(
       `${this.path}/${id}`,
       revalidade
     );
   }
 
   async editMotorista(id: number, body: any) {
-    return await this.httpClient.put<Promise<IMotoristaDto>>(
+    return await this.httpClient.put<Promise<IMotoristasDTO>>(
       `${this.path}/${id}`,
       body
     );
   }
 
   async aproveDriver(id: number, body: unknown) {
-    return await this.httpClient.patch<Promise<IMotoristaDto>>(
+    return await this.httpClient.patch<Promise<IMotoristasDTO>>(
       `${this.path}/${id}`,
       body
     );

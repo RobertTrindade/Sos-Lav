@@ -15,6 +15,7 @@ import {
 } from "./styles";
 import SupportAgentIcon from "@mui/icons-material/SupportAgent";
 import PublicIcon from "@mui/icons-material/Public";
+import AssessmentIcon from '@mui/icons-material/Assessment';
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import BadgeIcon from "@mui/icons-material/Badge";
@@ -31,6 +32,10 @@ import NewspaperIcon from "@mui/icons-material/Newspaper";
 import localStorageService from "@/src/services/auth/localStorage.service";
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import ChatIcon from '@mui/icons-material/Chat';
+
+
+
+import { SearchTerm } from "@/src/shared/components/FIlters/searchTerm";
 export const SideBarComponent: React.FC<{
   open: boolean;
   handleClick: () => void;
@@ -207,6 +212,30 @@ export const SideBarComponent: React.FC<{
                     </SideItem>
                   </Link>
 
+
+
+                  <Link
+                    href="/relatorio"
+                    style={{
+                      display: user?.Permissions.find(
+                        (item) => item.title === "usuarios"
+                      )
+                        ? "flex"
+                        : "none",
+                    }}
+                  >
+                    <SideItem
+                      active={path === "relatorio"}
+                      startIcon= {<AssessmentIcon/>}
+                      // startIcon={<PublicIcon />}
+                    >
+                      Fechamento 
+                    </SideItem>
+                  </Link>
+              
+
+
+
                   <Link
                     href="/"
                     style={{
@@ -219,18 +248,20 @@ export const SideBarComponent: React.FC<{
                   >
                     <SideItem
                       active={path === "ecossistema"}
-                      startIcon={<PublicIcon />}
+                       startIcon={<PublicIcon />}
                     >
                       Ecossistema
                     </SideItem>
                   </Link>
+                  
+
 
                   <Link href="/" className="newLinks">
                     <SideItem
                       active={path === "ecossistema"}
                       startIcon={<NewspaperIcon />}
                     >
-                      Novidades
+                    Novidades
                     </SideItem>
                   </Link>
 
@@ -244,6 +275,8 @@ export const SideBarComponent: React.FC<{
                   >
                     Logout
                   </SideItem>
+
+                  
                 </>
               ) : (
                 <>

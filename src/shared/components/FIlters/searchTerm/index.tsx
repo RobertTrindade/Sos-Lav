@@ -38,8 +38,8 @@ export const SearchTerm: FC<{
 
       <CustomAccordionDetails>
         <InputComponent
-          label={`Pesquise com ${label}`}
-          type="email"
+          label={`Pesquise ${label}`}
+          type="nome"
           customProps={{
             startAdornment: (
               <Box
