@@ -17,7 +17,6 @@ import { Filters } from "@/src/shared/components/FIlters";
 import TuneIcon from "@mui/icons-material/Tune";
 import { Chips } from "@/src/shared/components/FIlters/chip";
 import { DataFilter } from "@/src/shared/components/FIlters/data";
-import AddIcon from "@mui/icons-material/Add";
 import dayjs from "dayjs";
 import FilterListOffIcon from "@mui/icons-material/FilterListOff";
 import { useRouter } from "next/navigation";
