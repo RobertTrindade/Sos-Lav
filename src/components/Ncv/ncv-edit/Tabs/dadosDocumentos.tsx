@@ -1,6 +1,6 @@
 "use client";
 import ncvService, { INCVResponse } from "@/src/services/ncv/ncv.service"
-import { BoxInput, DocumentoContainer, Form,Label } from "../styles";
+import { BoxInput, DocumentoButton, Form,Label } from "../styles";
 import { CustomSelect } from "@/src/shared/components/select";
 import React from "react";
 import UploadService from "@/src/services/upload/upload.service";
@@ -107,7 +107,7 @@ const tipoDocumento = [
             />
           </BoxInput>
           </Form>
-    <DocumentoContainer>
+    <DocumentoButton>
         <div className="InputContainer">
           {loading ? (
             <CustomCircularProgress />
@@ -133,7 +133,7 @@ const tipoDocumento = [
             <iframe src={pdf} />
           </div>
         )}
-      </DocumentoContainer>
+      </DocumentoButton>
      
 
             </>)
