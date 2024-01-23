@@ -1,7 +1,7 @@
 import HttpClient from "../HttpClient";
 
 export interface IUploadService {
-  url: String;
+  url: string;
 }
 
 class UploadService {

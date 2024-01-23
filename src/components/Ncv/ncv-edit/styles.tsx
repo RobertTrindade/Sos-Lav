@@ -171,12 +171,10 @@ export const CardContainer = styled(Box)`
   gap: 20px;
   width: 100%;
   margin-bottom: 30px;
-
-
 `;
 export const DocumentoButton = styled(Box)`
   gap: 20px;
- 
+
   .InputContainer {
     margin-bottom: 20px;
   }
@@ -188,3 +186,14 @@ export const DocumentoButton = styled(Box)`
   }
 `;
 
+export const DocContainer = styled(Box)`
+  display: flex;
+  gap: 40px;
+  margin-bottom: 100px;
+  flex-wrap: wrap;
+  .iframe {
+    width: 560px;
+    max-width: 100%;
+    height: 600px;
+  }
+`;
