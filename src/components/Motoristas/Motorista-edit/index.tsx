@@ -96,165 +96,165 @@ const MotoristaDados: React.FC<{
 }> = ({
   motorista: { name, email, cpf, rg, birthdate, createdAt, xp, celular, id },
 }) => {
-    const [payload, setPayload] = React.useState({
-      name,
-      email,
-      cpf,
-      rg,
-      birthdate: new AdapterDayjs().date(birthdate),
-      celular,
-    });
-    const [disabled, setDisabled] = React.useState(false);
+  const [payload, setPayload] = React.useState({
+    name,
+    email,
+    cpf,
+    rg,
+    birthdate: new AdapterDayjs().date(birthdate),
+    celular,
+  });
+  const [disabled, setDisabled] = React.useState(false);
 
-    const handleSave = async () => {
-      try {
-        const date = dayjs(payload.birthdate!.toISOString()).toDate();
-        await motoristasService.editMotorista(id, {
-          ...payload,
-          birthdate: date,
-        });
-        alert("Motorista alterado com sucesso!");
-      } catch (error) {
-        alert(JSON.stringify(error));
-      }
-    };
+  const handleSave = async () => {
+    try {
+      const date = dayjs(payload.birthdate!.toISOString()).toDate();
+      await motoristasService.editMotorista(id, {
+        ...payload,
+        birthdate: date,
+      });
+      alert("Motorista alterado com sucesso!");
+    } catch (error) {
+      alert(JSON.stringify(error));
+    }
+  };
 
-    const handleChange = (target: keyof IMotoristaDto, value: any) => {
-      setPayload((prev) => ({
-        ...prev,
-        [target]: value,
-      }));
-    };
+  const handleChange = (target: keyof IMotoristaDto, value: any) => {
+    setPayload((prev) => ({
+      ...prev,
+      [target]: value,
+    }));
+  };
 
-    const handleChangeTime = (
-      value: unknown,
-      context: PickerChangeHandlerContext<DateValidationError>
-    ) => {
-      const time = value as Date;
-      const date = dayjs(time.toISOString()).toDate();
-      handleChange("birthdate", date);
-    };
-    React.useEffect(() => {
-      const { name, email, cpf, rg, birthdate, celular } = payload;
-      setDisabled(!name || !email || !cpf || !rg || !birthdate || !celular);
-    }, [payload]);
+  const handleChangeTime = (
+    value: unknown,
+    context: PickerChangeHandlerContext<DateValidationError>
+  ) => {
+    const time = value as Date;
+    const date = dayjs(time.toISOString()).toDate();
+    handleChange("birthdate", date);
+  };
+  React.useEffect(() => {
+    const { name, email, cpf, rg, birthdate, celular } = payload;
+    setDisabled(!name || !email || !cpf || !rg || !birthdate || !celular);
+  }, [payload]);
 
-    return (
-      <>
-        <MotoristaDadosContainer>
-          <InputComponent
-            content="Nome"
-            type="email"
-            customProps={{
-              value: payload.name,
-              onChange: (e) => handleChange("name", e.target.value),
-            }}
-            customStyles={{
-              color: "white",
-            }}
-          />
-          <InputComponent
-            content="E-mail"
-            type="email"
-            customProps={{
-              value: payload.email,
-              onChange: (e) => handleChange("email", e.target.value),
-            }}
-            customStyles={{
-              color: "white",
-            }}
-          />
-
-          <InputComponent
-            content="Celular"
-            type="email"
-            customProps={{
-              value: payload.celular,
-              onChange: (e) =>
-                e.target.value.length < 16 &&
-                handleChange("celular", PhoneMask(e.target.value)),
-            }}
-            customStyles={{
-              color: "white",
-            }}
-          />
-          <InputComponent
-            content="CPF"
-            type="email"
-            customProps={{
-              value: payload.cpf,
-              onChange: (e) =>
-                e.target.value.length < 14 &&
-                handleChange("cpf", CpfMask(e.target.value)),
-            }}
-            customStyles={{
-              color: "white",
-            }}
-          />
-
-          <InputComponent
-            content="RG"
-            type="email"
-            customProps={{
-              value: payload.rg,
-              onChange: (e) =>
-                e.target.value.length < 12 &&
-                handleChange("rg", RgMask(e.target.value)),
-            }}
-            customStyles={{
-              color: "white",
-            }}
-          />
-
-          <DataPickerComponent
-            handleChangeTime={handleChangeTime}
-            value={payload.birthdate}
-            label="Data de Nascimento"
-          />
-
-          <InputComponent
-            content="Nível"
-            type="text"
-            customProps={{
-              value: NivelGenerate(xp),
-              readOnly: true,
-            }}
-            customStyles={{
-              color: "white",
-            }}
-          />
-          <InputComponent
-            content="Data de Cadastro"
-            type="email"
-            customProps={{
-              value: dayjs(createdAt).format("DD/MM/YYYY"),
-              readOnly: true,
-            }}
-            customStyles={{
-              color: "white",
-            }}
-          />
-        </MotoristaDadosContainer>
-        <ButtonComponent
-          buttonProps={{
-            variant: "contained",
-            onClick: () => handleSave(),
-            disabled: disabled,
+  return (
+    <>
+      <MotoristaDadosContainer>
+        <InputComponent
+          content="Nome"
+          type="email"
+          customProps={{
+            value: payload.name,
+            onChange: (e) => handleChange("name", e.target.value),
           }}
           customStyles={{
             color: "white",
-            fontWeight: "700",
-            fontSize: "15px",
-            height: "50px",
-            width: "200px",
-            borderRadius: "14px",
           }}
-        >
-          Salvar
-        </ButtonComponent>
-      </>
-    );
-  };
+        />
+        <InputComponent
+          content="E-mail"
+          type="email"
+          customProps={{
+            value: payload.email,
+            onChange: (e) => handleChange("email", e.target.value),
+          }}
+          customStyles={{
+            color: "white",
+          }}
+        />
+
+        <InputComponent
+          content="Celular"
+          type="email"
+          customProps={{
+            value: payload.celular,
+            onChange: (e) =>
+              e.target.value.length < 16 &&
+              handleChange("celular", PhoneMask(e.target.value)),
+          }}
+          customStyles={{
+            color: "white",
+          }}
+        />
+        <InputComponent
+          content="CPF"
+          type="email"
+          customProps={{
+            value: payload.cpf,
+            onChange: (e) =>
+              e.target.value.length < 14 &&
+              handleChange("cpf", CpfMask(e.target.value)),
+          }}
+          customStyles={{
+            color: "white",
+          }}
+        />
+
+        <InputComponent
+          content="RG"
+          type="email"
+          customProps={{
+            value: payload.rg,
+            onChange: (e) =>
+              e.target.value.length < 12 &&
+              handleChange("rg", RgMask(e.target.value)),
+          }}
+          customStyles={{
+            color: "white",
+          }}
+        />
+
+        <DataPickerComponent
+          handleChangeTime={handleChangeTime}
+          value={payload.birthdate}
+          label="Data de Nascimento"
+        />
+
+        <InputComponent
+          content="Nível"
+          type="text"
+          customProps={{
+            value: NivelGenerate(xp),
+            readOnly: true,
+          }}
+          customStyles={{
+            color: "white",
+          }}
+        />
+        <InputComponent
+          content="Data de Cadastro"
+          type="email"
+          customProps={{
+            value: dayjs(createdAt).format("DD/MM/YYYY"),
+            readOnly: true,
+          }}
+          customStyles={{
+            color: "white",
+          }}
+        />
+      </MotoristaDadosContainer>
+      <ButtonComponent
+        buttonProps={{
+          variant: "contained",
+          onClick: () => handleSave(),
+          disabled: disabled,
+        }}
+        customStyles={{
+          color: "white",
+          fontWeight: "700",
+          fontSize: "15px",
+          height: "50px",
+          width: "200px",
+          borderRadius: "14px",
+        }}
+      >
+        Salvar
+      </ButtonComponent>
+    </>
+  );
+};
 
 const MotoristaEndereco: React.FC<{
   motorista: IMotoristaDto;
@@ -439,7 +439,6 @@ const MotoristaContrato: React.FC<{
             Novo Contrato
           </UploadInputComponent>
         )}
-        console.log(pdf);
       </div>
       {pdf && (
         <div className="fileArea">

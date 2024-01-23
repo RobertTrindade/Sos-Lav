@@ -174,7 +174,7 @@ export const CardContainer = styled(Box)`
 
 
 `;
-export const DocumentoContainer = styled(Box)`
+export const DocumentoButton = styled(Box)`
   gap: 20px;
  
   .InputContainer {
