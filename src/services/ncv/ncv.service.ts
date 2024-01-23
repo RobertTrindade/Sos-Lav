@@ -175,8 +175,8 @@ class NcvService {
     );
   }
   async editNcv(id: number, body: any) {
-    return await this.httpClient.put<Promise<INCVResponse>>(
-      `${this.path}/${id}`,
+    return await this.httpClient.post<Promise<INCVResponse>>(
+      `${this.path}/documentos/${id}`,
       body
     );
   }
