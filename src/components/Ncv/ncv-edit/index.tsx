@@ -20,6 +20,7 @@ import { FotosApreensao } from "./Tabs/fotos";
 import { FotosConferente } from "./Tabs/fotosConferente";
 import { Liberacao } from "./Tabs/liberacao";
 import { Documentos } from "./Tabs/dadosDocumentos";
+import { DadosVeiculo } from "./Tabs/dadosVeiculo";
 export const NcvEdit: React.FC<{
   chamado: INCVResponse;
 }> = ({ chamado }) => {
@@ -29,6 +30,8 @@ export const NcvEdit: React.FC<{
   };
   const tabLabels = [
     "Dados NCV",
+    "Dados do Veículo",
+
     "Guincho",
     "Apreensão",
     "Linha do tempo",
@@ -61,17 +64,15 @@ export const NcvEdit: React.FC<{
           {chamado ? (
             <>
               {value === 0 && <ChamadoDetails chamado={chamado} />}
-              {value === 1 && <GuinchoDetails chamado={chamado} />}
-              {value === 2 && <ApreensaoDetails chamado={chamado} />}
-              {value === 3 && <NcvTimeline chamado={chamado} />}
-              {value === 4 && <ChecklistDetails chamado={chamado} />}
-              {value === 5 && <FotosConferente chamado={chamado} />}
-              {value === 6 && <FotosApreensao chamado={chamado} />}
-              {value === 7 && <Documentos chamado={chamado}/>}
-              {value === 8 && <Liberacao chamado={chamado} />}
-
-
-              
+              {value === 1 && <DadosVeiculo chamado={chamado} />}
+              {value === 2 && <GuinchoDetails chamado={chamado} />}
+              {value === 3 && <ApreensaoDetails chamado={chamado} />}
+              {value === 4 && <NcvTimeline chamado={chamado} />}
+              {value === 5 && <ChecklistDetails chamado={chamado} />}
+              {value === 6 && <FotosConferente chamado={chamado} />}
+              {value === 7 && <FotosApreensao chamado={chamado} />}
+              {value === 8 && <Documentos chamado={chamado} />}
+              {value === 9 && <Liberacao chamado={chamado} />}
             </>
           ) : (
             <CustomCircularProgress />
