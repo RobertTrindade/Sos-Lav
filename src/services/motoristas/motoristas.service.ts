@@ -1,6 +1,7 @@
 import HttpClient from "../HttpClient";
 
 export interface IMotoristaDto {
+  [x: string]: any;
   id: number;
   role: string;
   name: string;
