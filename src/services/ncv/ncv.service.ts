@@ -2,7 +2,7 @@ import HttpClient from "../HttpClient";
 import { IMotoristaDto } from "../motoristas/motoristas.service";
 
 export interface INCVResponse {
-  
+
   id: 7;
   cor: string;
   marca: string;
@@ -124,26 +124,25 @@ export interface IComplemento {
   pintura: string;
   tapecaria: string;
   pneus: string;
+  chaveVeiculo: boolean;
+  veiculoTrancado: boolean;
+  Avaria: string;
   created_at: string;
   updated_at: string;
 }
 
 export interface IAcessorios {
   id: 5;
-  arCondicionado: boolean;
-  vidroEletrico: boolean;
-  cambioManual: boolean;
+
   cambioAutomatico: boolean;
-  radioCd: boolean;
-  pneuStep: boolean;
-  rodaComum: boolean;
-  rodaEspecial: boolean;
-  calotas: boolean;
-  antena: boolean;
+  rodaLigaLeve: boolean;
+  somEspecial: boolean;
+  tetoSolar: boolean;
+  multimidia: boolean;
   documento: boolean;
-  carroFuncionando: boolean;
   created_at: string;
   updated_at: string;
+  rodaEspecial: boolean
 }
 export interface IAvarias {
   id: number;

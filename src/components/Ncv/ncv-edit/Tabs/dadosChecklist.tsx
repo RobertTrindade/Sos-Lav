@@ -32,49 +32,18 @@ const tipoDesconto = [
     value: "bom",
   },
   {
-    label: "Regular",
-    value: "regular",
+    label: "Medio",
+    value: "Medio",
   },
 ];
 
 export const ChecklistDetails: React.FC<{
   chamado: INCVResponse;
 }> = ({ chamado }) => {
-  const handleChangeTime = (
-    value: unknown,
-    context: PickerChangeHandlerContext<DateValidationError>
-  ) => {
-    const time = value as Date;
-    const date = dayjs(time.toISOString()).toDate();
-  };
-  console.log(chamado);
   return (
     chamado && (
       <>
         <FormCheckBox>
-          <BoxInputRow>
-            <FormControlLabel
-              control={<CustomCheckBox size="medium" />}
-              label="AR CONDICIONADO              "
-              checked={chamado.Acessorios.arCondicionado}
-            />
-          </BoxInputRow>
-          <BoxInputRow>
-            <FormControlLabel
-              control={<CustomCheckBox size="medium" />}
-              label="VIDRO ELETRICO
-              "
-              checked={chamado.Acessorios.vidroEletrico}
-            />
-          </BoxInputRow>
-          <BoxInputRow>
-            <FormControlLabel
-              control={<CustomCheckBox size="medium" />}
-              label="CÂMBIO MANUAL
-              "
-              checked={chamado.Acessorios.cambioManual}
-            />
-          </BoxInputRow>
           <BoxInputRow>
             <FormControlLabel
               control={<CustomCheckBox size="medium" />}
@@ -86,73 +55,7 @@ export const ChecklistDetails: React.FC<{
           <BoxInputRow>
             <FormControlLabel
               control={<CustomCheckBox size="medium" />}
-              label="ACENDEDOR
-              "
-              checked={chamado.Acessorios.cambioAutomatico}
-            />
-          </BoxInputRow>
-          <BoxInputRow>
-            <FormControlLabel
-              control={<CustomCheckBox size="medium" />}
-              label="RADIO/CD
-              "
-              checked={chamado.Acessorios.radioCd}
-            />
-          </BoxInputRow>
-          <BoxInputRow>
-            <FormControlLabel
-              control={<CustomCheckBox size="medium" />}
-              label="FRENTE"
-              checked={chamado.Acessorios.radioCd}
-            />
-          </BoxInputRow>{" "}
-          <BoxInputRow>
-            <FormControlLabel
-              control={<CustomCheckBox size="medium" />}
-              label="TELA"
-              checked={chamado.Acessorios.cambioAutomatico}
-            />
-          </BoxInputRow>{" "}
-          <BoxInputRow>
-            <FormControlLabel
-              control={<CustomCheckBox size="medium" />}
-              label="EXTINTOR
-              "
-              checked={chamado.Acessorios.cambioAutomatico}
-            />
-          </BoxInputRow>{" "}
-          <BoxInputRow>
-            <FormControlLabel
-              control={<CustomCheckBox size="medium" />}
-              label="PNEU ESTEPE
-
-              "
-              checked={chamado.Acessorios.pneuStep}
-            />
-          </BoxInputRow>{" "}
-          <BoxInputRow>
-            <FormControlLabel
-              control={<CustomCheckBox size="medium" />}
-              label="MACACO
-
-              "
-              checked={chamado.Acessorios.cambioAutomatico}
-            />
-          </BoxInputRow>
-          <BoxInputRow>
-            <FormControlLabel
-              control={<CustomCheckBox size="medium" />}
-              label="RODA COMUM
-
-              "
-              checked={chamado.Acessorios.rodaComum}
-            />
-          </BoxInputRow>
-          <BoxInputRow>
-            <FormControlLabel
-              control={<CustomCheckBox size="medium" />}
-              label="RODA ESPECIAL
-
+              label="RODA DE LIGA LEVE
               "
               checked={chamado.Acessorios.rodaEspecial}
             />
@@ -160,24 +63,17 @@ export const ChecklistDetails: React.FC<{
           <BoxInputRow>
             <FormControlLabel
               control={<CustomCheckBox size="medium" />}
-              label="CALOTAS
+              label="CHAVE DO VEICULO
 
               "
-              checked={chamado.Acessorios.calotas}
+              checked={chamado.Complemento.chaveVeiculo}
             />
           </BoxInputRow>{" "}
           <BoxInputRow>
             <FormControlLabel
               control={<CustomCheckBox size="medium" />}
-              label="ANTENA
-              "
-              checked={chamado.Acessorios.antena}
-            />
-          </BoxInputRow>{" "}
-          <BoxInputRow>
-            <FormControlLabel
-              control={<CustomCheckBox size="medium" />}
-              label="DOCUMENTO
+              label="Documento
+
               "
               checked={chamado.Acessorios.documento}
             />
@@ -185,43 +81,41 @@ export const ChecklistDetails: React.FC<{
           <BoxInputRow>
             <FormControlLabel
               control={<CustomCheckBox size="medium" />}
-              label="BATERIA
+              label="VEICULO TRANCADO
 
               "
-              checked={chamado.Acessorios.calotas}
+              checked={chamado.Complemento.veiculoTrancado}
+            />
+          </BoxInputRow>{" "}
+          <BoxInputRow>
+            <FormControlLabel
+              control={<CustomCheckBox size="medium" />}
+              label="SOM ESPECIAL
+
+              "
+              checked={chamado.Acessorios.somEspecial}
             />
           </BoxInputRow>
           <BoxInputRow>
             <FormControlLabel
               control={<CustomCheckBox size="medium" />}
-              label="CHAVE DE RODAS"
-              checked={chamado.Acessorios.cambioAutomatico}
+              label="TETO SOLAR
+
+              "
+              checked={chamado.Acessorios.tetoSolar}
             />
-          </BoxInputRow>
+          </BoxInputRow>{" "}
+          <BoxInputRow>
+            <FormControlLabel
+              control={<CustomCheckBox size="medium" />}
+              label="MULTIMIDIA
+              "
+              checked={chamado.Acessorios.multimidia}
+            />
+          </BoxInputRow>{" "}
         </FormCheckBox>
 
         <Form>
-          <BoxInput>
-            <Label>Pintura</Label>
-            <AutoCompleteComponent
-              options={tipoDesconto}
-              label=""
-              noOptionsText="Nenhum equipamento encontrado"
-              target="equipamentoSolicitado"
-              value={chamado.Complemento.pintura}
-            />
-          </BoxInput>
-          <BoxInput>
-            <Label>Tapeçaria</Label>
-            <AutoCompleteComponent
-              options={tipoDesconto}
-              label=""
-              noOptionsText="Nenhum equipamento encontrado"
-              target="equipamentoSolicitado"
-              value={chamado.Complemento.tapecaria}
-            />
-          </BoxInput>
-
           <BoxInput>
             <Label>Pneus</Label>
             <AutoCompleteComponent
@@ -230,6 +124,15 @@ export const ChecklistDetails: React.FC<{
               noOptionsText="Nenhum equipamento encontrado"
               target="equipamentoSolicitado"
               value={chamado.Complemento.pneus}
+            />
+          </BoxInput>
+
+          <BoxInput>
+            <Label>Avarias</Label>
+            <InputComponent
+              customProps={{
+                value: chamado.avariasDescription,
+              }}
             />
           </BoxInput>
         </Form>
