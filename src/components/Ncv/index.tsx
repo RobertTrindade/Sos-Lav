@@ -100,18 +100,24 @@ export const NcvComponent = () => {
 
   const chips = [
     {
-      value: "Aguardando",
-      label: "Aguardando",
+      value: "APREENDIDO",
+      label: "Apreendido",
+    },
+    {
+      value: "LIBERADO",
+      label: "Liberado",
     },
 
     {
-      value: "inativo",
+      value: "LEBERADO_ARR",
+      label: "Liberado Arr",
+    },
+
+    {
+      value: "INATIVO",
       label: "Inativo",
     },
-    {
-      value: "pendente",
-      label: "Pendente",
-    },
+  
   ];
   return (
     <Container>
