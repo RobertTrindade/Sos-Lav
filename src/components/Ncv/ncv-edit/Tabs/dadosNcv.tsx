@@ -52,96 +52,6 @@ export const ChamadoDetails: React.FC<{
 
           <BoxInput>
             <InputComponent
-              label="Placa"
-              content="Placa"
-              customProps={{
-                defaultValue: chamado?.placa,
-              }}
-            />
-          </BoxInput>
-
-          <BoxInput>
-            <InputComponent
-              label="Ano"
-              content="Ano"
-              customProps={{
-                defaultValue: chamado?.ano,
-              }}
-            />
-          </BoxInput>
-
-          <BoxInput>
-            <InputComponent
-              label="Marca"
-              content="Marca"
-              customProps={{
-                defaultValue: chamado?.marca,
-              }}
-            />
-          </BoxInput>
-
-          <BoxInput>
-            <InputComponent
-              label="Modelo"
-              content="Modelo"
-              customProps={{
-                defaultValue: chamado?.modelo,
-              }}
-            />
-          </BoxInput>
-
-          <BoxInput>
-            <InputComponent
-              label="Cor"
-              content="Cor"
-              customProps={{
-                defaultValue: chamado?.cor,
-              }}
-            />
-          </BoxInput>
-
-          <BoxInput>
-            <InputComponent
-              label="UF"
-              content="UF"
-              customProps={{
-                defaultValue: chamado?.uf,
-              }}
-            />
-          </BoxInput>
-
-          <BoxInput>
-            <InputComponent
-              label="Município"
-              content="Município"
-              customProps={{
-                defaultValue: chamado?.municipio,
-              }}
-            />
-          </BoxInput>
-
-          <BoxInput>
-            <InputComponent
-              label="Chassi"
-              content="Chassi"
-              customProps={{
-                defaultValue: chamado?.chassi,
-              }}
-            />
-          </BoxInput>
-
-          <BoxInput>
-            <InputComponent
-              label="Motor"
-              content="Motor"
-              customProps={{
-                defaultValue: chamado?.motor,
-              }}
-            />
-          </BoxInput>
-
-          <BoxInput>
-            <InputComponent
               label="Pátio"
               content="Pátio"
               customProps={{
@@ -150,15 +60,7 @@ export const ChamadoDetails: React.FC<{
             />
           </BoxInput>
 
-          <BoxInput>
-            <InputComponent
-              label="Estado"
-              content="Estado"
-              customProps={{
-                defaultValue: chamado?.Chamado?.localizacao.estado,
-              }}
-            />
-          </BoxInput>
+     
 
           <BoxInput>
             <InputComponent
@@ -173,19 +75,19 @@ export const ChamadoDetails: React.FC<{
                 label="Adicionado por"
                 content="Adicionado por"
                 customProps={{
-                  defaultValue: 'teste',
+                  defaultValue: "teste",
                 }}
               />
-            </div>  
+            </div>
           </BoxInput>
 
-          <BoxInput >
+          <BoxInput>
             <div className="desativaEscrita">
               <InputComponent
                 label="Alterado por"
                 content="Alterado por"
                 customProps={{
-                  defaultValue: 'teste',
+                  defaultValue: "teste",
                 }}
               />
             </div>
@@ -196,7 +98,6 @@ export const ChamadoDetails: React.FC<{
           buttonProps={{
             variant: "contained",
             onClick: () => {},
-           
           }}
           customStyles={{
             color: "white",
