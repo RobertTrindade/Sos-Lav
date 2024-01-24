@@ -22,6 +22,8 @@ import { Filters } from "@/src/shared/components/FIlters";
 import TuneIcon from "@mui/icons-material/Tune";
 import { Chips } from "@/src/shared/components/FIlters/chip";
 import { DataFilter } from "@/src/shared/components/FIlters/data";
+import FilterListOffIcon from '@mui/icons-material/FilterListOff';
+import { useRouter } from "next/navigation";
 import AddIcon from "@mui/icons-material/Add";
 import { Painel } from "./Painel";
 import dayjs from "dayjs";
@@ -32,7 +34,7 @@ import useQueryParams from "@/src/hooks/usehandleQueryString";
 
 export const ChamadosComponent = () => {
   const [chamados, setChamados] = React.useState<IChamado[]>();
-
+  const router = useRouter();
   const [loading, setLoading] = React.useState(false);
   const [open, setOpen] = React.useState(false);
   const [openPainel, setOpenPainel] = React.useState(false);
@@ -182,6 +184,12 @@ export const ChamadosComponent = () => {
                 onClick={() => setOpen(true)}
               >
                 Mais Filtros
+              </ActionButton>
+              <ActionButton
+                startIcon={<FilterListOffIcon />}
+                onClick={() => router.push("/chamados")}
+              >
+                Limpar Filtros
               </ActionButton>
               <ActionButton
                 startIcon={<MapIcon />}

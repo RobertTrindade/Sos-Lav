@@ -38,13 +38,15 @@ export const ActionButton = styled(Button)`
   white-space: nowrap; /* Impede que o texto quebre em várias linhas */
   overflow: hidden; /* Oculta o conteúdo excedente que não cabe */
   text-overflow: ellipsis; /* Adiciona reticências (...) para indicar que há mais texto */
+  
+  
 `;
 
 export const CustomDataGrid = styled(DataGrid)`
   width: 100%;
   color:${({ theme }) => theme.palette.secondary.main};
   font-weight: bold;
-  margin-top: 100px;
+  top: 100px;
 
   .MuiDataGrid-cellContent[title="Aguardando"] {
     background-color: #e61919;
@@ -54,6 +56,7 @@ export const CustomDataGrid = styled(DataGrid)`
     display: flex;
     justify-content: center;
     align-items: center;
+    
   }
 
   .MuiDataGrid-cellContent[title="Aceito"] {
@@ -94,7 +97,7 @@ export const CustomDataGrid = styled(DataGrid)`
     display: flex;
     justify-content: center;
     align-items: center;
-  }
+    }
 
   .MuiDataGrid-columnHeaderTitle {
     color: ${({ theme }) => theme.palette.secondary.main};
@@ -133,7 +136,8 @@ export const CustomDataGrid = styled(DataGrid)`
 export const CustomGridToolbarContainer = styled(GridToolbarContainer)`
   width: 100%;
   position: absolute;
-  top: -90px;
+  top: -120px; //posição dos botões
+  
 
   ${({ theme }) => theme.breakpoints.down("desktop")} {
     display: flex;
@@ -158,6 +162,7 @@ export const CustomGridToolbarExport = styled(GridToolbarExport)`
   font-size: 15px;
   font-style: normal;
   font-weight: 700;
+  
   line-height: normal;
 `;
 
