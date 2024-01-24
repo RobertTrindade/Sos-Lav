@@ -33,12 +33,9 @@ import { AutoCompleteFilter } from "@/src/shared/components/FIlters/autoComplete
 
 export const ChamadosComponent = () => {
   const [chamados, setChamados] = React.useState<IChamado[]>();
-<<<<<<< HEAD
   const router = useRouter();
-=======
   const [patios, setPatios] = React.useState<INewValue[]>([]);
 
->>>>>>> 01cf6f2640409d6c504286501b56903ac87ad8bf
   const [loading, setLoading] = React.useState(false);
   const [open, setOpen] = React.useState(false);
   const [openPainel, setOpenPainel] = React.useState(false);
