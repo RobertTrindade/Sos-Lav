@@ -26,6 +26,7 @@ export interface INCVResponse {
   Chamado: IChamado;
   Acessorios: IAcessorios;
 
+
   Extras: IExtraNCV[];
   Apreensao: IApreensao;
   Motoristas: IMotoristaDto;
@@ -52,6 +53,10 @@ export interface IApreensao {
   rouboFurto: boolean;
   semDocumentosCrv: boolean;
   infracaoTransito: boolean;
+
+  Valorpedagio:number;
+  ValorExtra : number;
+
   created_at: string;
   updated_at: string;
 }
