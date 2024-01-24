@@ -142,6 +142,7 @@ export interface IAcessorios {
   documento: boolean;
   created_at: string;
   updated_at: string;
+  rodaEspecial: boolean
 }
 export interface IAvarias {
   id: number;

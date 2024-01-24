@@ -40,19 +40,10 @@ const tipoDesconto = [
 export const ChecklistDetails: React.FC<{
   chamado: INCVResponse;
 }> = ({ chamado }) => {
-  const handleChangeTime = (
-    value: unknown,
-    context: PickerChangeHandlerContext<DateValidationError>
-  ) => {
-    const time = value as Date;
-    const date = dayjs(time.toISOString()).toDate();
-  };
-  console.log(chamado);
   return (
     chamado && (
       <>
         <FormCheckBox>
-         
           <BoxInputRow>
             <FormControlLabel
               control={<CustomCheckBox size="medium" />}
@@ -66,9 +57,36 @@ export const ChecklistDetails: React.FC<{
               control={<CustomCheckBox size="medium" />}
               label="RODA DE LIGA LEVE
               "
-              checked={chamado.Acessorios.rodaLigaLeve}
+              checked={chamado.Acessorios.rodaEspecial}
             />
           </BoxInputRow>
+          <BoxInputRow>
+            <FormControlLabel
+              control={<CustomCheckBox size="medium" />}
+              label="CHAVE DO VEICULO
+
+              "
+              checked={chamado.Complemento.chaveVeiculo}
+            />
+          </BoxInputRow>{" "}
+          <BoxInputRow>
+            <FormControlLabel
+              control={<CustomCheckBox size="medium" />}
+              label="Documento
+
+              "
+              checked={chamado.Acessorios.documento}
+            />
+          </BoxInputRow>{" "}
+          <BoxInputRow>
+            <FormControlLabel
+              control={<CustomCheckBox size="medium" />}
+              label="VEICULO TRANCADO
+
+              "
+              checked={chamado.Complemento.veiculoTrancado}
+            />
+          </BoxInputRow>{" "}
           <BoxInputRow>
             <FormControlLabel
               control={<CustomCheckBox size="medium" />}
@@ -95,11 +113,9 @@ export const ChecklistDetails: React.FC<{
               checked={chamado.Acessorios.multimidia}
             />
           </BoxInputRow>{" "}
-          
         </FormCheckBox>
 
         <Form>
-
           <BoxInput>
             <Label>Pneus</Label>
             <AutoCompleteComponent
@@ -110,30 +126,12 @@ export const ChecklistDetails: React.FC<{
               value={chamado.Complemento.pneus}
             />
           </BoxInput>
-          <BoxInputRow>
-            <FormControlLabel
-              control={<CustomCheckBox size="medium" />}
-              label="CHAVE DO VEICULO
 
-              "
-              checked={chamado.Complemento.chaveVeiculo}
-            />
-          </BoxInputRow>{" "}
-          <BoxInputRow>
-            <FormControlLabel
-              control={<CustomCheckBox size="medium" />}
-              label="VEICULO TRANCADO
-
-              "
-              checked={chamado.Complemento.veiculoTrancado}
-            />
-          </BoxInputRow>{" "}
-        
           <BoxInput>
             <Label>Avarias</Label>
             <InputComponent
               customProps={{
-                value: chamado.Complemento.Avaria,
+                value: chamado.avariasDescription,
               }}
             />
           </BoxInput>
