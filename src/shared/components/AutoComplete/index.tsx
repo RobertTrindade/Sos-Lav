@@ -11,7 +11,7 @@ interface IAutoCompleteComponent {
   label: string;
   noOptionsText: string;
   value?: INewValue | undefined | string;
-  SetStateAction?: React.Dispatch<React.SetStateAction<INewValue | undefined>>;
+  SetStateAction?: React.Dispatch<React.SetStateAction<any | undefined>>;
   target?: keyof any | string;
   setStateActionWithTarget?: (target: any, value: any) => void;
   sx?: SxProps<Theme> | undefined;

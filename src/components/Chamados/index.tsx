@@ -11,11 +11,7 @@ import {
   ActionButton,
   CustomGridToolbarExport,
 } from "./styles";
-import {
-  GridActionsCellItem,
-  GridColDef,
-  ptBR,
-} from "@mui/x-data-grid";
+import { GridActionsCellItem, GridColDef, ptBR } from "@mui/x-data-grid";
 import MapIcon from "@mui/icons-material/Map";
 import EditIcon from "@mui/icons-material/Edit";
 import { Filters } from "@/src/shared/components/FIlters";
@@ -31,14 +27,35 @@ import chamadosService, {
   IChamado,
 } from "@/src/services/chamados/chamados.service";
 import useQueryParams from "@/src/hooks/usehandleQueryString";
+import { INewValue } from "@/src/shared/components/AutoComplete";
+import patiosService from "@/src/services/patios/patios.service";
+import { AutoCompleteFilter } from "@/src/shared/components/FIlters/autoComplete";
 
 export const ChamadosComponent = () => {
   const [chamados, setChamados] = React.useState<IChamado[]>();
+<<<<<<< HEAD
   const router = useRouter();
+=======
+  const [patios, setPatios] = React.useState<INewValue[]>([]);
+
+>>>>>>> 01cf6f2640409d6c504286501b56903ac87ad8bf
   const [loading, setLoading] = React.useState(false);
   const [open, setOpen] = React.useState(false);
   const [openPainel, setOpenPainel] = React.useState(false);
-  const { cleanSearch,addTodayToqueryeParams } = useQueryParams();
+  const { cleanSearch, addTodayToqueryeParams } = useQueryParams();
+
+  React.useEffect(() => {
+    handleSearchPatios();
+  }, []);
+
+  const handleSearchPatios = async () => {
+    const res = await patiosService.getPatios();
+    const patios = res.map((item) => ({
+      id: item.id,
+      label: item.nome,
+    }));
+    setPatios(patios);
+  };
 
   const handleSearch = async () => {
     try {
@@ -137,7 +154,7 @@ export const ChamadosComponent = () => {
     },
   ];
   React.useEffect(() => {
-    addTodayToqueryeParams()
+    addTodayToqueryeParams();
     handleSearch();
   }, []);
   return (
@@ -213,6 +230,13 @@ export const ChamadosComponent = () => {
       >
         <DataFilter />
         <Chips chips={chips} />
+        {patios && (
+          <AutoCompleteFilter
+            searchTarget="patios"
+            label="Pátios"
+            options={patios}
+          />
+        )}
       </Filters>
     </Container>
   );
