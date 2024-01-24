@@ -19,7 +19,11 @@ export const Label = styled(Typography)`
 export const CustomToggleButtonGroup = styled(ToggleButtonGroup)`
   display: flex;
   gap: 10px;
+  flex-direction: row;
+  flex-flow: wrap;
+ 
 `;
+
 
 
 export const CustomToggleButton = styled(ToggleButton)`

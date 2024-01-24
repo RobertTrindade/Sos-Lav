@@ -201,3 +201,16 @@ export const CustomGridToolbarDensitySelector = styled(
   font-weight: 700;
   line-height: normal;
 `;
+
+export const chipsContainer = styled(Box)`
+  border-radius: 14px;
+  border: 2px solid #303033;
+  padding: 10px 40px;
+
+  color: #fff;
+  text-align: center;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+`;
