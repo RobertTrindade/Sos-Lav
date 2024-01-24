@@ -32,8 +32,8 @@ const tipoDesconto = [
     value: "bom",
   },
   {
-    label: "Regular",
-    value: "regular",
+    label: "Medio",
+    value: "Medio",
   },
 ];
 
@@ -52,29 +52,7 @@ export const ChecklistDetails: React.FC<{
     chamado && (
       <>
         <FormCheckBox>
-          <BoxInputRow>
-            <FormControlLabel
-              control={<CustomCheckBox size="medium" />}
-              label="AR CONDICIONADO              "
-              checked={chamado.Acessorios.arCondicionado}
-            />
-          </BoxInputRow>
-          <BoxInputRow>
-            <FormControlLabel
-              control={<CustomCheckBox size="medium" />}
-              label="VIDRO ELETRICO
-              "
-              checked={chamado.Acessorios.vidroEletrico}
-            />
-          </BoxInputRow>
-          <BoxInputRow>
-            <FormControlLabel
-              control={<CustomCheckBox size="medium" />}
-              label="CÂMBIO MANUAL
-              "
-              checked={chamado.Acessorios.cambioManual}
-            />
-          </BoxInputRow>
+         
           <BoxInputRow>
             <FormControlLabel
               control={<CustomCheckBox size="medium" />}
@@ -86,141 +64,41 @@ export const ChecklistDetails: React.FC<{
           <BoxInputRow>
             <FormControlLabel
               control={<CustomCheckBox size="medium" />}
-              label="ACENDEDOR
+              label="RODA DE LIGA LEVE
               "
-              checked={chamado.Acessorios.cambioAutomatico}
+              checked={chamado.Acessorios.rodaLigaLeve}
             />
           </BoxInputRow>
           <BoxInputRow>
             <FormControlLabel
               control={<CustomCheckBox size="medium" />}
-              label="RADIO/CD
-              "
-              checked={chamado.Acessorios.radioCd}
-            />
-          </BoxInputRow>
-          <BoxInputRow>
-            <FormControlLabel
-              control={<CustomCheckBox size="medium" />}
-              label="FRENTE"
-              checked={chamado.Acessorios.radioCd}
-            />
-          </BoxInputRow>{" "}
-          <BoxInputRow>
-            <FormControlLabel
-              control={<CustomCheckBox size="medium" />}
-              label="TELA"
-              checked={chamado.Acessorios.cambioAutomatico}
-            />
-          </BoxInputRow>{" "}
-          <BoxInputRow>
-            <FormControlLabel
-              control={<CustomCheckBox size="medium" />}
-              label="EXTINTOR
-              "
-              checked={chamado.Acessorios.cambioAutomatico}
-            />
-          </BoxInputRow>{" "}
-          <BoxInputRow>
-            <FormControlLabel
-              control={<CustomCheckBox size="medium" />}
-              label="PNEU ESTEPE
+              label="SOM ESPECIAL
 
               "
-              checked={chamado.Acessorios.pneuStep}
+              checked={chamado.Acessorios.somEspecial}
+            />
+          </BoxInputRow>
+          <BoxInputRow>
+            <FormControlLabel
+              control={<CustomCheckBox size="medium" />}
+              label="TETO SOLAR
+
+              "
+              checked={chamado.Acessorios.tetoSolar}
             />
           </BoxInputRow>{" "}
           <BoxInputRow>
             <FormControlLabel
               control={<CustomCheckBox size="medium" />}
-              label="MACACO
-
+              label="MULTIMIDIA
               "
-              checked={chamado.Acessorios.cambioAutomatico}
-            />
-          </BoxInputRow>
-          <BoxInputRow>
-            <FormControlLabel
-              control={<CustomCheckBox size="medium" />}
-              label="RODA COMUM
-
-              "
-              checked={chamado.Acessorios.rodaComum}
-            />
-          </BoxInputRow>
-          <BoxInputRow>
-            <FormControlLabel
-              control={<CustomCheckBox size="medium" />}
-              label="RODA ESPECIAL
-
-              "
-              checked={chamado.Acessorios.rodaEspecial}
-            />
-          </BoxInputRow>
-          <BoxInputRow>
-            <FormControlLabel
-              control={<CustomCheckBox size="medium" />}
-              label="CALOTAS
-
-              "
-              checked={chamado.Acessorios.calotas}
+              checked={chamado.Acessorios.multimidia}
             />
           </BoxInputRow>{" "}
-          <BoxInputRow>
-            <FormControlLabel
-              control={<CustomCheckBox size="medium" />}
-              label="ANTENA
-              "
-              checked={chamado.Acessorios.antena}
-            />
-          </BoxInputRow>{" "}
-          <BoxInputRow>
-            <FormControlLabel
-              control={<CustomCheckBox size="medium" />}
-              label="DOCUMENTO
-              "
-              checked={chamado.Acessorios.documento}
-            />
-          </BoxInputRow>{" "}
-          <BoxInputRow>
-            <FormControlLabel
-              control={<CustomCheckBox size="medium" />}
-              label="BATERIA
-
-              "
-              checked={chamado.Acessorios.calotas}
-            />
-          </BoxInputRow>
-          <BoxInputRow>
-            <FormControlLabel
-              control={<CustomCheckBox size="medium" />}
-              label="CHAVE DE RODAS"
-              checked={chamado.Acessorios.cambioAutomatico}
-            />
-          </BoxInputRow>
+          
         </FormCheckBox>
 
         <Form>
-          <BoxInput>
-            <Label>Pintura</Label>
-            <AutoCompleteComponent
-              options={tipoDesconto}
-              label=""
-              noOptionsText="Nenhum equipamento encontrado"
-              target="equipamentoSolicitado"
-              value={chamado.Complemento.pintura}
-            />
-          </BoxInput>
-          <BoxInput>
-            <Label>Tapeçaria</Label>
-            <AutoCompleteComponent
-              options={tipoDesconto}
-              label=""
-              noOptionsText="Nenhum equipamento encontrado"
-              target="equipamentoSolicitado"
-              value={chamado.Complemento.tapecaria}
-            />
-          </BoxInput>
 
           <BoxInput>
             <Label>Pneus</Label>
@@ -230,6 +108,33 @@ export const ChecklistDetails: React.FC<{
               noOptionsText="Nenhum equipamento encontrado"
               target="equipamentoSolicitado"
               value={chamado.Complemento.pneus}
+            />
+          </BoxInput>
+          <BoxInputRow>
+            <FormControlLabel
+              control={<CustomCheckBox size="medium" />}
+              label="CHAVE DO VEICULO
+
+              "
+              checked={chamado.Complemento.chaveVeiculo}
+            />
+          </BoxInputRow>{" "}
+          <BoxInputRow>
+            <FormControlLabel
+              control={<CustomCheckBox size="medium" />}
+              label="VEICULO TRANCADO
+
+              "
+              checked={chamado.Complemento.veiculoTrancado}
+            />
+          </BoxInputRow>{" "}
+        
+          <BoxInput>
+            <Label>Avarias</Label>
+            <InputComponent
+              customProps={{
+                value: chamado.Complemento.Avaria,
+              }}
             />
           </BoxInput>
         </Form>

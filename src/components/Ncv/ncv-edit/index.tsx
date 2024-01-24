@@ -32,7 +32,7 @@ export const NcvEdit: React.FC<{
     "Guincho",
     "Apreensão",
     "Linha do tempo",
-    "Acessórios",
+    "Checklist",
     "Conferente",
     "Fotos Motorista",
     "Documentos",
