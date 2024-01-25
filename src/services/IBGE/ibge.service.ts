@@ -1,4 +1,3 @@
-import { INewValue } from "@/src/shared/components/AutoComplete";
 import axios from "axios";
 
 export interface IIbgeResponseDto {

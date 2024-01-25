@@ -15,12 +15,9 @@ import {
 } from "./styles";
 import SupportAgentIcon from "@mui/icons-material/SupportAgent";
 import PublicIcon from "@mui/icons-material/Public";
-import AssessmentIcon from '@mui/icons-material/Assessment';
+import AssessmentIcon from "@mui/icons-material/Assessment";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import BadgeIcon from "@mui/icons-material/Badge";
-import LocalShippingIcon from "@mui/icons-material/LocalShipping";
-import GiteIcon from '@mui/icons-material/Gite';
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useRouter } from "next/navigation";
 import { IconButton } from "@mui/material";
@@ -30,12 +27,8 @@ import userService, {
 } from "@/src/services/usuarios/usuarios.service";
 import NewspaperIcon from "@mui/icons-material/Newspaper";
 import localStorageService from "@/src/services/auth/localStorage.service";
-import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
-import ChatIcon from '@mui/icons-material/Chat';
-
-
-
-import { SearchTerm } from "@/src/shared/components/FIlters/searchTerm";
+import ChatIcon from "@mui/icons-material/Chat";
+import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 export const SideBarComponent: React.FC<{
   open: boolean;
   handleClick: () => void;
@@ -55,8 +48,8 @@ export const SideBarComponent: React.FC<{
     (async () => {
       try {
         if (!localStorageService.getToken()) router.push("/login");
-
         const data = await userService.getMyself();
+        localStorageService.saveObject(data.Permissions, "permissions");
         if (data) setUser(data);
       } catch (error) {
         router.push("/login");
@@ -113,42 +106,6 @@ export const SideBarComponent: React.FC<{
                     </SideItem>
                   </Link>
 
-                  <Link
-                    href="/chamados"
-                    style={{
-                      display: user?.Permissions.find(
-                        (item) => item.title === "chamados"
-                      )
-                        ? "flex"
-                        : "none",
-                    }}
-                  >
-                    <SideItem
-                      active={pathParts[0] === "chamados"}
-                      startIcon={<SupportAgentIcon />}
-                    >
-                      Chamados
-                    </SideItem>
-                  </Link>
-
-                  <Link
-                    href="/ncv"
-                    style={{
-                      display: user?.Permissions.find(
-                        (item) => item.title === "ncv"
-                      )
-                        ? "flex"
-                        : "none",
-                    }}
-                  >
-                    <SideItem
-                      active={pathParts[0] === "ncv"}
-                      startIcon={<DirectionsCarIcon />}
-                    >
-                      Ncv
-                    </SideItem>
-                  </Link>
-
                   <Link href="/chat">
                     <SideItem
                       active={pathParts[0] === "chat"}
@@ -158,83 +115,32 @@ export const SideBarComponent: React.FC<{
                     </SideItem>
                   </Link>
 
-                  <Link
-                    href="/usuarios"
-                    style={{
-                      display: user?.Permissions.find(
-                        (item) => item.title === "usuarios"
-                      )
-                        ? "flex"
-                        : "none",
-                    }}
-                  >
+                  <Link href="/relatorios">
                     <SideItem
-                      active={pathParts[0] === "usuarios"}
-                      startIcon={<BadgeIcon />}
+                      active={pathParts[0] === "relatorios"}
+                      startIcon={<AssessmentIcon />}
                     >
-                      Usuários
+                      Relatórios
                     </SideItem>
                   </Link>
 
-                  <Link
-                    href="/motoristas"
-                    style={{
-                      display: user?.Permissions.find(
-                        (item) => item.title === "motoristas"
-                      )
-                        ? "flex"
-                        : "none",
-                    }}
-                  >
+                  <Link href="/cadastros">
                     <SideItem
-                      active={pathParts[0] === "motoristas"}
-                      startIcon={<LocalShippingIcon />}
+                      active={pathParts[0] === "cadastros"}
+                      startIcon={<AppRegistrationIcon />}
                     >
-                      Motoristas
+                      Cadastros
                     </SideItem>
                   </Link>
 
-                  <Link
-                    href="/patios"
-                    style={{
-                      display: user?.Permissions.find(
-                        (item) => item.title === "usuarios"
-                      )
-                        ? "flex"
-                        : "none",
-                    }}
-                  >
+                  <Link href="/operacao">
                     <SideItem
-                      active={pathParts[0] === "patios"}
-                      startIcon={<GiteIcon />}
+                      active={pathParts[0] === "operacao"}
+                      startIcon={<SupportAgentIcon />}
                     >
-                      Patios
+                      Operação
                     </SideItem>
                   </Link>
-
-
-
-                  <Link
-                    href="/relatorio"
-                    style={{
-                      display: user?.Permissions.find(
-                        (item) => item.title === "usuarios"
-                      )
-                        ? "flex"
-                        : "none",
-                    }}
-                  >
-                    <SideItem
-                      active={path === "relatorio"}
-                      startIcon= {<AssessmentIcon/>}
-                      // startIcon={<PublicIcon />}
-                    >
-                      Fechamento 
-                    </SideItem>
-                  </Link>
-              
-
-
 
                   <Link
                     href="/"
@@ -248,20 +154,18 @@ export const SideBarComponent: React.FC<{
                   >
                     <SideItem
                       active={path === "ecossistema"}
-                       startIcon={<PublicIcon />}
+                      startIcon={<PublicIcon />}
                     >
                       Ecossistema
                     </SideItem>
                   </Link>
-                  
-
 
                   <Link href="/" className="newLinks">
                     <SideItem
                       active={path === "ecossistema"}
                       startIcon={<NewspaperIcon />}
                     >
-                    Novidades
+                      Novidades
                     </SideItem>
                   </Link>
 
@@ -275,8 +179,6 @@ export const SideBarComponent: React.FC<{
                   >
                     Logout
                   </SideItem>
-
-                  
                 </>
               ) : (
                 <>
