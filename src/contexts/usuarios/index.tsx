@@ -5,8 +5,8 @@ import { INewValue } from "../../shared/components/AutoComplete";
 import { Dayjs } from "dayjs";
 
 import permissionsService from "@/src/services/permissions/permissions.service";
-import { IPatio } from "@/src/components/Usuarios/Usuarios-novo/steps/step2";
-import { IPermission } from "@/src/components/Usuarios/Usuarios-novo/steps/step3";
+import { IPermission } from "@/src/components/Cadastros/Usuarios/Usuarios-novo/steps/step3";
+import { IPatio } from "@/src/components/Cadastros/Usuarios/Usuarios-novo/steps/step2";
 
 export interface IUsuarioValues {
   patios: IPatio[];
