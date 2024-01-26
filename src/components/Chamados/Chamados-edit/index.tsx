@@ -200,6 +200,7 @@ const ChamadoDetails: React.FC<{
             target="status"
           />
         </BoxInput>
+        
 
         <ButtonComponent
           buttonProps={{
@@ -207,6 +208,7 @@ const ChamadoDetails: React.FC<{
             onClick: () => {
               console.log(chamadoState);
             },
+            disabled: chamadoState.status !== "Aguardando",
           }}
           customStyles={{
             color: "white",
@@ -214,10 +216,9 @@ const ChamadoDetails: React.FC<{
             fontSize: "18px",
             height: "40px",
             width: "200px",
-          }}
-        >
-          Salvar
-        </ButtonComponent>
+          }} children={undefined}>
+            Salvar
+          </ButtonComponent>
       </Form>
     )
   );
