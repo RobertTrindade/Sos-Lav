@@ -42,7 +42,7 @@ export const ChamadosStep3 = () => {
 
           <AutoCompleteComponentMultiple
             options={permission && permission}
-            label="permission"
+            label="Permissões"
             noOptionsText="Nenhuma Permissão encontrado"
             setStateActionWithTarget={handleNewValue}
             multiple={true}

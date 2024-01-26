@@ -9,22 +9,26 @@ import {
 import { CustomIconButton } from "../../Navbar/styles";
 import { BackIcon } from "../../Motoristas/Motoristas-details";
 import { Alert, Box, Button } from "@mui/material";
-import { ChamadosStep1 } from "./steps/step1";
 import Link from "next/link";
 import { CustomStepUsuario } from "@/src/shared/components/step/usuarios";
 import { ChamadosStep2 } from "./steps/step2";
 import { ChamadosStep3 } from "./steps/step3";
 import { useUsuario } from "@/src/contexts/usuarios";
+import { UsuariosStep } from "./steps/step";
+
 
 export const UsuariosComponentNovo: React.FC<{}> = () => {
   const [activeStep, setActiveStep] = React.useState(0);
   const [loading, setLoading] = React.useState<boolean>(false);
   const [success, setSuccess] = React.useState<boolean>(false);
-  const { UsuarioValues, } = useUsuario();
+  const { handleCreateUsuario } = useUsuario();
 
   const handleSubmit = async () => {
     try {
-      console.log(UsuarioValues)
+      setLoading(true);
+      await handleCreateUsuario();
+      setLoading(false);
+      setSuccess(true);
     } catch (error) {
       setLoading(true);
       setSuccess(false);
@@ -59,7 +63,6 @@ export const UsuariosComponentNovo: React.FC<{}> = () => {
         </div>
       </BackArea>
       <Content>
-        
         <TabResultArea>
           <CustomStepUsuario
             props={{
@@ -67,7 +70,11 @@ export const UsuariosComponentNovo: React.FC<{}> = () => {
               handleBack,
               handleReset,
               activeStep,
-              steps: ["Dados Usuário", "Pátio Usuário", "Direito de Acesso "],
+              steps: [
+                "Dados do Colaborador",
+                "Pátio Usuário",
+                "Direito de Acesso ",
+              ],
             }}
             finalComponent={
               <>
@@ -83,18 +90,14 @@ export const UsuariosComponentNovo: React.FC<{}> = () => {
                   </Box>
                 ) : success ? (
                   <>
-                    <Alert severity="success">
-                      Chamado Criado com sucesso, clique aqui para acompanhar o
-                      status
-                    </Alert>
+                    <Alert severity="success">Usuário criado com sucesso</Alert>
                     <Button onClick={handleReset}>Voltar</Button>
                   </>
                 ) : (
                   <>
                     <Alert severity="error">
-                      Houve uma falha em criar seu chamado, clique em
-                      Recomeçar,se o problema perssistir entre em contato com a
-                      TI
+                      Houve uma falha em criar o usuário, clique em Recomeçar,se
+                      o problema perssistir entre em contato com a TI
                     </Alert>
                     <Button onClick={handleReset}>Voltar</Button>
                   </>
@@ -102,7 +105,7 @@ export const UsuariosComponentNovo: React.FC<{}> = () => {
               </>
             }
           >
-            {activeStep === 0 && <ChamadosStep1 />}
+            {activeStep === 0 && <UsuariosStep />}
 
             {activeStep === 1 && <ChamadosStep2 />}
 

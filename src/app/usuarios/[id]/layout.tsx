@@ -7,8 +7,8 @@ export default function ChamadosLayoutEditar({
 }) {
   return (
     <>
-      <title>Editar chamado</title>
-      <meta name="description" content="Tela de Chamados" />
+      <title>Editar Usuário</title>
+      <meta name="description" content="Tela de Usuário" />
       <meta property="og:description" content="Descrição para Redes Sociais" />
       <meta property="og:image" content="URL da imagem para Redes Sociais" />
       <meta property="og:url" content="URL da página" />

@@ -7,13 +7,28 @@ import { Dayjs } from "dayjs";
 import permissionsService from "@/src/services/permissions/permissions.service";
 import { IPatio } from "@/src/components/Usuarios/Usuarios-novo/steps/step2";
 import { IPermission } from "@/src/components/Usuarios/Usuarios-novo/steps/step3";
+import cargosService from "@/src/services/cargos/cargos.service";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import uploadService from "@/src/services/upload/upload.service";
+import usuariosService from "@/src/services/usuarios/usuarios.service";
 
 export interface IUsuarioValues {
   patios: IPatio[];
   permission: IPermission[];
   name: string;
   email: string;
-  cargoSetor: string;
+  cargoSetor: INewValue | null;
+  telefone: string;
+  dataNascimento: Dayjs | null;
+  emailPessoal: string;
+  cep: string;
+  endereco: string;
+  bairro: string;
+  cidade: string;
+  uf: string;
+  cpf: string;
+  pdfContrato: FileList | null;
+  imageUrl: FileList | null;
 }
 
 // Interface para o contexto de registro
@@ -29,9 +44,11 @@ interface IUsuariosContext {
       | INewValue[]
       | IPatio
       | IPatio[]
+      | FileList
   ) => void;
 
   UsuarioValues: IUsuarioValues;
+  cargos: INewValue[];
 
   patios: INewValue[];
   permission: INewValue[];
@@ -42,9 +59,20 @@ interface IUsuariosContext {
 const initial = {
   name: "",
   email: "",
-  cargoSetor: "",
+  cargoSetor: null,
+  telefone: "",
+  dataNascimento: new AdapterDayjs().date(new Date()),
+  emailPessoal: "",
+  cpf: "",
+  endereco: "",
+  cep: "",
+  bairro: "",
+  cidade: "",
+  uf: "",
   patios: [],
   permission: [],
+  pdfContrato: null,
+  imageUrl: null,
 };
 
 const UsuariosContext = createContext<IUsuariosContext | undefined>(undefined);
@@ -55,6 +83,7 @@ export const UsuariosProvider: React.FC<{
 }> = ({ children }) => {
   const [patios, setPatios] = useState<INewValue[]>([]);
   const [permission, setPermissions] = useState<INewValue[]>([]);
+  const [cargos, setCargos] = useState<INewValue[]>([]);
 
   useEffect(() => {
     (async () => {
@@ -67,6 +96,19 @@ export const UsuariosProvider: React.FC<{
     })();
   }, []);
 
+  const Upload = async (data: FileList) => {
+    if (data) {
+      try {
+        const formData = new FormData();
+        formData.append("file", data[0]);
+        const { url } = await uploadService.upload(formData);
+        return url;
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
+
   useEffect(() => {
     (async () => {
       const response = await permissionsService.getPermissions();
@@ -76,6 +118,18 @@ export const UsuariosProvider: React.FC<{
         id: item.id,
       }));
       setPermissions(permissions);
+    })();
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      const response = await cargosService.getCargos();
+
+      const data = response.map((item) => ({
+        label: item.description,
+        id: item.id,
+      }));
+      setCargos(data);
     })();
   }, []);
 
@@ -90,11 +144,51 @@ export const UsuariosProvider: React.FC<{
     }));
   };
   const handleCreateUsuario = async () => {
-  
-    const { patios, permission } = UsuarioValues;
+    const {
+      patios,
+      permission,
+      name,
+      email,
+      emailPessoal,
+      pdfContrato,
+      imageUrl,
+      cargoSetor,
+      cep,
+      cidade,
+      telefone,
+      dataNascimento,
+      cpf,
+      uf,
+      bairro,
+      endereco,
+    } = UsuarioValues;
 
-    
-    //return await chamadosService.createChamado(payload);
+    const pdfContratoUrl = await Upload(pdfContrato!);
+    const ProfileimageUrl = await Upload(imageUrl!);
+
+    const payload = {
+      name,
+      email,
+      imageUrl: ProfileimageUrl,
+      cargosId: cargoSetor!.id,
+      permissions: permission.map((item) => item?.id),
+      patios: patios.map((item) => item?.id),
+      celular: telefone,
+      emailPessoal: emailPessoal,
+      birthdate: dataNascimento?.toISOString(),
+      cpf,
+      pdfContrato: pdfContratoUrl,
+      Endereco: {
+        endereco,
+        bairro,
+        cidade,
+        cep,
+        uf,
+      },
+    };
+
+    const data = await usuariosService.createUser(payload);
+    console.log(data);
   };
 
   const reset = () => {
@@ -110,6 +204,7 @@ export const UsuariosProvider: React.FC<{
         reset,
         permission,
         handleCreateUsuario,
+        cargos,
       }}
     >
       {children}

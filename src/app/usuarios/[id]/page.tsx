@@ -1,5 +1,5 @@
-import { ChamadosComponentEdit } from "@/src/components/Chamados/Chamados-edit";
-import chamadosService from "@/src/services/chamados/chamados.service";
+import { UsuariosEditComponent } from "@/src/components/Usuarios/Usuarios-edit";
+import usuariosService from "@/src/services/usuarios/usuarios.service";
 
 interface PageProps {
   params: { id: string };
@@ -7,9 +7,9 @@ interface PageProps {
 }
 
 const ChamadosDetails = async (props: PageProps) => {
-  const res = await chamadosService.listOne(props.params.id as string);
+  const res = await usuariosService.getById(props.params.id as string);
 
-  return <ChamadosComponentEdit chamado={res} />;
+  return <UsuariosEditComponent usuario={res} />;
 };
 
 export default ChamadosDetails;

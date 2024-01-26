@@ -12,7 +12,7 @@ export const Container = styled(Button, {
   height: 40px;
   position: relative;
 
-  ${({ customStyles }) => customStyles}
+  ${({ customStyles }) => customStyles } 
 `;
 
 export const VisuallyHiddenInput = styled("input")`
