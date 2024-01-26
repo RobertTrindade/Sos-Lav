@@ -84,7 +84,7 @@ export interface IPatio {
   motoristaName?: string;
   chamadorName: string;
   localizacaoName: string;
-
+  label?: string;
   Aceite?: {
     tempoEstimado: string;
     kmsEstimado: number;
