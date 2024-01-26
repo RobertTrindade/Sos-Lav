@@ -187,7 +187,6 @@ export const UsuariosProvider: React.FC<{
     };
 
     const data = await usuariosService.createUser(payload);
-    console.log(data);
   };
 
   const reset = () => {

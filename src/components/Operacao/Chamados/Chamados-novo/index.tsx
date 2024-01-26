@@ -60,7 +60,7 @@ export const ChamadosComponentNovo: React.FC<{}> = () => {
     <Container>
       <BackArea>
         <div className="actionArea">
-          <Link href={"/cadastros/chamados"}>
+          <Link href={"/operacao/chamados"}>
             <CustomIconButton>
               <BackIcon />
             </CustomIconButton>

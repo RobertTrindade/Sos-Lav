@@ -10,6 +10,7 @@ export const CustomDialogContainer = styled(Box)`
   width: 100vw;
   display: flex;
   height: 100vh;
+overflow-y: scroll;
 `;
 
 export const TableBox = styled(Box)`
@@ -24,7 +25,6 @@ export const ChamadosModoPainel = styled(DataGrid)`
   color:${({ theme }) => theme.palette.secondary.main};
   font-weight: bold;
   margin-top: 30px;
-
   .MuiDataGrid-columnHeaderTitle {
     color: ${({ theme }) => theme.palette.secondary.main};
     font-weight: bold;
@@ -48,7 +48,56 @@ export const ChamadosModoPainel = styled(DataGrid)`
     color:${({ theme }) => theme.palette.secondary.main};
   }
 
+  .MuiDataGrid-cellContent[title="Aguardando"] {
+    background-color: #e61919;
+    color: #fff;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+  }
 
+  .MuiDataGrid-cellContent[title="Aceito"] {
+    background-color: #e5e619;
+    color: #fff;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .MuiDataGrid-cellContent[title="Em checklist"] {
+    background-color: #e5e619;
+    color: #fff;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .MuiDataGrid-cellContent[title="Em rota"] {
+    background-color: #1d831d;
+    color: #fff;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .MuiDataGrid-cellContent[title="Concluido"] {
+    background-color: #1d831d;
+    color: #fff;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
   ${({ theme }) => theme.breakpoints.down("desktop")} {
     margin-top: 300px;
   }

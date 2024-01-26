@@ -64,7 +64,6 @@ export const ChatComponent = () => {
 
     socket.on("new-message", async (item: IMessages) => {
       if (item) {
-        console.log(item)
         setMessages((prev) => [...prev, item]);
       }
     });

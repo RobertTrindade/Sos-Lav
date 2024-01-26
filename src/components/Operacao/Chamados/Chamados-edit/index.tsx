@@ -1,9 +1,12 @@
 "use client";
 
 import * as React from "react";
-import { Container, Content, TabResultArea, Title } from "./styles";
+import { Container, Content, MapArea, TabResultArea, Title } from "./styles";
 import { ScrollableTabsButtonAuto } from "@/src/shared/components/Tabs";
+import { InputComponent } from "@/src/shared/components/Inputs";
 
+import { IChamado } from "@/src/services/chamados/chamados.service";
+import { ChamadoEditarMap } from "./map";
 import Link from "next/link";
 import { BreadCrumbsComponent } from "@/src/shared/components/breadcrumbs";
 import { BoxInput, Form, Label } from "../Chamados-novo/styles";
@@ -33,7 +36,7 @@ import { cepMask } from "@/src/utils/cepMask";
 import { IAvarias } from "@/src/services/ncv/ncv.service";
 import { SwipeableTextMobileStepper } from "@/src/shared/components/Carousel";
 import { CardContainer } from "../../Ncv/ncv-edit/styles";
-import { CustomIconButton } from "@/src/components/Cadastros/Motoristas/Motoristas-details/styles";
+import { CustomIconButton } from "@/src/components/Navbar/styles";
 import { CustomCircularProgress } from "@/src/shared/components/Spinner";
 import { BackIcon } from "@/src/components/Cadastros/Motoristas/Motoristas-details";
 
@@ -63,11 +66,8 @@ export const ChamadosComponentEdit: React.FC<{
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
-  const tabLabels = [
-    "Dados do Colaborador",
-    "Pátio Usuário",
-    "Direito de Acesso ",
-  ];
+
+  const tabLabels = ["Chamado", "Endereço", "NCVs", "Motorista", "Fotos"];
 
   return (
     <Container>
@@ -87,12 +87,21 @@ export const ChamadosComponentEdit: React.FC<{
             value={value}
             tabLabels={tabLabels}
           />
-          {usuario ? (
-            <>{value === 0 && <DadosUsuario user={usuario} />}</>
+          {chamado ? (
+            <>
+              {value === 0 && <ChamadoDetails chamado={chamado} />}
+              {value === 1 && <ChamadoEndereco chamado={chamado} />}
+              {value === 2 && <ChamadoNcvs chamado={chamado} />}
+              {value === 3 && <ChamadoMoto chamado={chamado} />}
+              {value === 4 && <ChamadosFotos chamado={chamado} />}
+            </>
           ) : (
             <CustomCircularProgress />
           )}
         </TabResultArea>
+        <MapArea>
+          <ChamadoEditarMap chamadoLocation={chamado} />
+        </MapArea>
       </Content>
     </Container>
   );
@@ -191,7 +200,6 @@ const ChamadoDetails: React.FC<{
             target="status"
           />
         </BoxInput>
-        
 
         <ButtonComponent
           buttonProps={{
@@ -199,7 +207,6 @@ const ChamadoDetails: React.FC<{
             onClick: () => {
               console.log(chamadoState);
             },
-            disabled: chamadoState.status !== "Aguardando",
           }}
           customStyles={{
             color: "white",
@@ -207,9 +214,10 @@ const ChamadoDetails: React.FC<{
             fontSize: "18px",
             height: "40px",
             width: "200px",
-          }} >
-            Salvar
-          </ButtonComponent>
+          }}
+        >
+          Salvar
+        </ButtonComponent>
       </Form>
     )
   );
@@ -513,7 +521,7 @@ const ChamadoMoto: React.FC<{
             }}
           />
         </BoxInput>
-        
+
         <BoxInput>
           <InputComponent
             label="Distancia Patio"

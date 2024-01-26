@@ -83,7 +83,7 @@ export const UsuariosComponent = () => {
             label="Editar"
             key={id}
             onClick={() => {
-              window.open(`/usuarios/${id}`);
+              window.open(`/cadastros/usuarios/${id}`);
             }}
           />,
         ];
@@ -143,7 +143,7 @@ export const UsuariosComponent = () => {
               <ActionButton
                 startIcon={<AddIcon />}
                 onClick={() => {
-                  window.open(`/usuarios/novo`);
+                  window.open(`/cadastros/usuarios/novo`);
                 }}
               >
                 Novo
@@ -157,7 +157,7 @@ export const UsuariosComponent = () => {
               </ActionButton>
               <ActionButton
                 startIcon={<FilterListOffIcon />}
-                onClick={() => router.push("/usuarios")}
+                onClick={() => router.push("/cadastros/usuarios")}
               >
                 Limpar Filtros
               </ActionButton>

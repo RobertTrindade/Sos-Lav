@@ -27,13 +27,8 @@ import usuariosService, {
   IUsuariosDto,
 } from "@/src/services/usuarios/usuarios.service";
 
-<<<<<<< HEAD:src/components/Cadastros/Patios/index.tsx
 export const PatiosComponent = () => {
-  const [chamados, setChamados] = React.useState<IChamado[]>();
-=======
-export const UsuariosComponent = () => {
-  const [chamados, setChamados] = React.useState<IUsuariosDto[]>([]);
->>>>>>> fcd212b277dabf8e7fabc140fc66092d0782b3ea:src/components/Usuarios/index.tsx
+  const [chamados, setChamados] = React.useState<any[]>();
   const router = useRouter();
 
   const [loading, setLoading] = React.useState(false);
@@ -88,11 +83,7 @@ export const UsuariosComponent = () => {
             label="Editar"
             key={id}
             onClick={() => {
-<<<<<<< HEAD:src/components/Cadastros/Patios/index.tsx
               window.open(`/cadastros/patios/${id}`);
-=======
-              window.open(`/usuarios/${id}`);
->>>>>>> fcd212b277dabf8e7fabc140fc66092d0782b3ea:src/components/Usuarios/index.tsx
             }}
           />,
         ];
@@ -166,11 +157,7 @@ export const UsuariosComponent = () => {
               </ActionButton>
               <ActionButton
                 startIcon={<FilterListOffIcon />}
-<<<<<<< HEAD:src/components/Cadastros/Patios/index.tsx
                 onClick={() => router.push("/cadastros/patios")}
-=======
-                onClick={() => router.push("/usuarios")}
->>>>>>> fcd212b277dabf8e7fabc140fc66092d0782b3ea:src/components/Usuarios/index.tsx
               >
                 Limpar Filtros
               </ActionButton>
