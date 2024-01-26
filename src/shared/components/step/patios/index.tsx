@@ -7,7 +7,8 @@ import {
   CustomMainButton,
   CustomSecondaryButton,
   CustomStepLabel,
-} from "./styles";
+} from "../styles";
+import { usePatios } from "@/src/contexts/patios";
 
 interface ICustomStep {
   props: {
@@ -26,7 +27,68 @@ export const CustomStepPatio: React.FC<ICustomStep> = ({
   children,
   finalComponent,
 }) => {
+  const { patioValues } = usePatios();
   const [disabled, setDisabled] = React.useState<boolean>();
+
+  React.useEffect(() => {
+    if (activeStep === 0) {
+      const {
+        nome,
+        responsavel,
+        telefone,
+        email,
+        observacao,
+      } = patioValues;
+      if (
+        !nome ||
+        !responsavel ||
+        !telefone ||
+        !email ||
+        !observacao
+      ) {
+        setDisabled(true);
+        return;
+      }
+      setDisabled(false);
+    }
+  }, [activeStep, patioValues]);
+
+  React.useEffect(() => {
+    if (activeStep === 1) {
+     
+      setDisabled(false);
+    }
+  }, [activeStep, patioValues]);
+
+  React.useEffect(() => {
+    if (activeStep === 2) {
+      const {
+        bairro,
+        cep,
+        cidade,
+        estado,
+        createdAt,
+        longitude,
+        latitude,
+        endereco,
+      } = patioValues;
+
+      if (
+        !bairro ||
+        !cep ||
+        !cidade ||
+        !estado ||
+        !createdAt ||
+        !longitude ||
+        !latitude ||
+        !endereco
+      ) {
+        setDisabled(true);
+        return;
+      }
+      setDisabled(false);
+    }
+  }, [activeStep, patioValues]);
 
   return (
     steps && (

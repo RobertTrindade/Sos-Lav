@@ -107,7 +107,7 @@ export const PatiosComponent = () => {
             label="Editar"
             key={id}
             onClick={() => {
-              window.open(`/chamados/${id}`);
+              window.open(`/cadastros/patios/${id}`);
             }}
           />,
         ];
