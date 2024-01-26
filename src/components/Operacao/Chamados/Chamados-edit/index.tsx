@@ -1,12 +1,9 @@
 "use client";
 
 import * as React from "react";
-import { Container, Content, MapArea, TabResultArea, Title } from "./styles";
+import { Container, Content, TabResultArea, Title } from "./styles";
 import { ScrollableTabsButtonAuto } from "@/src/shared/components/Tabs";
-import { InputComponent } from "@/src/shared/components/Inputs";
 
-import { IChamado } from "@/src/services/chamados/chamados.service";
-import { ChamadoEditarMap } from "./map";
 import Link from "next/link";
 import { BreadCrumbsComponent } from "@/src/shared/components/breadcrumbs";
 import { BoxInput, Form, Label } from "../Chamados-novo/styles";
@@ -66,8 +63,11 @@ export const ChamadosComponentEdit: React.FC<{
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
-
-  const tabLabels = ["Chamado", "Endereço", "NCVs", "Motorista", "Fotos"];
+  const tabLabels = [
+    "Dados do Colaborador",
+    "Pátio Usuário",
+    "Direito de Acesso ",
+  ];
 
   return (
     <Container>
@@ -87,21 +87,12 @@ export const ChamadosComponentEdit: React.FC<{
             value={value}
             tabLabels={tabLabels}
           />
-          {chamado ? (
-            <>
-              {value === 0 && <ChamadoDetails chamado={chamado} />}
-              {value === 1 && <ChamadoEndereco chamado={chamado} />}
-              {value === 2 && <ChamadoNcvs chamado={chamado} />}
-              {value === 3 && <ChamadoMoto chamado={chamado} />}
-              {value === 4 && <ChamadosFotos chamado={chamado} />}
-            </>
+          {usuario ? (
+            <>{value === 0 && <DadosUsuario user={usuario} />}</>
           ) : (
             <CustomCircularProgress />
           )}
         </TabResultArea>
-        <MapArea>
-          <ChamadoEditarMap chamadoLocation={chamado} />
-        </MapArea>
       </Content>
     </Container>
   );

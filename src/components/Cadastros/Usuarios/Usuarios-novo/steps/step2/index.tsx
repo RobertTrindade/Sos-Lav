@@ -24,7 +24,7 @@ export interface IPatio {
 
 export const ChamadosStep2 = () => {
   const { UsuarioValues, patios, handleNewValue } = useUsuario();
-
+  console.log(UsuarioValues)
   const handleRemovePatio = (id: number) => {
     const diffs = UsuarioValues.patios.filter((item) => item.id !== id);
     handleNewValue("patios", diffs);
@@ -42,7 +42,7 @@ export const ChamadosStep2 = () => {
 
           <AutoCompleteComponentMultiple
             options={patios && patios}
-            label="patios"
+            label="Pátios"
             noOptionsText="Nenhuma Pátio encontrado"
             setStateActionWithTarget={handleNewValue}
             multiple={true}

@@ -17,11 +17,14 @@ export interface IButtonProps {
   children: React.ReactNode;
   buttonProps?: ButtonProps;
   file: FileList | null;
+  accept?: string;
   setFile: Dispatch<SetStateAction<FileList | null>>;
+  labelInitial?: string;
   customStyles?: {
     color: string;
     backgroundColor?: string;
     fontWeight?: string;
+    height?: string;
   };
 }
 
@@ -30,9 +33,11 @@ export const UploadInputComponent: FC<IButtonProps> = ({
   children,
   customStyles,
   file,
+  accept = ".pdf",
+  labelInitial,
   setFile,
 }) => {
-  const [label, setLabel] = useState<string | React.ReactNode>();
+  const [label, setLabel] = useState<string | React.ReactNode>(labelInitial);
   const [loadingStatus, setLoadingStatus] = useState<string>("initial");
 
   const HandleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -49,9 +54,11 @@ export const UploadInputComponent: FC<IButtonProps> = ({
 
   useEffect(() => {
     if (label) {
-      if (file![0].name) {
-        setLabel(file![0].name);
-        return;
+      if (file) {
+        if (file![0].name) {
+          setLabel(file![0].name);
+          return;
+        }
       }
     }
 
@@ -87,11 +94,16 @@ export const UploadInputComponent: FC<IButtonProps> = ({
       {...buttonProps}
       startIcon={handleIcons()}
       customStyles={customStyles}
-      
     >
       {label && label}
 
-      <VisuallyHiddenInput type="file" onChange={HandleChange} capture="user" accept=".pdf" multiple />
+      <VisuallyHiddenInput
+        type="file"
+        onChange={HandleChange}
+        capture="user"
+        accept={accept}
+        multiple
+      />
     </Container>
   );
 };

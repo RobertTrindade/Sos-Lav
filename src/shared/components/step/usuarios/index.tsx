@@ -8,6 +8,7 @@ import {
   CustomSecondaryButton,
   CustomStepLabel,
 } from "./styles";
+import { useUsuario } from "@/src/contexts/usuarios";
 
 interface ICustomStep {
   props: {
@@ -26,7 +27,48 @@ export const CustomStepUsuario: React.FC<ICustomStep> = ({
   children,
   finalComponent,
 }) => {
+  const { UsuarioValues } = useUsuario();
+
   const [disabled, setDisabled] = React.useState<boolean>();
+
+  React.useEffect(() => {
+    if (activeStep === 0) {
+      const {
+        name,
+        telefone,
+        emailPessoal,
+        dataNascimento,
+        cep,
+        cidade,
+        cpf,
+        endereco,
+        bairro,
+        uf,
+        email,
+        pdfContrato,
+        cargoSetor,
+      } = UsuarioValues;
+      if (
+        !name ||
+        !emailPessoal ||
+        !dataNascimento ||
+        !cep ||
+        !cidade ||
+        !cpf ||
+        !telefone ||
+        !endereco ||
+        !bairro ||
+        !uf ||
+        !email ||
+        !pdfContrato ||
+        !cargoSetor
+      ) {
+        setDisabled(true);
+        return;
+      }
+      setDisabled(false);
+    }
+  }, [UsuarioValues, activeStep]);
 
   return (
     steps && (

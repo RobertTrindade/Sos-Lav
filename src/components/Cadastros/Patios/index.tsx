@@ -19,48 +19,38 @@ import { Chips } from "@/src/shared/components/FIlters/chip";
 import { DataFilter } from "@/src/shared/components/FIlters/data";
 import AddIcon from "@mui/icons-material/Add";
 import dayjs from "dayjs";
-import chamadosService, {
-  IChamado,
-} from "@/src/services/chamados/chamados.service";
+
 import useQueryParams from "@/src/hooks/usehandleQueryString";
 import FilterListOffIcon from "@mui/icons-material/FilterListOff";
 import { useRouter } from "next/navigation";
+import usuariosService, {
+  IUsuariosDto,
+} from "@/src/services/usuarios/usuarios.service";
 
+<<<<<<< HEAD:src/components/Cadastros/Patios/index.tsx
 export const PatiosComponent = () => {
   const [chamados, setChamados] = React.useState<IChamado[]>();
+=======
+export const UsuariosComponent = () => {
+  const [chamados, setChamados] = React.useState<IUsuariosDto[]>([]);
+>>>>>>> fcd212b277dabf8e7fabc140fc66092d0782b3ea:src/components/Usuarios/index.tsx
   const router = useRouter();
 
   const [loading, setLoading] = React.useState(false);
   const [open, setOpen] = React.useState(false);
-  const [openPainel, setOpenPainel] = React.useState(false);
   const { cleanSearch } = useQueryParams();
 
   const handleSearch = async () => {
     try {
       setLoading(true);
-      const chamados = await chamadosService.listAll(window.location.search);
-      const data = chamados.map((item) => ({
-        ...item,
-        createdAt: dayjs(item.createAt).format("DD/MM/YYYY HH:mm"),
-        patioName: item?.patio?.nome,
-        chamadorName: item?.chamador?.name,
-        localizacaoName: item?.localizacao?.enderecoCompleto,
-        motoristaName: item.Aceite?.length
-          ? item!.Aceite![0].Motoristas.name
-          : "",
+      const usuarios = await usuariosService.getAll(window.location.search);
 
-        dataHoraAceite: item.Aceite?.length
-          ? dayjs(item!.Aceite![0].aceiteHora).format("DD/MM/YYYY HH:mm")
-          : "",
-        km: item.Aceite?.length ? item!.Aceite![0].kmsEstimado : "",
-        tempoEstimadoo: item.Aceite?.length
-          ? item!.Aceite![0].tempoEstimado
-          : "",
+      const mapped = usuarios.map((user) => ({
+        ...user,
+        cargo: user?.Cargo?.description,
+        dataCriacao: dayjs(user.createdAt as string).format("DD/MM/YYYY"),
       }));
-
-      // Atualize o estad o com os motoristas formatados
-
-      setChamados(data);
+      setChamados(mapped);
       setLoading(false);
     } catch (error) {
       console.error("Erro ao buscar motoristas:", error);
@@ -80,19 +70,10 @@ export const PatiosComponent = () => {
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 10 },
     { field: "status", headerName: "Status", width: 150 },
-
-    { field: "chamadorName", headerName: "Chamador", width: 160 },
-    { field: "motoristaName", headerName: "Motorista", width: 160 },
-
-    { field: "patioName", headerName: "Pátio", width: 200 },
-    { field: "localizacaoName", headerName: "Local", width: 300 },
-
-    { field: "createdAt", headerName: "Data/hora", width: 200 },
-
-    { field: "dataHoraAceite", headerName: "Data/hora Aceite", width: 200 },
-
-    { field: "km", headerName: "Km estimado", width: 200 },
-    { field: "tempoEstimadoo", headerName: "Tempo estimado", width: 200 },
+    { field: "name", headerName: "Nome", width: 200 },
+    { field: "email", headerName: "E-mail", width: 400 },
+    { field: "cargo", headerName: "Cargo", width: 400 },
+    { field: "dataCriacao", headerName: "Data Criação", width: 400 },
 
     {
       field: "editar",
@@ -107,7 +88,11 @@ export const PatiosComponent = () => {
             label="Editar"
             key={id}
             onClick={() => {
+<<<<<<< HEAD:src/components/Cadastros/Patios/index.tsx
               window.open(`/cadastros/patios/${id}`);
+=======
+              window.open(`/usuarios/${id}`);
+>>>>>>> fcd212b277dabf8e7fabc140fc66092d0782b3ea:src/components/Usuarios/index.tsx
             }}
           />,
         ];
@@ -116,6 +101,10 @@ export const PatiosComponent = () => {
   ];
 
   const chips = [
+    {
+      value: "ativo",
+      label: "Ativo",
+    },
     {
       value: "Aguardando",
       label: "Aguardando",
@@ -177,7 +166,11 @@ export const PatiosComponent = () => {
               </ActionButton>
               <ActionButton
                 startIcon={<FilterListOffIcon />}
+<<<<<<< HEAD:src/components/Cadastros/Patios/index.tsx
                 onClick={() => router.push("/cadastros/patios")}
+=======
+                onClick={() => router.push("/usuarios")}
+>>>>>>> fcd212b277dabf8e7fabc140fc66092d0782b3ea:src/components/Usuarios/index.tsx
               >
                 Limpar Filtros
               </ActionButton>

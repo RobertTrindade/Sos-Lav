@@ -1,55 +1,29 @@
 "use client";
 
 import * as React from "react";
-import { Container, Content, MapArea, TabResultArea, Title } from "./styles";
+import { Container, Content, TabResultArea, Title } from "./styles";
 import { ScrollableTabsButtonAuto } from "@/src/shared/components/Tabs";
-import { InputComponent } from "@/src/shared/components/Inputs";
 
-import { IChamado } from "@/src/services/chamados/chamados.service";
-import { ChamadoEditarMap } from "./map";
 import Link from "next/link";
 import { BackIcon } from "../../Motoristas/Motoristas-details";
 import { BreadCrumbsComponent } from "@/src/shared/components/breadcrumbs";
-import {
-  AutoCompleteComponent,
-  INewValue,
-} from "@/src/shared/components/AutoComplete";
-import { CustomCircularProgress, CustomIconButton } from "../../Motoristas/Motoristas-details/styles";
+import { CustomCircularProgress } from "@/src/shared/components/Spinner";
+import { DadosUsuario } from "./tabs/dadosColaborador";
+import { IUserDto } from "@/src/services/usuarios/usuarios.service";
+import { CustomIconButton } from "@/src/components/Navbar/styles";
 
-
-import patiosService from "@/src/services/patios/patios.service";
-import dayjs from "dayjs";
-import { ButtonComponent } from "@/src/shared/components/Buttons";
-import { Button, ButtonGroup } from "@mui/material";
-
-export const chamadosStatus = [
-  {
-    label: "Aguardando",
-    id: 1,
-  },
-  {
-    label: "Concluido",
-    id: 2,
-  },
-  {
-    label: "Em Checklist",
-    id: 2,
-  },
-  {
-    label: "Aceito",
-    id: 2,
-  },
-];
-
-export const ChamadosComponentEdit: React.FC<{
-  chamado: IChamado;
-}> = ({ chamado }) => {
+export const UsuariosEditComponent: React.FC<{
+  usuario: IUserDto;
+}> = ({ usuario }) => {
   const [value, setValue] = React.useState(0);
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
-
-  const tabLabels = ["Chamado", "Endereço", "NCVs", "Motorista", "Fotos"];
+  const tabLabels = [
+    "Dados do Colaborador",
+    "Pátio Usuário",
+    "Direito de Acesso ",
+  ];
 
   return (
     <Container>
@@ -70,17 +44,12 @@ export const ChamadosComponentEdit: React.FC<{
             value={value}
             tabLabels={tabLabels}
           />
-          {chamado ? (
-            <>
-           
-            </>
+          {usuario ? (
+            <>{value === 0 && <DadosUsuario user={usuario} />}</>
           ) : (
             <CustomCircularProgress />
           )}
         </TabResultArea>
-        <MapArea>
-          <ChamadoEditarMap chamadoLocation={chamado} />
-        </MapArea>
       </Content>
     </Container>
   );

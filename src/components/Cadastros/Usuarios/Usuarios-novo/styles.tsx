@@ -84,10 +84,25 @@ export const TabResultArea = styled(Box)`
 export const Form = styled(Box)`
   display: flex;
   margin-top: 20px;
-  flex-wrap: wrap;
   gap: 10px;
+  width: 100%;
+  justify-content: space-between;
+  gap: 20px;
+  .row1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    flex-basis: calc(
+      50% - 9px
+    ); /* Adjust the width and margin according to your design */
+  }
+  .row2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
 
-  div {
     flex-basis: calc(
       50% - 9px
     ); /* Adjust the width and margin according to your design */
@@ -118,6 +133,11 @@ export const BoxInput = styled(Box)`
   width: 100%;
 `;
 
+export const BoxUploadButtonContainer = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`;
 export const Step2Container = styled(Box)`
   display: flex;
   align-items: center;
@@ -133,7 +153,6 @@ export const PatiosSelecionadosContainer = styled(Box)`
   display: flex;
   flex-direction: column;
   gap: 10px;
-
 `;
 
 //usado também para o estilo das Permissões
@@ -153,23 +172,18 @@ export const Ul = styled(Box)`
   flex-direction: column;
   padding: 0;
   gap: 6px;
-
 `;
 
 export const Li = styled(Box)`
   display: flex;
   justify-content: space-between;
   width: 100%;
-
 `;
 
 export const LiText = styled(Typography)`
   font-size: 14px;
   color: ${({ theme }) => theme.palette.secondary.main};
-
 `;
-
-
 
 export const CustomSecondaryButton = styled(Button)`
   font-weight: bold;
