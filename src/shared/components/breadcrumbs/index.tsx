@@ -11,10 +11,13 @@ export const BreadCrumbsComponent = () => {
   React.useEffect(() => {
     //pathName /motoristas/4
     const pathParts = PathName.split("/").filter((part) => part !== "");
+
+
+
     const links = pathParts.map((part) => (
       <Link href={Number(part) ? part : `/${pathParts[0]}`} key={part}>
         <Label actual={Number(part) ? true : false}>
-          {Number(part) ? `${pathParts[0]} ${part}` : part}
+          {Number(part) ? `${pathParts[1]} ${part}` : part}
         </Label>
       </Link>
     ));
