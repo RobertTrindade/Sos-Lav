@@ -1,4 +1,4 @@
-import { PatiosComponentEdit } from "@/src/components/Patios/Patios-edit";
+import { PatiosComponentEdit } from "@/src/components/Cadastros/Patios/Patios-edit";
 import patiosService from "@/src/services/patios/patios.service";
 
 interface PageProps {
