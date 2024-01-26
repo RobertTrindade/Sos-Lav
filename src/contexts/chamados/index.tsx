@@ -148,6 +148,9 @@ export const ChamadosProvider: React.FC<{
       cep,
       enderecoCompleto,
     } = chamadosValues;
+
+    console.log(chamadosValues);
+
     const payload = {
       patio: patio?.id,
       equipamentoSolicitado: equipamentoSolicitado?.label,

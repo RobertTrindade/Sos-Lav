@@ -88,7 +88,7 @@ export const UsuariosComponentNovo: React.FC<{}> = () => {
                   <>
                     <Alert severity="error">
                       Houve uma falha em criar seu chamado, clique em
-                      Recomeçar,se o problema perssistir entre em contato com a
+                      Recomeçar,se o problema persistir entre em contato com a
                       TI
                     </Alert>
                     <Button onClick={handleReset}>Voltar</Button>
