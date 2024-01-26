@@ -216,7 +216,7 @@ const ChamadoDetails: React.FC<{
             fontSize: "18px",
             height: "40px",
             width: "200px",
-          }} children={undefined}>
+          }} >
             Salvar
           </ButtonComponent>
       </Form>
