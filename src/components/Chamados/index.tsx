@@ -149,6 +149,18 @@ export const ChamadosComponent = () => {
       value: "pendente",
       label: "Pendente",
     },
+    {
+      value: "Em checklist",
+      label: "Em Checklist",
+    },
+    {
+      value: "Aceito",
+      label: "Aceito",
+    },
+    {
+      value: "Concluido",
+      label: "Concluído",
+    },
   ];
   React.useEffect(() => {
     addTodayToqueryeParams();

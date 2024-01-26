@@ -8,7 +8,7 @@ import {
 } from "../styles";
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { CustomToggleButtonGroup, CustomToggleButton } from "./styles";
+import { CustomToggleButtonGroup, CustomToggleButton, } from "./styles";
 import { FC, useState } from "react";
 import useQueryParams from "@/src/hooks/usehandleQueryString";
 
