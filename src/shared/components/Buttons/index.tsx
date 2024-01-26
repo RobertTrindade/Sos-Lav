@@ -19,6 +19,7 @@ export interface IButtonProps {
     borderRadius?:string;
     border?:string;
     marginBottom?:string;
+    marginTop?: string;
 
   };
 }

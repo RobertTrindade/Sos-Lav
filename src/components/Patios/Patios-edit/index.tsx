@@ -25,7 +25,7 @@ import {
   origens,
 } from "../../Chamados/Chamados-novo/steps/step1";
 
-import patiosService from "@/src/services/patios/patios.service";
+import patiosService, { IPatio } from "@/src/services/patios/patios.service";
 import dayjs from "dayjs";
 import { ButtonComponent } from "@/src/shared/components/Buttons";
 import { Button, ButtonGroup } from "@mui/material";
@@ -49,9 +49,9 @@ export const chamadosStatus = [
   },
 ];
 
-export const ChamadosComponentEdit: React.FC<{
-  chamado: IChamado;
-}> = ({ chamado }) => {
+export const PatiosComponentEdit: React.FC<{
+  patio: IPatio;
+}> = ({ patio }) => {
   const [value, setValue] = React.useState(0);
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -78,47 +78,44 @@ export const ChamadosComponentEdit: React.FC<{
             value={value}
             tabLabels={tabLabels}
           />
-          {chamado ? (
+          {patio ? (
             <>
-              {value === 0 && <ChamadoDetails chamado={chamado} />}
-              {value === 1 && <ChamadoEndereco chamado={chamado} />}
-              {value === 2 && <ChamadoNcvs chamado={chamado} />}
-              {value === 3 && <ChamadoMoto chamado={chamado} />}
-              {value === 4 && <ChamadosFotos chamado={chamado} />}
+              {/* {value === 0 && <PatioDetails patio={patio} />}
+              {value === 1 && <ChamadoEndereco patio={patio} />}
+              {value === 2 && <ChamadoNcvs patio={patio} />}
+              {value === 3 && <ChamadoMoto patio={patio} />}
+              {value === 4 && <ChamadosFotos patio={patio} />} */}
             </>
           ) : (
             <CustomCircularProgress />
           )}
         </TabResultArea>
-        <MapArea>
-          <ChamadoEditarMap chamadoLocation={chamado} />
-        </MapArea>
       </Content>
     </Container>
   );
 };
 
-const ChamadoDetails: React.FC<{
-  chamado: IChamado;
-}> = ({ chamado }) => {
-  const [chamadoState, setChamado] = React.useState({
-    equipamentoSolicitado: chamado.equipamentoSolicitado,
-    tipoVeiculo: chamado.tipoVeiculo,
-    tipoApreensao: chamado.tipoApreensao,
-    urgencia: chamado.urgencia,
-    origem: chamado.origem,
-    status: chamado.status,
+const PatioDetails: React.FC<{
+  patio: IPatio;
+}> = ({ patio }) => {
+  const [patioState, setPatio] = React.useState({
+    equipamentoSolicitado: patio.equipamentoSolicitado,
+    tipoVeiculo: patio.tipoVeiculo,
+    tipoApreensao: patio.tipoApreensao,
+    urgencia: patio.urgencia,
+    origem: patio.origem,
+    status: patio.status,
   });
   // Função para atualizar o estado dos campos
   const handleNewValue = (campo: string, valor: INewValue | any) => {
-    setChamado((prevState) => ({
+    setPatio((prevState) => ({
       ...prevState,
       [campo]: valor.label ? valor.label : valor,
     }));
   };
 
   return (
-    chamadoState && (
+    patioState && (
       <Form>
         <BoxInput>
           <Label>Equipamento solicitado</Label>
@@ -128,7 +125,7 @@ const ChamadoDetails: React.FC<{
             noOptionsText="Nenhum equipamento encontrado"
             setStateActionWithTarget={handleNewValue}
             target="equipamentoSolicitado"
-            value={chamadoState.equipamentoSolicitado}
+            value={patioState.equipamentoSolicitado}
           />
         </BoxInput>
 
@@ -139,7 +136,7 @@ const ChamadoDetails: React.FC<{
             label="Tipo de Veículo"
             noOptionsText="Nenhum equipamento encontrado"
             setStateActionWithTarget={handleNewValue}
-            value={chamadoState.tipoVeiculo}
+            value={patioState.tipoVeiculo}
             target="tipoVeiculo"
           />
         </BoxInput>
@@ -151,7 +148,7 @@ const ChamadoDetails: React.FC<{
             label="Tipo de Veículo"
             noOptionsText="Nenhum equipamento encontrado"
             setStateActionWithTarget={handleNewValue}
-            value={chamadoState.tipoApreensao}
+            value={patioState.tipoApreensao}
             target="tipoApreensao"
           />
         </BoxInput>
@@ -163,7 +160,7 @@ const ChamadoDetails: React.FC<{
             label="Tipo de Apreensão"
             noOptionsText="Nenhum equipamento encontrado"
             setStateActionWithTarget={handleNewValue}
-            value={chamadoState.urgencia}
+            value={patioState.urgencia}
             target="urgencia"
           />
         </BoxInput>
@@ -175,7 +172,7 @@ const ChamadoDetails: React.FC<{
             label="Tipo de Apreensão"
             noOptionsText="Nenhuma origem encontrada"
             setStateActionWithTarget={handleNewValue}
-            value={chamadoState.origem}
+            value={patioState.origem}
             target="origem"
           />
         </BoxInput>
@@ -187,7 +184,7 @@ const ChamadoDetails: React.FC<{
             label="Chamados Status"
             noOptionsText="Nenhuma status encontrado"
             setStateActionWithTarget={handleNewValue}
-            value={chamadoState.status}
+            value={patioState.status}
             target="status"
           />
         </BoxInput>
@@ -196,7 +193,7 @@ const ChamadoDetails: React.FC<{
           buttonProps={{
             variant: "contained",
             onClick: () => {
-              console.log(chamadoState);
+              console.log(patioState);
             },
           }}
           customStyles={{
@@ -481,7 +478,7 @@ const ChamadoNcvs: React.FC<{
 const ChamadoMoto: React.FC<{
   chamado: IChamado;
 }> = ({ chamado }) => {
-  const [chamadoState, setChamado] = React.useState({
+  const [patioState, setChamado] = React.useState({
     nome: chamado?.Aceite?.length && chamado?.Aceite[0].Motoristas.name,
     kmStimado: chamado?.Aceite?.length && chamado?.Aceite[0].kmsEstimado,
 
@@ -505,7 +502,7 @@ const ChamadoMoto: React.FC<{
             label="Nome"
             content="Nome"
             customProps={{
-              value: chamadoState.nome,
+              value: patioState.nome,
               onChange: (e) => {
                 handleNewValue("estado", e.target.value);
               },
@@ -517,7 +514,7 @@ const ChamadoMoto: React.FC<{
             label="Km estimado"
             content="Km estimado"
             customProps={{
-              value: chamadoState.kmStimado,
+              value: patioState.kmStimado,
               onChange: (e) => {
                 handleNewValue("estado", e.target.value);
               },
@@ -529,7 +526,7 @@ const ChamadoMoto: React.FC<{
             label="Tempo Estimado"
             content="Tempo Estimado"
             customProps={{
-              value: chamadoState.hrsStimado,
+              value: patioState.hrsStimado,
               onChange: (e) => {
                 handleNewValue("estado", e.target.value);
               },
@@ -541,7 +538,7 @@ const ChamadoMoto: React.FC<{
             label="Horas Aceite"
             content="Horas Aceite"
             customProps={{
-              value: dayjs(chamadoState.hrsAceite).format("DD/MM/YYYY HH:mm"),
+              value: dayjs(patioState.hrsAceite).format("DD/MM/YYYY HH:mm"),
               onChange: (e) => {
                 handleNewValue("estado", e.target.value);
               },
