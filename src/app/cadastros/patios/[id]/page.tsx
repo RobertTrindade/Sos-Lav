@@ -1,15 +1,15 @@
-import { ChamadosComponentEdit } from "@/src/components/Cadastros/Patios/Patios-edit";
-import chamadosService from "@/src/services/chamados/chamados.service";
+import { PatiosComponentEdit } from "@/src/components/Patios/Patios-edit";
+import patiosService from "@/src/services/patios/patios.service";
 
 interface PageProps {
   params: { id: string };
   searchParams: { [key: string]: string | string[] | undefined };
 }
 
-const ChamadosDetails = async (props: PageProps) => {
-  const res = await chamadosService.listOne(props.params.id as string);
+const PatiosDetails = async (props: PageProps) => {
+  const res = await patiosService.listOne(props.params.id as string);
 
-  return <ChamadosComponentEdit chamado={res} />;
+  return <PatiosComponentEdit patio={res} />;
 };
 
-export default ChamadosDetails;
+export default PatiosDetails;

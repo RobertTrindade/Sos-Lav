@@ -1,39 +1,23 @@
 "use client";
 
 import * as React from "react";
-import { Container, Content, TabResultArea, Title } from "./styles";
+import { Container, Content, MapArea, TabResultArea, Title } from "./styles";
 import { ScrollableTabsButtonAuto } from "@/src/shared/components/Tabs";
 
-import { IChamado } from "@/src/services/chamados/chamados.service";
 import Link from "next/link";
-import { CustomIconButton } from "../../../Navbar/styles";
 import { BackIcon } from "../../Motoristas/Motoristas-details";
 import { BreadCrumbsComponent } from "@/src/shared/components/breadcrumbs";
 
-import { CustomCircularProgress } from "../../Motoristas/Motoristas-details/styles";
+import {
+  CustomCircularProgress,
+  CustomIconButton,
+} from "../../Motoristas/Motoristas-details/styles";
 
-export const chamadosStatus = [
-  {
-    label: "Aguardando",
-    id: 1,
-  },
-  {
-    label: "Concluido",
-    id: 2,
-  },
-  {
-    label: "Em Checklist",
-    id: 2,
-  },
-  {
-    label: "Aceito",
-    id: 2,
-  },
-];
+import patiosService, { IPatio } from "@/src/services/patios/patios.service";
 
-export const ChamadosComponentEdit: React.FC<{
-  chamado: IChamado;
-}> = ({ chamado }) => {
+export const PatiosComponentEdit: React.FC<{
+  patio: IPatio;
+}> = ({ patio }) => {
   const [value, setValue] = React.useState(0);
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -60,7 +44,17 @@ export const ChamadosComponentEdit: React.FC<{
             value={value}
             tabLabels={tabLabels}
           />
-          {chamado ? <></> : <CustomCircularProgress />}
+          {patio ? (
+            <>
+              {/* {value === 0 && <PatioDetails patio={patio} />}
+              {value === 1 && <ChamadoEndereco patio={patio} />}
+              {value === 2 && <ChamadoNcvs patio={patio} />}
+              {value === 3 && <ChamadoMoto patio={patio} />}
+              {value === 4 && <ChamadosFotos patio={patio} />} */}
+            </>
+          ) : (
+            <CustomCircularProgress />
+          )}
         </TabResultArea>
       </Content>
     </Container>

@@ -8,39 +8,29 @@ import { InputComponent } from "@/src/shared/components/Inputs";
 import { IChamado } from "@/src/services/chamados/chamados.service";
 import { ChamadoEditarMap } from "./map";
 import Link from "next/link";
+import { CustomIconButton } from "../../Navbar/styles";
+import { BackIcon } from "../../Motoristas/Motoristas-details";
 import { BreadCrumbsComponent } from "@/src/shared/components/breadcrumbs";
-import { BoxInput, Form, Label } from "../Chamados-novo/styles";
+import { BoxInput, Form, Label } from "../../Chamados/Chamados-novo/styles";
 import {
   AutoCompleteComponent,
   INewValue,
 } from "@/src/shared/components/AutoComplete";
+import { CustomCircularProgress } from "../../Motoristas/Motoristas-details/styles";
 import {
   equipamentoSolicitadoOptions,
   tipoVeiculoOptions,
   tipoapreensaoOptions,
   urgencia,
   origens,
-} from "../Chamados-novo/steps/step1";
-import patiosService from "@/src/services/patios/patios.service";
+} from "../../Chamados/Chamados-novo/steps/step1";
+
+import patiosService, { IPatio } from "@/src/services/patios/patios.service";
 import dayjs from "dayjs";
 import { ButtonComponent } from "@/src/shared/components/Buttons";
-import {
-  Button,
-  ButtonGroup,
-  Card,
-  CardActions,
-  CardContent,
-  Typography,
-} from "@mui/material";
-import { cepMask } from "@/src/utils/cepMask";
-import { IAvarias } from "@/src/services/ncv/ncv.service";
-import { SwipeableTextMobileStepper } from "@/src/shared/components/Carousel";
-import { CardContainer } from "../../Ncv/ncv-edit/styles";
-import { CustomIconButton } from "@/src/components/Cadastros/Motoristas/Motoristas-details/styles";
-import { CustomCircularProgress } from "@/src/shared/components/Spinner";
-import { BackIcon } from "@/src/components/Cadastros/Motoristas/Motoristas-details";
+import { Button, ButtonGroup } from "@mui/material";
 
-const chamadosStatus = [
+export const chamadosStatus = [
   {
     label: "Aguardando",
     id: 1,
@@ -59,9 +49,9 @@ const chamadosStatus = [
   },
 ];
 
-export const ChamadosComponentEdit: React.FC<{
-  chamado: IChamado;
-}> = ({ chamado }) => {
+export const PatiosComponentEdit: React.FC<{
+  patio: IPatio;
+}> = ({ patio }) => {
   const [value, setValue] = React.useState(0);
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -74,6 +64,7 @@ export const ChamadosComponentEdit: React.FC<{
       <Content>
         <TabResultArea>
           <BreadCrumbsComponent />
+
           <div className="actionArea">
             <Link href={"/chamados"}>
               <CustomIconButton>
@@ -87,47 +78,44 @@ export const ChamadosComponentEdit: React.FC<{
             value={value}
             tabLabels={tabLabels}
           />
-          {chamado ? (
+          {patio ? (
             <>
-              {value === 0 && <ChamadoDetails chamado={chamado} />}
-              {value === 1 && <ChamadoEndereco chamado={chamado} />}
-              {value === 2 && <ChamadoNcvs chamado={chamado} />}
-              {value === 3 && <ChamadoMoto chamado={chamado} />}
-              {value === 4 && <ChamadosFotos chamado={chamado} />}
+              {/* {value === 0 && <PatioDetails patio={patio} />}
+              {value === 1 && <ChamadoEndereco patio={patio} />}
+              {value === 2 && <ChamadoNcvs patio={patio} />}
+              {value === 3 && <ChamadoMoto patio={patio} />}
+              {value === 4 && <ChamadosFotos patio={patio} />} */}
             </>
           ) : (
             <CustomCircularProgress />
           )}
         </TabResultArea>
-        <MapArea>
-          <ChamadoEditarMap chamadoLocation={chamado} />
-        </MapArea>
       </Content>
     </Container>
   );
 };
 
-const ChamadoDetails: React.FC<{
-  chamado: IChamado;
-}> = ({ chamado }) => {
-  const [chamadoState, setChamado] = React.useState({
-    equipamentoSolicitado: chamado.equipamentoSolicitado,
-    tipoVeiculo: chamado.tipoVeiculo,
-    tipoApreensao: chamado.tipoApreensao,
-    urgencia: chamado.urgencia,
-    origem: chamado.origem,
-    status: chamado.status,
+const PatioDetails: React.FC<{
+  patio: IPatio;
+}> = ({ patio }) => {
+  const [patioState, setPatio] = React.useState({
+    equipamentoSolicitado: patio.equipamentoSolicitado,
+    tipoVeiculo: patio.tipoVeiculo,
+    tipoApreensao: patio.tipoApreensao,
+    urgencia: patio.urgencia,
+    origem: patio.origem,
+    status: patio.status,
   });
   // Função para atualizar o estado dos campos
   const handleNewValue = (campo: string, valor: INewValue | any) => {
-    setChamado((prevState) => ({
+    setPatio((prevState) => ({
       ...prevState,
       [campo]: valor.label ? valor.label : valor,
     }));
   };
 
   return (
-    chamadoState && (
+    patioState && (
       <Form>
         <BoxInput>
           <Label>Equipamento solicitado</Label>
@@ -137,7 +125,7 @@ const ChamadoDetails: React.FC<{
             noOptionsText="Nenhum equipamento encontrado"
             setStateActionWithTarget={handleNewValue}
             target="equipamentoSolicitado"
-            value={chamadoState.equipamentoSolicitado}
+            value={patioState.equipamentoSolicitado}
           />
         </BoxInput>
 
@@ -148,7 +136,7 @@ const ChamadoDetails: React.FC<{
             label="Tipo de Veículo"
             noOptionsText="Nenhum equipamento encontrado"
             setStateActionWithTarget={handleNewValue}
-            value={chamadoState.tipoVeiculo}
+            value={patioState.tipoVeiculo}
             target="tipoVeiculo"
           />
         </BoxInput>
@@ -160,7 +148,7 @@ const ChamadoDetails: React.FC<{
             label="Tipo de Veículo"
             noOptionsText="Nenhum equipamento encontrado"
             setStateActionWithTarget={handleNewValue}
-            value={chamadoState.tipoApreensao}
+            value={patioState.tipoApreensao}
             target="tipoApreensao"
           />
         </BoxInput>
@@ -172,7 +160,7 @@ const ChamadoDetails: React.FC<{
             label="Tipo de Apreensão"
             noOptionsText="Nenhum equipamento encontrado"
             setStateActionWithTarget={handleNewValue}
-            value={chamadoState.urgencia}
+            value={patioState.urgencia}
             target="urgencia"
           />
         </BoxInput>
@@ -184,7 +172,7 @@ const ChamadoDetails: React.FC<{
             label="Tipo de Apreensão"
             noOptionsText="Nenhuma origem encontrada"
             setStateActionWithTarget={handleNewValue}
-            value={chamadoState.origem}
+            value={patioState.origem}
             target="origem"
           />
         </BoxInput>
@@ -196,19 +184,17 @@ const ChamadoDetails: React.FC<{
             label="Chamados Status"
             noOptionsText="Nenhuma status encontrado"
             setStateActionWithTarget={handleNewValue}
-            value={chamadoState.status}
+            value={patioState.status}
             target="status"
           />
         </BoxInput>
-        
 
         <ButtonComponent
           buttonProps={{
             variant: "contained",
             onClick: () => {
-              console.log(chamadoState);
+              console.log(patioState);
             },
-            disabled: chamadoState.status !== "Aguardando",
           }}
           customStyles={{
             color: "white",
@@ -216,9 +202,10 @@ const ChamadoDetails: React.FC<{
             fontSize: "18px",
             height: "40px",
             width: "200px",
-          }} children={undefined}>
-            Salvar
-          </ButtonComponent>
+          }}
+        >
+          Salvar
+        </ButtonComponent>
       </Form>
     )
   );
@@ -319,7 +306,7 @@ const ChamadoEndereco: React.FC<{
           customProps={{
             value: chamadosValues.cep,
             onChange: (e) => {
-              handleNewValue("cep", cepMask(e.target.value));
+              handleNewValue("cep", e.target.value);
             },
           }}
         />
@@ -491,7 +478,7 @@ const ChamadoNcvs: React.FC<{
 const ChamadoMoto: React.FC<{
   chamado: IChamado;
 }> = ({ chamado }) => {
-  const [chamadoState, setChamado] = React.useState({
+  const [patioState, setChamado] = React.useState({
     nome: chamado?.Aceite?.length && chamado?.Aceite[0].Motoristas.name,
     kmStimado: chamado?.Aceite?.length && chamado?.Aceite[0].kmsEstimado,
 
@@ -515,20 +502,7 @@ const ChamadoMoto: React.FC<{
             label="Nome"
             content="Nome"
             customProps={{
-              value: chamadoState.nome,
-              onChange: (e) => {
-                handleNewValue("estado", e.target.value);
-              },
-            }}
-          />
-        </BoxInput>
-        
-        <BoxInput>
-          <InputComponent
-            label="Distancia Patio"
-            content="Distancia ate o Pátio"
-            customProps={{
-              value: chamadoState.kmStimado,
+              value: patioState.nome,
               onChange: (e) => {
                 handleNewValue("estado", e.target.value);
               },
@@ -537,22 +511,10 @@ const ChamadoMoto: React.FC<{
         </BoxInput>
         <BoxInput>
           <InputComponent
-            label="Distancia Chamado"
-            content="Distancia ate o Chamado"
+            label="Km estimado"
+            content="Km estimado"
             customProps={{
-              value: chamadoState.kmStimado,
-              onChange: (e) => {
-                handleNewValue("estado", e.target.value);
-              },
-            }}
-          />
-        </BoxInput>
-        <BoxInput>
-          <InputComponent
-            label="Local chamado"
-            content="Local do aceite do chamado"
-            customProps={{
-              value: chamadoState.kmStimado,
+              value: patioState.kmStimado,
               onChange: (e) => {
                 handleNewValue("estado", e.target.value);
               },
@@ -564,7 +526,7 @@ const ChamadoMoto: React.FC<{
             label="Tempo Estimado"
             content="Tempo Estimado"
             customProps={{
-              value: chamadoState.hrsStimado,
+              value: patioState.hrsStimado,
               onChange: (e) => {
                 handleNewValue("estado", e.target.value);
               },
@@ -576,7 +538,7 @@ const ChamadoMoto: React.FC<{
             label="Horas Aceite"
             content="Horas Aceite"
             customProps={{
-              value: dayjs(chamadoState.hrsAceite).format("DD/MM/YYYY HH:mm"),
+              value: dayjs(patioState.hrsAceite).format("DD/MM/YYYY HH:mm"),
               onChange: (e) => {
                 handleNewValue("estado", e.target.value);
               },
@@ -591,118 +553,175 @@ const ChamadoMoto: React.FC<{
 const ChamadosFotos: React.FC<{
   chamado: IChamado;
 }> = ({ chamado }) => {
-  const [index, setIndex] = React.useState(
-    chamado.Ncv.length ? chamado.Ncv[0].id : 0
-  );
+  const [patios, setPatios] = React.useState<INewValue[]>([]);
 
-  const [ncv, setNcv] = React.useState<IChamado["Ncv"]["0"]>();
+  const [chamadosValues, setChamadosValues] = React.useState({
+    estado: chamado.localizacao.estado,
+    uf: chamado.localizacao.uf,
+    municipio: chamado.localizacao.municipio,
+    distrito: chamado.localizacao.distrito,
+    cep: chamado.localizacao.cep,
+    enderecoCompleto: chamado.localizacao.enderecoCompleto,
+    latitude: chamado.localizacao.latitude,
+    longitude: chamado.localizacao.longitude,
+    patio: chamado?.patio?.nome,
+    detalhes: chamado.detalhes,
+  });
 
+  const handleNewValue = (campo: string, valor: string) => {
+    setChamadosValues((prevState) => ({
+      ...prevState,
+      [campo]: valor,
+    }));
+  };
   React.useEffect(() => {
-    if (!chamado.Ncv.length) return;
-    const ncv = chamado.Ncv.find((cham) => cham.id === index);
-    setNcv(ncv);
-  }, [index]);
+    (async () => {
+      const response = (await patiosService.getPatios()).map((item) => ({
+        label: item.nome,
+        id: item.id,
+      }));
+
+      setPatios(response);
+    })();
+  }, []);
 
   return (
-    ncv && (
-      <>
-        <ButtonGroup
-          variant="contained"
-          aria-label="outlined primary button group"
-        >
-          {chamado.Ncv.map((item) => (
-            <Button
-              sx={{
-                color: "white",
-                fontWeight: "bold",
-              }}
-              key={item.id}
-              onClick={() => setIndex(item.id)}
-            >
-              Ncv {item.id}
-            </Button>
-          ))}
-        </ButtonGroup>
+    chamado.fotos.length !== 0 && (
+      <Form>
+        <BoxInput>
+          <InputComponent
+            label="Estado"
+            content="Estado"
+            customProps={{
+              value: chamadosValues.estado,
+              onChange: (e) => {
+                handleNewValue("estado", e.target.value);
+              },
+            }}
+          />
+        </BoxInput>
 
-        <CardContainer>
-          {ncv.Avarias.map((item) => (
-            <MediaCard key={item.id} data={item} />
-          ))}
-        </CardContainer>
+        <BoxInput>
+          <InputComponent
+            label="UF"
+            content="UF"
+            customProps={{
+              value: chamadosValues.uf,
+              onChange: (e) => {
+                handleNewValue("uf", e.target.value);
+              },
+            }}
+          />
+        </BoxInput>
+        <BoxInput>
+          <InputComponent
+            label="Município"
+            content="Município"
+            customProps={{
+              value: chamadosValues.municipio,
+              onChange: (e) => {
+                handleNewValue("municipio", e.target.value);
+              },
+            }}
+          />
+        </BoxInput>
 
-        <CardContainer>
-          <MediaCardUnique data={ncv.combustivelFotos} title={"Combustivel"} />
-        </CardContainer>
+        <BoxInput>
+          <InputComponent
+            label="Distrito"
+            content="Distrito"
+            customProps={{
+              value: chamadosValues.distrito,
+              onChange: (e) => {
+                handleNewValue("distrito", e.target.value);
+              },
+            }}
+          />
+        </BoxInput>
 
-        <CardContainer>
-          <MediaCardUnique data={ncv.kmFotos} title={"Km"} />
-        </CardContainer>
-      </>
+        <BoxInput>
+          <InputComponent
+            label="CEP"
+            content="CEP"
+            customProps={{
+              value: chamadosValues.cep,
+              onChange: (e) => {
+                handleNewValue("cep", e.target.value);
+              },
+            }}
+          />
+        </BoxInput>
+
+        <BoxInput>
+          <InputComponent
+            label="Endereço Completo"
+            content="Endereço Completo"
+            customProps={{
+              value: chamadosValues?.enderecoCompleto,
+              onChange: (e) => {
+                handleNewValue("enderecoCompleto", e.target.value);
+              },
+            }}
+          />
+        </BoxInput>
+
+        <BoxInput>
+          <InputComponent
+            label="Latitude"
+            content="Latitude"
+            customProps={{
+              value: chamadosValues?.latitude,
+              readOnly: true,
+              onChange: (e) => {
+                handleNewValue("latitude", e.target.value);
+              },
+            }}
+          />
+        </BoxInput>
+
+        <BoxInput>
+          <InputComponent
+            label="Longitude"
+            content="Longitude"
+            customProps={{
+              value: chamadosValues.longitude,
+              readOnly: true,
+              onChange: (e) => {
+                handleNewValue("longitude", e.target.value);
+              },
+            }}
+          />
+        </BoxInput>
+        <BoxInput>
+          <Label>Pátio</Label>
+          <AutoCompleteComponent
+            options={patios}
+            label="Pátio"
+            value={chamadosValues.patio}
+            target="patio"
+            noOptionsText="Nenhum Pátio encontrado"
+            setStateActionWithTarget={handleNewValue}
+          />
+        </BoxInput>
+
+        <BoxInput>
+          <InputComponent
+            label="Detalhes"
+            content="Detalhes"
+            customStyles={{
+              color: "${({ theme }) => theme.palette.secondary.main}",
+              height: "auto",
+            }}
+            customProps={{
+              value: chamadosValues.detalhes,
+              multiline: true,
+              onChange: (e) => {
+                handleNewValue("detalhes", e.target.value);
+              },
+            }}
+          />
+        </BoxInput>
+      </Form>
     )
-  );
-};
-
-const MediaCardUnique: React.FC<{
-  data: string[];
-  title: string;
-}> = ({ data, title }) => {
-  return (
-    <Card
-      sx={{
-        maxWidth: "500px",
-        backgroundColor: "rgb(18, 18, 18)",
-        width: "100%",
-      }}
-      elevation={4}
-    >
-      <SwipeableTextMobileStepper images={data} />
-      <CardContent>
-        <Typography
-          gutterBottom
-          variant="h5"
-          component="div"
-          fontWeight={"bold"}
-        >
-          {title}
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button size="small">Apagar</Button>
-        <Button size="small">Visualizar</Button>
-        <Button size="small">Baixar</Button>
-      </CardActions>
-    </Card>
-  );
-};
-
-const MediaCard: React.FC<{
-  data: IAvarias;
-}> = ({ data }) => {
-  return (
-    <Card
-      sx={{
-        maxWidth: "500px",
-        backgroundColor: "rgb(18, 18, 18)",
-        width: "100%",
-      }}
-      elevation={4}
-    >
-      <SwipeableTextMobileStepper images={data.fotos} />
-      <CardContent>
-        <Typography
-          gutterBottom
-          variant="h5"
-          component="div"
-          fontWeight={"bold"}
-        >
-          {data.type}
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button size="small">Apagar</Button>
-        <Button size="small">Visualizar</Button>
-        <Button size="small">Baixar</Button>
-      </CardActions>
-    </Card>
   );
 };
