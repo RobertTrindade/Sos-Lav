@@ -2,7 +2,6 @@ import HttpClient from "../HttpClient";
 import { IMotoristaDto } from "../motoristas/motoristas.service";
 
 export interface INCVResponse {
-
   id: 7;
   cor: string;
   marca: string;
@@ -11,7 +10,7 @@ export interface INCVResponse {
   ano: string;
   pdfDocumento: string;
 
-  Motivos: string
+  Motivos: string;
   municipio: string;
   uf: string;
   km: string;
@@ -32,6 +31,8 @@ export interface INCVResponse {
   Motoristas: IMotoristaDto;
   Complemento: IComplemento;
   Avarias: IAvarias[];
+
+  Documentos: IDocs[];
 }
 
 export interface IApreensao {
@@ -158,6 +159,20 @@ export interface IAvarias {
   updated_at: string;
 }
 
+export interface IDocs {
+  id: 2;
+  tipo: string;
+  detalhes: string;
+  file: string;
+  ncvId: 50;
+}
+
+export interface IDocsUpload {
+  tipo: string;
+  detalhes: string;
+  file: string;
+}
+
 class NcvService {
   httpClient;
   path: string;
@@ -185,6 +200,12 @@ class NcvService {
     );
   }
 
+  async uploadDocsNcv(id: number, body: IDocsUpload) {
+    return await this.httpClient.post<Promise<IDocs>>(
+      `${this.path}/documentos/${id}`,
+      body
+    );
+  }
   async listAll(params?: string) {
     return await this.httpClient.getWithAuth<Promise<INCVResponse[]>>(
       `${this.path}${params}`
@@ -195,9 +216,5 @@ class NcvService {
     return await this.httpClient.post(`${this.path}/extras/${params}`, body);
   }
 }
-
-const initial = {
-  Motivo: "",
-};
 
 export default new NcvService();

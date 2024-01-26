@@ -23,6 +23,7 @@ export interface IUsuarioValues {
   cep: string;
   endereco: string;
   bairro: string;
+  status?:string
   cidade: string;
   uf: string;
   cpf: string;

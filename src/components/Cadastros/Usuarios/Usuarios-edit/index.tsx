@@ -11,6 +11,9 @@ import { CustomCircularProgress } from "@/src/shared/components/Spinner";
 import { DadosUsuario } from "./tabs/dadosColaborador";
 import { IUserDto } from "@/src/services/usuarios/usuarios.service";
 import { CustomIconButton } from "@/src/components/Navbar/styles";
+import { PatioUsuario } from "./tabs/patiosUsuario";
+import { PermissaoUsuario } from "./tabs/permissionUsuarios";
+import { ContratoUsuario } from "./tabs/contratoUsuario";
 
 export const UsuariosEditComponent: React.FC<{
   usuario: IUserDto;
@@ -21,6 +24,7 @@ export const UsuariosEditComponent: React.FC<{
   };
   const tabLabels = [
     "Dados do Colaborador",
+    "Contrato",
     "Pátio Usuário",
     "Direito de Acesso ",
   ];
@@ -45,7 +49,13 @@ export const UsuariosEditComponent: React.FC<{
             tabLabels={tabLabels}
           />
           {usuario ? (
-            <>{value === 0 && <DadosUsuario user={usuario} />}</>
+            <>
+              {value === 0 && <DadosUsuario user={usuario} />}
+              {value === 1 && <ContratoUsuario user={usuario} />}
+
+              {value === 2 && <PatioUsuario user={usuario} />}
+              {value === 3 && <PermissaoUsuario user={usuario} />}
+            </>
           ) : (
             <CustomCircularProgress />
           )}
