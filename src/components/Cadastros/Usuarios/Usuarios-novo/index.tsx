@@ -50,7 +50,7 @@ export const UsuariosComponentNovo: React.FC<{}> = () => {
     <Container>
       <BackArea>
         <div className="actionArea">
-          <Link href={"/usuarios"}>
+          <Link href={"/cadastro/usuarios"}>
             <CustomIconButton>
               <BackIcon />
             </CustomIconButton>

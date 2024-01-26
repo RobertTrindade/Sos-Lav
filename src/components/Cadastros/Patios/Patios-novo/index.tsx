@@ -63,7 +63,7 @@ export const PatiosComponentNovo: React.FC<{}> = () => {
     <Container>
       <BackArea>
         <div className="actionArea">
-          <Link href={"/patios"}>
+          <Link href={"/cadastros/patios"}>
             <CustomIconButton>
               <BackIcon />
             </CustomIconButton>
