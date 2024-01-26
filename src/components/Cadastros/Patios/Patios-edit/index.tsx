@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Container, Content, MapArea, TabResultArea, Title } from "./styles";
+import { Container, Content,  TabResultArea, Title } from "./styles";
 import { ScrollableTabsButtonAuto } from "@/src/shared/components/Tabs";
 
 import Link from "next/link";
