@@ -17,13 +17,13 @@ export const NavBarComponent: React.FC<{
   const createTitle = (title: string) => {
     if (title === "/") return "Dashboard";
     // Remove barras e números iniciais, se existirem
-    const cleanedTitle = title.replace(/[\/0-9]/g, " ");
+    const cleanedTitle = title.replace(/[^a-zA-Z\s]/g, " ");
     // Retorna a string com a primeira letra maiúscula
     return cleanedTitle.charAt(0).toUpperCase() + cleanedTitle.slice(1);
   };
   return (
     path !== "/login" && (
-      <>
+      <> 
         <NavBar>
           <IconButton size="large" onClick={() => handleClick()}>
             <SidebarIcon />
