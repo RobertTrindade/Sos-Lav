@@ -49,6 +49,7 @@ export const SideBarComponent: React.FC<{
       try {
         if (!localStorageService.getToken()) router.push("/login");
         const data = await userService.getMyself();
+        if (data.status !== "ativo") router.push("/login");
         localStorageService.saveObject(data.Permissions, "permissions");
         if (data) setUser(data);
       } catch (error) {
@@ -56,7 +57,6 @@ export const SideBarComponent: React.FC<{
       }
     })();
   }, [path]);
-
   return (
     pathParts[0] !== "login" && (
       <>
@@ -90,8 +90,16 @@ export const SideBarComponent: React.FC<{
               ) : (
                 <CustomSkeleton variant="text" />
               )}
-
-              <EditProfile variant="outlined">Editar</EditProfile>
+              {user?.id ? (
+                <EditProfile
+                  variant={pathParts[0] === "perfil" ? "contained" : "outlined"}
+                  href={`/perfil/${user?.id}`}
+                >
+                  Editar
+                </EditProfile>
+              ) : (
+                <CustomSkeleton variant="text" width={50} height={50} />
+              )}
             </Profile>
 
             <SideItems>

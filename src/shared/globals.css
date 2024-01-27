@@ -6,6 +6,14 @@
 *::after {
   box-sizing: border-box;
 }
+&::-webkit-scrollbar {
+  width: 0.5em; /* Ajuste conforme necessário */
+}
+
+&::-webkit-scrollbar-thumb {
+  background-color: white;
+  border-radius: 20px;
+}
 /*
   2. Remove default margin
 */

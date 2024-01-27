@@ -1,5 +1,6 @@
 import { IUsuarioValues } from "@/src/contexts/usuarios";
 import HttpClient from "../HttpClient";
+import { INewValue } from "@/src/shared/components/AutoComplete";
 
 export interface IUsuariosDto {
   name: string;
@@ -7,6 +8,7 @@ export interface IUsuariosDto {
   imageUrl: string;
   role: string;
   Permissions: IUsuariosPermissions[];
+  id: number;
 
   password: string;
   status: string;
@@ -36,7 +38,7 @@ export interface IUsuariosPermissions {
 
 export interface IUserDto {
   id: 10;
-  role: string;
+  role: INewValue;
   name: string;
   email: string;
   password: string;
@@ -109,6 +111,13 @@ class UserService {
   async updateUser(id: number, body: any) {
     return await this.httpClient.put<Promise<IUsuariosDto>>(
       `${this.path}/${id}`,
+      body
+    );
+  }
+
+  async updateMyself(id: number, body: any) {
+    return await this.httpClient.put<Promise<IUsuariosDto>>(
+      `${this.path}/profile/editmyself`,
       body
     );
   }

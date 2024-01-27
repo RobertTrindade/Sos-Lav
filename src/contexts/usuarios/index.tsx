@@ -23,8 +23,11 @@ export interface IUsuarioValues {
   cep: string;
   endereco: string;
   bairro: string;
-  status?:string
+  status?: string;
   cidade: string;
+  role: INewValue | null;
+  password?: string;
+
   uf: string;
   cpf: string;
   pdfContrato: FileList | null;
@@ -69,6 +72,7 @@ const initial = {
   bairro: "",
   cidade: "",
   uf: "",
+  role: null,
   patios: [],
   permission: [],
   pdfContrato: null,
@@ -154,6 +158,7 @@ export const UsuariosProvider: React.FC<{
       imageUrl,
       cargoSetor,
       cep,
+      role,
       cidade,
       telefone,
       dataNascimento,
@@ -169,6 +174,7 @@ export const UsuariosProvider: React.FC<{
     const payload = {
       name,
       email,
+      role:role?.id,
       imageUrl: ProfileimageUrl,
       cargosId: cargoSetor!.id,
       permissions: permission.map((item) => item?.id),
