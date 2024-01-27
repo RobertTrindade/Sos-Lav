@@ -39,10 +39,9 @@ export const UsuariosComponent = () => {
     try {
       setLoading(true);
       const usuarios = await usuariosService.getAll(window.location.search);
-
       const mapped = usuarios.map((user) => ({
         ...user,
-        cargo: user?.Cargo?.description,
+        cargo: user?.role?.toLocaleLowerCase(),
         dataCriacao: dayjs(user.createdAt as string).format("DD/MM/YYYY"),
       }));
       setChamados(mapped);

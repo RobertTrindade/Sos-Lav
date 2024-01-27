@@ -16,11 +16,14 @@ import { cepMask } from "@/src/utils/cepMask";
 import { UploadInputComponent } from "@/src/shared/components/UploadInput";
 import { CustomInputText } from "@/src/shared/components/Inputs/styles";
 import { AutoCompleteComponent } from "@/src/shared/components/AutoComplete";
+import { Box } from "@mui/material";
 
 export const UsuariosStep = () => {
-  const { UsuarioValues, handleNewValue ,cargos} = useUsuario();
+  const { UsuarioValues, handleNewValue, cargos } = useUsuario();
   const [file, setFile] = useState<FileList | null>(UsuarioValues.pdfContrato);
-  const [fileimageUrl, setFileimageUrl] = useState<FileList | null>(UsuarioValues.imageUrl);
+  const [fileimageUrl, setFileimageUrl] = useState<FileList | null>(
+    UsuarioValues.imageUrl
+  );
 
   const handleChangeTime = (
     value: unknown,
@@ -56,6 +59,8 @@ export const UsuariosStep = () => {
   useEffect(() => {
     handleNewValue("imageUrl", fileimageUrl);
   }, [fileimageUrl]);
+  console.log(UsuarioValues);
+
   return (
     <>
       <Form>
@@ -121,30 +126,17 @@ export const UsuariosStep = () => {
               }}
             />
           </BoxInput>
-          <BoxUploadButtonContainer>
-            <CustomInputText>Foto de Perfil</CustomInputText>
-            <UploadInputComponent
-              file={fileimageUrl}
-              setFile={setFileimageUrl}
-              accept=".jpeg,.png,.jpg"
-              labelInitial={
-                UsuarioValues.imageUrl?.length
-                  ? UsuarioValues.imageUrl[0].name
-                  : " Clique para adicionar"
-              }
-              buttonProps={{
-                variant: "contained",
-                component: "label",
-              }}
-              customStyles={{
-                color: "white",
-                fontWeight: "bold",
-                height: "100%",
-              }}
-            >
-              Clique para adicionar
-            </UploadInputComponent>
-          </BoxUploadButtonContainer>
+          <BoxInput>
+            <Label>Tipo de acesso</Label>
+            <AutoCompleteComponent
+              options={Acessos && Acessos}
+              label="Tipo de acesso"
+              noOptionsText="Nenhum registro encontrado"
+              setStateActionWithTarget={handleNewValue}
+              value={UsuarioValues.role!}
+              target="role"
+            />
+          </BoxInput>
         </div>
 
         <div className="row2">
@@ -203,42 +195,109 @@ export const UsuariosStep = () => {
             />
           </BoxInput>
           <BoxInput>
-            <Label>Cargo</Label>
+            <Label>Profissão</Label>
             <AutoCompleteComponent
               options={cargos && cargos}
-              label="Cargos"
+              label="Profissão"
               noOptionsText="Nenhum registro encontrado"
               setStateActionWithTarget={handleNewValue}
               value={UsuarioValues.cargoSetor!}
               target="cargoSetor"
             />
           </BoxInput>
-
-          <BoxUploadButtonContainer>
-            <CustomInputText> Contrato de Trabalho</CustomInputText>
-            <UploadInputComponent
-              file={file}
-              setFile={setFile}
-              labelInitial={
-                UsuarioValues.pdfContrato?.length
-                  ? UsuarioValues.pdfContrato[0].name
-                  : " Clique para adicionar"
-              }
-              buttonProps={{
-                variant: "contained",
-                component: "label",
-              }}
-              customStyles={{
-                color: "white",
-                fontWeight: "bold",
-                height: "100%",
-              }}
-            >
-              Clique para adicionar
-            </UploadInputComponent>
-          </BoxUploadButtonContainer>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              gap: "80px",
+              marginTop: "20px",
+            }}
+          >
+            <BoxUploadButtonContainer>
+              <CustomInputText>Foto de Perfil</CustomInputText>
+              <UploadInputComponent
+                file={fileimageUrl}
+                setFile={setFileimageUrl}
+                accept=".jpeg,.png,.jpg"
+                labelInitial={
+                  UsuarioValues.imageUrl?.length
+                    ? UsuarioValues.imageUrl[0].name
+                    : " Clique para adicionar"
+                }
+                buttonProps={{
+                  variant: "contained",
+                  component: "label",
+                }}
+                customStyles={{
+                  color: "white",
+                  fontWeight: "bold",
+                  height: "100%",
+                }}
+              >
+                Clique para adicionar
+              </UploadInputComponent>
+            </BoxUploadButtonContainer>
+            <BoxUploadButtonContainer>
+              <CustomInputText> Contrato de Trabalho</CustomInputText>
+              <UploadInputComponent
+                file={file}
+                setFile={setFile}
+                labelInitial={
+                  UsuarioValues.pdfContrato?.length
+                    ? UsuarioValues.pdfContrato[0].name
+                    : " Clique para adicionar"
+                }
+                buttonProps={{
+                  variant: "contained",
+                  component: "label",
+                }}
+                customStyles={{
+                  color: "white",
+                  fontWeight: "bold",
+                  height: "100%",
+                }}
+              >
+                Clique para adicionar
+              </UploadInputComponent>
+            </BoxUploadButtonContainer>
+          </Box>
         </div>
       </Form>
     </>
   );
 };
+
+const Acessos = [
+  {
+    label: "T.I",
+    id: "TI",
+  },
+  {
+    label: "Diretor",
+    id: "director",
+  },
+  {
+    label: "Admin",
+    id: "admin",
+  },
+  {
+    label: "Leitura",
+    id: "lecturer",
+  },
+  {
+    label: "Gerente",
+    id: "manager",
+  },
+  {
+    label: "Externo",
+    id: "external",
+  },
+  {
+    label: "RH",
+    id: "rh",
+  },
+  {
+    label: "CCO",
+    id: "cco",
+  },
+];
