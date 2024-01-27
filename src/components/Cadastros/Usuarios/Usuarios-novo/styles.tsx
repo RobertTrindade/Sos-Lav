@@ -140,7 +140,6 @@ export const BoxUploadButtonContainer = styled(Box)`
 `;
 export const Step2Container = styled(Box)`
   display: flex;
-  align-items: center;
   gap: 40px;
   margin-top: 30px;
   justify-content: space-between;
@@ -165,13 +164,19 @@ export const PatiosSelecionadosTitle = styled(Typography)`
 export const AutoCompleteContainer = styled(Box)`
   max-width: 600px;
   width: 100%;
+  position: sticky;
+  
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
 `;
 
 export const Ul = styled(Box)`
   display: flex;
   flex-direction: column;
   padding: 0;
-  gap: 6px;
+  gap: 7px;
 `;
 
 export const Li = styled(Box)`
@@ -181,7 +186,7 @@ export const Li = styled(Box)`
 `;
 
 export const LiText = styled(Typography)`
-  font-size: 14px;
+  font-size: 20px;
   color: ${({ theme }) => theme.palette.secondary.main};
 `;
 

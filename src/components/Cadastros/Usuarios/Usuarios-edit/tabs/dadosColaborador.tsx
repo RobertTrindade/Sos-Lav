@@ -23,12 +23,16 @@ import usuariosService, {
 } from "@/src/services/usuarios/usuarios.service";
 import { Box } from "@mui/material";
 import { ButtonComponent } from "@/src/shared/components/Buttons";
+import { AlertDialog } from "@/src/shared/components/Dialog";
+import { CustomSelect } from "@/src/shared/components/select";
 
 export const DadosUsuario: FC<{
   user: IUserDto;
 }> = ({ user }) => {
   const [UsuarioValues, setUsuarioValues] = useState<IUserDto>(user);
   const [cargos, setCargos] = useState<INewValue[]>([]);
+  const [open, setOpen] = useState(false);
+  const [openAlert, setOpenAlert] = useState(false);
 
   const handleNewValue = (target: keyof IUsuarioValues, value: any) => {
     setUsuarioValues((data) => ({
@@ -45,7 +49,6 @@ export const DadosUsuario: FC<{
     handleNewValue("dataNascimento", date);
   };
 
-  console.log(UsuarioValues);
   useEffect(() => {
     (async () => {
       try {
@@ -76,6 +79,8 @@ export const DadosUsuario: FC<{
 
   const handleUploadUser = async () => {
     try {
+      setOpen(false);
+
       const {
         name,
         email,
@@ -83,6 +88,8 @@ export const DadosUsuario: FC<{
         imageUrl,
         cargosId,
         celular,
+        status,
+        pdfContrato,
         Endereco: { endereco, bairro, cidade, cep, uf },
         birthdate,
         cpf,
@@ -92,7 +99,8 @@ export const DadosUsuario: FC<{
         email,
         imageUrl,
         cargosId,
-
+        status,
+        pdfContrato,
         celular,
         emailPessoal,
         birthdate,
@@ -105,11 +113,12 @@ export const DadosUsuario: FC<{
           uf,
         },
       };
+
       const result = await usuariosService.updateUser(
         UsuarioValues.id,
         payload
       );
-      console.log(result);
+      setOpenAlert(true);
     } catch (error) {
       console.error(error);
     }
@@ -118,6 +127,78 @@ export const DadosUsuario: FC<{
   return (
     <>
       <Form>
+        <AlertDialog
+          title={`Alteração de usuário`}
+          content={`Alteração concluida com sucesso`}
+          open={openAlert}
+          setOpen={setOpenAlert}
+        >
+          <ButtonComponent
+            buttonProps={{
+              variant: "contained",
+              onClick: () => setOpenAlert(false),
+            }}
+            customStyles={{
+              color: "white",
+              fontWeight: "700",
+              fontSize: "15px",
+              height: "50px",
+              borderRadius: "14px",
+              width: "200px",
+            }}
+          >
+            Fechar
+          </ButtonComponent>
+        </AlertDialog>
+        <AlertDialog
+          title={`Alteração de usuário`}
+          content={`Deseja alterar os dados do usuário ${UsuarioValues.name}`}
+          open={open}
+          setOpen={setOpen}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              width: "100%",
+              justifyContent: "space-between",
+            }}
+          >
+            <ButtonComponent
+              buttonProps={{
+                variant: "contained",
+                onClick: () => handleUploadUser(),
+              }}
+              customStyles={{
+                color: "white",
+                fontWeight: "700",
+                fontSize: "15px",
+                height: "50px",
+                borderRadius: "14px",
+                width: "200px",
+              }}
+            >
+              Continuar
+            </ButtonComponent>
+
+            <ButtonComponent
+              buttonProps={{
+                variant: "contained",
+                onClick: () => setOpen(false),
+              }}
+              customStyles={{
+                color: "white",
+                fontWeight: "700",
+                fontSize: "15px",
+                height: "50px",
+                borderRadius: "14px",
+                width: "200px",
+              }}
+            >
+              Fechar
+            </ButtonComponent>
+          </Box>
+        </AlertDialog>
+
         <div className="row1">
           <BoxInput>
             <InputComponent
@@ -181,11 +262,23 @@ export const DadosUsuario: FC<{
             />
           </BoxInput>
 
+          <BoxInput>
+            <Label>Status</Label>
+            <CustomSelect
+              options={tipoDocumento}
+              customProps={{
+                value: UsuarioValues.status,
+                onChange: (e) =>
+                  handleNewValue("status", e.target.value as string),
+              }}
+            />
+          </BoxInput>
+
           <Box sx={{ marginTop: "20px", width: "100%" }}>
             <ButtonComponent
               buttonProps={{
                 variant: "contained",
-                onClick: () => handleUploadUser(),
+                onClick: () => setOpen(true),
               }}
               customStyles={{
                 color: "white",
@@ -274,3 +367,18 @@ export const DadosUsuario: FC<{
     </>
   );
 };
+
+const tipoDocumento = [
+  {
+    label: "Ativo",
+    value: "ativo",
+  },
+  {
+    label: "Inativo",
+    value: "inativo",
+  },
+  {
+    label: "Pendente",
+    value: "pendente",
+  },
+];

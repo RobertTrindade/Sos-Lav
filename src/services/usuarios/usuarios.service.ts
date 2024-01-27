@@ -60,8 +60,8 @@ export interface IUserDto {
     salario: number;
   };
   Permissions: {
-    id: number;
-    title: string;
+    id?: number | undefined;
+    title?: string | undefined; 
   }[];
   Endereco: {
     id: 3;
@@ -72,8 +72,8 @@ export interface IUserDto {
     uf: string;
   };
   patios: {
-    nome: string;
-    id: number;
+    nome?: string | undefined;
+    id?: number | undefined;
   }[];
 }
 
@@ -111,6 +111,50 @@ class UserService {
       `${this.path}/${id}`,
       body
     );
+  }
+
+  async addPatio(id: number, body: any) {
+    return await this.httpClient.patch<
+      Promise<{
+        patios: {
+          nome?: string | undefined;
+          id?: number | undefined;
+        }[];
+      }>
+    >(`${this.path}/${id}/patio`, body);
+  }
+
+  async removePatio(id: number, body: any) {
+    return await this.httpClient.patch<
+      Promise<{
+        patios: {
+          nome?: string | undefined;
+          id?: number | undefined;
+        }[];
+      }>
+    >(`${this.path}/${id}/delete/patio`, body);
+  }
+
+  async addPermission(id: number, body: any) {
+    return await this.httpClient.patch<
+      Promise<{
+        Permissions: {
+          title?: string ;
+          id?: number ;
+        }[];
+      }>
+    >(`${this.path}/${id}/permission`, body);
+  }
+
+  async removePermission(id: number, body: any) {
+    return await this.httpClient.patch<
+      Promise<{
+        Permissions: {
+          title?: string ;
+          id?: number ;
+        }[];
+      }>
+    >(`${this.path}/${id}/delete/permission`, body);
   }
 }
 export default new UserService();

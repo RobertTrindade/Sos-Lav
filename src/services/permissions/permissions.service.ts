@@ -1,8 +1,8 @@
 import HttpClient from "../HttpClient";
 
-export  interface IPermissions {
+export interface IPermissions {
   id: 1;
-  title:string;
+  title: string;
 }
 
 class PermissionsService {
@@ -14,7 +14,11 @@ class PermissionsService {
   }
 
   async getPermissions() {
-    return await this.httpClient.getWithAuth<Promise<IPermissions[]>>(this.path);
+    return await this.httpClient.getWithAuth<Promise<IPermissions[]>>(
+      this.path
+    );
   }
+
+
 }
 export default new PermissionsService();

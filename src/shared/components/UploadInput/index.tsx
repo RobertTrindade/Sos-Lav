@@ -18,13 +18,15 @@ export interface IButtonProps {
   buttonProps?: ButtonProps;
   file: FileList | null;
   accept?: string;
-  setFile: Dispatch<SetStateAction<FileList | null>>;
+  setFile: Dispatch<SetStateAction<FileList | null | undefined | any>>;
   labelInitial?: string;
   customStyles?: {
     color: string;
     backgroundColor?: string;
     fontWeight?: string;
     height?: string;
+    width?: string;
+
   };
 }
 
