@@ -68,6 +68,24 @@ export const CustomStepUsuario: React.FC<ICustomStep> = ({
       }
       setDisabled(false);
     }
+
+    if (activeStep === 1) {
+      const { patios } = UsuarioValues;
+      if (!patios.length) {
+        setDisabled(true);
+        return;
+      }
+      setDisabled(false);
+    }
+
+    if (activeStep === 2) {
+      const { permission } = UsuarioValues;
+      if (!permission.length) {
+        setDisabled(true);
+        return;
+      }
+      setDisabled(false);
+    }
   }, [UsuarioValues, activeStep]);
 
   return (
