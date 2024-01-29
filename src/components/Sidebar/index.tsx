@@ -73,7 +73,7 @@ export const SideBarComponent: React.FC<{
 
               {user?.imageUrl ? (
                 <ProfileIcon
-                  src={process.env.NEXT_PUBLIC_API_BASE_URL + user.imageUrl}
+                  src={user.imageUrl}
                 />
               ) : (
                 <CustomSkeleton variant="circular" width={120} height={120} />

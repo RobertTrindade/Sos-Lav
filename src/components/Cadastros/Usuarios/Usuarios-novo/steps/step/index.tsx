@@ -59,7 +59,6 @@ export const UsuariosStep = () => {
   useEffect(() => {
     handleNewValue("imageUrl", fileimageUrl);
   }, [fileimageUrl]);
-  console.log(UsuarioValues);
 
   return (
     <>

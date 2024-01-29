@@ -33,7 +33,6 @@ export const DadosUsuario: FC<{
   const [cargos, setCargos] = useState<INewValue[]>([]);
   const [open, setOpen] = useState(false);
   const [openAlert, setOpenAlert] = useState(false);
-  console.log(user)
 
   const handleNewValue = (target: keyof IUsuarioValues, value: any) => {
     setUsuarioValues((data) => ({
@@ -53,7 +52,6 @@ export const DadosUsuario: FC<{
   useEffect(() => {
     (async () => {
       try {
-        console.log(UsuarioValues?.Endereco?.cep)
 
         if (UsuarioValues?.Endereco?.cep.length === 9) {
           const data = await viaCepService.getDataByCep(

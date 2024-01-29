@@ -322,11 +322,7 @@ const MotoristaCnh: React.FC<{
     <MotoristaCnhContainer>
       {motorista.Cnh.cnhPdf && (
         <div className="CnhArea">
-          <Image
-            src={process.env.NEXT_PUBLIC_API_BASE_URL + motorista.Cnh.cnhPdf}
-            alt="Picture of the author"
-            fill
-          />
+          <Image src={motorista.Cnh.cnhPdf} alt="Picture of the author" fill />
         </div>
       )}
 
@@ -397,7 +393,7 @@ const MotoristaContrato: React.FC<{
 
         // Adicione o arquivo ao formulário
         formData.append("file", data[0]);
-        const { url } = await UploadService.upload(formData);
+        const { url } = await UploadService.uploadPDF(formData);
         await MotoristasService.editMotorista(motorista.id, {
           pdfContrato: url,
         });
@@ -487,10 +483,7 @@ const MotoristaReboque: React.FC<{
       {motorista.Reboques[0].crlvUrl && (
         <div className="CnhArea">
           <Image
-            src={
-              process.env.NEXT_PUBLIC_API_BASE_URL +
-              motorista.Reboques[0].crlvUrl
-            }
+            src={motorista.Reboques[0].crlvUrl}
             alt="Picture of the author"
             fill
           />

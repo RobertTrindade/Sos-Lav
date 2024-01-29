@@ -72,7 +72,6 @@ export const PermissaoUsuario: React.FC<{ user: IUserDto }> = ({ user }) => {
             user.id,
             selectedPermission
           );
-          console.log(res);
           setUserPermissions(res.Permissions);
         } catch (error) {
           console.error(error);

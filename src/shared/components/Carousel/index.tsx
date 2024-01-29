@@ -40,7 +40,7 @@ export const SwipeableTextMobileStepper: React.FC<{
             width: "100%",
             height: "400px",
           }}
-          src={process.env.NEXT_PUBLIC_API_BASE_URL + images[activeStep]}
+          src={images[activeStep] }
           alt={"step"}
         />
 

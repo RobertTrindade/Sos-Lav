@@ -144,7 +144,7 @@ const AvalibleComponent: React.FC<{
       <Avatar
         sizes="large"
         alt={motorista.name}
-        src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${motorista.imageUrl}`}
+        src={motorista.imageUrl}
       />
     </StyledBadge>
   );

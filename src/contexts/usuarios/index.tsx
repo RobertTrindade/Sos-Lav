@@ -100,13 +100,23 @@ export const UsuariosProvider: React.FC<{
     })();
   }, []);
 
-  const Upload = async (data: FileList) => {
+  const Upload = async (data: FileList, isPdf = false) => {
     if (data) {
       try {
         const formData = new FormData();
         formData.append("file", data[0]);
+
+        let link;
+
+        if (isPdf) {
+          const { url } = await uploadService.uploadPDF(formData);
+          link = url;
+        }
+
         const { url } = await uploadService.upload(formData);
-        return url;
+        link = url;
+
+        return link;
       } catch (err) {
         console.log(err);
       }
@@ -168,13 +178,13 @@ export const UsuariosProvider: React.FC<{
       endereco,
     } = UsuarioValues;
 
-    const pdfContratoUrl = await Upload(pdfContrato!);
+    const pdfContratoUrl = await Upload(pdfContrato!, true);
     const ProfileimageUrl = await Upload(imageUrl!);
 
     const payload = {
       name,
       email,
-      role:role?.id,
+      role: role?.id,
       imageUrl: ProfileimageUrl,
       cargosId: cargoSetor!.id,
       permissions: permission.map((item) => item?.id),

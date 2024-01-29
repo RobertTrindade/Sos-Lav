@@ -19,5 +19,12 @@ class UploadService {
       unique
     );
   }
+  async uploadPDF(body: FormData, unique = true) {
+    return await this.httpClient.upload<Promise<IUploadService>>(
+      `${this.path}/pdf`,
+      body,
+      unique
+    );
+  }
 }
 export default new UploadService();

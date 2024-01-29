@@ -87,7 +87,7 @@ const MediaCard: FC<{
     file: string;
   };
 }> = ({ data }) => {
-  const file = process.env.NEXT_PUBLIC_API_BASE_URL + data.file;
+  const file =data.file ;
   return (
     <>
       <Card
@@ -101,8 +101,8 @@ const MediaCard: FC<{
           src={file}
           className="iframe"
           sx={{
-            width: "600px",
-            height: "600px",
+            width: "400px",
+            height: "400px",
           }}
         />
 

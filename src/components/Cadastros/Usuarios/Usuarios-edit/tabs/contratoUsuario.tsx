@@ -24,7 +24,7 @@ export const ContratoUsuario: FC<{
 
         // Adicione o arquivo ao formulário
         formData.append("file", data[0]);
-        const { url } = await uploadService.upload(formData);
+        const { url } = await uploadService.uploadPDF(formData);
 
         const {
           name,
@@ -109,7 +109,7 @@ const MediaCard: FC<{
     file: string;
   };
 }> = ({ data }) => {
-  const file = process.env.NEXT_PUBLIC_API_BASE_URL + data.file;
+  const file = data.file ;
   return (
     <>
       <Card

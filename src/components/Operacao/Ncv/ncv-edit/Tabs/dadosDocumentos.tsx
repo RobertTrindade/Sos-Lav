@@ -93,7 +93,7 @@ export const Documentos: React.FC<{
         formData.append("file", data[0]);
 
         // Upoload do arquivo para o back end
-        const { url } = await UploadService.upload(formData);
+        const { url } = await UploadService.uploadPDF(formData);
 
         // Criamos a referencia para o arquivo que foi salvo para o ncv atual
         const res = await ncvService.uploadDocsNcv(chamado.id, {
@@ -187,7 +187,7 @@ const MediaCard: FC<{
     detalhes: string;
   };
 }> = ({ data }) => {
-  const file = process.env.NEXT_PUBLIC_API_BASE_URL + data.file;
+  const file = data.file ;
   return (
     <Card
       sx={{

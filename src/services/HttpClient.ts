@@ -2,10 +2,14 @@ import LocalStorageService from "@/src/services/auth/localStorage.service";
 
 class HttpClient {
   private baseUrl: string;
+  private baseUrlUpload: string;
+
   public localStorageService!: typeof LocalStorageService;
 
   constructor() {
     this.baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL as string;
+    this.baseUrlUpload = process.env.NEXT_PUBLIC_UPLOAD_API as string;
+
     this.localStorageService = LocalStorageService;
   }
 
@@ -74,7 +78,7 @@ class HttpClient {
       Authorization: `Bearer ${token}`,
     };
 
-    const response = await fetch(`${this.baseUrl}${path}`, {
+    const response = await fetch(`${this.baseUrlUpload}${path}`, {
       method: "POST",
       headers,
       body,

@@ -61,7 +61,6 @@ export const ChatComponent = () => {
   };
 
   React.useEffect(() => {
-
     socket.on("new-message", async (item: IMessages) => {
       if (item) {
         setMessages((prev) => [...prev, item]);
@@ -71,7 +70,7 @@ export const ChatComponent = () => {
     return () => {
       socket.off("new-message");
     };
-  }, [message,groups]);
+  }, [message, groups]);
 
   useEffect(() => {
     (async () => {
@@ -142,10 +141,7 @@ export const ChatComponent = () => {
                   key={key}
                   onClick={() => handleConversation(item.id)}
                 >
-                  <Avatar
-                    alt="Thiago"
-                    src={process.env.NEXT_PUBLIC_API_BASE_URL + item.imageUrl}
-                  />
+                  <Avatar alt="Thiago" src={item.imageUrl} />
 
                   <div className="nameTime">
                     <div className="nameTimeTxt">
@@ -193,18 +189,8 @@ export const ChatComponent = () => {
               <>
                 {messages.length ? (
                   messages.map((item, key) => (
-                    <LastConversation
-                      key={key}
-                      elevation={2}
-                      isMine={false}
-                    >
-                      <Avatar
-                        alt="Thiago"
-                        src={
-                          process.env.NEXT_PUBLIC_API_BASE_URL +
-                          item?.sender?.imageUrl
-                        }
-                      />
+                    <LastConversation key={key} elevation={2} isMine={false}>
+                      <Avatar alt="Thiago" src={item?.sender?.imageUrl} />
 
                       <ConversationNameTime>
                         <div className="nameTimeTxt">

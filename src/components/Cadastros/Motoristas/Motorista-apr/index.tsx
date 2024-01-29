@@ -39,7 +39,7 @@ export const MotoristasComponentEditApr: React.FC<{
           <Content>
             <div className="CnhArea">
               <Image
-                src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${motorista.Cnh.cnhPdf}`}
+                src={`${motorista.Cnh.cnhPdf}`}
                 alt="Picture of the author"
                 fill
               />
@@ -139,7 +139,7 @@ export const MotoristasComponentEditApr: React.FC<{
           <Content>
             <div className="CnhArea">
               <Image
-                src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${motorista.Cnh.cnhPdf}`}
+                src={`${motorista.Cnh.cnhPdf}`}
                 alt="Picture of the author"
                 fill
               />
@@ -214,7 +214,7 @@ export const MotoristasComponentEditApr: React.FC<{
           <Content>
             <div className="CnhArea">
               <Image
-                src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${motorista.Reboques[0].crlvUrl}`}
+                src={`${motorista.Reboques[0].crlvUrl}`}
                 alt="Picture of the author"
                 fill
               />

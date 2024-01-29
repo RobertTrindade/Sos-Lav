@@ -24,7 +24,6 @@ export interface IPatio {
 
 export const ChamadosStep2 = () => {
   const { UsuarioValues, patios, handleNewValue } = useUsuario();
-  console.log(UsuarioValues)
   const handleRemovePatio = (id: number) => {
     const diffs = UsuarioValues.patios.filter((item) => item.id !== id);
     handleNewValue("patios", diffs);
