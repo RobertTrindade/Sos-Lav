@@ -15,7 +15,7 @@ interface IAutoCompleteComponent {
   setStateActionWithTarget?: (target: any, value: any) => void;
   sx?: SxProps<Theme> | undefined;
   multiple?: boolean;
-  value?: string;
+  value?: any;
   customProps?: {
     value: any;
     onChange?: (event: React.ChangeEvent<any>) => void;
