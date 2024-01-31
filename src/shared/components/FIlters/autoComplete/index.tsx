@@ -46,7 +46,7 @@ export const AutoCompleteFilter: FC<{
             label="patio"
             noOptionsText="Nenhuma Pátio encontrado"
             SetStateAction={setValue}
-            multiple={true}
+            multiple={false}
             target="patio"
             value={value}
           />
