@@ -23,32 +23,34 @@ import dayjs from "dayjs";
 import useQueryParams from "@/src/hooks/usehandleQueryString";
 import FilterListOffIcon from "@mui/icons-material/FilterListOff";
 import { useRouter } from "next/navigation";
-import usuariosService, {
-  IUsuariosDto,
-} from "@/src/services/usuarios/usuarios.service";
+import patiosService, { IPatio } from "@/src/services/patios/patios.service";
 
 export const PatiosComponent = () => {
-  const [chamados, setChamados] = React.useState<any[]>();
+  const [patios, setPatios] = React.useState<IPatio[]>();
   const router = useRouter();
 
   const [loading, setLoading] = React.useState(false);
   const [open, setOpen] = React.useState(false);
-  const { cleanSearch } = useQueryParams();
+  const { cleanSearch, addTodayToqueryeParams } = useQueryParams();
 
   const handleSearch = async () => {
     try {
       setLoading(true);
-      const usuarios = await usuariosService.getAll(window.location.search);
-
-      const mapped = usuarios.map((user) => ({
-        ...user,
-        cargo: user?.Cargo?.description,
-        dataCriacao: dayjs(user.createdAt as string).format("DD/MM/YYYY"),
+      const patios = await patiosService.listAll(window.location.search);
+      const data = patios.map((item) => ({
+        ...item,
+        id: item?.id,
+        nome: item?.nome,
+        createdAt: dayjs(item.createdAt).format("DD/MM/YYYY HH:mm"),
+        cidade: item?.cidade,
+        telefone: item?.telefone,
+        ativo: item?.ativo ? true : false,
       }));
-      setChamados(mapped);
+
+      setPatios(data);
       setLoading(false);
     } catch (error) {
-      console.error("Erro ao buscar motoristas:", error);
+      console.error("Erro ao buscar patios:", error);
       // Lide com o erro conforme necessário
       setLoading(false);
     }
@@ -64,11 +66,12 @@ export const PatiosComponent = () => {
 
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 10 },
-    { field: "status", headerName: "Status", width: 150 },
-    { field: "name", headerName: "Nome", width: 200 },
-    { field: "email", headerName: "E-mail", width: 400 },
-    { field: "cargo", headerName: "Cargo", width: 400 },
-    { field: "dataCriacao", headerName: "Data Criação", width: 400 },
+    { field: "nome", headerName: "Nome Patio", width: 200 },
+    { field: "cidade", headerName: "Cidade", width: 400 },
+    { field: "telefone", headerName: "Telefone", width: 400 },
+    { field: "ativo", headerName: "Ativo", width: 400, 
+      valueGetter: (params) => params.value ? 'sim' : 'não', // Converte true para 'sim' e false para 'não'
+    },
 
     {
       field: "editar",
@@ -91,31 +94,16 @@ export const PatiosComponent = () => {
     },
   ];
 
-  const chips = [
-    {
-      value: "ativo",
-      label: "Ativo",
-    },
-    {
-      value: "Aguardando",
-      label: "Aguardando",
-    },
-
-    {
-      value: "inativo",
-      label: "Inativo",
-    },
-    {
-      value: "pendente",
-      label: "Pendente",
-    },
-  ];
+  React.useEffect(() => {
+    addTodayToqueryeParams();
+    handleSearch();
+  }, []);
   return (
     <Container>
       <CustomDataGrid
-        rows={chamados ? chamados : []}
+        rows={patios ? patios : []}
         columns={columns}
-        getRowId={(chamado) => chamado.id}
+        getRowId={(patio) => patio.id}
         localeText={ptBR.components.MuiDataGrid.defaultProps.localeText}
         initialState={{
           pagination: {
@@ -175,7 +163,6 @@ export const PatiosComponent = () => {
         handleSearch={handleSearch}
       >
         <DataFilter />
-        <Chips chips={chips} />
       </Filters>
     </Container>
   );

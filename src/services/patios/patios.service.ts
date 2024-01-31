@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 import HttpClient from "../HttpClient";
 
 export interface IPatiosResponse {
@@ -10,7 +11,7 @@ export interface IPatiosResponse {
   cep:  string,
   cidade:  string,
   estado:  string,
-  created_at:  string,
+  createdAt:  string,
   longitude:  string,
   latitude:  string,
   endereco:  string,
@@ -37,6 +38,7 @@ export interface IPatiosServiceDTO {
   email: string;
   responsavel: string;
   observacao: string;
+  createdAt:  string,
   info_liberacao: string;
   whatsapp: string;
   inicio_contrato: Date | null;
@@ -50,6 +52,8 @@ export interface IPatiosServiceDTO {
   isento_taxas: string;
   id_bolsao: number | null;
   id_empresa: number;
+  startAt: string,
+  endAt: string,
   meta_apreensoes: number | null;
   meta_liberacoes: number | null;
   ponto_equilibrio: number | null;
@@ -64,56 +68,47 @@ export interface IPatiosServiceDTO {
 }
 
 export interface IPatio {
+  label: ReactNode;
   id: number;
-  createAt: string;
-  updatedAt: string;
-  equipamentoSolicitado: string;
-  tipoVeiculo: string;
-  tipoApreensao: string;
-  patioId: number;
-  status: string;
-  detalhes: string;
-  urgencia: string;
-  origem: string;
-  vehiclesQuantity: number;
-  driversQuantity: number;
-  multiple: boolean;
-  chamadosLocalId: number;
-  chamadorId: number;
-  patioName: string;
-  motoristaName?: string;
-  chamadorName: string;
-  localizacaoName: string;
-  label?: string;
-  Aceite?: {
-    tempoEstimado: string;
-    kmsEstimado: number;
-    aceiteHora: string;
-    Motoristas: {
-      name: string;
-      latitude: string;
-      longitude: string;
-    };
-  }[];
-
-  patio: {
-    nome: string;
-  };
-  chamador: {
-    name: string;
-  };
-  fotos: string[];
-
-  localizacao: {
-    enderecoCompleto: string;
-    id: number;
-    estado: string;
-    uf: string;
-    municipio: string;
-    distrito: string;
-    cep: string;
-    latitude: string;
-    longitude: string;
+  nome: string;
+  endereco: string;
+  bairro: string;
+  cep: string;
+  cidade: string;
+  estado: string;
+  telefone: string;
+  ativo: boolean;
+  email: string;
+  responsavel: string;
+  observacao: string;
+  info_liberacao: string;
+  whatsapp: string;
+  createdAt:  string,
+  inicio_contrato: Date | null;
+  fim_contrato: Date | null;
+  vencimento_seguro: Date | null;
+  pdf_seguro: string;
+  pdf_vistoria_checklist: string;
+  startAt: string,
+  endAt: string,
+  data_cadastro: string;
+  longitude: number | null;
+  latitude: number | null;
+  isento_taxas: string;
+  id_bolsao: number | null;
+  id_empresa: number;
+  meta_apreensoes: number | null;
+  meta_liberacoes: number | null;
+  ponto_equilibrio: number | null;
+  contrato: string | null;
+  patioDocs: string,
+  observacaoDoc: string,
+  documentos: {
+    patioDocs: string,
+    startAt: string,
+    endAt: string,
+    observacaoDoc: string,
+    pdf_contrato: string;
   };
 }
 
@@ -146,6 +141,12 @@ class PatiosService {
     return await this.httpClient.post<Promise<IPatiosServiceDTO>>(
       `${this.path}/documentos/${id}`,
       body
+    );
+  }
+
+  async listAll(params?: string) {
+    return await this.httpClient.getWithAuth<Promise<IPatio[]>>(
+      `${this.path}${params}`
     );
   }
 }
