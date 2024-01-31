@@ -1,3 +1,4 @@
+import { INewValue } from "@/src/shared/components/AutoComplete";
 import HttpClient from "../HttpClient";
 
 export interface IChamadosResponse {
@@ -47,14 +48,14 @@ export interface IChamado {
   id: number;
   createAt: string;
   updatedAt: string;
-  equipamentoSolicitado: string;
-  tipoVeiculo: string;
-  tipoApreensao: string;
-  patioId: number;
-  status: string;
+  equipamentoSolicitado: string | INewValue;
+  tipoVeiculo: string | INewValue;
+  tipoApreensao: string | INewValue;
+  patioId: number ;
+  status: string | INewValue;
   detalhes: string;
-  urgencia: string;
-  origem: string;
+  urgencia: string | INewValue;
+  origem: string | INewValue;
   vehiclesQuantity: number;
   driversQuantity: number;
   multiple: boolean;
@@ -189,6 +190,12 @@ class ChamadosService {
   async listOne(id?: string) {
     return await this.httpClient.get<Promise<IChamado>>(
       `${this.path}/${Number(id)}`
+    );
+  }
+  async editChamado(id: number, body: any) {
+    return await this.httpClient.patch<Promise<IChamado>>(
+      `${this.path}/${id}`,
+      body
     );
   }
 
