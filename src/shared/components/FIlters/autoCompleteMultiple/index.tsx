@@ -10,19 +10,19 @@ import {
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { FC, useEffect, useState } from "react";
 import useQueryParams from "@/src/hooks/usehandleQueryString";
-import { INewValue } from "../../AutoCompleteMultiple";
-import { AutoCompleteComponent } from "../../AutoComplete";
+import { AutoCompleteComponentMultiple, INewValue } from "../../AutoCompleteMultiple";
 
-export const AutoCompleteFilter: FC<{
+export const AutoCompleteFilterMultiple: FC<{
   label: string;
   searchTarget: string;
   options: INewValue[];
 }> = ({ label, searchTarget, options }) => {
   const { updateQueryParams } = useQueryParams();
-  const [value, setValue] = useState<INewValue>();
+  const [value, setValue] = useState<INewValue[]>([]);
 
   useEffect(() => {
-    updateQueryParams("patio", value?.id);
+    if(!value.length) return
+    updateQueryParams("patio", value.map(patios => patios.id));
   }, [value]);
   return (
     options.length && (
@@ -40,13 +40,13 @@ export const AutoCompleteFilter: FC<{
         </AccordionSummary>
 
         <CustomAccordionDetails>
-          <AutoCompleteComponent
+          <AutoCompleteComponentMultiple
             options={options && options}
-            label="patio"
             noOptionsText="Nenhuma Pátio encontrado"
             SetStateAction={setValue}
-            multiple={true}
+            label= "patios"
             target="patio"
+            multiple={true}
             value={value}
           />
         </CustomAccordionDetails>
