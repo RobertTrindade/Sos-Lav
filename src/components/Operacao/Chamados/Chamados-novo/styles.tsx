@@ -60,10 +60,10 @@ export const Content = styled(Box)`
 `;
 
 export const MapArea = styled(Box)`
-  max-width: 600px;
+  max-width: 500px;
   width: 100%;
   ${({ theme }) => theme.breakpoints.up("desktop")} {
-    max-width: 800px;
+    max-width: 600px;
   }
   ${({ theme }) => theme.breakpoints.down("tablet")} {
     max-width: 400px;

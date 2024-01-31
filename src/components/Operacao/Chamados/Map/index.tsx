@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { FC, useEffect, useMemo, useState } from "react";
 import {
   GoogleMap,
   Marker,
@@ -27,7 +27,9 @@ const containerStyle = {
 import { useChamados } from "@/src/contexts/chamados";
 import { socket } from "@/src/services/socket.io";
 
-export const ChamadosMap = () => {
+export const ChamadosMap: FC<{
+  searchArea?: boolean;
+}> = ({ searchArea = true }) => {
   const {
     location,
     error,
@@ -120,21 +122,25 @@ export const ChamadosMap = () => {
             gestureHandling: "greedy",
           }}
           center={center}
-          zoom={15}
+          zoom={13}
           onLoad={onLoad}
           onUnmount={onUnmount}
           onClick={(e) => {
+            if (!searchArea) return;
             setSelectedLocation(e.latLng);
           }}
         >
-          <AutoCompleteBox>
-            <Autocomplete
-              onLoad={onAutocompleteLoad}
-              onPlaceChanged={onPlaceChanged}
-            >
-              <input type="text" placeholder="Busque por um lugar" />
-            </Autocomplete>
-          </AutoCompleteBox>
+          {searchArea && (
+            <AutoCompleteBox>
+              <Autocomplete
+                onLoad={onAutocompleteLoad}
+                onPlaceChanged={onPlaceChanged}
+              >
+                <input type="text" placeholder="Busque por um lugar" />
+              </Autocomplete>
+            </AutoCompleteBox>
+          )}
+
           <>
             {motoristas &&
               motoristas.map(({ latitude, longitude, name, id }) => (

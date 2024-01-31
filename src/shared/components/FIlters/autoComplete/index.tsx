@@ -22,6 +22,7 @@ export const AutoCompleteFilter: FC<{
   const [value, setValue] = useState<INewValue>();
 
   useEffect(() => {
+    if(!value) return
     updateQueryParams("patio", value?.id);
   }, [value]);
   return (

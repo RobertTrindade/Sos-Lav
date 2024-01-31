@@ -152,7 +152,6 @@ export const ChamadosProvider: React.FC<{
       enderecoCompleto,
     } = chamadosValues;
 
-    console.log(chamadosValues);
 
     const payload = {
       patio: patio?.id,

@@ -97,7 +97,7 @@ export const AutoCompleteBox = styled(Box)`
       border: 1px solid ${({ theme }) => theme.palette.primary.main};
       padding: 10px;
       width: 500px;
-      margin-left: 200px;
+      margin-left: 10px;
       ${({ theme }) => theme.breakpoints.down("desktop")} {
         width: 300px;
         margin-left: 50px;

@@ -11,9 +11,13 @@ import { ChamadosStep2 } from "./steps/step2";
 import { useChamados } from "@/src/contexts/chamados";
 import { ChamadosStep3 } from "./steps/step3";
 import Link from "next/link";
-import { BackArea, CustomIconButton } from "@/src/components/Cadastros/Motoristas/Motoristas-details/styles";
+import {
+  BackArea,
+  CustomIconButton,
+} from "@/src/components/Cadastros/Motoristas/Motoristas-details/styles";
 import { BackIcon } from "@/src/components/Cadastros/Motoristas/Motoristas-details";
 import { CustomCircularProgress } from "@/src/shared/components/Spinner";
+import { ChamadosStep4 } from "./steps/step4";
 
 export const ChamadosComponentNovo: React.FC<{}> = () => {
   const {
@@ -41,7 +45,7 @@ export const ChamadosComponentNovo: React.FC<{}> = () => {
   };
 
   const handleNext = () => {
-    if (activeStep === 2) {
+    if (activeStep === 3) {
       handleSubmit();
     }
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -76,7 +80,7 @@ export const ChamadosComponentNovo: React.FC<{}> = () => {
               handleBack,
               handleReset,
               activeStep,
-              steps: ["Chamado", "Endereço", "Veículos"],
+              steps: ["Chamado", "Endereço", "Veículos", "Motorista"],
             }}
             finalComponent={
               <>
@@ -120,16 +124,17 @@ export const ChamadosComponentNovo: React.FC<{}> = () => {
               />
             )}
             {activeStep === 2 && <ChamadosStep3 />}
+            {activeStep === 3 && <ChamadosStep4 />}
           </CustomStep>
         </TabResultArea>
 
         <MapArea
           sx={{
-            width: activeStep === 1 ? "100%" : "0px",
+            width: activeStep === 1 || activeStep === 3 ? "100%" : "0px",
           }}
         >
           {location ? (
-            <ChamadosMap />
+            <ChamadosMap searchArea={activeStep !== 3}/>
           ) : (
             <CustomCircularProgress color="secondary" size={"large"} />
           )}
