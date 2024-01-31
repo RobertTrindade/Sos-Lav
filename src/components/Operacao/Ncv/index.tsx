@@ -24,14 +24,33 @@ import { useRouter } from "next/navigation";
 import useQueryParams from "@/src/hooks/usehandleQueryString";
 import ncvService, { INCVResponse } from "@/src/services/ncv/ncv.service";
 import { SearchTerm } from "@/src/shared/components/FIlters/searchTerm";
+import { AutoCompleteContainer } from "../Usuarios/Usuarios-novo/styles";
+import { BoxInput, Label } from "./ncv-edit/styles";
+import { AutoCompleteComponentMultiple, INewValue } from "@/src/shared/components/AutoCompleteMultiple";
+import { AutoCompleteFilterMultiple } from "@/src/shared/components/FIlters/autoCompleteMultiple";
+import patiosService from "@/src/services/patios/patios.service";
 
 export const NcvComponent = () => {
   const [chamados, setChamados] = React.useState<INCVResponse[]>();
   const router = useRouter();
-
+  const [value, setValue] = React.useState("");
+  const [patios, setPatios] = React.useState<INewValue[]>([]);
   const [loading, setLoading] = React.useState(false);
   const [open, setOpen] = React.useState(false);
   const { cleanSearch } = useQueryParams();
+
+  React.useEffect(() => {
+    handleSearchPatios();
+  }, []);
+
+  const handleSearchPatios = async () => {
+    const res = await patiosService.getPatios();
+    const patios = res.map((item) => ({
+      id: item.id,
+      label: item.nome,
+    }));
+    setPatios(patios);
+  };
 
   const handleSearch = async () => {
     try {
@@ -178,6 +197,13 @@ export const NcvComponent = () => {
         <Chips chips={chips} />
         <SearchTerm label={"Ncv"} searchTarget="ncv" />
         <SearchTerm label={"Placa"} searchTarget="placa" />
+        <AutoCompleteContainer>
+          <AutoCompleteFilterMultiple
+            options={patios && patios}
+            label="Pátios"
+            searchTarget="patios"
+          />
+      </AutoCompleteContainer>
       </Filters>
     </Container>
   );

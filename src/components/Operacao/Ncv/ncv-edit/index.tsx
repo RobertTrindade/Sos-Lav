@@ -31,7 +31,6 @@ export const NcvEdit: React.FC<{
   const tabLabels = [
     "Dados NCV",
     "Dados do Veículo",
-
     "Guincho",
     "Apreensão",
     "Linha do tempo",
