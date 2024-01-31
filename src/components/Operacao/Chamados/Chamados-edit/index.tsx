@@ -5,7 +5,7 @@ import { Container, Content, MapArea, TabResultArea, Title } from "./styles";
 import { ScrollableTabsButtonAuto } from "@/src/shared/components/Tabs";
 import { InputComponent } from "@/src/shared/components/Inputs";
 
-import { IChamado } from "@/src/services/chamados/chamados.service";
+import chamadosService, { IChamado, IChamadosResponse } from "@/src/services/chamados/chamados.service";
 import { ChamadoEditarMap } from "./map";
 import Link from "next/link";
 import { BreadCrumbsComponent } from "@/src/shared/components/breadcrumbs";
@@ -23,8 +23,10 @@ import {
 } from "../Chamados-novo/steps/step1";
 import patiosService from "@/src/services/patios/patios.service";
 import dayjs from "dayjs";
+import { FC, useEffect, useState } from "react";
 import { ButtonComponent } from "@/src/shared/components/Buttons";
 import {
+  Box,
   Button,
   ButtonGroup,
   Card,
@@ -39,7 +41,8 @@ import { CardContainer } from "../../Ncv/ncv-edit/styles";
 import { CustomIconButton } from "@/src/components/Navbar/styles";
 import { CustomCircularProgress } from "@/src/shared/components/Spinner";
 import { BackIcon } from "@/src/components/Cadastros/Motoristas/Motoristas-details";
-
+import { AlertDialog } from "@/src/shared/components/Dialog";
+import ChamadosService from "@/src/services/chamados/chamados.service"
 const chamadosStatus = [
   {
     label: "Aguardando",
@@ -110,32 +113,166 @@ export const ChamadosComponentEdit: React.FC<{
 const ChamadoDetails: React.FC<{
   chamado: IChamado;
 }> = ({ chamado }) => {
-  const [chamadoState, setChamado] = React.useState({
-    equipamentoSolicitado: chamado.equipamentoSolicitado,
-    tipoVeiculo: chamado.tipoVeiculo,
-    tipoApreensao: chamado.tipoApreensao,
-    urgencia: chamado.urgencia,
-    origem: chamado.origem,
-    status: chamado.status,
-  });
-  // Função para atualizar o estado dos campos
-  const handleNewValue = (campo: string, valor: INewValue | any) => {
+  const [chamadoState, setChamado] = React.useState(chamado);
+  const [open, setOpen] = useState(false);
+  const [openAlert, setOpenAlert] = useState(false);
+
+  const handleNewValue = (target: keyof IChamadosResponse, value: any) => {
     setChamado((prevState) => ({
       ...prevState,
-      [campo]: valor.label ? valor.label : valor,
+      [target]: value,
     }));
   };
+  const [patios, setPatios] = React.useState<INewValue[]>([]);
 
+  const [chamadosValues] = React.useState({
+    patio: chamado?.patio?.nome,
+  });
+  React.useEffect(() => {
+    (async () => {
+      const response = (await patiosService.getPatios()).map((item) => ({
+        label: item.nome,
+        id: item.id,
+      }));
+
+      setPatios(response);
+    })();
+  }, []);
+  const [initialStatus] = useState(chamado.status);
+  const handleUploadChamado = async () => {
+       try {
+      setOpen(false);
+
+      let {
+        equipamentoSolicitado,
+        tipoVeiculo,
+        tipoApreensao,
+        urgencia,
+        origem,
+        status,
+        patioId,
+      } = chamadoState;
+
+               if("label" in (equipamentoSolicitado as INewValue)){
+                 equipamentoSolicitado = (equipamentoSolicitado as INewValue).label;
+               }
+              if("label" in (tipoVeiculo as INewValue)){
+                tipoVeiculo = (tipoVeiculo as INewValue).label;
+              }
+               if("label" in (tipoApreensao as INewValue)){
+                 tipoApreensao = (tipoApreensao as INewValue).label;
+               }
+              if("label" in (urgencia as INewValue)){
+                urgencia = (urgencia as INewValue).label;
+              }
+             if("label" in (origem as INewValue)){
+                origem = (origem as INewValue).label;
+              }
+              if("label" in (status as INewValue)){
+                status = (status as INewValue).label;
+              }
+              
+
+      const payload = {
+        equipamentoSolicitado,
+        tipoVeiculo,
+        tipoApreensao,
+        urgencia,
+        origem,
+        status,
+        patioId,
+      };
+      const result = await ChamadosService.editChamado(
+        chamadoState.id,
+        payload
+      );
+      setOpenAlert(true);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
-    chamadoState && (
+      <>
       <Form>
+      <AlertDialog
+          title={`Alteração de usuário`}
+          content={`Alteração concluida com sucesso`}
+          open={openAlert}
+          setOpen={setOpenAlert}
+        >
+          <ButtonComponent
+            buttonProps={{
+              variant: "contained",
+              onClick: () => setOpenAlert(false),
+            }}
+            customStyles={{
+              color: "white",
+              fontWeight: "700",
+              fontSize: "15px",
+              height: "50px",
+              borderRadius: "14px",
+              width: "200px",
+            }}
+          >
+            Fechar
+          </ButtonComponent>
+        </AlertDialog>
+        <AlertDialog
+          title={`Alteração de usuário`}
+          content={`Deseja alterar os dados modificado do chamad ${chamado.id}`}
+          open={open}
+          setOpen={setOpen}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              width: "100%",
+              justifyContent: "space-between",
+            }}
+          >
+            <ButtonComponent
+              buttonProps={{
+                variant: "contained",
+                onClick: () => handleUploadChamado(),
+              }}
+              customStyles={{
+                color: "white",
+                fontWeight: "700",
+                fontSize: "15px",
+                height: "50px",
+                borderRadius: "14px",
+                width: "200px",
+              }}
+            >
+              Continuar
+            </ButtonComponent>
+
+            <ButtonComponent
+              buttonProps={{
+                variant: "contained",
+                onClick: () => setOpen(false),
+              }}
+              customStyles={{
+                color: "white",
+                fontWeight: "700",
+                fontSize: "15px",
+                height: "50px",
+                borderRadius: "14px",
+                width: "200px",
+              }}
+            >
+              Fechar
+            </ButtonComponent>
+          </Box>
+        </AlertDialog>
+        
         <BoxInput>
           <Label>Equipamento solicitado</Label>
           <AutoCompleteComponent
-            options={equipamentoSolicitadoOptions}
+            options={equipamentoSolicitadoOptions && equipamentoSolicitadoOptions}
             label="Equipamento solicitado"
             noOptionsText="Nenhum equipamento encontrado"
-            setStateActionWithTarget={handleNewValue}
+            setStateActionWithTarget={handleNewValue} 
             target="equipamentoSolicitado"
             value={chamadoState.equipamentoSolicitado}
           />
@@ -144,7 +281,7 @@ const ChamadoDetails: React.FC<{
         <BoxInput>
           <Label>Tipo de Veículo</Label>
           <AutoCompleteComponent
-            options={tipoVeiculoOptions}
+            options={tipoVeiculoOptions && tipoVeiculoOptions}
             label="Tipo de Veículo"
             noOptionsText="Nenhum equipamento encontrado"
             setStateActionWithTarget={handleNewValue}
@@ -156,7 +293,7 @@ const ChamadoDetails: React.FC<{
         <BoxInput>
           <Label>Tipo de Apreensão</Label>
           <AutoCompleteComponent
-            options={tipoapreensaoOptions}
+            options={tipoapreensaoOptions && tipoapreensaoOptions}
             label="Tipo de Veículo"
             noOptionsText="Nenhum equipamento encontrado"
             setStateActionWithTarget={handleNewValue}
@@ -168,7 +305,7 @@ const ChamadoDetails: React.FC<{
         <BoxInput>
           <Label>Urgência</Label>
           <AutoCompleteComponent
-            options={urgencia}
+            options={urgencia && urgencia}
             label="Tipo de Apreensão"
             noOptionsText="Nenhum equipamento encontrado"
             setStateActionWithTarget={handleNewValue}
@@ -180,7 +317,7 @@ const ChamadoDetails: React.FC<{
         <BoxInput>
           <Label>Origem</Label>
           <AutoCompleteComponent
-            options={origens}
+            options={origens && origens}
             label="Tipo de Apreensão"
             noOptionsText="Nenhuma origem encontrada"
             setStateActionWithTarget={handleNewValue}
@@ -192,7 +329,7 @@ const ChamadoDetails: React.FC<{
         <BoxInput>
           <Label>Status</Label>
           <AutoCompleteComponent
-            options={chamadosStatus}
+            options={chamadosStatus && chamadosStatus}
             label="Chamados Status"
             noOptionsText="Nenhuma status encontrado"
             setStateActionWithTarget={handleNewValue}
@@ -201,26 +338,39 @@ const ChamadoDetails: React.FC<{
           />
         </BoxInput>
 
-        <ButtonComponent
-          buttonProps={{
-            variant: "contained",
-            onClick: () => {
-              console.log(chamadoState);
-            },
-          }}
-          customStyles={{
-            color: "white",
-            fontWeight: "600",
-            fontSize: "18px",
-            height: "40px",
-            width: "200px",
-          }}
-        >
-          Salvar
-        </ButtonComponent>
+        <BoxInput>
+        <Label>Pátio</Label>
+        <AutoCompleteComponent
+          options={patios && patios}
+          label="Pátio"
+          value={chamadosValues.patio}
+          target="patio"
+          noOptionsText="Nenhum Pátio encontrado"
+          setStateActionWithTarget={handleNewValue}
+        />
+      </BoxInput>
       </Form>
-    )
-  );
+      <Box sx={{ marginTop: "20px", width: "100%" }}>
+      <ButtonComponent
+  buttonProps={{
+    variant: "contained",
+    onClick: () => setOpen(true), // Sempre permitir abrir a janela de confirmação ao clicar
+    disabled: initialStatus !== "Aguardando", // Desabilitar o botão se o status inicial não for Aguardando
+  }}
+  customStyles={{
+    color: "white",
+    fontWeight: "600",
+    fontSize: "16px",
+    height: "50px",
+    width: "500px",
+  }}
+>
+  Salvar
+</ButtonComponent>
+          </Box>
+        </>
+      
+    );
 };
 
 const ChamadoEndereco: React.FC<{

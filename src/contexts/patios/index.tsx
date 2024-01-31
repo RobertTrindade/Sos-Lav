@@ -3,12 +3,12 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import { INewValue } from "../../shared/components/AutoComplete";
 import dayjs, { Dayjs } from "dayjs";
 import { v4 as uuidv4 } from "uuid";
-import UploadService from "@/src/services/upload/upload.service";
 
 
 import patiosService, {
   IPatiosResponse,
 } from "../../services/patios/patios.service";
+import uploadService from "@/src/services/upload/upload.service";
 
 export interface IPatioValues {
   nome: string,
@@ -137,8 +137,8 @@ export const PatiosProvider: React.FC<{
       id: rowId,
       tipo: patioDocs?.label || "",
       observacao: observacaoDoc || "",
-      startAt: dayjs(startAt).toISOString() || "",
-      endAt: dayjs(endAt).toISOString() ||"",
+      startAt: dayjs(startAt).format("DD/MM/YYYY").toString() || "",
+      endAt: dayjs(endAt).format("DD/MM/YYYY").toString() || "",
       file: pdf_contrato || "",
     };
 
@@ -154,6 +154,39 @@ export const PatiosProvider: React.FC<{
   const handleDeleteRow = (rowId: string) => {
     setTableData((prevData) => prevData.filter((row) => row.id !== rowId));
   };
+
+  const Upload = async (pdfBase64: string) => {
+    try {
+      // Verificar se a string é válida
+      if (/^[A-Za-z0-9+/]+={0,2}$/.test(pdfBase64)) {
+        // Decodificar o PDF base64 para bytes
+        const byteCharacters = atob(pdfBase64);
+        const byteNumbers = new Array(byteCharacters.length);
+        for (let i = 0; i < byteCharacters.length; i++) {
+          byteNumbers[i] = byteCharacters.charCodeAt(i);
+        }
+        const byteArray = new Uint8Array(byteNumbers);
+  
+        // Criar um blob a partir dos bytes
+        const blob = new Blob([byteArray], { type: 'application/pdf' });
+  
+        // Criar um FormData e anexar o blob
+        const formData = new FormData();
+        formData.append('file', blob);
+  
+        // Enviar o FormData para o serviço de upload
+        const { url } = await uploadService.uploadPDF(formData);
+        return url;
+      } else {
+        console.log("String base64 inválida.");
+        return null;
+      }
+    } catch (err) {
+      console.log(err);
+      return null; // ou lançar um erro, dependendo do comportamento desejado
+    }
+  };
+  
   
   const handleDownloadPDF = async (pdfUrl: string) => {
     try {
@@ -180,7 +213,7 @@ export const PatiosProvider: React.FC<{
   
 
   const handleCreatePatio = async () => {
-    
+    console.log(tableData); // Verifica se tableData está corretamente preenchido com os dados dos documentos
     const { 
       nome,
       email,
@@ -196,7 +229,23 @@ export const PatiosProvider: React.FC<{
       latitude, 
       endereco,
       ativo,} = patioValues;
-    
+      
+    // Mapear os documentos na tableData e fazer upload dos PDFs
+    const documentosComPDF = await Promise.all(tableData.map(async (documento) => {
+      console.log(documento); // Verifica se os arquivos PDF estão corretamente acessados dentro do objeto documento
+      if (documento.file !== null) {
+        const pdfUrl = await Upload(documento.file.split(",")[1]); // Remover o cabeçalho "data:application/pdf;base64,"
+        const { id, startAt, endAt, ...documentoSemId } = documento; // Remover o campo de ID e formatar as datas
+        return {
+          ...documentoSemId,
+          file: pdfUrl,
+          startAt: dayjs(startAt).toISOString() || "",
+          endAt: dayjs(endAt).toISOString() || ""
+        };
+      }
+      return documento;
+    }));
+
     const payload = {
       nome,
       email,
@@ -212,7 +261,7 @@ export const PatiosProvider: React.FC<{
       latitude,
       endereco,
       ativo,
-      documentos: tableData,
+      documentos:  documentosComPDF,
 
     }
     console.log(payload);
