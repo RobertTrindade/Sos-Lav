@@ -24,11 +24,14 @@ import { useRouter } from "next/navigation";
 import useQueryParams from "@/src/hooks/usehandleQueryString";
 import ncvService, { INCVResponse } from "@/src/services/ncv/ncv.service";
 import { SearchTerm } from "@/src/shared/components/FIlters/searchTerm";
-import { AutoCompleteContainer } from "../Usuarios/Usuarios-novo/styles";
 import { BoxInput, Label } from "./ncv-edit/styles";
-import { AutoCompleteComponentMultiple, INewValue } from "@/src/shared/components/AutoCompleteMultiple";
+import {
+  AutoCompleteComponentMultiple,
+  INewValue,
+} from "@/src/shared/components/AutoCompleteMultiple";
 import { AutoCompleteFilterMultiple } from "@/src/shared/components/FIlters/autoCompleteMultiple";
 import patiosService from "@/src/services/patios/patios.service";
+import { AutoCompleteContainer } from "../../Cadastros/Usuarios/Usuarios-novo/styles";
 
 export const NcvComponent = () => {
   const [chamados, setChamados] = React.useState<INCVResponse[]>();
@@ -135,7 +138,6 @@ export const NcvComponent = () => {
       value: "INATIVO",
       label: "Inativo",
     },
-  
   ];
   return (
     <Container>
@@ -203,7 +205,7 @@ export const NcvComponent = () => {
             label="Pátios"
             searchTarget="patios"
           />
-      </AutoCompleteContainer>
+        </AutoCompleteContainer>
       </Filters>
     </Container>
   );

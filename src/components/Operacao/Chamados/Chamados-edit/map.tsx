@@ -89,7 +89,7 @@ export const ChamadoEditarMap: FC<{
             position={{ ...center }}
             noClustererRedraw
             icon={{
-              url: ReturnIcon(chamadoLocation.status),
+              url: ReturnIcon(chamadoLocation.status as string),
               scaledSize: new google.maps.Size(60, 50),
               origin: new google.maps.Point(0, 0),
               anchor: new google.maps.Point(20, 40),

@@ -3,18 +3,13 @@
 import * as React from "react";
 import { Container, Content, TabResultArea, Title } from "./styles";
 import { ScrollableTabsButtonAuto } from "@/src/shared/components/Tabs";
-import { InputComponent } from "@/src/shared/components/Inputs";  
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import DeleteIcon from "@mui/icons-material/Delete";
+import { InputComponent } from "@/src/shared/components/Inputs";
+
 import Link from "next/link";
 import { BreadCrumbsComponent } from "@/src/shared/components/breadcrumbs";
-import { BoxInput, BoxInputRow, Form, Label } from "../Patios-novo/styles";
-import { v4 as uuidv4 } from "uuid";
-import {
-  AutoCompleteComponent,
-  INewValue,
-} from "@/src/shared/components/AutoComplete";
-import PatiosService, { IPatio } from "@/src/services/patios/patios.service";
+import { BoxInput, Form, Label } from "../Patios-novo/styles";
+import { AutoCompleteComponent } from "@/src/shared/components/AutoComplete";
+import { IPatio } from "@/src/services/patios/patios.service";
 import dayjs from "dayjs";
 import { ButtonComponent } from "@/src/shared/components/Buttons";
 import { cepMask } from "@/src/utils/cepMask";
@@ -22,17 +17,10 @@ import { CustomIconButton } from "@/src/components/Navbar/styles";
 import { CustomCircularProgress } from "@/src/shared/components/Spinner";
 import { BackIcon } from "@/src/components/Cadastros/Motoristas/Motoristas-details";
 import { PhoneMask } from "@/src/utils/Masks";
-import { patioDocsOptions } from "../Patios-novo/steps/step2";
-import { DataPickerComponent } from "@/src/shared/components/Inputs/datePIcker";
-import { UploadInputComponent } from "@/src/shared/components/UploadInput";
-import { GridCellParams, GridColDef, ptBR } from "@mui/x-data-grid";
-import { usePatios } from "@/src/contexts/patios";
-import { CustomDataGrid } from "../styles";
+
 import axios from "axios";
 import { AlertDialog } from "@/src/shared/components/Dialog";
 import { Box } from "@mui/material";
-import uploadService from "@/src/services/upload/upload.service";
-
 
 export const PatiosComponentEdit: React.FC<{
   patio: IPatio;
@@ -79,10 +67,7 @@ export const PatiosComponentEdit: React.FC<{
 
 const PatioDetails: React.FC<{
   patio: IPatio;
-}> = ({
-  patio: { nome, responsavel,  email, telefone, observacao, id },
-}) => {
- 
+}> = ({ patio: { nome, responsavel, email, telefone, observacao, id } }) => {
   const [open, setOpen] = React.useState(false);
   const [openAlert, setOpenAlert] = React.useState(false);
   const [payload, setPayload] = React.useState({
@@ -114,22 +99,69 @@ const PatioDetails: React.FC<{
     }));
   };
   React.useEffect(() => {
-    const { nome, responsavel,  email, telefone, observacao } = payload;
+    const { nome, responsavel, email, telefone, observacao } = payload;
     setDisabled(!nome || !responsavel || !email || !telefone || !observacao);
   }, [payload]);
 
   return (
     <Form>
-        <AlertDialog
-          title={`Alteração de patio`}
-          content={`Alteração concluida com sucesso`}
-          open={openAlert}
-          setOpen={setOpenAlert}
+      <AlertDialog
+        title={`Alteração de patio`}
+        content={`Alteração concluida com sucesso`}
+        open={openAlert}
+        setOpen={setOpenAlert}
+      >
+        <ButtonComponent
+          buttonProps={{
+            variant: "contained",
+            onClick: () => setOpenAlert(false),
+          }}
+          customStyles={{
+            color: "white",
+            fontWeight: "700",
+            fontSize: "15px",
+            height: "50px",
+            borderRadius: "14px",
+            width: "200px",
+          }}
+        >
+          Fechar
+        </ButtonComponent>
+      </AlertDialog>
+      <AlertDialog
+        title={`Alteração de patio`}
+        content={`Deseja alterar os dados do patio ${payload.nome}`}
+        open={open}
+        setOpen={setOpen}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            width: "100%",
+            justifyContent: "space-between",
+          }}
         >
           <ButtonComponent
             buttonProps={{
               variant: "contained",
-              onClick: () => setOpenAlert(false),
+              onClick: () => handleSave(),
+            }}
+            customStyles={{
+              color: "white",
+              fontWeight: "700",
+              fontSize: "15px",
+              height: "50px",
+              borderRadius: "14px",
+              width: "200px",
+            }}
+          >
+            Continuar
+          </ButtonComponent>
+
+          <ButtonComponent
+            buttonProps={{
+              variant: "contained",
+              onClick: () => setOpen(false),
             }}
             customStyles={{
               color: "white",
@@ -142,142 +174,93 @@ const PatioDetails: React.FC<{
           >
             Fechar
           </ButtonComponent>
-        </AlertDialog>
-        <AlertDialog
-          title={`Alteração de patio`}
-          content={`Deseja alterar os dados do patio ${payload.nome}`}
-          open={open}
-          setOpen={setOpen}
-        >
-          <Box
-            sx={{
-              display: "flex",
-              width: "100%",
-              justifyContent: "space-between",
-            }}
-          >
-            <ButtonComponent
-              buttonProps={{
-                variant: "contained",
-                onClick: () => handleSave(),
-              }}
-              customStyles={{
-                color: "white",
-                fontWeight: "700",
-                fontSize: "15px",
-                height: "50px",
-                borderRadius: "14px",
-                width: "200px",
-              }}
-            >
-              Continuar
-            </ButtonComponent>
-
-            <ButtonComponent
-              buttonProps={{
-                variant: "contained",
-                onClick: () => setOpen(false),
-              }}
-              customStyles={{
-                color: "white",
-                fontWeight: "700",
-                fontSize: "15px",
-                height: "50px",
-                borderRadius: "14px",
-                width: "200px",
-              }}
-            >
-              Fechar
-            </ButtonComponent>
-          </Box>
-        </AlertDialog>
-        <BoxInput>
-          <InputComponent 
-            label="Nome Patio" 
-            content="Nome Patio"
-            customProps={{
-              value: payload.nome,
-              onChange: (e) => {
-                handleChange("nome", e.target.value)
-              },
-            }} 
-          />
-        </BoxInput>
-
-        <BoxInput>
-          <InputComponent 
-            label="Responsável" 
-            content="Responsável"
-            customProps={{
-              value: payload.responsavel,
-              onChange: (e) => {
-                handleChange("responsavel", e.target.value)
-              },
-            }} 
-          />
-        </BoxInput>
-
-        <BoxInput>
-          <InputComponent 
-            label="Telefone" 
-            content="Telefone"
-            customProps={{
-              value: payload.telefone,
-              onChange: (e) => {
-                handleChange("telefone", PhoneMask(e.target.value))
-              },
-            }} 
-          />
-        </BoxInput>
-
-        <BoxInput>
-          <InputComponent 
-            label="E-mail" 
-            content="E-mail"
-            customProps={{
-              value: payload.email,
-              onChange: (e) => {
-                handleChange("email", e.target.value)
-              },
-            }}
-          />
-        </BoxInput>
-
-        <BoxInput>
-          <InputComponent 
-            label="Observação" 
-            content="Observaçâo"
-            customProps={{
-              value: payload.observacao,
-              onChange: (e) => {
-                handleChange("observacao", e.target.value)
-              },
-            }} 
-          />
-        </BoxInput>
-
-        <ButtonComponent
-          buttonProps={{
-            variant: "contained",
-            onClick: () => setOpen(true),
-            disabled: disabled,
+        </Box>
+      </AlertDialog>
+      <BoxInput>
+        <InputComponent
+          label="Nome Patio"
+          content="Nome Patio"
+          customProps={{
+            value: payload.nome,
+            onChange: (e) => {
+              handleChange("nome", e.target.value);
+            },
           }}
-          customStyles={{
-            color: "white",
-            fontWeight: "600",
-            fontSize: "18px",
-            height: "40px",
-            width: "200px",
-            marginTop: "45px",
+        />
+      </BoxInput>
+
+      <BoxInput>
+        <InputComponent
+          label="Responsável"
+          content="Responsável"
+          customProps={{
+            value: payload.responsavel,
+            onChange: (e) => {
+              handleChange("responsavel", e.target.value);
+            },
           }}
-        >
-          Salvar
-        </ButtonComponent>
-      </Form>
+        />
+      </BoxInput>
+
+      <BoxInput>
+        <InputComponent
+          label="Telefone"
+          content="Telefone"
+          customProps={{
+            value: payload.telefone,
+            onChange: (e) => {
+              handleChange("telefone", PhoneMask(e.target.value));
+            },
+          }}
+        />
+      </BoxInput>
+
+      <BoxInput>
+        <InputComponent
+          label="E-mail"
+          content="E-mail"
+          customProps={{
+            value: payload.email,
+            onChange: (e) => {
+              handleChange("email", e.target.value);
+            },
+          }}
+        />
+      </BoxInput>
+
+      <BoxInput>
+        <InputComponent
+          label="Observação"
+          content="Observaçâo"
+          customProps={{
+            value: payload.observacao,
+            onChange: (e) => {
+              handleChange("observacao", e.target.value);
+            },
+          }}
+        />
+      </BoxInput>
+
+      <ButtonComponent
+        buttonProps={{
+          variant: "contained",
+          onClick: () => setOpen(true),
+          disabled: disabled,
+        }}
+        customStyles={{
+          color: "white",
+          fontWeight: "600",
+          fontSize: "18px",
+          height: "40px",
+          width: "200px",
+          marginTop: "45px",
+        }}
+      >
+        Salvar
+      </ButtonComponent>
+    </Form>
   );
 };
-
-
 
 // const PatioDocumento: React.FC<{
 //   patio: IPatio;
@@ -315,7 +298,7 @@ const PatioDetails: React.FC<{
 //       //   ...payload,
 //       // });
 //       const enviarDados = {
-        
+
 //       }
 //       console.log(enviarDados);
 //       setOpenAlert(true);
@@ -338,7 +321,6 @@ const PatioDetails: React.FC<{
 //     endAt: "",
 //     pdf_contrato: "",
 //   };
- 
 
 //   const [open, setOpen] = React.useState(false);
 //   const [openAlert, setOpenAlert] = React.useState(false);
@@ -348,7 +330,6 @@ const PatioDetails: React.FC<{
 //   const [pdf, setPdf] = React.useState<string>(
 //     payload.documentos.pdf_contrato ? payload.documentos.pdf_contrato : ""
 //   );
-  
 
 //   const columns: GridColDef[] = [
 //     { field: "tipo", headerName: "Tipo", width: 150 },
@@ -367,7 +348,7 @@ const PatioDetails: React.FC<{
 //             variant: "contained",
 //             // onClick: () => handleDownloadPDF(params.row.pdf_contrato),
 //           }}
-          
+
 //         >
 //           <VisibilityIcon />
 //         </ButtonComponent>
@@ -376,7 +357,7 @@ const PatioDetails: React.FC<{
 
 //     {
 //       field: "action",
-//       headerName: "Deletar",  
+//       headerName: "Deletar",
 //       width: 100,
 //       renderCell: (params: GridCellParams) => (
 //         <ButtonComponent
@@ -391,13 +372,13 @@ const PatioDetails: React.FC<{
 //       ),
 //     },
 //   ];
-  
+
 //   // Converter documentos em array de objetos
 //   const documentoArray = Object.keys(payload.documentos).map((key) => ({
 //     tipo: key,
 //     value: payload.documentos[key as keyof IPatio]
 //   }));
-  
+
 //   return (
 //     <>
 //       <Form>
@@ -572,7 +553,7 @@ const PatioDetails: React.FC<{
 //           rowSelection={false}
 //           loading={loading} />
 //       </Container>
-      
+
 //       <ButtonComponent
 //         buttonProps={{
 //           variant: "contained",
@@ -596,9 +577,19 @@ const PatioDetails: React.FC<{
 const PatioEndereco: React.FC<{
   patio: IPatio;
 }> = ({
-  patio: {bairro, cep,  cidade, estado, longitude,latitude,endereco,createdAt,ativo, id },
+  patio: {
+    bairro,
+    cep,
+    cidade,
+    estado,
+    longitude,
+    latitude,
+    endereco,
+    createdAt,
+    ativo,
+    id,
+  },
 }) => {
-
   const [open, setOpen] = React.useState(false);
   const [openAlert, setOpenAlert] = React.useState(false);
   const [payload, setPayload] = React.useState({
@@ -623,7 +614,7 @@ const PatioEndereco: React.FC<{
       const enviarDados = {
         ...payload,
         ativo: payload.ativo === "Sim",
-      }
+      };
       console.log(enviarDados);
       setOpenAlert(true);
     } catch (error) {
@@ -633,26 +624,46 @@ const PatioEndereco: React.FC<{
 
   const handleChange = (target: keyof IPatio, value: any) => {
     // Se o campo for 'ativo', convertemos o valor de 'Sim' ou 'Não' para true ou false
-    const newValue = target === 'ativo' ? value === 'Sim' : value;
+    const newValue = target === "ativo" ? value === "Sim" : value;
     setPayload((prev) => ({
       ...prev,
       [target]: newValue,
     }));
   };
   React.useEffect(() => {
-    const { bairro, cep,  cidade, estado, longitude,latitude,endereco,createdAt,ativo } = payload;
-    setDisabled(!bairro || !cep || !cidade || !estado || !longitude || !latitude || !endereco || !createdAt || !ativo);
+    const {
+      bairro,
+      cep,
+      cidade,
+      estado,
+      longitude,
+      latitude,
+      endereco,
+      createdAt,
+      ativo,
+    } = payload;
+    setDisabled(
+      !bairro ||
+        !cep ||
+        !cidade ||
+        !estado ||
+        !longitude ||
+        !latitude ||
+        !endereco ||
+        !createdAt ||
+        !ativo
+    );
   }, [payload]);
 
   const ativoOptions = [
     {
       label: "Sim",
-      id: true ,
+      id: true,
     },
     {
       label: "Não",
-      id: false ,
-    }
+      id: false,
+    },
   ];
 
   const getViaCepData = async (cep: any) => {
@@ -660,7 +671,7 @@ const PatioEndereco: React.FC<{
       const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
       return response.data;
     } catch (error) {
-      console.error('Erro ao buscar dados do ViaCep:', error);
+      console.error("Erro ao buscar dados do ViaCep:", error);
       return null;
     }
   };
@@ -671,18 +682,17 @@ const PatioEndereco: React.FC<{
 
     // Atualize o estado com os dados obtidos
     if (viaCepData) {
-      handleChange('bairro', viaCepData.bairro || '');
-      handleChange('cidade', viaCepData.localidade || '');
-      handleChange('estado', viaCepData.uf || '');
-      handleChange('endereco', viaCepData.logradouro || '');
+      handleChange("bairro", viaCepData.bairro || "");
+      handleChange("cidade", viaCepData.localidade || "");
+      handleChange("estado", viaCepData.uf || "");
+      handleChange("endereco", viaCepData.logradouro || "");
     }
   };
-  
 
   return (
     <Container>
       <Form>
-      <AlertDialog
+        <AlertDialog
           title={`Alteração de patio`}
           content={`Alteração concluida com sucesso`}
           open={openAlert}
@@ -754,21 +764,21 @@ const PatioEndereco: React.FC<{
           </Box>
         </AlertDialog>
         <BoxInput>
-          <InputComponent 
-            label="Bairro" 
+          <InputComponent
+            label="Bairro"
             content="Bairro"
             customProps={{
-              value: payload.bairro,  
+              value: payload.bairro,
               onChange: (e) => {
-                handleChange("bairro", e.target.value)
+                handleChange("bairro", e.target.value);
               },
-            }} 
+            }}
           />
         </BoxInput>
 
         <BoxInput>
-          <InputComponent 
-            label="CEP" 
+          <InputComponent
+            label="CEP"
             content="CEP"
             customProps={{
               value: payload.cep,
@@ -778,33 +788,33 @@ const PatioEndereco: React.FC<{
                 // Chame a função para buscar os dados do ViaCep quando o CEP é alterado
                 handleCepChange(newCep);
               },
-            }} 
+            }}
           />
         </BoxInput>
 
         <BoxInput>
-          <InputComponent 
-            label="Cidade" 
+          <InputComponent
+            label="Cidade"
             content="Cidade"
             customProps={{
               value: payload.cidade,
               onChange: (e) => {
-                handleChange("cidade", e.target.value)
+                handleChange("cidade", e.target.value);
               },
-            }} 
+            }}
           />
         </BoxInput>
 
         <BoxInput>
-          <InputComponent 
-            label="Estado" 
+          <InputComponent
+            label="Estado"
             content="Estado"
             customProps={{
               value: payload.estado,
               onChange: (e) => {
-                handleChange("estado", e.target.value)
+                handleChange("estado", e.target.value);
               },
-            }} 
+            }}
           />
         </BoxInput>
 
@@ -820,8 +830,8 @@ const PatioEndereco: React.FC<{
               color: "white",
             }}
           />
-        </BoxInput>  
-        
+        </BoxInput>
+
         <BoxInput>
           <Label>Ativo</Label>
           <AutoCompleteComponent
@@ -830,47 +840,48 @@ const PatioEndereco: React.FC<{
             noOptionsText="Nenhum tipo encontrado"
             setStateActionWithTarget={handleChange}
             target="ativo"
-            value={payload.ativo}/>
+            value={payload.ativo}
+          />
         </BoxInput>
 
         <BoxInput>
-          <InputComponent 
-            label="Longitude" 
+          <InputComponent
+            label="Longitude"
             content="Longitude"
             customProps={{
               value: payload.longitude,
               onChange: (e) => {
-                handleChange("longitude", e.target.value)
+                handleChange("longitude", e.target.value);
               },
-            }} 
+            }}
           />
         </BoxInput>
 
         <BoxInput>
-          <InputComponent 
-            label="Latitude" 
+          <InputComponent
+            label="Latitude"
             content="Latitude"
             customProps={{
               value: payload.latitude,
               onChange: (e) => {
-                handleChange("latitude", e.target.value)
+                handleChange("latitude", e.target.value);
               },
-            }} 
+            }}
           />
         </BoxInput>
 
         <BoxInput>
-          <InputComponent 
-            label="Endereço" 
+          <InputComponent
+            label="Endereço"
             content="Endereço"
             customProps={{
               value: payload.endereco,
               onChange: (e) => {
-                handleChange("endereco", e.target.value)
+                handleChange("endereco", e.target.value);
               },
-            }} 
+            }}
           />
-        </BoxInput>  
+        </BoxInput>
         <ButtonComponent
           buttonProps={{
             variant: "contained",
@@ -892,5 +903,3 @@ const PatioEndereco: React.FC<{
     </Container>
   );
 };
-
-
