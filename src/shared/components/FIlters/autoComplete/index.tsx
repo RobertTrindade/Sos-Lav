@@ -22,6 +22,7 @@ export const AutoCompleteFilter: FC<{
   const [value, setValue] = useState<INewValue>();
 
   useEffect(() => {
+    if (!value) return;
     updateQueryParams("patio", value?.id);
   }, [value]);
   return (
@@ -45,7 +46,7 @@ export const AutoCompleteFilter: FC<{
             label="patio"
             noOptionsText="Nenhuma Pátio encontrado"
             SetStateAction={setValue}
-            multiple={true}
+            multiple={false}
             target="patio"
             value={value}
           />

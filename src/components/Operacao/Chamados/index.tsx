@@ -239,7 +239,7 @@ export const ChamadosComponent = () => {
       >
         <DataFilter />
         <Chips chips={chips} />
-        {patios && (
+        {patios.length && (
           <AutoCompleteFilter
             searchTarget="patios"
             label="Pátios"
