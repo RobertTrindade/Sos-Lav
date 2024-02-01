@@ -43,6 +43,7 @@ export interface IApreensao {
   kmPercorrido: "12";
   adulterado: boolean;
   crimesTransito: boolean;
+  motivoApreensao:string;
   emTela: true;
   foraCirculacao: true;
   judicial: true;

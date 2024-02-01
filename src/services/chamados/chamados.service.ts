@@ -49,6 +49,7 @@ export interface IChamado {
   createAt: string;
   Motoristas: {
     name: string;
+    id: number;
   };
   updatedAt: string;
   equipamentoSolicitado: string | INewValue;
@@ -195,8 +196,22 @@ class ChamadosService {
       `${this.path}/${Number(id)}`
     );
   }
+  async removeChamadoFromDriver(id: number, body: any) {
+    return await this.httpClient.put<Promise<IChamado>>(
+      `${this.path}/cco/recusa-chamado/${id}`,
+      body
+    );
+  }
+
+  async atrChamadoToDriver(id: number, body: any) {
+    return await this.httpClient.put<Promise<IChamado>>(
+      `${this.path}/cco/aloca-chamado/${id}`,
+      body
+    );
+  }
+
   async editChamado(id: number, body: any) {
-    return await this.httpClient.patch<Promise<IChamado>>(
+    return await this.httpClient.put<Promise<IChamado>>(
       `${this.path}/${id}`,
       body
     );

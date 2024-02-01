@@ -72,6 +72,8 @@ class HttpClient {
     return response.json();
   }
 
+  
+
   async upload<T>(path: string, body: FormData, unique: boolean): Promise<T> {
     const token = this.localStorageService.getToken();
     const headers = {

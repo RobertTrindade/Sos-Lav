@@ -6,9 +6,6 @@ import ncvService, {
 import {
   BoxInput,
   Form,
-  Label,
-  ModalContent,
-  CustomIconButton,
   BoxInputRow,
   CustomCheckBox,
   FormCheckBox,
@@ -25,7 +22,6 @@ import {
   PickerChangeHandlerContext,
 } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { AutoCompleteComponent } from "@/src/shared/components/AutoComplete";
 
 export const ApreensaoDetails: React.FC<{
   chamado: INCVResponse;
@@ -40,6 +36,8 @@ export const ApreensaoDetails: React.FC<{
   function handleNewValue(arg0: string, value: string) {
     throw new Error("Function not implemented.");
   }
+
+  console.log(chamado.Apreensao)
 
   return (
     chamado && (
@@ -163,18 +161,17 @@ export const ApreensaoDetails: React.FC<{
             />
           </BoxInputRow>
           <BoxInput>
-        <InputComponent
-          label="Motivo de Apreensão"
-          content="Motivo de Apreensão"
-          customProps={{
-            value: chamado?.Chamado.Motivo,
-            onChange: (e) => {
-              handleNewValue("Motivo", e.target.value);
-            },
-          }}
-        />
-      </BoxInput>
-          
+            <InputComponent
+              label="Motivo de Apreensão"
+              content="Motivo de Apreensão"
+              customProps={{
+                value: chamado?.Apreensao?.motivoApreensao,
+                onChange: (e) => {
+                  handleNewValue("Motivo", e.target.value);
+                },
+              }}
+            />
+          </BoxInput>
         </Form>
 
         <Box sx={{ display: "flex", gap: "20px", marginBottom: "50px" }}>

@@ -70,6 +70,15 @@ export const ChamadosComponentEdit: React.FC<{
   chamado: IChamado;
 }> = ({ chamado }) => {
   const [value, setValue] = React.useState(0);
+  const [chamadoState, setChamado] = useState<IChamado>(chamado);
+
+  const remakeCall = async () => {
+    const res = await chamadosService.listOne(`${chamado.id}`);
+    if (res) {
+      setChamado(res);
+    }
+  };
+
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
@@ -78,7 +87,7 @@ export const ChamadosComponentEdit: React.FC<{
     "Chamado",
     "Endereço",
     "NCVs",
-    "Motorista",
+    "Aceite",
     "Encaminhamento",
     "Fotos",
   ];
@@ -103,12 +112,17 @@ export const ChamadosComponentEdit: React.FC<{
           />
           {chamado ? (
             <>
-              {value === 0 && <ChamadoDetails chamado={chamado} />}
-              {value === 1 && <ChamadoEndereco chamado={chamado} />}
-              {value === 2 && <ChamadoNcvs chamado={chamado} />}
-              {value === 3 && <ChamadoMoto chamado={chamado} />}
-              {value === 4 && <EncaminharMotorista chamado={chamado} />}
-              {value === 5 && <ChamadosFotos chamado={chamado} />}
+              {value === 0 && <ChamadoDetails chamado={chamadoState} />}
+              {value === 1 && <ChamadoEndereco chamado={chamadoState} />}
+              {value === 2 && <ChamadoNcvs chamado={chamadoState} />}
+              {value === 3 && <ChamadoMoto chamado={chamadoState} />}
+              {value === 4 && (
+                <EncaminharMotorista
+                  chamado={chamadoState}
+                  remakeCall={remakeCall}
+                />
+              )}
+              {value === 5 && <ChamadosFotos chamado={chamadoState} />}
             </>
           ) : (
             <CustomCircularProgress />
