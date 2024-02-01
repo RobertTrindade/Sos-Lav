@@ -56,7 +56,6 @@ export const ChamadosModoPainel = styled(DataGrid)`
     display: flex;
     justify-content: center;
     align-items: center;
-    
   }
 
   .MuiDataGrid-cellContent[title="Aceito"] {
@@ -67,6 +66,27 @@ export const ChamadosModoPainel = styled(DataGrid)`
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+  .MuiDataGrid-cellContent[title="Recusado Motorista"] {
+    background-color: #e61919;
+    color: #fff;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-overflow: ellipsis;
+  }
+
+  .MuiDataGrid-cellContent[title="Recusado CCO"] {
+    background-color: #e61919;
+    color: #fff;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-overflow: ellipsis;
   }
 
   .MuiDataGrid-cellContent[title="Em checklist"] {

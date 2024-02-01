@@ -14,7 +14,6 @@ export const Container = styled(Box)`
   display: flex;
   flex-direction: column;
   gap: 40px;
-  
 
   ${({ theme }) => theme.breakpoints.up("laptop")} {
     padding: 0px 32px;
@@ -38,13 +37,11 @@ export const ActionButton = styled(Button)`
   white-space: nowrap; /* Impede que o texto quebre em várias linhas */
   overflow: hidden; /* Oculta o conteúdo excedente que não cabe */
   text-overflow: ellipsis; /* Adiciona reticências (...) para indicar que há mais texto */
-  
-  
 `;
 
 export const CustomDataGrid = styled(DataGrid)`
   width: 100%;
-  color:${({ theme }) => theme.palette.secondary.main};
+  color: ${({ theme }) => theme.palette.secondary.main};
   font-weight: bold;
   top: 100px;
 
@@ -56,7 +53,28 @@ export const CustomDataGrid = styled(DataGrid)`
     display: flex;
     justify-content: center;
     align-items: center;
-    
+  }
+
+  .MuiDataGrid-cellContent[title="Recusado Motorista"] {
+    background-color: #e61919;
+    color: #fff;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-overflow: ellipsis;
+  }
+
+  .MuiDataGrid-cellContent[title="Recusado CCO"] {
+    background-color: #e61919;
+    color: #fff;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-overflow: ellipsis;
   }
 
   .MuiDataGrid-cellContent[title="Aceito"] {
@@ -97,47 +115,39 @@ export const CustomDataGrid = styled(DataGrid)`
     display: flex;
     justify-content: center;
     align-items: center;
-    }
+  }
 
   .MuiDataGrid-columnHeaderTitle {
     color: ${({ theme }) => theme.palette.secondary.main};
     font-weight: bold;
-    
-
   }
   .MuiTablePagination-selectLabel {
-    color:${({ theme }) => theme.palette.secondary.main};
+    color: ${({ theme }) => theme.palette.secondary.main};
     font-weight: bold;
-
   }
 
   fill {
-    color:${({ theme }) => theme.palette.secondary.main};
+    color: ${({ theme }) => theme.palette.secondary.main};
   }
   svg {
-    color:${({ theme }) => theme.palette.secondary.main};
+    color: ${({ theme }) => theme.palette.secondary.main};
   }
   .MuiSelect-nativeInput css-yf8vq0-MuiSelect-nativeInput {
-    color:${({ theme }) => theme.palette.secondary.main};
+    color: ${({ theme }) => theme.palette.secondary.main};
   }
   .MuiSelect-select {
-    color:${({ theme }) => theme.palette.secondary.main};
+    color: ${({ theme }) => theme.palette.secondary.main};
   }
-
 
   ${({ theme }) => theme.breakpoints.down("desktop")} {
     margin-top: 300px;
   }
-
- 
-
 `;
 
 export const CustomGridToolbarContainer = styled(GridToolbarContainer)`
   width: 100%;
   position: absolute;
   top: -120px; //posição dos botões
-  
 
   ${({ theme }) => theme.breakpoints.down("desktop")} {
     display: flex;
@@ -162,7 +172,7 @@ export const CustomGridToolbarExport = styled(GridToolbarExport)`
   font-size: 15px;
   font-style: normal;
   font-weight: 700;
-  
+
   line-height: normal;
 `;
 

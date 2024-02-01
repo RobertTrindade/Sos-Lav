@@ -96,7 +96,7 @@ export const ChamadosComponent = () => {
 
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 10 },
-    { field: "status", headerName: "Status", width: 150 },
+    { field: "status", headerName: "Status", width: 180 },
 
     { field: "chamadorName", headerName: "Chamador", width: 160 },
     { field: "motoristaName", headerName: "Motorista", width: 160 },
