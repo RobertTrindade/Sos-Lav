@@ -65,11 +65,17 @@ class MotoristasService {
   }
 
   async getMotoristas(params?: string) {
-    console.log(`${this.path}?${params}`)
     return await this.httpClient.get<Promise<IMotoristaDto[]>>(
       `${this.path}${params}`
     );
   }
+
+  async getMotoristasFromChamados(params?: string) {
+    return await this.httpClient.get<Promise<IMotoristaDto[]>>(
+      `${this.path}/chamados/buscaAtribuicao${params}`
+    );
+  }
+
   async getMotorista(id: number, revalidade?: number) {
     return await this.httpClient.get<Promise<IMotoristaDto>>(
       `${this.path}/${id}`,

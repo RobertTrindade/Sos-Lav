@@ -44,7 +44,7 @@ export const MotoristasComponentDatails: React.FC<{
       <BreadCrumbsComponent />
       <BackArea>
         <div className="actionArea">
-          <Link href={"/motoristas"}>
+          <Link href={"/cadastros/motoristas"}>
             <CustomIconButton>
               <BackIcon />
             </CustomIconButton>

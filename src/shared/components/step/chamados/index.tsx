@@ -87,6 +87,17 @@ export const CustomStep: React.FC<ICustomStep> = ({
     }
   }, [activeStep, chamadosValues]);
 
+  React.useEffect(() => {
+    if (activeStep === 3) {
+      const { motoristaId } = chamadosValues;
+
+      if (!motoristaId) {
+        setDisabled(true);
+        return;
+      }
+      setDisabled(false);
+    }
+  }, [activeStep, chamadosValues]);
   return (
     steps && (
       <Container>

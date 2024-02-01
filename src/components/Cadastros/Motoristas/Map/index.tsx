@@ -45,7 +45,7 @@ export const MotoristaMap: FC<{
         <>
           <Marker
             position={{ ...center }}
-            icon={motorista.imageUrl}
+           
             title={motorista.name}
             noClustererRedraw
           />

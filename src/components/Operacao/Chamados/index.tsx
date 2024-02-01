@@ -18,7 +18,7 @@ import { Filters } from "@/src/shared/components/FIlters";
 import TuneIcon from "@mui/icons-material/Tune";
 import { Chips } from "@/src/shared/components/FIlters/chip";
 import { DataFilter } from "@/src/shared/components/FIlters/data";
-import FilterListOffIcon from '@mui/icons-material/FilterListOff';
+import FilterListOffIcon from "@mui/icons-material/FilterListOff";
 import { useRouter } from "next/navigation";
 import AddIcon from "@mui/icons-material/Add";
 import { Painel } from "./Painel";
@@ -64,9 +64,7 @@ export const ChamadosComponent = () => {
         patioName: item?.patio?.nome,
         chamadorName: item?.chamador?.name,
         localizacaoName: item?.localizacao?.enderecoCompleto,
-        motoristaName: item.Aceite?.length
-          ? item!.Aceite![0].Motoristas.name
-          : "",
+        motoristaName: item?.Motoristas?.name ,
 
         dataHoraAceite: item.Aceite?.length
           ? dayjs(item!.Aceite![0].aceiteHora).format("DD/MM/YYYY HH:mm")
@@ -109,8 +107,8 @@ export const ChamadosComponent = () => {
     { field: "createdAt", headerName: "Data/hora", width: 200 },
 
     { field: "dataHoraAceite", headerName: "Data/hora Aceite", width: 200 },
-    { field: "vehiclesQuantity", headerName: "Qnt. veículo", width: 115  },
-    
+    { field: "vehiclesQuantity", headerName: "Qnt. veículo", width: 115 },
+
     { field: "km", headerName: "Km estimado", width: 200 },
     { field: "tempoEstimadoo", headerName: "Tempo estimado", width: 200 },
 

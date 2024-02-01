@@ -47,11 +47,14 @@ export interface ICreateChamadoDto {
 export interface IChamado {
   id: number;
   createAt: string;
+  Motoristas: {
+    name: string;
+  };
   updatedAt: string;
   equipamentoSolicitado: string | INewValue;
   tipoVeiculo: string | INewValue;
   tipoApreensao: string | INewValue;
-  patioId: number ;
+  patioId: number;
   status: string | INewValue;
   detalhes: string;
   urgencia: string | INewValue;

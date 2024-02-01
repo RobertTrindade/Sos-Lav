@@ -155,7 +155,7 @@ export const ChamadosMap: FC<{
                     anchor: new google.maps.Point(20, 40),
                   }}
                   onClick={() => {
-                    window.open(`/motoristas/${id}`);
+                    window.open(`/cadastros/motoristas/${id}`);
                   }}
                   title={name}
                   label={{

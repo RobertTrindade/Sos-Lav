@@ -48,7 +48,7 @@ export const NcvEdit: React.FC<{
           <BreadCrumbsComponent />
 
           <div className="actionArea">
-            <Link href={"/ncv"}>
+            <Link href={"/operacao/ncv"}>
               <CustomIconButton>
                 <BackIcon />
               </CustomIconButton>

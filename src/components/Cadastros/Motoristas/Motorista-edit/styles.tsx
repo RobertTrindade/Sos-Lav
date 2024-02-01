@@ -14,6 +14,7 @@ export const Title = styled(Typography)``;
 export const Content = styled(Box)`
   display: flex;
   justify-content: space-between;
+  gap: 10px;
 `;
 
 export const MapArea = styled(Box)``;

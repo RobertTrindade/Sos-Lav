@@ -9,18 +9,18 @@ export const BreadCrumbsComponent = () => {
   const PathName = usePathname();
   const [breadcrumbs, setBreadcrumbs] = React.useState<React.JSX.Element[]>();
   React.useEffect(() => {
-    //pathName /motoristas/4
     const pathParts = PathName.split("/").filter((part) => part !== "");
 
+    const links = pathParts.map((part, index) => {
+      const url = `/${pathParts.slice(0, index + 1).join("/")}`;
+      const label = Number(part) ? `${pathParts[index - 1]} ${part}` : part;
 
-
-    const links = pathParts.map((part) => (
-      <Link href={Number(part) ? part : `/${pathParts[0]}`} key={part}>
-        <Label actual={Number(part) ? true : false}>
-          {Number(part) ? `${pathParts[1]} ${part}` : part}
-        </Label>
-      </Link>
-    ));
+      return (
+        <Link href={url} key={part}>
+          <Label actual={index === pathParts.length - 1}>{label}</Label>
+        </Link>
+      );
+    });
     setBreadcrumbs(links);
   }, [PathName]);
 
@@ -41,7 +41,7 @@ const Container = styled(Box)`
 `;
 
 const CustomBreadcrumbs = styled(Breadcrumbs)`
-  color:${({ theme }) => theme.palette.secondary.main};
+  color: ${({ theme }) => theme.palette.secondary.main};
   font-weight: bold;
   font-size: 18px;
 `;
@@ -57,10 +57,10 @@ const Label = styled(Typography, {
   text-transform: capitalize;
   color: ${({ theme }) => theme.palette.secondary.main};
 
-  ${({ actual ,theme}) =>
+  ${({ actual, theme }) =>
     actual &&
     css`
       font-weight: medium;
-      color:${theme.palette.secondary.main}
+      color: ${theme.palette.secondary.main};
     `}
 `;

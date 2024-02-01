@@ -32,6 +32,7 @@ export const ScrollableTabsButtonAuto: React.FC<IScrollableTabsButton> = ({
 };
 
 const CustomTabs = styled(Tabs)`
+
   .MuiButtonBase-root {
     color: ${({ theme }) => theme.palette.secondary.main};
   }

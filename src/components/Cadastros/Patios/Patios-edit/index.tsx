@@ -38,7 +38,7 @@ export const PatiosComponentEdit: React.FC<{
         <TabResultArea>
           <BreadCrumbsComponent />
           <div className="actionArea">
-            <Link href={"/patios"}>
+            <Link href={"/cadastros/patios"}>
               <CustomIconButton>
                 <BackIcon />
               </CustomIconButton>

@@ -52,8 +52,7 @@ export const MotoristasComponentEdit: React.FC<{
     "Reboque",
 
     "Contrato",
-    "Valores Contrato",
-    "Termo de Credenciamento",
+    "Tarifas",
   ];
 
   return (

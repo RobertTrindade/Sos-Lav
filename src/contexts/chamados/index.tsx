@@ -9,6 +9,7 @@ import { INewValue } from "../../shared/components/AutoComplete";
 import chamadosService, {
   IChamadosResponse,
 } from "../../services/chamados/chamados.service";
+import { IMotoristaDto } from "@/src/services/motoristas/motoristas.service";
 
 // Interface para representar os dados do usuário
 export interface IChamadosValues {
@@ -31,16 +32,14 @@ export interface IChamadosValues {
   multiple: boolean;
   vehiclesQuantity: INewValue | string | undefined | number;
   driversQuantity: INewValue | string | undefined | number;
+  motoristaId: IMotoristaDto | undefined;
 }
 
 // Interface para o contexto de registro
 interface IChamadosContext {
   location: GeolocationPosition | null;
   error: string;
-  handleNewValue: (
-    target: keyof IChamadosValues,
-    value: Dayjs | null | string | number | INewValue
-  ) => void;
+  handleNewValue: (target: keyof IChamadosValues, value: any) => void;
   setSelectedLocation: React.Dispatch<
     React.SetStateAction<google.maps.LatLng | null | undefined>
   >;
@@ -79,6 +78,7 @@ const initial = {
   vehiclesQuantity: 1,
   driversQuantity: 1,
   detalhes: undefined,
+  motoristaId: undefined,
   localizacao: {
     estado: "",
     uf: "",
@@ -150,8 +150,8 @@ export const ChamadosProvider: React.FC<{
       municipio,
       cep,
       enderecoCompleto,
+      motoristaId
     } = chamadosValues;
-
 
     const payload = {
       patio: patio?.id,
@@ -160,6 +160,8 @@ export const ChamadosProvider: React.FC<{
       tipoApreensao: tipoApreensao?.label,
       urgencia: urgencia?.label,
       origem: origem?.label,
+      motoristaId: motoristaId,
+
       // Motivo: Motivo?.label,
       multiple,
       vehiclesQuantity: +vehiclesQuantity!,
