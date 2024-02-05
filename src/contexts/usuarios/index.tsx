@@ -106,17 +106,22 @@ export const UsuariosProvider: React.FC<{
         const formData = new FormData();
         formData.append("file", data[0]);
 
-        let link;
-
-        if (isPdf) {
-          const { url } = await uploadService.uploadPDF(formData);
-          link = url;
-        }
-
         const { url } = await uploadService.upload(formData);
-        link = url;
+        return url;
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
 
-        return link;
+  const UploadPdf = async (data: FileList) => {
+    if (data) {
+      try {
+        const formData = new FormData();
+        formData.append("file", data[0]);
+
+        const { url } = await uploadService.uploadPDF(formData);
+        return url;
       } catch (err) {
         console.log(err);
       }
@@ -178,7 +183,7 @@ export const UsuariosProvider: React.FC<{
       endereco,
     } = UsuarioValues;
 
-    const pdfContratoUrl = await Upload(pdfContrato!, true);
+    const pdfContratoUrl = await UploadPdf(pdfContrato!);
     const ProfileimageUrl = await Upload(imageUrl!);
 
     const payload = {

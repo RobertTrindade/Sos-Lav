@@ -16,7 +16,8 @@ export const ContratoUsuario: FC<{
 }> = ({ user }) => {
   const [file, setFile] = useState<FileList | null>();
   const [userPdf, setUserPdf] = useState<string>(user.pdfContrato);
-
+  
+  console.log(user)
   const Upload = async (data: FileList) => {
     if (data) {
       try {
