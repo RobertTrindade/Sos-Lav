@@ -1,6 +1,6 @@
-# Eco chamados - Frontend
+# S.O.S Lavanderia - Frontend
 
-Este é o repositório do frontend para o projeto Eco chamados . O frontend é construído com Next.js, Material-UI, Zod para validação de dados e React Hook Forms para gerenciamento de formulários.
+Este é o repositório do frontend para o projeto S.O.S Lavanderia . O frontend é construído com Next.js, Material-UI, Zod para validação de dados e React Hook Forms para gerenciamento de formulários.
 
 ## Pré-requisitos
 
@@ -27,10 +27,10 @@ yarn install
    Certifique-se de que o arquivo `.env` esteja configurado corretamente. Ele deve conter as variáveis de ambiente necessárias para apontar para o backend. Por exemplo:
 
    ```
-   NEXT_PUBLIC_API_BASE_URL=https://api.carvalholeiloes.com
+   NEXT_PUBLIC_API_BASE_URL=http://localhost:3006
    ```
 
-   Substitua `https://api.carvalholeiloes.com` pelo URL correto do seu backend.
+   Substitua `http://localhost:3006` pelo URL correto do seu backend.
 
 ## Executando o Projeto
 
@@ -58,8 +58,7 @@ Isso criará uma pasta `out` com os arquivos de produção.
 
 ## Contribuindo
 
-Se você deseja contribuir com este projeto, sinta-se à vontade para abrir um problema ou enviar uma solicitação de pull request. Adoraríamos receber sua contribuição!
-
+Se você deseja contribuir com este projeto, sinta-se à vontade para abrir um problema ou enviar uma solicitação de pull request. 
 ## Licença
 
 Este projeto está licenciado sob a [Licença MIT](LICENSE).

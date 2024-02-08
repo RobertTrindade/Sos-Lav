@@ -1,6 +1,6 @@
 "use client"
-import { DashBoardComponent } from "../components/DashBoard";
+import { HomeComponent } from "../components/Home";
 
 export default  function Home() {
-  return <DashBoardComponent />;
+  return <HomeComponent />;
 }

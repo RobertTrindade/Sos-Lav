@@ -8,11 +8,11 @@ export const Content = styled(Box)`
   align-items: center;
   flex-direction: column;
   padding: 16px;
-
   gap: 12px;
-  img {
-    width: 100vw;
-    height: 40vh;
+
+  .header {
+
+    
   }
 `;
 
@@ -20,8 +20,6 @@ export const PassRecovery = styled(Typography)`
   font-size: 13px;
   align-items: start;
   font-weight: bolder !important;
-
-
 `;
 
 export const Title = styled(Typography)`

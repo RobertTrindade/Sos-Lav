@@ -14,7 +14,8 @@ export const Container = styled(FormControl, {
     color: ${({ theme }) => theme.palette.secondary.main} !important ;
   }
   .MuiInputBase-root {
-    border-radius: 14px;
+    
+    border-radius: 8px;
     height: 60px;
 
     border: none;
@@ -25,7 +26,7 @@ export const Container = styled(FormControl, {
   .MuiOutlinedInput-root {
     border: none;
     background-color: transparent !important  ;
-    border: 2px solid #303033 !important ;
+    border: 2px solid #EEEEEE !important ;
   }
 
   .MuiInputBase-formControl {

@@ -4,59 +4,9 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import "@mui/material";
 
 import localFont from "next/font/local";
-import { SideBarComponent } from "../components/Sidebar";
 import { Box, styled } from "@mui/material";
-import { NavBarComponent } from "../components/Navbar";
 
-const poppins = localFont({
-  src: [
-    {
-      path: "./fonts/Poppins/Poppins-Black.ttf",
-      weight: "900", // Poppins Black
-      style: "normal",
-    },
-    {
-      path: "./fonts/Poppins/Poppins-Bold.ttf",
-      weight: "700", // Poppins Bold
-      style: "normal",
-    },
-    {
-      path: "./fonts/Poppins/Poppins-ExtraBold.ttf",
-      weight: "800", // Poppins ExtraBold
-      style: "normal",
-    },
-    {
-      path: "./fonts/Poppins/Poppins-ExtraLight.ttf",
-      weight: "200", // Poppins ExtraLight
-      style: "normal",
-    },
-    {
-      path: "./fonts/Poppins/Poppins-Light.ttf",
-      weight: "300", // Poppins Light
-      style: "normal",
-    },
-    {
-      path: "./fonts/Poppins/Poppins-Medium.ttf",
-      weight: "500", // Poppins Medium
-      style: "normal",
-    },
-    {
-      path: "./fonts/Poppins/Poppins-Regular.ttf",
-      weight: "400", // Poppins Regular
-      style: "normal",
-    },
-    {
-      path: "./fonts/Poppins/Poppins-SemiBold.ttf",
-      weight: "600", // Poppins SemiBold
-      style: "normal",
-    },
-    {
-      path: "./fonts/Poppins/Poppins-Thin.ttf",
-      weight: "100", // Poppins Thin
-      style: "normal",
-    },
-  ],
-});
+
 
 declare module "@mui/material/styles" {
   interface BreakpointOverrides {
@@ -80,7 +30,6 @@ export interface IGlobals {
 }
 
 export const Globals: FC<IGlobals> = ({ children, pallet }) => {
-
   const theme = createTheme({
     palette: {
       primary: {
@@ -95,10 +44,9 @@ export const Globals: FC<IGlobals> = ({ children, pallet }) => {
       allVariants: {
         textTransform: "none",
         color: pallet.main,
-        fontFamily: poppins.style.fontFamily,
       },
     },
-   
+
     breakpoints: {
       values: {
         xxs: 0,
@@ -127,17 +75,9 @@ export const Globals: FC<IGlobals> = ({ children, pallet }) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Main>
-        <SideBarComponent
-          open={open}
-          handleClick={handleClick}
-          handleClose={handleClose}
-        />
-        <Content>
-          <NavBarComponent handleClick={handleClick} />
-          {children}
-        </Content>
-      </Main>
+      <Content>
+        <Main>{children}</Main>
+      </Content>
     </ThemeProvider>
   );
 };

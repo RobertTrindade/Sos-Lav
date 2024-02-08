@@ -10,7 +10,7 @@ export interface IButtonProps {
   sx?: SxProps;
   
   customStyles?: {
-    color: string;
+    color?: string;
     backgroundColor?: string;
     fontSize?: string;
     fontWeight?: string;

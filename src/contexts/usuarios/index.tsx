@@ -100,7 +100,7 @@ export const UsuariosProvider: React.FC<{
     })();
   }, []);
 
-  const Upload = async (data: FileList, isPdf = false) => {
+  const Upload = async (data: FileList) => {
     if (data) {
       try {
         const formData = new FormData();
