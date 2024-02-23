@@ -1,4 +1,3 @@
-import { IExtraNCV } from "../services/ncv/ncv.service";
 
 export const RgMask = (rg: string) => {
   const rgLimpo = rg.replace(/\D/g, "");
@@ -126,7 +125,7 @@ export const DesfazerMascaraReal = (formattedValue: string) => {
   return Math.round(parseFloat(unmaskedValue));
 };
 
-export const somarValores = (data: IExtraNCV[], target: string) => {
+export const somarValores = (data: any[], target: string) => {
   if (!data && !target) return 0;
 
   const filteredData = data.filter((data) => data.type === target);

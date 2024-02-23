@@ -1,4 +1,3 @@
-import { IUsuarioValues } from "@/src/contexts/usuarios";
 import HttpClient from "../HttpClient";
 import { INewValue } from "@/src/shared/components/AutoComplete";
 
