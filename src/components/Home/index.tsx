@@ -55,7 +55,7 @@ export const HomeComponent = () => {
           <>
             <Description>
               Reserve agora e descanse tranquilo! Na SOSLimp Lavanderia,
-              cuidamos de cada detalhe para você."{" "}
+              cuidamos de cada detalhe para você.
             </Description>
           </>
         )}
