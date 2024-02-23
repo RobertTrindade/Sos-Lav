@@ -28,12 +28,12 @@ export const DepositionsComponent = () => {
           <DepositionCard>
             <FormatQuoteIcon color="primary" fontSize="large" />
             <Text>
-              "Estou incrivelmente satisfeito com os serviços da SOS Limp. Desde
+              Estou incrivelmente satisfeito com os serviços da SOS Limp. Desde
               o momento em que entrei em contato pela primeira vez até receber
               minhas roupas impecavelmente limpas, a experiência foi
               excepcional. O atendimento ao cliente foi amigável e eficiente, e
               a equipe demonstrou um alto nível de profissionalismo em todos os
-              aspectos. "
+              aspectos. 
             </Text>
             <Divider />
             <NameArea>
@@ -45,11 +45,11 @@ export const DepositionsComponent = () => {
           <DepositionCard>
             <FormatQuoteIcon color="primary" fontSize="large" />
             <Text>
-              "Não tenho palavras suficientes para expressar minha gratidão à
+              Não tenho palavras suficientes para expressar minha gratidão à
               SOS Limp. Como alguém com uma agenda lotada, encontrar uma
               lavanderia confiável e eficiente sempre foi um desafio. No
               entanto, desde que comecei a utilizar os serviços da SOS Limp,
-              esse problema desapareceu."
+              esse problema desapareceu.
             </Text>
             <Divider />
 

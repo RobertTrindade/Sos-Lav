@@ -76,14 +76,15 @@ export const Globals: FC<IGlobals> = ({ children, pallet }) => {
   const handleClose = () => {
     setOpen(false);
   };
-
+  console.log(pathname);
   return (
     <ThemeProvider theme={theme}>
       <Content>
-        {pathname.includes("/main") && <Header />}
+        {pathname !== "/"  && <Header />}
 
         <Main>{children}</Main>
-        {pathname.includes("/main") && <SimpleBottomNavigation />}
+
+        {pathname !== "/"  && <SimpleBottomNavigation />}
       </Content>
     </ThemeProvider>
   );

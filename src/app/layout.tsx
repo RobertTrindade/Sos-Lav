@@ -11,7 +11,7 @@ export default  async function   RootLayout({
 
   return (
     <html lang="pt-BR">
-      <title>Dashboard</title>
+      <title>Home Page</title>
       <meta name="description" content="Dashboard" />
       <meta property="og:description" content="Descrição para Redes Sociais" />
       <meta property="og:image" content="URL da imagem para Redes Sociais" />
