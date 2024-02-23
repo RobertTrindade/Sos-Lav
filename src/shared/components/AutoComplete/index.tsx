@@ -4,18 +4,32 @@ import { CustomAutocomplete } from "./styles";
 
 import * as React from "react";
 import TextField from "@mui/material/TextField";
-import { SxProps, Theme } from "@mui/material";
+import {
+  FilledInputProps,
+  InputProps,
+  OutlinedInputProps,
+  SxProps,
+  Theme,
+} from "@mui/material";
 
 interface IAutoCompleteComponent {
   options: any;
   label: string;
   noOptionsText: string;
-  value?: INewValue | undefined | string;
+  value?: INewValue | undefined | string | boolean;
   SetStateAction?: React.Dispatch<React.SetStateAction<any | undefined>>;
   target?: keyof any | string;
   setStateActionWithTarget?: (target: any, value: any) => void;
   sx?: SxProps<Theme> | undefined;
   multiple?: boolean;
+  freeSolo?: boolean;
+
+  InputProps?:
+    | Partial<FilledInputProps>
+    | Partial<OutlinedInputProps>
+    | Partial<InputProps>
+    | undefined;
+  readonly?: boolean;
 }
 
 export interface INewValue {
@@ -34,6 +48,9 @@ export const AutoCompleteComponent: React.FC<IAutoCompleteComponent> = ({
   setStateActionWithTarget,
   sx,
   multiple = false,
+  InputProps,
+  freeSolo = false,
+  readonly = false,
 }) => {
   return (
     <CustomAutocomplete
@@ -41,8 +58,10 @@ export const AutoCompleteComponent: React.FC<IAutoCompleteComponent> = ({
       id="combo-box-demo"
       options={options}
       fullWidth
+      freeSolo={freeSolo}
       disabled={!options}
       sx={sx}
+      readOnly={readonly}
       multiple={multiple}
       value={value || null}
       onChange={(event: any, newValue: any) => {
@@ -59,7 +78,15 @@ export const AutoCompleteComponent: React.FC<IAutoCompleteComponent> = ({
       }
       noOptionsText={noOptionsText}
       renderInput={(params) => (
-        <TextField {...params} placeholder={label} fullWidth />
+        <TextField
+          {...params}
+          placeholder={label}
+          fullWidth
+          InputProps={{
+            ...params.InputProps,
+            ...InputProps,
+          }}
+        />
       )}
     />
   );

@@ -5,16 +5,14 @@ export const CustomAutocomplete = styled(Autocomplete)`
   outline: none !important;
 
   .MuiInputBase-root {
-    border-radius: 14px;
+    border-radius: 10px  !important ;
 
-    border: 2px solid #303033 !important ;
     background-color: transparent !important ;
   }
 
   .MuiOutlinedInput-root {
     border: none;
     background-color: transparent !important  ;
-    border: 2px solid #303033 !important ;
   }
 
   .MuiInputBase-formControl {

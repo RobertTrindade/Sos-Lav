@@ -5,8 +5,9 @@ import "@mui/material";
 
 import localFont from "next/font/local";
 import { Box, styled } from "@mui/material";
-
-
+import { Header } from "./components/Header";
+import { SimpleBottomNavigation } from "./components/Footer";
+import { usePathname } from "next/navigation";
 
 declare module "@mui/material/styles" {
   interface BreakpointOverrides {
@@ -43,7 +44,9 @@ export const Globals: FC<IGlobals> = ({ children, pallet }) => {
     typography: {
       allVariants: {
         textTransform: "none",
-        color: pallet.main,
+        color: "#3e4042",
+        fontFamily:
+          "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif",
       },
     },
 
@@ -63,6 +66,7 @@ export const Globals: FC<IGlobals> = ({ children, pallet }) => {
       },
     },
   });
+  const pathname = usePathname();
 
   const [open, setOpen] = useState(true);
   const handleClick = () => {
@@ -76,7 +80,10 @@ export const Globals: FC<IGlobals> = ({ children, pallet }) => {
   return (
     <ThemeProvider theme={theme}>
       <Content>
+        {pathname.includes("/main") && <Header />}
+
         <Main>{children}</Main>
+        {pathname.includes("/main") && <SimpleBottomNavigation />}
       </Content>
     </ThemeProvider>
   );
